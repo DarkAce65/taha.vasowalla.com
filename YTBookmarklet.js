@@ -1,12 +1,14 @@
 javascript:(function() {
 	if(!window.youtubeBG) {
 		window.youtubeBG = function() {
-			if(yt.getConfig("VIDEO_ID") !== null) {
+			var vId = yt.getConfig("VIDEO_ID");
+			if(vId) {
 				var styleTag = document.createElement("style");
 				styleTag.setAttribute("class", "youtubeBG");
 				document.getElementsByTagName("head")[0].appendChild(styleTag);
 				var cssSheet = styleTag.sheet ? styleTag.sheet : styleTag.styleSheet;
-				cssSheet.insertRule('.yt-card:before{visibility: visible;
+				cssSheet.insertRule('.yt-card:before{
+					visibility: visible;
 					content: "";
 					width: 100%;
 					height: 100%;
@@ -20,10 +22,10 @@ javascript:(function() {
 				cssSheet.insertRule(".yt-card{position: relative;}", 0);
 				cssSheet.insertRule(".view-count, .g-hovercard, .stat{color: #333;}", 0);
 				cssSheet.insertRule(".yt-ui-ellipsis{background: transparent;}", 0);
-				var hq = 'url("https://i.ytimg.com/vi/' + yt.getConfig("VIDEO_ID") + '/hqdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
-				var maxres = 'url("https://i.ytimg.com/vi/' + yt.getConfig("VIDEO_ID") + '/maxresdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
+				var hq = 'url("https://i.ytimg.com/vi/' + vId + '/hqdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
+				var maxres = 'url("https://i.ytimg.com/vi/' + vId + '/maxresdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
 				var img = new Image();
-				img.src = 'https://i.ytimg.com/vi/' + yt.getConfig("VIDEO_ID") + '/maxresdefault.jpg';
+				img.src = 'https://i.ytimg.com/vi/' + vId + '/maxresdefault.jpg';
 				img.onload = function() {
 					if(img.width + "x" + img.height == "120x90") {
 						cssSheet.insertRule("#page{background: " + hq + "}", 0);
