@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Everything Taha</title>
+		<link rel="shortcut icon" href="../img/icons/TV.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../katex.min.css">
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../bower_components/three.js/build/three.js"></script>
+		<script src="../GSAP/TweenMax.min.js"></script>
+		<script src="../TrackballControls.js"></script>
+		<script src="../katex.min.js"></script>
+		<script src="../fonts/helvetiker_regular.typeface.js"></script>
+		<style type="text/css">
+			html, body{
+				padding: 0;
+				margin: 0;
+				overflow: hidden;
+			}
+
+			body{
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-size: 24px;
+				line-height: 1.42857143;
+				color: #333;
+			}
+
+			#equation{
+				position: absolute;
+				bottom: 5px;
+				right: 5px;
+				background: whitesmoke;
+				padding: 5px 15px;
+				border-radius: 5px;
+				text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="threeContainer"></div>
+		<div id="equation">
+			Vector 1: <span id="v1Component" class="tex" data-expr="\displaystyle \left\langle x, y \right\rangle"></span>
+			<br/>
+			Vector 2: <span id="v2Component" class="tex" data-expr="\displaystyle \left\langle x, y \right\rangle"></span>
+			<br/>
+			Resultant Vector: <span id="rvComponent" class="tex" data-expr="\displaystyle \left\langle x, y \right\rangle"></span>
+		</div>
+		<script type="text/javascript">
+			window.requestAnimFrame =
+				window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function(callback){
+					window.setTimeout(callback, 1000 / 60);
+				};
+
+			function needsUpdate(object){
+				object.geometry.verticesNeedUpdate = true;
+			}
+
+			$(".tex").each(function(){
+				katex.render($(this).attr("data-expr"), this);
+			});
+
+			var timeline = new TimelineMax();
+			timeline.timeScale(0.5);
+			if(window.innerWidth > 767){
+				timeline.pause();
+			}
+			var rotate = false;
+
+			timeline.addLabel("2DStart", 0);
+			timeline.addLabel("3DStart", 8);
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle 4, 2 \\right\\rangle", $("#v1Component")[0]);
+			}, "2DStart+=3.5");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle 2, 6 \\right\\rangle", $("#v2Component")[0]);
+			}, "2DStart+=4.5");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle -2, -6 \\right\\rangle", $("#v2Component")[0]);
+			}, "2DStart+=5.5");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle 2, -4 \\right\\rangle", $("#rvComponent")[0]);
+			}, "2DStart+=7.5");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle 4, 2, z \\right\\rangle", $("#v1Component")[0]);
+				katex.render("\\displaystyle \\left\\langle -2, -6, z \\right\\rangle", $("#v2Component")[0]);
+				katex.render("\\displaystyle \\left\\langle 2, -4, z \\right\\rangle", $("#rvComponent")[0]);
+			}, "3DStart+=1");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle 4, 2, 5 \\right\\rangle", $("#v1Component")[0]);
+			}, "3DStart+=4.5");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle -2, -6, -4 \\right\\rangle", $("#v2Component")[0]);
+			}, "3DStart+=4.5");
+			timeline.add(function(){
+				katex.render("\\displaystyle \\left\\langle 2, -4, 1 \\right\\rangle", $("#rvComponent")[0]);
+			}, "3DStart+=4.5");
+
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+			camera.position.set(0, 0, 36);
+			var controls = new THREE.TrackballControls(camera);
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+
+			var textGeometry = new THREE.TextGeometry("+X", {size: 0.5, height: 0.1, curveSegments: 8});
+			var material = new THREE.MeshBasicMaterial({color: 0xff0000});
+			var xLabel = new THREE.Mesh(textGeometry, material);
+			xLabel.position.set(0, -1, -0.05);
+			xLabel.visible = false;
+			scene.add(xLabel);
+
+			var textGeometry = new THREE.TextGeometry("+Y", {size: 0.5, height: 0.1, curveSegments: 8});
+			var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+			var yLabel = new THREE.Mesh(textGeometry, material);
+			yLabel.position.set(-1.2, 0, -0.05);
+			yLabel.visible = false;
+			scene.add(yLabel);
+
+			var textGeometry = new THREE.TextGeometry("+Z", {size: 0.5, height: 0.1, curveSegments: 8});
+			var material = new THREE.MeshBasicMaterial({color: 0x0000ff});
+			var zLabel = new THREE.Mesh(textGeometry, material);
+			zLabel.position.set(-0.05, -1, 0);
+			zLabel.rotation.y = Math.PI / 2;
+			zLabel.visible = false;
+			scene.add(zLabel);
+
+			var geometry = new THREE.Geometry();
+			geometry.vertices.push(
+				new THREE.Vector3(0, 0, 0),
+				new THREE.Vector3(0, 0, 0)
+			);
+			var material = new THREE.LineBasicMaterial({color: 0xff0000});
+			var xAxis = new THREE.Line(geometry, material);
+			scene.add(xAxis);
+
+			for(var i = -10; i <= 10; i++){
+				if(i == 0){continue;}
+				var geometry = new THREE.Geometry();
+				geometry.vertices.push(
+					new THREE.Vector3(i, 0, 0),
+					new THREE.Vector3(i, 0, 0)
+				);
+				var tick = new THREE.Line(geometry, material);
+				scene.add(tick);
+				timeline.to(tick.geometry.vertices[0], 1, {y: -0.1, onUpdate: needsUpdate, onUpdateParams: [tick]}, "2DStart+=2");
+				timeline.to(tick.geometry.vertices[1], 1, {y: 0.1}, "2DStart+=2");
+			}
+
+			var geometry = new THREE.Geometry();
+			geometry.vertices.push(
+				new THREE.Vector3(0, 0, 0),
+				new THREE.Vector3(0, 0, 0)
+			);
+			var material = new THREE.LineBasicMaterial({color: 0x00ff00});
+			var yAxis = new THREE.Line(geometry, material);
+			scene.add(yAxis);
+			for(var i = -10; i <= 10; i++){
+				if(i == 0){continue;}
+				var geometry = new THREE.Geometry();
+				geometry.vertices.push(
+					new THREE.Vector3(0, i, 0),
+					new THREE.Vector3(0, i, 0)
+				);
+				var tick = new THREE.Line(geometry, material);
+				scene.add(tick);
+				timeline.to(tick.geometry.vertices[0], 1, {x: -0.1, onUpdate: needsUpdate, onUpdateParams: [tick]}, "2DStart+=2");
+				timeline.to(tick.geometry.vertices[1], 1, {x: 0.1}, "2DStart+=2");
+			}
+
+			var geometry = new THREE.Geometry();
+			geometry.vertices.push(
+				new THREE.Vector3(0, 0, 0),
+				new THREE.Vector3(0, 0, 0)
+			);
+			var material = new THREE.LineBasicMaterial({color: 0x0000ff});
+			var zAxis = new THREE.Line(geometry, material);
+			scene.add(zAxis);
+			for(var i = -10; i <= 10; i++){
+				if(i == 0){continue;}
+				var geometry = new THREE.Geometry();
+				geometry.vertices.push(
+					new THREE.Vector3(0, 0, i),
+					new THREE.Vector3(0, 0, i)
+				);
+				var tick = new THREE.Line(geometry, material);
+				scene.add(tick);
+				timeline.to(tick.geometry.vertices[0], 1, {y: -0.1, onUpdate: needsUpdate, onUpdateParams: [tick]}, "3DStart+=2");
+				timeline.to(tick.geometry.vertices[1], 1, {y: 0.1}, "3DStart+=2");
+			}
+
+			v1_vector = new THREE.Vector3(4, 2, 0);
+			v2_vector = new THREE.Vector3(2, 6, 0);
+			rv_vector = v1_vector.clone().sub(v2_vector);
+			v1_length = {value: 0};
+			v2_length = {value: 0};
+			rv_length = {value: 0};
+
+			function drawVector1(){
+				vector1 = new THREE.ArrowHelper(v1_vector.clone().normalize(), new THREE.Vector3(0, 0, 0), 0.001, 0x00ff00);
+				scene.add(vector1);
+			}
+
+			function drawVector2(origin){
+				vector2 = new THREE.ArrowHelper(v2_vector.clone().normalize(), origin.clone(), 0.001, 0x00ff00);
+				scene.add(vector2);
+			}
+
+			function drawResultantVector(){
+				resultantVector = new THREE.ArrowHelper(rv_vector.clone().normalize(), new THREE.Vector3(0, 0, 0), 0.001, 0xffffff0);
+				scene.add(resultantVector);
+			}
+
+			// Draw axis
+			timeline.to(xAxis.geometry.vertices[0], 1, {x: -10, onUpdate: needsUpdate, onUpdateParams: [xAxis]}, "2DStart");
+			timeline.to(xAxis.geometry.vertices[1], 1, {x: 10}, "2DStart");
+			timeline.to(xLabel.position, 1, {x: 9.5, onStart: function(){xLabel.visible = true;}}, "2DStart");
+			timeline.to(yAxis.geometry.vertices[0], 1, {y: -10, onUpdate: needsUpdate, onUpdateParams: [yAxis]}, "2DStart+=1");
+			timeline.to(yAxis.geometry.vertices[1], 1, {y: 10}, "2DStart+=1");
+			timeline.to(yLabel.position, 1, {y: 9.5, onStart: function(){yLabel.visible = true;}}, "2DStart+=1");
+
+			// Paint axis
+			timeline.to([xAxis.material.color, yAxis.material.color], 1, {r: 1, g: 1, b: 1}, "2DStart+=2");
+
+			// Draw v1
+			drawResultantVector();
+			drawVector1();
+			drawVector2(v1_vector);
+			timeline.fromTo(v1_length, 1, {value: 0}, {value: v1_vector.length(), onUpdate: function(){
+				vector1.setLength(v1_length.value, 0.5, 0.3);
+			}}, "2DStart+=3");
+
+			// Draw v2
+			timeline.add(function(){
+				vector1.setLength(v1_vector.length(), 0.5, 0.3);
+			}, "2DStart+=4");
+			timeline.fromTo(v2_length, 1, {value: 0}, {value: v2_vector.length(), onUpdate: function(){
+				vector2.setLength(v2_length.value, 0.5, 0.3);
+			}}, "2DStart+=4");
+
+			timeline.to([vector2.line.material.color, vector2.cone.material.color], 1, {r: 1, g: 0, b: 0}, "2DStart+=5");
+			timeline.add(function(){
+				vector2.setDirection(v2_vector.clone().negate().normalize());
+				vector2.position.set(6, 8, 0);
+			}, "2DStart+=5.5");
+			timeline.to(vector2.position, 1, {x: v1_vector.x, y: v1_vector.y, z: v1_vector.z}, "2DStart+=6");
+
+			// Draw rv
+			timeline.add(function(){
+				vector2.setLength(v2_vector.length(), 0.5, 0.3);
+			}, "2DStart+=7");
+			timeline.fromTo(rv_length, 1, {value: 0}, {value: rv_vector.length(), onUpdate: function(){
+				resultantVector.setLength(rv_length.value, 0.5, 0.3);
+			}}, "2DStart+=7");
+			timeline.add(function(){
+				resultantVector.setLength(rv_vector.length(), 0.5, 0.3);
+			}, "2DStart+=8");
+
+			// Move camera to 3D
+			timeline.to(camera.position, 1, {x: 15, y: 10, z: 30, onUpdate: function(){camera.lookAt(scene.position);}}, "3DStart");
+			timeline.to(controls.object.up, 1, {x: 0, y: 1, z: 0}, "3DStart");
+
+			// Draw z axis
+			timeline.to(zAxis.geometry.vertices[0], 1, {z: -10, onUpdate: needsUpdate, onUpdateParams: [zAxis]}, "3DStart+=1");
+			timeline.to(zAxis.geometry.vertices[1], 1, {z: 10}, "3DStart+=1");
+			timeline.to(zLabel.position, 1, {z: 10.5, onStart: function(){zLabel.visible = true;}}, "3DStart+=1");
+
+			// Paint z axis
+			timeline.to(zAxis.material.color, 1, {r: 1, g: 1, b: 1}, "3DStart+=2");
+
+			// Redraw vectors to 3D
+			timeline.add(function(){
+				var tempV1 = v1_vector.clone();
+				var tempV2 = v2_vector.negate().clone();
+				var tempRV = rv_vector.clone();
+				v1_vector.z = 5;
+				v2_vector.z = -4;
+				rv_vector.z = 1;
+				timeline.fromTo(tempV1, 1, {z: 0}, {z: v1_vector.z, onUpdate: function(){
+					vector1.setDirection(tempV1.clone().normalize());
+				}}, "3DStart+=4");
+				timeline.to(v1_length, 1, {value: v1_vector.length(), onUpdate: function(){
+					vector1.setLength(v1_length.value, 0.5, 0.3);
+				}}, "3DStart+=4");
+
+				timeline.to(vector2.position, 1, {x: v1_vector.x, y: v1_vector.y, z: v1_vector.z}, "3DStart+=4");
+
+				timeline.fromTo(tempV2, 1, {z: 0}, {z: v2_vector.z, onUpdate: function(){
+					vector2.setDirection(tempV2.clone().normalize());
+				}}, "3DStart+=4");
+				timeline.to(v2_length, 1, {value: v2_vector.length(), onUpdate: function(){
+					vector2.setLength(v2_length.value, 0.5, 0.3);
+				}}, "3DStart+=4");
+
+				timeline.fromTo(tempRV, 1, {z: 0}, {z: rv_vector.z, onUpdate: function(){
+					resultantVector.setDirection(tempRV.clone().normalize());
+				}}, "3DStart+=4");
+				timeline.to(rv_length, 1, {value: rv_vector.length(), onUpdate: function(){
+					resultantVector.setLength(rv_length.value, 0.5, 0.3);
+				}}, "3DStart+=4");
+			}, "3DStart+=3");
+			timeline.to(camera.position, 1, {x: 30, y: 10, z: 20, onUpdate: function(){camera.lookAt(scene.position);}}, "3DStart+=3");
+			timeline.to(controls.object.up, 1, {x: 0, y: 1, z: 0}, "3DStart+=3");
+
+			timeline.add(function(){rotate = true;}, "3DStart+=6");
+
+			$("#threeContainer").append(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0x000000);
+			renderer.setPixelRatio(window.devicePixelRatio);
+
+			var render = function(){
+				if(rotate){
+					scene.rotation.y -= 0.01;
+				}
+				requestAnimFrame(render);
+				renderer.render(scene, camera);
+				controls.update();
+			}
+
+			$(window).keydown(function(e){
+				if(e.which == 32){
+					timeline.timeScale(0.5);
+					timeline.paused(!timeline.paused());
+				}
+				if(e.which == 39){
+					timeline.timeScale(timeline.timeScale() + 0.5);
+				}
+				if(e.which == 37){
+					timeline.timeScale(timeline.timeScale() - 0.5);
+				}
+			});
+
+			render();
+
+			$(window).resize(function(){
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+
+			$(window).load(function(){
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+		</script>
+	</body>
+</html>

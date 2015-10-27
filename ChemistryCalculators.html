@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chemistry Calculators</title>
+		<link rel="shortcut icon" href="img/icons/Chemistry.png"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap-select.min.css"/>
+		<link rel="stylesheet" type="text/css" href="katex.min.css">
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="sweet-alert.min.css"/>
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bootstrap-select.min.js"></script>
+		<script src="katex.min.js"></script>
+		<script src="sweet-alert.min.js"></script>
+		<script type="text/javascript" src="Chemistry.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="page-header">
+				<p class="h1">Chemistry Calculators</p>
+			</div>
+			<p>A set of calculators for use in chemistry.</p>
+			<br>
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active"><a href="#MolarMass" data-toggle="tab">Molar Mass</a></li>
+				<li><a href="#Dilution" data-toggle="tab">Dilution</a></li>
+				<li><a href="#IdealGasLaw" data-toggle="tab">Ideal Gas Law</a></li>
+				<li><a href="#SpecificHeat" data-toggle="tab">Specific Heat Capacity</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="MolarMass" class="tab-pane tabpanel active">
+					<p class="h3">Molar Mass Calculator</p>
+					<p>In chemistry, the <a target="_blank" href="http://en.wikipedia.org/wiki/Molar_mass">Molar Mass</a> is a physical property that is defined as the mass of a substance divided by the amount of the substance. This calculator solves for the molar mass of a chemical formula and the mass percent of each element in the formula.<br><br>Ex. The chemical formula for magnesium stearate, a compound found in some medical tablets, is <span class="tex" data-expr="\displaystyle Mg \left(CH_3 \left(CH_2 \right)_{16}CO_2 \right)_2"></span> and would be entered below as Mg(CH3(CH2)16CO2)2</p>
+					<div id="inputs">
+						<div class="input-group">
+							<input id="Formula" type="text" class="form-control" placeholder="Chemical Formula">
+							<span class="input-group-btn">
+								<button id="MMCalculate" type="button" class="btn btn-warning">Calculate</button>
+								<button id="MMClear" type="button" class="btn btn-danger"><i class="fa fa-close"></i></button>
+							</span>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th style="text-align: center;">Element</th>
+									<th style="text-align: center;">Atoms</th>
+									<th style="text-align: center;">Mass Percent</th>
+									<th style="text-align: center;">Atomic Weight</th>
+								</tr>
+							</thead>
+							<tbody id="MolarMassOutput" align="center"><tr></tr></tbody>
+							<tfooter>
+								<tr>
+									<td colspan="2"></td>
+									<td style="text-align: center; font-weight: bold;">Total Molar Mass:</td>
+									<td id="TotalMolarMass" style="text-align: center;">0.0000</td>
+								</tr>
+							</tfooter>
+						</table>
+					</div>
+				</div>
+				<div id="Dilution" class="tab-pane tabpanel">
+					<p class="h3">Dilution Calculator</p>
+					<p>The <a target="_blank" href="http://en.wikipedia.org/wiki/Dilution_(equation)" data-rel="external">Dilution</a> Formula calculates a required value to achieve the specified concentration. This calculator uses the formula <span class="tex" data-expr="M_1 \times V_1 = M_2 \times V_2"></span> where <span class="tex" data-expr="M_1"></span> and <span class="tex" data-expr="M_2"></span> are the molarity of the solutions and <span class="tex" data-expr="V_1"></span> and <span class="tex" data-expr="V_2"></span> are the volumes of the solutions. Please only enter valid numbers and leave one value blank.</p>
+					<p class="h4" style="text-align: center;"><span class="tex" data-expr="\displaystyle M_1 \times V_1 = M_2 \times V_2"></span></p>
+					<div id="inputs" class="col-md-8 col-md-offset-2">
+						<div class="input-group">
+							<input id="M1" type="number" class="form-control" placeholder="Molarity (M1)">
+							<select id="M1units">
+								<option value="M">molar</option>
+								<option value="mM">millimolar</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="V1" type="number" class="form-control" placeholder="Volume (V1)">
+							<select id="V1units">
+								<option value="L">L</option>
+								<option value="mL">mL</option>
+								<option value="m3">m&sup3;</option>
+								<option value="cm3">cm&sup3;</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="M2" type="number" class="form-control" placeholder="Molarity (M2)">
+							<select id="M2units">
+								<option value="M">molar</option>
+								<option value="mM">millimolar</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="V2" type="number" class="form-control" placeholder="Volume (V2)">
+							<select id="V2units">
+								<option value="L">L</option>
+								<option value="mL">mL</option>
+								<option value="m3">m&sup3;</option>
+								<option value="cm3">cm&sup3;</option>
+							</select>
+						</div>
+						<button id="DCalculate" type="button" class="btn btn-warning">Calculate</button>
+						<button id="DClear" type="button" class="btn btn-default">Clear</button>
+					</div>
+				</div>
+				<div id="IdealGasLaw" class="tab-pane tabpanel">
+					<p class="h3">Ideal Gas Law Calculator</p>
+					<p>The <a target="_blank" href="http://en.wikipedia.org/wiki/Ideal_gas_law">Ideal Gas Law</a> is the equation for a hypothetical ideal gas. It is used to predict certain measurements of a gas under normal conditions. This calculator uses the formula <span class="tex" data-expr="PV = nRT"></span>  to accurately tell the pressure <span class="tex" data-expr="\left(P\right)"></span>, volume <span class="tex" data-expr="\left(V\right)"></span>, number of moles <span class="tex" data-expr="\left(n\right)"></span>, or the temperature <span class="tex" data-expr="\left(T\right)"></span>. In this equation, <span class="tex" data-expr="R"></span> is the ideal, or universal, gas constant. It is derived from the <a target="_blank" href="http://en.wikipedia.org/wiki/Combined_gas_law">Combined Gas Law</a>, (which explores the relationship between temperature, pressure and volume) and <a target="_blank" href="http://en.wikipedia.org/wiki/Avogadro%27s_law">Avogadro&#39;s Law</a> (which states that under the same conditions of temperature and pressure, the same volume of all gases contains the same number of molecules). Please only enter valid numbers and leave one value blank.</p>
+					<p class="h4" style="text-align: center;"><span class="tex" data-expr="\displaystyle PV = nRT"></span></p>
+					<p style="text-align: center;">Gas Constant in SI Units <span class="tex" data-expr="\displaystyle \left(R\right) = 8.3144621 \frac{J}{mol \times K}"></span></p>
+					<div id="inputs" class="col-md-8 col-md-offset-2">
+						<div class="input-group">
+							<input id="P" type="number" class="form-control" placeholder="Pressure (P)">
+							<select id="Punits">
+								<option value="atm">atm</option>
+								<option value="mmHg">mmHg</option>
+								<option value="Pa">Pa</option>
+								<option value="kPa">kPa</option>
+								<option value="torr">torr</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="V" type="number" class="form-control" placeholder="Volume (V)">
+							<select id="Vunits">
+								<option value="L">L</option>
+								<option value="mL">mL</option>
+								<option value="m3">m&sup3;</option>
+								<option value="cm3">cm&sup3;</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="n" type="number" class="form-control" placeholder="Moles (n)">
+							<select id="nunits">
+								<option value="mol">mole</option>
+								<option value="mmol">millimole</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="T" type="number" class="form-control" placeholder="Temperature (T)">
+							<select id="Tunits">
+								<option value="K">K</option>
+								<option value="C">C&#176;</option>
+								<option value="F">F&#176;</option>
+							</select>
+						</div>
+						<button id="IGLCalculate" type="button" class="btn btn-warning">Calculate</button>
+						<button id="IGLClear" type="button" class="btn btn-default">Clear</button>
+					</div>
+				</div>
+				<div id="SpecificHeat" class="tab-pane tabpanel">
+					<p class="h3">Specific Heat Capacity Calculator</p>
+					<p>The <a target="_blank" href="http://en.wikipedia.org/wiki/Heat_capacity">Specific Heat Capacity</a> of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation <span class="tex" data-expr="Q = mC_p\Delta T"></span> where <span class="tex" data-expr="Q"></span> is the amount of energy, <span class="tex" data-expr="m"></span> is the mass of the substance, <span class="tex" data-expr="C_p"></span> is the specific heat capacity, and <span class="tex" data-expr="\Delta T"></span> is the change in temperature.</p>
+					<p class="h4" style="text-align: center;"><span id="Cequation" class="tex" data-expr="\displaystyle Q = mC_p\Delta T"></span></p>
+					<div style="text-align: center; margin: 10px;">
+						<div id="tToggle" class="btn-group" data-toggle="buttons" onChange="tToggle();">
+							<div class="btn btn-warning active">
+								<input id="deltat" type="radio"><span class="tex" data-expr="\displaystyle \Delta T"></span>
+							</div>
+							<div class="btn btn-warning">
+								<input id="tfti" type="radio"><span class="tex" data-expr="\displaystyle \left(T_f - T_i\right)"></span>
+							</div>
+						</div>
+					</div>
+					<div id="inputs" class="col-md-8 col-md-offset-2">
+						<div class="input-group">
+							<input id="Q" type="number" class="form-control" placeholder="Energy (Q)">
+							<select id="Qunits">
+								<option value="J">Joules</option>
+								<option value="cal">Calories</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="m" type="number" class="form-control" placeholder="Mass (m)">
+							<select id="munits">
+								<option value="g">grams</option>
+								<option value="kg">kilograms</option>
+							</select>
+						</div>
+						<div class="input-group">
+							<input id="Cp" type="number" class="form-control" placeholder="Specific Heat (Cp)">
+							<select id="Cpunits">
+								<option value="JgK">J/g&#8226;K</option>
+								<option value="JkgK">J/kg&#8226;K</option>
+								<option value="JgC">J/g&#8226;C&deg;</option>
+								<option value="JkgC">J/kg&#8226;C&deg;</option>
+							</select>
+						</div>
+						<div class="input-group tToggle">
+							<input id="deltaT" type="number" class="form-control" placeholder="&#916;T">
+							<select id="deltaTunits">
+								<option value="K">K</option>
+								<option value="C">C&#176;</option>
+								<option value="F">F&#176;</option>
+							</select>
+						</div>
+						<div class="input-group tToggle hidden">
+							<input id="Tf" type="number" class="form-control" placeholder="T Final">
+							<select id="Tfunits">
+								<option value="K">K</option>
+								<option value="C">C&#176;</option>
+								<option value="F">F&#176;</option>
+							</select>
+						</div>
+						<div class="input-group tToggle hidden">
+							<input id="Ti" type="number" class="form-control" placeholder="T Initial">
+							<select id="Tiunits">
+								<option value="K">K</option>
+								<option value="C">C&#176;</option>
+								<option value="F">F&#176;</option>
+							</select>
+						</div>
+						<button id="HCCalculate" type="button" class="btn btn-warning">Calculate</button>
+						<button id="HCClear" type="button" class="btn btn-default">Clear</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowlla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a>
+				<a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a>
+				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
+			</nav>
+		</footer>
+		<script type="text/javascript">
+			$("select").selectpicker();
+			$(".tex").each(function() {
+				katex.render($(this).attr("data-expr"), this);
+			});
+		</script>
+	</body>
+</html>

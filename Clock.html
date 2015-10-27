@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Clock</title>
+		<link rel="shortcut icon" href="img/icons/Clock.png"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="snap.svg-min.js"></script>
+		<script src="chroma.min.js"></script>
+		<script src="geoPosition.min.js"></script>
+		<script src="Clock.js"></script>
+	</head>
+	<body id="clockBody">
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<svg id="clock" style="position: absolute; top: 50px; height: 100vh; width: 100%;"></svg>
+		<div id="solar">
+			<p id="date" class="h3"></p>
+			<p id="time" class="h1 Quicksand"></p>
+			<p id="demo" class="h1 Quicksand"></p>
+			<p id="title" class="h3"></p>
+			<div class="fluid-container hidden">
+				<div id="weatherIcon" style="display: inline-block;"></div>
+				<div id="temp" class="h4 Quicksand" style="display: inline-block; font-weight: bold;"></div>
+				<p id="weatherDesc"></p>
+				<div class="row" style="margin-bottom: 10px;">
+					<div id="humidity" class="col-sm-6"></div>
+					<div id="wind" class="col-sm-6"></div>
+				</div>
+				<p id="sun"></p>
+			</div>
+		</div>
+	</body>
+</html>

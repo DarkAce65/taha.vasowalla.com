@@ -1,0 +1,140 @@
+.fancyInput {
+	position: relative;
+	margin: 0 15px 10px;
+	display: inline-block;
+	padding-top: 2em;
+	overflow: hidden;
+	width: calc(100% - 30px);
+
+	input {
+		position: relative;
+		display: block;
+		float: right;
+		width: 100%;
+		padding: 0.8em;
+		border: none;
+		background: transparent;
+		color: #528EC1;
+		opacity: 0;
+		padding: 0.35em;
+		z-index: 100;
+		-webkit-appearance: none;
+		@include transition(opacity 0s 0.4s);
+
+		&:focus {
+			cursor: text;
+			opacity: 1;
+		}
+
+		&:focus + .floatingLabel .labelContent {
+			@include transform(translate3d(0, -3.3em, 0) scale3d(0.81, 0.81, 1));
+		}
+
+		&:focus + .floatingLabel:before {
+			@include transition-delay(0.05s);
+			@include transform(translate3d(0, -3.3em, 0));
+		}
+	}
+
+	&.hasText input {
+		cursor: text;
+		opacity: 1;
+	}
+
+	label {
+		position: absolute;
+		display: inline-block;
+		float: right;
+		width: 100%;
+		bottom: 0;
+		padding: 0 0.5em;
+		margin-bottom: 0;
+		font-weight: bold;
+		font-size: 70.25%;
+		text-align: left;
+		-webkit-touch-callout: none;
+		@include user-select(none);
+		pointer-events: none;
+	}
+
+	.floatingLabel:before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 4em;
+		top: 100%;
+		left: 0;
+		background-color: #EEEEEE;
+		border-top: 4px solid #B0B0B0;
+		@include transform(translate3d(0, -3px, 0));
+		@include transition(transform 0.4s);
+		@include transition-timing-function(cubic-bezier(0.7, 0, 0.3, 1));
+	}
+
+	&.hasText .floatingLabel:before {
+		@include transition-delay(0.05s);
+		@include transform(translate3d(0, -3.3em, 0));
+	}
+
+	.floatingLabel .labelContent {
+		position: relative;
+		display: block;
+		padding: 1.6em 0;
+		width: 100%;
+		padding: 0.5em 0;
+		@include transform-origin(0% 100%);
+		@include transition-property(transform, color);
+		@include transition-duration(0.4s);
+		@include transition-timing-function(cubic-bezier(0.7, 0, 0.3, 1));
+	}
+
+	&.hasText .labelContent {
+		@include transform(translate3d(0, -3.3em, 0) scale3d(0.81, 0.81, 1));
+	}
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	cursor: inherit;
+	font-size: 100px;
+	text-align: right;
+	opacity: 0;
+	outline: none;
+	background-color: white;
+}
+
+/*
+.fancyFile {
+	display: inline-block;
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.fancyFile + label {
+	display: inline-block;
+	cursor: pointer;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0.625rem 1.25rem;
+	color: #f1e5e6;
+	background-color: #d3394c;
+
+	&:hover {
+	    background-color: #722040;
+	}
+}*/

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Origami</title>
+		<link rel="shortcut icon" href="img/icons/Origami.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="bower_components/photoswipe/dist/photoswipe.css"/>
+		<link rel="stylesheet" type="text/css" href="bower_components/photoswipe/dist/default-skin/default-skin.css"/>
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/photoswipe/dist/photoswipe.min.js"></script>
+		<script src="bower_components/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+	</head>
+	<body id="origamiBody">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="page-header">
+				<p class="h1">Origami Models</p>
+			</div>
+			<h3>PHiZZ Unit Models</h3>
+			<p>The PHiZZ Unit (Pentagon-Hexagon Zig-Zag Unit) was designed by Tom Hull. Each unit fits together without the use of glue or tape.</p>
+			<div class="row" style="margin: 0 -5px;">
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(0);">
+						<img src="img/origami/PHiZZDodecahedron.jpg">
+						<div class="info">
+							<span class="imageTitle">Dodecahedron</span>
+							<span class="imageSubtitle">30 Units</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(1);">
+						<img src="img/origami/PHiZZTruncatedIcosahedron.jpg">
+						<div class="info">
+							<span class="imageTitle">Truncated Icosahedron</span>
+							<span class="imageSubtitle">90 Units</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-12 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(2);">
+						<img src="img/origami/PHiZZTorus.jpg">
+						<div class="info">
+							<span class="imageTitle">Torus</span>
+							<span class="imageSubtitle">360 Units</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h3>Sonobe Unit Models</h3>
+			<p>The Sonobe Unit was designed by Mitsunobu Sonobe and is a very common unit in modular origami. Each unit fits together without the use of glue or tape.</p>
+			<div class="row" style="margin: 0 -5px;">
+				<div class="cardWrapper col-xs-12 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(3);">
+						<img src="img/origami/SonobeCube.jpg">
+						<div class="info">
+							<span class="imageTitle">Cube</span>
+							<span class="imageSubtitle">6 Units</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(4);">
+						<img src="img/origami/SonobeStellatedOctahedron.jpg">
+						<div class="info">
+							<span class="imageTitle">Stellated Octahedron</span>
+							<span class="imageSubtitle">12 Units</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(5);">
+						<img src="img/origami/SonobeStellatedIcosahedron.jpg">
+						<div class="info">
+							<span class="imageTitle">Stellated Icosahedron</span>
+							<span class="imageSubtitle">30 Units</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h3>Models</h3>
+			<div class="row" style="margin: 0 -5px;">
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(6);">
+						<img src="img/origami/WhirlCube.jpg">
+						<div class="info">
+							<span class="imageTitle">Whirl Cube</span>
+							<span class="imageSubtitle">24 Units</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(7);">
+						<img src="img/origami/Convertible_(Front).jpg">
+						<div class="info">
+							<span class="imageTitle">Convertible</span>
+							<span class="imageSubtitle">Front View</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(8);">
+						<img src="img/origami/Convertible_(Back).jpg">
+						<div class="info">
+							<span class="imageTitle">Convertible</span>
+							<span class="imageSubtitle">Rear View</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(9);">
+						<img src="img/origami/Name_(Top).jpg">
+						<div class="info">
+							<span class="imageTitle">My Name</span>
+							<span class="imageSubtitle">Top View</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(10);">
+						<img src="img/origami/Name_(Front).jpg">
+						<div class="info">
+							<span class="imageTitle">My Name</span>
+							<span class="imageSubtitle">Front View</span>
+						</div>
+					</div>
+				</div>
+				<div class="cardWrapper col-xs-6 col-sm-4">
+					<div class="card" onclick="openPhotoSwipe(11);">
+						<img src="img/origami/Tanks.jpg">
+						<div class="info">
+							<span class="imageTitle">Tanks</span>
+							<span class="imageSubtitle">2 Sheets Each</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pswp" tabindex="-1" role="dialog">
+			<div class="pswp__bg"></div>
+			<div class="pswp__scroll-wrap">
+				<div class="pswp__container">
+					<div class="pswp__item"></div>
+					<div class="pswp__item"></div>
+					<div class="pswp__item"></div>
+				</div>
+				<div class="pswp__ui pswp__ui--hidden">
+					<div class="pswp__top-bar">
+						<div class="pswp__counter"></div>
+						<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+						<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+						<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+						<div class="pswp__preloader">
+							<div class="pswp__preloader__icn">
+							  <div class="pswp__preloader__cut">
+								<div class="pswp__preloader__donut"></div>
+							  </div>
+							</div>
+						</div>
+					</div>
+					<button class="pswp__button pswp__button--arrow--left" title="Previous"></button>
+					<button class="pswp__button pswp__button--arrow--right" title="Next"></button>
+					<div class="pswp__caption">
+						<div class="pswp__caption__center"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a>
+				<a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a>
+				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
+			</nav>
+		</footer>
+		<script type="text/javascript">
+			function openPhotoSwipe(targetIndex) {
+				targetIndex = (typeof targetIndex === 'undefined') ? 0 : targetIndex;
+				photoswipeOptions.index = targetIndex;
+				photoswipeOptions.history = (window.innerWidth < 768);
+				gallery = new PhotoSwipe(document.querySelector(".pswp"), PhotoSwipeUI_Default, photoswipeData, photoswipeOptions);
+				gallery.init();
+			}
+
+			var gallery;
+			var photoswipeData = [
+				{src: "img/origami/PHiZZDodecahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Dodecahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 30 PHiZZ Units</span></div>'}, 
+				{src: "img/origami/PHiZZTruncatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Truncated Icosahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 90 PHiZZ Units</span></div>'}, 
+				{src: "img/origami/PHiZZTorus.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Torus</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 360 PHiZZ Units</span></div>'}, 
+				{src: "img/origami/SonobeCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Cube</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 6 Sonobe Units</span></div>'}, 
+				{src: "img/origami/SonobeStellatedOctahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Octahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 12 Sonobe Units</span></div>'}, 
+				{src: "img/origami/SonobeStellatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Icosahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 30 Sonobe Units</span></div>'}, 
+				{src: "img/origami/WhirlCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Whirl Cube</span><span class="subtitle">Designed by Meenakshi Mukerji</span><span class="subtitle">Made from 24 Units</span></div>'}, 
+				{src: "img/origami/Convertible_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'}, 
+				{src: "img/origami/Convertible_(Back).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'}, 
+				{src: "img/origami/Name_(Top).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'}, 
+				{src: "img/origami/Name_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'}, 
+				{src: "img/origami/Tanks.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Tanks</span><span class="subtitle">Designed by Jo Nakashima</span><span class="subtitle">Two pieces of paper per tank</span></div>'}
+			];
+
+			var photoswipeOptions = {history: false, loop: false, index: 0, closeOnScroll: false, closeOnVerticalDrag: false,
+				getThumbBoundsFn: function(index){
+					var bounds = $(".card img")[index].getBoundingClientRect();
+					return {x: bounds.left, y: bounds.top + $(window).scrollTop(), w: bounds.width};
+				}
+			};
+		</script>
+	</body>
+</html>

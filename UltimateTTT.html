@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tic Tac Toe</title>
+		<link rel="shortcut icon" href="img/icons/TTT.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="sweet-alert.min.css">
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css">
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="sweet-alert.min.js"></script>
+		<script src="UltimateTTT.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div id="UTTTBody" class="content container">
+			<div class="page-header">
+				<p class="h1">Ultimate Tic Tac Toe</p>
+			</div>
+			<p>Rules and instructions can be found <a target="_blank" href="http://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe">here</a>.</p>
+			<p>Programmed and designed as a group effort by Taha and Eli.</p>
+			<table id="ultimate" style="margin: auto"></table>
+			<div style="text-align: center;">
+				<p id="TTT-winner" class="h3"></p>
+				<p id="TTT-turnText" class="h3" style="text-align: center;">It is <span id="turn" style="color: red">Red</span>'s turn.</p>
+				<button id="TTT-button" class="btn btn-danger" onClick="reset()" style="display: none;">Play again</button>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a>
+				<a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a>
+				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
+			</nav>
+		</footer>
+	</body>
+</html>

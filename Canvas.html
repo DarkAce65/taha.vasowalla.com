@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Canvas</title>
+		<link rel="shortcut icon" href="img/icons/HTML5.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="GSAP/TweenMax.min.js"></script>
+		<script src="GSAP/utils/Draggable.min.js"></script>
+		<script type="text/javascript" src="Canvas.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="page-header">
+				<p class="h1">Canvas Experimentation</p>
+			</div>
+			<div class="row container">
+				<div class="col-xs-12 col-md-6" style="padding-bottom: 15px;">
+					<canvas id="rain" class="col-xs-12 col-sm-8 col-md-12" style="height: 250px; background: black; padding: 0;"></canvas>
+					<div class="row col-xs-12 col-sm-4 col-md-12">
+						<div class="col-md-6">
+							<p class="h4">Rain</p>
+							<p><button id="rainToggle" class="btn btn-default" data-toggle="button" onclick="animateRain = !animateRain; updateRain(); animateBubbles = false; $('#bubbleToggle').removeClass('active');">Toggle Animation</button></p>
+						</div>
+						<div class="col-md-6">
+							<p style="margin-top: 10px;">Rain Chance:</p>
+							<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewbox="0 0 64 64">
+								<g id="rainDial" style="cursor: crosshair;">
+									<circle cx="32" cy="32" r="22" fill="#DDDDDD"></circle>
+									<circle cx="32" cy="32" r="20" fill="#B0B0B0"></circle>
+									<path d="M32,27 l0,-10" stroke="#DD0000"></path>
+								</g>
+								<path d="M14,50 l-5,5" stroke="#000000"></path>
+								<text x="12" y="58" font-size="6px">min</text>
+								<path d="M50,50 l5,5" stroke="#000000"></path>
+								<text x="41" y="58" font-size="6px">max</text>
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<canvas id="bubbles" class="col-xs-12 col-sm-8 col-md-12" style="height: 250px; background: black; padding: 0;"></canvas>
+					<div class="col-xs-12 col-sm-4 col-md-12">
+						<p class="h4">Bubbles</p>
+						<p><button id="bubbleToggle" class="btn btn-default" data-toggle="button" onclick="animateBubbles = !animateBubbles; updateBubbles(); animateRain = false; $('#rainToggle').removeClass('active');">Toggle Animation</button></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a>
+				<a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a>
+				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
+			</nav>
+		</footer>
+	</body>
+</html>

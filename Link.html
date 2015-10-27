@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Links</title>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<style type="text/css">
+			div, span, section {
+				display: inline-block;
+				height: 50vh;
+				width: 40%;
+				background: #BADA55;
+				border: 5px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			Links:
+			<a href="#ask1">Ask me 1</a>
+			<a href="#ask2">Ask me 2</a>
+			<a href="#ask3">Ask me 3</a>
+		</div>
+		<div name="ask1">ask1</div>
+		<section name="ask2">ask2</section>
+		<span name="ask3">ask3</span>
+		<script type="text/javascript">
+			$("*[name]").map(function(i, v) {
+				$(v).attr("id", $(v).attr("name"));
+			});
+		</script>
+	</body>
+</html>

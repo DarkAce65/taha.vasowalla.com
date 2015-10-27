@@ -1,0 +1,410 @@
+@import "bourbon/bourbon";
+
+$light-color: whitesmoke;
+$dark-color: #333;
+$accent-color: orange;
+$dark-accent-color: darkorange;
+$inv-accent-color: #EF5350;
+$dark-inv-accent-color: darken($inv-accent-color, 13);
+$main-accent-color: #43DBE8;
+$dark-main-accent-color: darken($main-accent-color, 13);
+
+/* Fonts */
+
+@import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900");
+@import url("http://fonts.googleapis.com/css?family=Quicksand");
+@import url("http://fonts.googleapis.com/css?family=Raleway:500");
+
+@import "scss/CameraIcons";
+
+* {
+	outline: 0;
+}
+
+html {
+	height: 100%;
+}
+
+html, body {
+	overflow-x: hidden;
+	font-family: "Lato";
+}
+
+body {
+	min-height: 100%;
+	position: relative;
+
+	@include selection {
+		background-color: $dark-color;
+		color: $light-color;
+	}
+
+	a {
+		color: rgb(255, 90, 0);
+	}
+
+	a:hover, a:focus {
+		color: $dark-accent-color;
+	}
+}
+
+#body404 {
+	height: 100%;
+	padding-bottom: 10px;
+	color: white;
+	text-align: center;
+	font-family: "Raleway";
+	@include linear-gradient(40deg, #4ac1ff, #795bb0);
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, .Raleway {
+	font-family: "Raleway", sans-serif;
+}
+
+.Lato {
+	font-family: "Lato", sans-serif;
+}
+
+.Lobster {
+	font-family: "Lobster", cursive;
+	font-weight: normal;
+}
+
+.page-header p, .Quicksand {
+	font-family: "Quicksand", cursive;
+}
+
+.page-header, .page-header .h1 {
+	margin-top: 0;
+}
+
+.dropdown-menu a {
+	outline: 0 !important;
+}
+
+.blur {
+	filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+	@include filter(blur(10px));
+}
+
+.jumbotron p {
+	font-weight: 300;
+}
+
+.btn, .nav a, .navbar a, .linkList a, .linkList button {
+	@include transition(0.2s);
+}
+
+.content {
+	padding-bottom: 10px;
+}
+
+.fixedNav {
+	padding-top: 70px;
+}
+
+.footer {
+	display: none;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	padding: 20px 0;
+	background-color: $light-color;
+	text-align: center;
+	font-variant: small-caps;
+	border-top: 3px solid $accent-color;
+
+	.nav * {
+		color: lighten($dark-color, 26);
+		margin: 0 3px;
+		text-decoration: none;
+	}
+
+	.nav a:hover {
+		color: #5E5E5E;
+	}
+}
+
+.footer-inverse {
+	@extend .footer;
+	background-color: $dark-color;
+	border-top: 3px solid $inv-accent-color;
+
+	.nav a:hover {
+		color: white;
+	}
+}
+
+#toast-container > div, #toast-container > div:hover {
+	box-shadow: none;
+}
+
+.listCollapse {
+	color: white;
+	background-color: $inv-accent-color;
+	padding: 20px 15px;
+	border-radius: 4px;
+
+	.fa-chevron-up {
+		transition: 0.5s;
+		color: white;
+	}
+}
+
+.collapsed .fa-chevron-up {
+	@include transform(rotate(-180deg));
+}
+
+#skills, #clubs, #workexp, #achievements {
+	.list-group-item p:nth-child(2n) {
+		font-size: 13px;
+	}
+}
+
+#achievements .list-group-item {
+	font-size: 13px;
+}
+
+.dateStyle {
+	color: darken($light-color, 37);
+	font-size: 14px;
+	font-variant: small-caps;
+}
+
+.sidebar-offcanvas {
+	overflow: hidden;
+}
+
+.menuContainer {
+	position: relative;
+	
+	.linkList {
+		width: 100%;
+
+		.fa-angle-left, .fa-angle-right {
+			color: $main-accent-color;
+		}
+
+		.fa-angle-left {
+			text-align: left;
+		}
+
+		.fa-angle-right {
+			text-align: right;
+		}
+	}
+}
+
+.menu-main {
+	position: absolute;
+	width: 100%;
+}
+
+.menu-sub {
+	position: absolute;
+	width: 100%;
+	left: calc(100% + 30px);
+}
+
+.linkList {
+	.list-group-item-divider {
+		font-weight: bold;
+		color: white;
+		background-color: $dark-main-accent-color;
+	}
+
+	a.list-group-item, button.list-group-item {
+		box-shadow: inset 2px 0px 0px 0px transparent;
+
+		&:hover {
+			box-shadow: inset 2px 0px 0px 0px $main-accent-color;
+		}
+
+		span {
+			line-height: 24px;
+		}
+	}
+
+	.icon {
+		line-height: 24px;
+		width: 24px;
+		border-radius: 3px;
+	}
+}
+
+.modal-body > img {
+	max-width: 100%;
+}
+
+.seekbar {
+	cursor: pointer;
+}
+
+.btn.start {
+	border-top-left-radius: 4px !important;
+	border-bottom-left-radius: 4px !important;
+}
+
+.btn.end {
+	border-top-right-radius: 4px !important;
+	border-bottom-right-radius: 4px !important;
+}
+
+.jp-controls {
+	box-sizing: initial;
+}
+
+#inputs {
+	text-align: right;
+	padding-bottom: 20px;
+
+	& > * {
+		margin-bottom: 7px;
+	}
+}
+
+.thumbnail:hover {
+	text-decoration: none;
+}
+
+// Input Styles
+
+@import "scss/inputStyles";
+
+// Animation Styles
+
+#animationBody {
+	@import "scss/Animation";
+}
+
+// Clock Styles
+
+#clockBody {
+	@import "scss/Clock"
+}
+
+// DeviantArt Styles
+
+#deviantArtBody {
+	@import "scss/DeviantArtAPI";
+}
+
+// Hangman Styles
+
+#hangmanBody {
+	@import "scss/Hangman";
+}
+
+// Midnight Styles
+
+#midnightBody {
+	@import "scss/Midnight"
+}
+
+// Origami Styles
+
+#origamiBody {
+	@import "scss/Origami";
+}
+
+// Photography Styles
+
+#photographyBody {
+	@import "scss/Photography";
+}
+
+// UTTT Styles
+
+#UTTTBody {
+	@import "scss/UltimateTTT";
+}
+
+// xkcd Styles
+
+#xkcdBody {
+	background-color: #96A8C8;
+
+	@import "scss/xkcd";
+}
+
+@media screen and (max-width: 767px) {
+	.footer {
+		display: block;
+	}
+
+	.jumbotron {
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+	
+	.content {
+		padding-bottom: 88px;
+	}
+
+	.row-offcanvas {
+		position: relative;
+		right: 0;
+	}
+
+	.row-offcanvas .language {
+		display: none;
+		visibility: hidden;
+	}
+
+	.sidebar-offcanvas {
+		position: absolute;
+		top: 0;
+		right: -75%;
+	}
+
+	.menuContainer .linkList {
+		a.list-group-item b, button.list-group-item b {
+			line-height: 24px;
+			font-weight: normal;
+		}
+	}
+
+	#workexp .list-group-item .dateStyle {
+		display: block;
+	}
+
+	.tabpanel {
+		margin-bottom: 20px;
+		background-color: white;
+		border: 1px solid transparent;
+		border-radius: 4px;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+		border-color: #DDD;
+		padding: 15px;
+	}
+
+	.form-control {
+		padding: 6px;
+	}
+
+	.btn {
+		padding: 6px 8px;
+	}
+
+	.btn-sm {
+		padding: 5px 8px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	#skills, #clubs, #workexp, #achievements {
+		display: block !important;
+		height: auto !important;
+	}
+
+	#workexp .list-group-item .dateStyle {
+		float: right;
+	}
+
+	.menuContainer .linkList {
+		.fa-angle-left, .fa-angle-right {
+			font-weight: bold;
+		}
+	}
+}

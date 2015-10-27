@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Music</title>
+		<link rel="shortcut icon" href="img/icons/MusicNote.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+		<script type="text/javascript" src="Music.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="page-header">
+				<p class="h1">My Music</p>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-sm-8">
+					<div id="Demons"></div>
+					<div id="D-container" class="panel panel-default">
+						<div class="panel-body" style="text-align: right;">
+							<p class="h4">Demons (Imagine Dragons) by Taha Vasowalla</p>
+							<div class="btn-group" style="float: left; margin-bottom: 10px;">
+								<button type="button" class="start btn btn-default play"><span class="fa fa-play"></span></button>
+								<button type="button" class="start btn btn-default pause"><span class="fa fa-pause"></span></button>
+								<button type="button" class="btn btn-default stop"><span class="fa fa-stop"></span></button>
+								<button type="button" class="end btn btn-default mute"><span class="fa fa-volume-up"></span></button>
+								<button type="button" class="end btn btn-warning unmute active"><span class="fa fa-volume-off"></span></button>
+							</div>
+							<p><span class="currentTime"></span> / <span class="duration"></span></p>
+							<div class="progress seekbar" style="margin: 0;">
+								<div class="progress-bar progress-bar-warning playbar" role="progressbar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-8">
+					<div id="Unstrung"></div>
+					<div id="U-container" class="panel panel-default">
+						<div class="panel-body" style="text-align: right;">
+							<p class="h4">Unstrung by Taha Vasowalla</p>
+							<div class="btn-group" style="float: left; margin-bottom: 10px;">
+								<button type="button" class="start btn btn-default play"><span class="fa fa-play"></span></button>
+								<button type="button" class="start btn btn-default pause"><span class="fa fa-pause"></span></button>
+								<button type="button" class="btn btn-default stop"><span class="fa fa-stop"></span></button>
+								<button type="button" class="end btn btn-default mute"><span class="fa fa-volume-up"></span></button>
+								<button type="button" class="end btn btn-warning unmute active"><span class="fa fa-volume-off"></span></button>
+							</div>
+							<p><span class="currentTime"></span> / <span class="duration"></span></p>
+							<div class="progress seekbar" style="margin: 0;">
+								<div class="progress-bar progress-bar-warning playbar" role="progressbar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-8">
+					<div id="Overdrive"></div>
+					<div id="O-container" class="panel panel-default">
+						<div class="panel-body" style="text-align: right;">
+							<p class="h4">Overdrive by Taha Vasowalla</p>
+							<div class="btn-group" style="float: left; margin-bottom: 10px;">
+								<button type="button" class="start btn btn-default play"><span class="fa fa-play"></span></button>
+								<button type="button" class="start btn btn-default pause"><span class="fa fa-pause"></span></button>
+								<button type="button" class="btn btn-default stop"><span class="fa fa-stop"></span></button>
+								<button type="button" class="end btn btn-default mute"><span class="fa fa-volume-up"></span></button>
+								<button type="button" class="end btn btn-warning unmute active"><span class="fa fa-volume-off"></span></button>
+							</div>
+							<p><span class="currentTime"></span> / <span class="duration"></span></p>
+							<div class="progress seekbar" style="margin: 0;">
+								<div class="progress-bar progress-bar-warning playbar" role="progressbar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-8">
+					<div id="PlatinumRain"></div>
+					<div id="PR-container" class="panel panel-default">
+						<div class="panel-body" style="text-align: right;">
+							<p class="h4">Platinum Rain by Taha Vasowalla</p>
+							<div class="btn-group" style="float: left; margin-bottom: 10px;">
+								<button type="button" class="start btn btn-default play"><span class="fa fa-play"></span></button>
+								<button type="button" class="start btn btn-default pause"><span class="fa fa-pause"></span></button>
+								<button type="button" class="btn btn-default stop"><span class="fa fa-stop"></span></button>
+								<button type="button" class="end btn btn-default mute"><span class="fa fa-volume-up"></span></button>
+								<button type="button" class="end btn btn-warning unmute active"><span class="fa fa-volume-off"></span></button>
+							</div>
+							<p><span class="currentTime"></span> / <span class="duration"></span></p>
+							<div class="progress seekbar" style="margin: 0;">
+								<div class="progress-bar progress-bar-warning playbar" role="progressbar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a>
+				<a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a>
+				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
+			</nav>
+		</footer>
+	</body>
+</html>

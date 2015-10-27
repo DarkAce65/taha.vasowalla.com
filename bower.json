@@ -1,0 +1,24 @@
+{
+  "name": "taha.vasowalla.com",
+  "version": "0.0.0",
+  "authors": [
+    "DarkAce65 <tvdood99@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jPlayer": "jplayer#~2.9.2",
+    "photoswipe": "~4.1.0",
+    "three.js": "threejs#*"
+  },
+  "resolutions": {
+    "three.js": "5c6ec4a60d"
+  }
+}

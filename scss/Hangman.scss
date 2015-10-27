@@ -1,0 +1,109 @@
+.letter {
+	display: inline-block;
+	font-size: 24px;
+	min-width: 1.28571429em;
+	margin: 0 10px;
+	border-bottom: 2px solid black;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.guess-xs {
+	display: inline-block;
+	font-size: 22px;
+	min-width: 1.1em;
+	margin: 2px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	text-transform: uppercase;
+	text-align: center;
+	cursor: pointer;
+	@include transition(0.2s linear);
+
+	&.correct {
+		background-color: rgba(0, 200, 0, 0.25);
+	}
+
+	&.incorrect {
+		background-color: rgba(200, 0, 0, 0.25);
+	}
+}
+
+#guessedLetters {
+	margin-bottom: 5px;
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 5px 15px;
+	border-radius: 5px;
+}
+
+#wordDisplay {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#guessContainer {
+	margin: 0 auto 5px;
+
+	.input-group-btn {
+		width: 50%;
+	}
+}
+
+#guess {
+	height: 40px;
+	width: 40px;
+	padding: 1px 0;
+	font-size: 20px;
+	text-align: center;
+	text-transform: uppercase;
+
+	&:focus {
+		background-color: #FFC;
+	}
+}
+
+#submitGuess {
+	height: 40px;
+	width: 40px;
+}
+
+#hangmanSVG path {
+	stroke-width: 2;
+}
+
+.tooltip-arrow {
+	border-right-color: #DE4F4F !important;
+}
+
+.tooltip-inner {
+	background-color: #DE4F4F !important;
+}
+
+@media screen and (max-width: 767px) {
+	.letter {
+		font-size: 20px;
+		margin: 0 5px;
+	}
+
+	#guess {
+		height: 35px;
+		width: 35px;
+		font-size: 15px;
+	}
+
+	#submitGuess {
+		height: 35px;
+		width: 35px;
+		padding: 6px 8px;
+	}
+
+	#hangmanSVG {
+		path {
+			stroke-width: 7;
+		}
+
+		#xEyes path {
+			stroke-width: 2;
+		}
+	}
+}

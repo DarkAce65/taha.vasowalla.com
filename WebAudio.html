@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Web Audio API</title>
+		<link rel="shortcut icon" href="img/icons/WebAudio.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="toastr.min.css"/>
+		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="wavesurfer.min.js"></script>
+		<script src="toastr.min.js"></script>
+		<script src="WebAudio.js"></script>
+		<style type="text/css">
+			body {
+				color: white;
+				background: url("img/DarkBG.png") no-repeat fixed 50% 50% / cover #2F2F2F;
+			}
+
+			body ::-moz-selection {
+				background: #F8F8F8;
+				color: #333;
+			}
+
+			body ::selection {
+				background: #F8F8F8;
+				color: #333;
+			}
+
+			body a {
+				color: #EF5350;
+			}
+
+			body a:hover, body a:focus {
+				color: #e51915;
+			}
+
+			.spacer {
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.btn {
+				margin-right: 3px;
+			}
+
+			.fullscreen {
+				overflow: hidden;
+				max-height: 100%;
+			}
+
+			.fullscreen #controls {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+				z-index: 10000;
+				text-align: right;
+			}
+
+			.fullscreen #visualizer {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				z-index: 9999;
+			}
+
+			#visualizer {
+				height: 400px;
+				width: 100%;
+				background: black;
+			}
+
+			#wave {
+				background: rgba(0, 0, 0, 0.4);
+				margin-bottom: 10px;
+			}
+
+			@media screen and (max-width: 400px) {
+				#visualizer {
+					height: 250px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="About.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a></li>
+						<li><p class="navbar-text">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="page-header">
+				<p class="h1">Web Audio API</p>
+			</div>
+			<p><a href="WebAudioGL.html">3D Version</a></p>
+			<div id="controls">
+				<button id="playPause" type="button" class="btn btn-danger" disabled><i class="fa fa-fw fa-pause"></i></button>
+				<span class="btn btn-danger btn-file">
+					<i class="fa fa-file-audio-o"></i> Upload audio file
+					<input id="upload" type="file" onchange="fileUpload(this.files)">
+				</span>
+				<button id="fullscreen" type="button" class="btn btn-danger"><i class="fa fa-fw fa-expand"></i></button>
+				<span class="spacer"></span>
+				<span id="fileName" style="font-style: italic;"></span><span id="currentTime">-:--</span> / <span id="duration">-:--</span>
+				<span class="spacer"></span>
+			</div>
+			<canvas id="visualizer"></canvas>
+			<div id="wave"></div>
+		</div>
+		<footer class="footer-inverse">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank" class="fa fa-fw fa-facebook"></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank" class="fa fa-fw fa-google-plus"></a>
+				<a href="http://instagram.com/darkace65/" target="_blank" class="fa fa-fw fa-instagram"></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank" class="fa fa-fw fa-linkedin"></a>
+				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
+			</nav>
+		</footer>
+	</body>
+</html>

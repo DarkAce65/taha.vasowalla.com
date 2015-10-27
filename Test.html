@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Experimental</title>
+		<link rel="shortcut icon" href="img/icons/TV.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/three.js/build/three.js"></script>
+		<script src="GSAP/TweenMax.min.js"></script>
+		<script src="TrackballControls.js"></script>
+		<style type="text/css">
+			html, body {
+				overflow: hidden;
+			}
+
+			#controls {
+				position: absolute;
+				bottom: 5px;
+				right: 5px;
+				text-align: center;
+			}
+
+			#controls .btn {
+				margin: 2px;
+				padding: 6px;
+			}
+
+			#controls .btn:first-child {
+				display: block;
+				margin: 2px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="threeContainer"></div>
+		<div id="controls" class="visible-xs">
+			<button class="btn btn-default" onclick="move(0, 1)"><i class="fa fa-fw fa-arrow-up"></i></button>
+			<button class="btn btn-default" onclick="move(1, 0)"><i class="fa fa-fw fa-arrow-left"></i></button>
+			<button class="btn btn-default" onclick="move(0, -1)"><i class="fa fa-fw fa-arrow-down"></i></button>
+			<button class="btn btn-default" onclick="move(-1, 0)"><i class="fa fa-fw fa-arrow-right"></i></button>
+		</div>
+		<script type="text/javascript">
+			window.requestAnimFrame =
+				window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function(callback) {
+					window.setTimeout(callback, 1000 / 60);
+				};
+
+			var timeline = new TimelineLite();
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+			camera.position.set(-9, 9, -16);
+			scene.add(camera);
+			//var controls = new THREE.TrackballControls(camera);
+			camera.lookAt(scene.position);
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+
+			$("#threeContainer").append(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0xD5DDFF);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.shadowMap.enabled = true;
+
+			var ambLight = new THREE.AmbientLight(0x040404);
+			scene.add(ambLight);
+
+			var spotLight = new THREE.SpotLight(0xffffff);
+			spotLight.exponent = 5;
+			spotLight.position.set(0, 4, -10);
+			scene.add(spotLight);
+
+			var ptLight = new THREE.PointLight(0xffffff, 1, 20);
+			ptLight.position.set(0, 10, 0);
+			scene.add(ptLight);
+
+			var floorBoxes = [];
+			var wallBoxes = [];
+
+			for(var x = -5; x <= 5; x++) {
+				var floorRow = [];
+				var wallRow = [];
+				for(var z = -5; z <= 5; z++) {
+					var material = new THREE.MeshLambertMaterial({color: 0xffffff});
+					var floorBox = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.95, 0.95), material);
+					if(Math.random() > 0.75 && !(x == 0 && z == 0)) {
+						var wallBox = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.95, 0.95), material);
+						wallBox.castShadow = true;
+						wallBox.receiveShadow = true;
+						wallRow.push(wallBox);
+						wallBox.position.set(x, 0.25, z);
+						scene.add(wallBox);
+					}
+					else{
+						wallRow.push("empty");
+					}
+					floorRow.push(floorBox);
+					floorBox.position.set(x, -0.75, z);
+					scene.add(floorBox);
+				}
+				floorBoxes.push(floorRow);
+				wallBoxes.push(wallRow);
+			}
+
+			var ball = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), new THREE.MeshPhongMaterial({color: 0xc0c0c0, shininess: 50}));
+			var ballIndicator = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0, 0.5), new THREE.MeshNormalMaterial());
+			ballIndicator.position.y = 1;
+			ball.add(ballIndicator);
+			scene.add(ball);
+
+			function move(deltaX, deltaZ) {
+				if(timeline.isActive()) {
+					timeline.to(floorBoxes[newPos.x + 5][newPos.z + 5].position, 0.2, {y: -0.75}, timeline.time());
+					floorBoxes[newPos.x + 5][newPos.z + 5].material.color.r = 1;
+					newPos.x += deltaX;
+					newPos.z += deltaZ;
+					if(newPos.x <= 5 && newPos.x >= -5 && newPos.z <= 5 && newPos.z >= -5){
+						if(wallBoxes[newPos.x + 5][newPos.z + 5] != "empty") {
+							timeline.fromTo(wallBoxes[newPos.x + 5][newPos.z + 5].material.color, 1, {g: 0.32, b: 0.31}, {g: 1, b: 1}, timeline.time());
+							newPos.x -= deltaX;
+							newPos.z -= deltaZ;
+						}
+					}
+					newPos.clampScalar(-5, 5);
+					timeline.to(floorBoxes[newPos.x + 5][newPos.z + 5].position, 0.2, {y: -1}, timeline.time());
+					floorBoxes[newPos.x + 5][newPos.z + 5].material.color.r = 0.2;
+					timeline.to(ball.position, 0.2, {x: newPos.x, z: newPos.z}, timeline.time());
+				}
+				else {
+					prevPos = ball.position.round().clone();
+					newPos = prevPos.clone();
+					newPos.x += deltaX;
+					newPos.z += deltaZ;
+					if(newPos.x <= 5 && newPos.x >= -5 && newPos.z <= 5 && newPos.z >= -5){
+						if(wallBoxes[newPos.x + 5][newPos.z + 5] != "empty") {
+							timeline.fromTo(wallBoxes[newPos.x + 5][newPos.z + 5].material.color, 1, {g: 0.32, b: 0.31}, {g: 1, b: 1}, timeline.time());
+							newPos.x -= deltaX;
+							newPos.z -= deltaZ;
+						}
+					}
+					newPos.clampScalar(-5, 5);
+					timeline.to(floorBoxes[prevPos.x + 5][prevPos.z + 5].position, 0.2, {y: -0.75}, timeline.time());
+					floorBoxes[prevPos.x + 5][prevPos.z + 5].material.color.r = 1;
+					timeline.to(ball.position, 0.2, {x: newPos.x, z: newPos.z}, timeline.time());
+					timeline.to(floorBoxes[newPos.x + 5][newPos.z + 5].position, 0.2, {y: -1}, timeline.time());
+					floorBoxes[newPos.x + 5][newPos.z + 5].material.color.r = 0.2;
+				}
+			}
+
+			function render() {
+				requestAnimFrame(render);
+				renderer.render(scene, camera);
+				//controls.update();
+			}
+
+			$(window).keydown(function(e) {
+				switch(e.which) {
+					case(37):
+						move(1, 0);
+						break;
+					case(38):
+						move(0, 1);
+						break;
+					case(39):
+						move(-1, 0);
+						break;
+					case(40):
+						move(0, -1);
+						break;
+				}
+			});
+			
+			render();
+			move(0, 0);
+
+			$(window).resize(function() {
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+
+			$(window).load(function() {
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+		</script>
+	</body>
+</html>

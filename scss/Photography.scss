@@ -1,0 +1,94 @@
+img {
+	width: 100%;
+}
+
+.row {
+	margin-bottom: 20px;
+}
+
+.pswp__caption {
+	background: none;
+}
+
+.pswp__caption__center {
+	max-width: 100%;
+	text-align: center;
+	font-size: 14px;
+	padding: 15px;
+}
+
+.album {
+	position: relative;
+	cursor: pointer;
+
+	.square {
+		width: 100%;
+		padding-bottom: 100%;
+		background-color: #2F2F2F;
+		background-image: none;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		background-size: cover;
+	}
+
+	.albumTitle {
+		position: absolute;
+		width: 100%;
+		padding: 15px 5px 10px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		text-align: right;
+		font-size: 24px;
+		font-family: Quicksand;
+		@include linear-gradient(transparent, black);
+	}
+
+	.albumSubtitle {
+		position: absolute;
+		width: 100%;
+		padding: 5px 10px;
+		top: 0;
+		left: 0;
+		right: 0;
+		text-align: right;
+		font-size: 14px;
+		font-family: Quicksand;
+		@include linear-gradient(black, transparent);
+		background-color: transparent;
+	}
+}
+
+.imageCaption {
+	display: inline-block;
+	background-color: $light-color;
+	color: $dark-color;
+	padding: 5px 20px;
+
+	.imageTitle {
+		display: block;
+		color: $inv-accent-color;
+		font-size: 20px;
+		font-family: Raleway;
+	}
+
+	.imageDate {
+		display: block;
+		margin: 0 0 10px;
+		color: gray;
+	}
+
+	.fa, .photoicon {
+		margin-right: 8px;
+	}
+
+	.grid {
+		display: inline-block;
+		min-width: 200px;
+
+		span {
+			display: inline-block;
+			width: 50%;
+		}
+	}
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JAYS</title>
+		<link rel="shortcut icon" href="/img/icons/ecybermission.jpg"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../font-awesome.min.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.2/flickity.min.css">
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.2/flickity.pkgd.min.js"></script>
+		<script src="../sine-waves.min.js"></script>
+		<style type="text/css">
+			@import url(http://fonts.googleapis.com/css?family=Raleway);
+			@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+
+			body {
+				color: white;
+				background: #50a3a2;
+				background: -webkit-linear-gradient(bottom left, #50a3a2 0%, #52d3a5 100%);
+				background:    -moz-linear-gradient(bottom left, #50a3a2 0%, #52d3a5 100%);
+				background: 	 -o-linear-gradient(bottom left, #50a3a2 0%, #52d3a5 100%);
+				background: 		linear-gradient(to top right, #50a3a2 0%, #52d3a5 100%);
+				padding-bottom: 20px;
+				font-size: 18px;
+				font-family: "Source Sans Pro";
+				font-weight: 300;
+			}
+
+			a {
+				color: aqua;
+				transition: 0.25s;
+			}
+
+			a:hover, a:focus {
+				color: white;
+			}
+
+			.h1, .h2, .h3, .h4, .h5, .h6, .Raleway {
+				font-family: "Raleway", sans-serif;
+			}
+
+			hr {
+				width: 80%;
+			}
+
+			.text {
+				font-size: 17px;
+				padding: 5px;
+				margin: 20px 0 10px;
+				background: rgba(255,255,255,0.2);
+				border-radius: 5px;
+				border: 1px solid rgba(255,255,255,0.4);
+			}
+
+			.gallery-cell {
+				width: 100%;
+				margin-right: 10px;
+			}
+
+			.flickity-prev-next-button {
+				top: auto;
+				bottom: 0;
+				-webkit-transform: none;
+					-ms-transform: none;
+						transform: none;
+			}
+
+			.flickity-prev-next-button.previous {
+				left: auto;
+				right: 60px;
+			}
+
+			.flickity-prev-next-button.next {
+				right: 10px;
+			}
+
+			@media screen and (max-width: 768px) {
+				.flickity-prev-next-button {
+					height: 30px;
+					width: 30px;
+				}
+
+				.flickity-prev-next-button.previous {
+					right: 46px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" style="text-align: center;">
+			<p class="h1">Kemp's Ridley Sea Turtle Stretcher</p>
+			<p class="h3" style="color: aqua;">The JAYS Team</p>
+		</div>
+		<div id="waveContainer" class="container">
+			<canvas id="waves"></canvas>
+		</div>
+		<div class="container">
+			<p>Did you know? A 1947 amateur film showed some 40,000 female Kemp's ridley turtles nesting in Mexico in a single day. Today, it is estimated that only about 1,000 breeding females exist worldwide.</p>
+			<hr id="gallery"/>
+			<div class="gallery js-flickity" data-flickity-options='{"contain": true, "imagesLoaded": true, "cellSelector": ".gallery-cell", "draggable": false, "pageDots": false}'>
+				<div class="gallery-cell">
+					<div class="col-md-7 col-sm-6">
+						<img src="img/BabyTurtles.jpg" style="width: 100%;">
+					</div>
+					<div class="col-md-5 col-sm-6">
+						<p class="h3">Kemp's Ridley Sea Turtle</p>
+						<p>Type: Reptile</p>
+						<p>Diet: Omnivore</p>
+						<p>Average life span in the wild: About 50 years</p>
+						<p>Size: 2 ft (65 cm)</p>
+						<p>Weight: 100 lbs (45 kg)</p>
+						<p>Protection status: <span class="label label-danger">Endangered</span></p>
+						<span class="label label-default">Photograph by Bill Curtsinger</span>
+					</div>
+				</div>
+				<div class="gallery-cell">
+					<div class="col-md-12">
+						<h1>Hypothermia</h1>
+						<p>Many Kemp's Ridley turtles are found stranded on Cape Cod Bay in Massachusetts. Kemp's Ridley turtles are found to have been exposed to hypothermia and they sometimes do not make it to the rescue center in time. The Turtle Stretcher designed by the JAYS could help to decrease the chances of sea turtles dying when they are being transported to the rescue center because the stretcher will keep the turtles from freezing even more and more comfortable. The community could participate in this effort of rescuing the sea turtles by being more aware of this problem, being more alert to look out for stranded turtles, and knowing that this Turtle Stretcher may be made available at the nearest lifeguard station.</p>
+					</div>
+				</div>
+				<div class="gallery-cell">
+					<div class="col-md-4 col-sm-6">
+						<img src="img/StretcherGroup.jpg" style="width: 100%;">
+					</div>
+					<div class="col-md-8 col-sm-6">
+						<h1>JAYS's Solution</h1>
+						<p>This project concept was to build a carrier to increase the survival rate of Kemp's Ridley sea turtles during the rescue phase, which is the transportation to the rescue center. The JAYS team came up with the solution of building a carrier with heating capabilities, so that rescuers could provide appropriate heating for the turtles during the transportation.</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row" style="text-align: center;">
+				<h1>Members of the JAYS Team</h1>
+				<div class="col-md-6">
+					<img src="img/Jolene.jpg" style="height: 200px; width: 200px; border: 1px solid rgba(0, 255, 255, 0.5); border-radius: 20px;">
+					<p class="text">
+						<span class="h2"><strong>J</strong>olene</span>
+						<br/>
+						Jolene is resourceful and good at getting the group on task especially in meeting the team's own deadlines. She also has good qualitative skills which helped with the the team's research paper.
+					</p>
+				</div>
+				<div class="col-md-6">
+					<img src="img/Armaan.jpg" style="height: 200px; width: 200px; border: 1px solid rgba(0, 255, 255, 0.5); border-radius: 20px;">
+					<p class="text">
+						<span class="h2"><strong>A</strong>rmaan</span>
+						<br/>
+						Armaan is a focused team member who could get the group on task as well, and is a natural when it comes to testing and graphing. In addition, he is an excellent hands-on team member who made sure the prototype stretcher was built according to specifications.
+					</p>
+				</div>
+				<div class="col-md-6">
+					<img src="img/Yasmin.jpg" style="height: 200px; width: 200px; border: 1px solid rgba(0, 255, 255, 0.5); border-radius: 20px;">
+					<p class="text">
+						<span class="h2"><strong>Y</strong>asmin</span>
+						<br/>
+						Yasmin is the creative one, who came up with wonderful drawings and drafts of our prototype, based on the team's idea of how the device would look like. She is also adventurous as she was the one who reached out to the New England Aquarium Rescue Center to find out more information about their rescue efforts, in addition to visiting the New England Aquarium along with Jolene.
+					</p>
+				</div>
+				<div class="col-md-6">
+					<img src="img/Sebastian.jpg" style="height: 200px; width: 200px; border: 1px solid rgba(0, 255, 255, 0.5); border-radius: 20px;">
+					<p class="text">
+						<span class="h2"><strong>S</strong>ebastian</span>
+						<br/>
+						Sebastian has good quantitative skills that were helpful during the test measurements. He was was also a resourceful member of the team as he was able to find bits and pieces of information we needed. 
+					</p>
+				</div>
+			</div>
+			<hr>
+			<iframe frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen width="550" height="400" src="https://prezi.com/embed/ty8afvykqhyh/?bgcolor=ffffff&amp;lock_to_path=1&amp;autoplay=0&amp;autohide_ctrls=0&amp;PARENT_REQUEST_ID=8ceebc862f8495a7#" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"></iframe>
+			<div class="clearfix"></div>
+			<hr>
+			<div style="text-align: center;">
+				<h1>Brainstorming Process</h1>
+				<p>All JAYS members were involved in brainstorming ways to decrease the number of Kemp's Ridley sea turtles with hypothermia dying on the way to the rescue clinic. In our brainstorming sessions, we discussed how experts could help provide more information, who could benefit from using our device, and considering the most durable yet affordable materials to build our prototype. We listened to everyone's ideas and suggestions, and eventually ended up with a result, which each team member contributed to. Each of us brought something unique to the table, making our result even better each time. One example is when we were deciding the design for our device. At first, we planned on making a Turtle Pouch, as we called it. It would be a pouch where you could put the Kemp's Ridley sea turtles. After realizing that it would be hard to carry, we brainstormed more ideas to solve this. Soon, we came to the conclusion to design and build the Turtle Stretcher. After this draft, we realized that the Turtle Stretchers might not be easy to stack on trucks. So we brainstormed again. We decided that railings would be the answer, as you can see in the pictures under the Engineering Design. Now, the Turtle Stretchers can be stacked and easily carried.</p>
+			</div>
+			<hr>
+			<div style="text-align: center;">
+				<h1>Dedication</h1>
+				<p>Since November, the team met four days a week at school in science class to briefly discuss how our work was going. We also met outside of class throughout the development of this project. In total, for outside meetings, we met one time during lunch, and four times over the weekends and breaks. We organized all our ideas, research and designs in a folder. Once we planned the materials we needed, we made a trip as a team to the local home improvement store to purchase what we needed. In two of our meetings outside of school, we built our prototype of the Turtle Stretcher. In total, the building of the prototype took eight hours. We had a few hiccups, for example, when a team member realized the originally planned material might not be the most effective due to possible corrosion. However, we improvised and solved the problem by weatherproofing it.</p>
+			</div>
+			<hr>
+			<div style="text-align: center;">
+				<h1>Links</h1>
+				<p>
+					<a href="http://www.defenders.org/sea-turtles/basic-facts" target="_blank">Defenders of Wildlife</a>
+					<br/>
+					<a href="http://www.neaq.org/animals_and_exhibits/animals/green_sea_turtles/index.php" target="_blank">New England Aquarium</a>
+					<br/>
+					<a href="http://costaricaturtles.org/" target="_blank">Costa Rica Sea Turtles</a>
+					<br/>
+					<a href="http://www.bonaireturtles.org/" target="_blank">Bonaire Sea Turtles</a>
+				</p>
+			</div>
+			<footer style="padding-top: 20px; border-top: 1px solid #DDD; text-align: right;">
+				<p>Designed and Built by <a href="http://taha.vasowalla.com/">Taha Vasowalla</a></p>
+			</footer>
+		</div>
+		<script type="text/javascript">
+			var waves = new SineWaves({
+				el: document.getElementById("waves"),
+				speed: 1,
+				width: function() {
+					return $("#waveContainer").width();
+				},
+				height: 175,
+				ease: "SineInOut",
+				wavesWidth: "200%",
+				waves: [
+					{
+						timeModifier: .5,
+						lineWidth: 5,
+						amplitude: 75,
+						wavelength: 300
+					},
+					{
+						timeModifier: 1,
+						lineWidth: 3,
+						amplitude: 50,
+						wavelength: 200
+					},
+					{
+						timeModifier: 2,
+						lineWidth: 2,
+						amplitude: -30,
+						wavelength: 200
+					},
+					{
+						timeModifier: 2,
+						lineWidth: 2,
+						amplitude: 40,
+						wavelength: 200
+					},
+					{
+						timeModifier: 3,
+						lineWidth: 2,
+						amplitude: -40,
+						wavelength: 300
+					}
+				],
+				resizeEvent: function(){
+					var gradient = this.ctx.createLinearGradient(0, 0, this.width, 0);
+					gradient.addColorStop(0, "rgba(180, 255, 255, 0)");
+					gradient.addColorStop(0.5, "rgba(180, 255, 255, 0.75)");
+					gradient.addColorStop(1, "rgba(180, 255, 255, 0)");
+					
+					for(var i = 0; i < this.waves.length; i++){
+						this.waves[i].strokeStyle = gradient;
+					}
+
+					var factor = 1;
+					if($(window).width() < 768){
+						factor = 2;
+					}
+					this.waves[0].amplitude = 75 * factor;
+					this.waves[1].amplitude = 50 * factor;
+					this.waves[2].amplitude = -30 * factor;
+					this.waves[3].amplitude = 40 * factor;
+					this.waves[4].amplitude = -40 * factor;
+				}
+			});
+		</script>
+	</body>
+</html>

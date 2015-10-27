@@ -1,0 +1,99 @@
+#DAGallery {
+	position: relative;
+
+	a {
+		padding: 0;
+	}
+
+	.cardWrapper {
+		padding: 5px;
+	}
+
+	.card {
+		cursor: pointer;
+		overflow: hidden;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		border: 1px solid rgba($inv-accent-color, 0.2);
+		@include transition(0.25s);
+
+		&:hover {
+			border-color: $inv-accent-color;
+
+			.artworkTitle {
+				color: $inv-accent-color;
+			}
+		}
+	}
+
+	.imageBackground {
+		position: relative;
+		width: 100%;
+		background-color: #222222;
+
+		.loading {
+			position: absolute;
+			color: white;
+			text-align: center;
+			width: 100%;
+			top: 50%;
+		}
+	}
+
+	.info {
+		display: inline-block;
+		text-align: right;
+		width: 100%;
+		font-family: Raleway;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.7);
+		padding: 5px;
+
+		.artworkTitle {
+			@include transition(0.25s);
+		}
+
+		.artworkAuthor {
+			color: gray;
+		}
+	}
+
+	.docText {
+		display: inline-block;
+		color: white;
+		width: 100%;
+		padding: 15px;
+		text-decoration: none !important;
+	}
+
+	.retrieving {
+		text-align: center;
+		color: white;
+		background-color: rgba(15, 69, 115, 0.67);
+		padding: 10px;
+	}
+
+	.pswp__bg {
+		background-color: #121212;
+	}
+
+	.pswp__caption {
+		background: none;
+	}
+
+	.pswp__caption__center {
+		max-width: 100%;
+		text-align: center;
+		font-size: 14px;
+		padding: 15px;
+
+		.imageCaption {
+			display: inline-block;
+			text-align: center;
+			font-family: Raleway;
+			background-color: $light-color;
+			color: $dark-color;
+			padding: 5px 20px;
+			text-decoration: none !important;
+		}
+	}
+}

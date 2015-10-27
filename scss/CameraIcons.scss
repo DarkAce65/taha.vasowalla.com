@@ -1,0 +1,35 @@
+@font-face {
+	font-family: "CameraIcons";
+	src: url("fonts/camera-icons.eot");
+	src: url("fonts/camera-icons.eot#iefix") format("embedded-opentype"),
+	url("fonts/camera-icons.woff") format("woff"),
+	url("fonts/camera-icons.ttf") format("truetype"),
+	url("fonts/camera-icons.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.photoicon {
+	display: inline-block;
+	font: normal normal normal 14px/1 CameraIcons;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.photoicon-exposure:before {
+	content: "\e000";
+}
+
+.photoicon-focal-length:before {
+	content: "\e001";
+}
+
+.photoicon-iso:before {
+	content: "\e002";
+}
+
+.photoicon-aperture:before {
+	content: "\e003";
+}
