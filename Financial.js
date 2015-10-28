@@ -124,6 +124,7 @@ function displayStocks(stockData) { // Output stock data to table
 
 function searchTicker(ticker) { // Ticker lookup
 	if(ticker) {
+		$('#Ticker').val("");
 		$(".alert").alert("close");
 		$("#searchTicker").button("searching").addClass("disabled");
 		$("#clearTicker").addClass("disabled");
