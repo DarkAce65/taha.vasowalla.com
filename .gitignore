@@ -20,3 +20,6 @@ $RECYCLE.BIN/
 # Sass cache files
 .sass-cache/
 *.css.map
+
+# Atom files
+.atom*
