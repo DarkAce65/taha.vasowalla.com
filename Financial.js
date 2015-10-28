@@ -108,7 +108,7 @@ function displayStocks(stockData) { // Output stock data to table
 		if(parseFloat(priceChange) < 0){color = "red";}
 		else if(parseFloat(priceChange) > 0){color = "green";}
 		else {color = "black";}
-		$("#tickerOutput").append('<tr id="' + stockData.Symbol + '"><td data-toggle="tooltip" data-placement="top" title="Remove" onclick="removeTicker(this);"><i class="fa fa-fw fa-times"></i></td><td>' + stockData.Symbol + '</td><td>' + stockData.LastTradePriceOnly + '</td><td style="color: ' + color + ';">' + priceChange + ' / ' + (stockData.PercentChange ? stockData.PercentChange : "0.00") + '</td></tr>');
+		$("#tickerOutput").append('<tr id="' + stockData.Symbol + '"><td data-toggle="tooltip" data-placement="top" title="Remove" onclick="removeTicker(this);" style="cursor: pointer;"><i class="fa fa-fw fa-times"></i></td><td>' + stockData.Symbol + '</td><td>' + stockData.LastTradePriceOnly + '</td><td style="color: ' + color + ';">' + priceChange + ' / ' + (stockData.PercentChange ? stockData.PercentChange : "0.00") + '</td></tr>');
 		$('[data-toggle="tooltip"]').tooltip({"container": "body"});
 	}
 	else if(stockData.LastTradePriceOnly === 0) {
