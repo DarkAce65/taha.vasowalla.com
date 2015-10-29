@@ -90,7 +90,7 @@
 				else {hours += ":";}
 
 				if(seconds < 10) {seconds = "0" + seconds;}
-				
+
 				var time = hours + minutes + ":" + seconds;
 				return time;
 			}
@@ -144,7 +144,7 @@
 
 				lines = [];
 				var vertices = [];
-				var curve = new THREE.EllipseCurve(0, 0, 100, 100, 0, 2 * Math.PI, false);
+				var curve = new THREE.EllipseCurve(0, 0, 100, 100, 2 * Math.PI, 0, true);
 				curve.getPoints(resolution - 1).map(function(v, i) {
 					vertices[i] = v.toArray();
 				});
