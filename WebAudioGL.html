@@ -57,7 +57,7 @@
 			<p style="color: white;"><span id="fileName" style="font-style: italic;"></span><span id="currentTime">-:--</span> / <span id="duration">-:--</span></p>
 			<hr>
 			<p>
-				<button type="button" class="btn btn-danger" onclick="resetCamera()"><i class="fa fa-fw fa-video-camera"></i></button>
+				<button type="button" class="btn btn-danger" onclick="setCamera()"><i class="fa fa-fw fa-video-camera"></i> <span id="currentCamera">Overhead</span></button>
 				<label for="resCheckbox" class="btn btn-danger">Resolution: Low</label>
 				<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleResolution();">
 			</p>
@@ -96,6 +96,8 @@
 			}
 
 			var currentTime = document.querySelector("#currentTime");
+			var cameraPositions = ["Overhead", "Side"];
+			var currentCamera = cameraPositions[0];
 
 			var resToast, lastToast;
 			var playing = false;
@@ -204,7 +206,7 @@
 							toastr.clear(lastToast);
 							toastr.success("Audio data decoded!");
 							play();
-							resetCamera();
+							setCamera("Side");
 						},
 						function() {
 							toastr.clear(lastToast);
@@ -252,10 +254,43 @@
 				silence[i] = 128;
 			}
 
-			function resetCamera() {
-				TweenLite.to(camera.position, 2, {x: 95 * factor, y: -165 * factor, z: 165 * factor, ease: Power2.easeInOut});
+			function setCamera(position) {
+				if(position) {
+					currentCamera = position;
+				}
+				else {
+					var index = cameraPositions.indexOf(currentCamera) + 1;
+					index %= cameraPositions.length;
+					currentCamera = cameraPositions[index];
+				}
+
+				var x = 0, y = 0, z = 0, uz = 0;
+
+				$("#currentCamera").html(currentCamera);
+
+				switch(currentCamera) {
+					case "Overhead":
+						x = 0;
+						y = 0;
+						z = 250;
+						uz = 0;
+						break;
+					case "Side":
+					default:
+						x = 95;
+						y = -165;
+						z = 165;
+						uz = 1;
+						break;
+				}
+
+				x *= factor;
+				y *= factor;
+				z *= factor;
+
+				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
 				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
-				TweenLite.to(camera.up, 1, {x: 0, y: 1, z: 1});
+				TweenLite.to(camera.up, 1, {x: 0, y: 1, z: uz});
 			}
 
 			function toggleResolution() {
