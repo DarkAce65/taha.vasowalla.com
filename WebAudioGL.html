@@ -112,10 +112,16 @@
 
 			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			$("#rendererContainer").append(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0x000000);
+			renderer.setPixelRatio(window.devicePixelRatio);
+
 			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 			camera.position.set(0, 0, 200 * factor);
-			var controls = new THREE.TrackballControls(camera);
-			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+
+			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 
 			var hemisphereLight = new THREE.HemisphereLight(0xccbbbb, 0xffbbee);
 			scene.add(hemisphereLight);
@@ -242,11 +248,6 @@
 				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
 				if(playing) {currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);}
 			}
-
-			$("#rendererContainer").append(renderer.domElement);
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0x000000);
-			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var zeroArray = new Uint8Array(analyser.frequencyBinCount);
 			var silence = new Uint8Array(analyser.frequencyBinCount);
