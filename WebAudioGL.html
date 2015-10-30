@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="toastr.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.min.js"></script>
 		<script src="GSAP/TweenMax.min.js"></script>
 		<script src="TrackballControls.js"></script>
@@ -40,6 +41,17 @@
 				text-align: right;
 			}
 
+			.dropdown-menu > li > a, .dropdown-menu {
+				background-color: #d9534f;
+				color: white;
+			}
+
+			.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+				background-color: #c9302c;
+				color: white;
+				text-decoration: none;
+			}
+
 			.btn {
 				margin-right: 3px;
 			}
@@ -57,7 +69,15 @@
 			<p style="color: white;"><span id="fileName" style="font-style: italic;"></span><span id="currentTime">-:--</span> / <span id="duration">-:--</span></p>
 			<hr>
 			<p>
-				<button type="button" class="btn btn-danger" onclick="setCamera()"><i class="fa fa-fw fa-video-camera"></i> <span id="currentCamera">Overhead</span></button>
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
+						<li><a href="javascript:void(0)" onclick="setCamera('Side')">Side</a></li>
+					</ul>
+				</div>
 				<label for="resCheckbox" class="btn btn-danger">Resolution: Low</label>
 				<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleResolution();">
 			</p>
