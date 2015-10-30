@@ -112,7 +112,7 @@ body a:hover, body a:focus {
   font-weight: 300;
 }
 
-.btn, .nav a, .navbar a, .linkList a, .linkList button {
+.btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
   transition: 0.2s;
