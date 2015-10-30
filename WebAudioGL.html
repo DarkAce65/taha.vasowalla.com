@@ -140,6 +140,7 @@
 			audioCtx = new AudioContext();
 			gainNode = audioCtx.createGain();
 			analyser = audioCtx.createAnalyser();
+			analyser.fftSize = 4096;
 			analyser.smoothingTimeConstant = 0.8;
 			var volumeData = new Uint8Array(analyser.frequencyBinCount);
 			var f = new Uint8Array(analyser.frequencyBinCount);
@@ -230,7 +231,7 @@
 					var dataIndex = Math.floor(i / lines.length * 683);
 					var v = volumeData[dataIndex] - 128;
 					targetVolume += v * v;
-					var delta = 10000 / (dataIndex + 80) - 13;
+					var delta = 1575 / (dataIndex + 15) - 1;
 					var scalar = Math.max(0, (data[dataIndex] - delta) / 2.56 / 100) + 1;
 					lines[i].geometry.vertices[1].x = scalar * positions[i * 3];
 					lines[i].geometry.vertices[1].y = scalar * positions[i * 3 + 1];
