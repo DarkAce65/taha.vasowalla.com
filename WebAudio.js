@@ -48,6 +48,7 @@ function reset() {
 		document.getElementById("duration").innerHTML = "-:--";
 		source = undefined;
 	}
+	$("#upload").val(null);
 	playing = false;
 	startOffset = 0;
 	targetVolume = 0;
