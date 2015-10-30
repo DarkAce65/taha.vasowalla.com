@@ -103,10 +103,15 @@
 			}, "3DStart+=4.5");
 
 			var scene = new THREE.Scene();
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			$("#threeContainer").append(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0x000000);
+			renderer.setPixelRatio(window.devicePixelRatio);
+
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
 			camera.position.set(0, 0, 36);
-			var controls = new THREE.TrackballControls(camera);
-			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 
 			var textGeometry = new THREE.TextGeometry("+X", {size: 0.5, height: 0.1, curveSegments: 8});
 			var material = new THREE.MeshBasicMaterial({color: 0xff0000});
@@ -308,11 +313,6 @@
 			timeline.to(controls.object.up, 1, {x: 0, y: 1, z: 0}, "3DStart+=3");
 
 			timeline.add(function(){rotate = true;}, "3DStart+=6");
-
-			$("#threeContainer").append(renderer.domElement);
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0x000000);
-			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var render = function(){
 				if(rotate){

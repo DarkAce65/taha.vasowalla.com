@@ -109,10 +109,15 @@
 			}, "3DStart+=5.5");
 
 			var scene = new THREE.Scene();
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			$("#threeContainer").append(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0x000000);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
 			camera.position.set(0, 0, 36);
-			var controls = new THREE.TrackballControls(camera);
-			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 
 			var material = new THREE.MeshBasicMaterial({color: 0x000000, side: THREE.DoubleSide});
 			var geometry = new THREE.CircleGeometry(1.5, 8, 0.4636476, Math.PI / 4);
@@ -291,11 +296,6 @@
 			}, "3DStart+=4");
 
 			timeline.add(function(){rotate = true;}, "3DStart+=6");
-
-			$("#threeContainer").append(renderer.domElement);
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0x000000);
-			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var render = function(){
 				if(rotate){

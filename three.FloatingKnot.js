@@ -1,6 +1,10 @@
 var scene = new THREE.Scene();
-var camera = new THREE.OrthographicCamera(-$(".content").width() / 2, $(".content").width() / 2, 150, -150, 0.1, 1000);
 var renderer = new THREE.WebGLRenderer({alpha: true});
+renderer.setSize($(".content").width() * 1.5, 450);
+$("#threeContainer").append(renderer.domElement);
+renderer.shadowMap.enabled = true;
+var camera = new THREE.OrthographicCamera(-$(".content").width() / 2, $(".content").width() / 2, 150, -150, 0.1, 1000);
+
 var ambientLight = new THREE.AmbientLight(0x777777);
 scene.add(ambientLight);
 var light = new THREE.SpotLight(0xdddddd);
@@ -33,9 +37,6 @@ material = new THREE.MeshLambertMaterial({color: 0xeeeeee});
 var base = new THREE.Mesh(cylinderGeometry, material);
 var angle = 0;
 
-renderer.setSize($(".content").width() * 1.5, 450);
-$("#threeContainer").append(renderer.domElement);
-renderer.shadowMap.enabled = true;
 scene.add(torus);
 scene.add(base);
 torus.castShadow = true;

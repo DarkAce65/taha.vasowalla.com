@@ -56,18 +56,18 @@
 
 			var timeline = new TimelineLite();
 			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(-9, 9, -16);
-			scene.add(camera);
-			//var controls = new THREE.TrackballControls(camera);
-			camera.lookAt(scene.position);
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-
 			$("#threeContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setClearColor(0xD5DDFF);
 			renderer.setPixelRatio(window.devicePixelRatio);
 			renderer.shadowMap.enabled = true;
+
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+			camera.position.set(-9, 9, -16);
+			scene.add(camera);
+			//var controls = new THREE.TrackballControls(camera, renderer.domElement);
+			camera.lookAt(scene.position);
 
 			var ambLight = new THREE.AmbientLight(0x040404);
 			scene.add(ambLight);

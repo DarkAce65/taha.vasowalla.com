@@ -9,10 +9,17 @@ window.requestAnimFrame =
 	};
 
 var scene = new THREE.Scene();
+var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+$("#threeContainer").append(renderer.domElement);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.shadowMap.enabled = true;
+
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 camera.position.set(0, 0, 1500);
-var controls = new THREE.TrackballControls(camera);
-var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+var controls = new THREE.TrackballControls(camera, renderer.domElement);
+
 var light = new THREE.PointLight(0x333333, 0.2, 0);
 var sphere = new THREE.SphereGeometry(5, 16, 8);
 light.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0x333333})));
@@ -74,12 +81,6 @@ TweenLite.to(scene.position, 0.05, {x: 0, y: 0, z: 0, delay: 0.05 * 237});
 TweenLite.to(light.color, 10, {r: 0.69, g: 0.69, b: 1, ease: Sine.easeIn, delay: 0.8});
 TweenLite.to(light.children[0].material.color, 10, {r: 0.9, g: 0.9, b: 1, ease: Sine.easeIn, delay: 0.8});
 TweenLite.to(light, 10, {intensity: 3, ease: Sine.easeIn, delay: 0.8});
-
-$("#threeContainer").append(renderer.domElement);
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000);
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.shadowMap.enabled = true;
 
 var render = function() {
 	requestAnimFrame(render);
