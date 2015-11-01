@@ -32,7 +32,7 @@ function toHHMMSS(number) {
 	else {hours += ":";}
 
 	if(seconds < 10) {seconds = "0" + seconds;}
-	
+
 	var time = hours + minutes + ":" + seconds;
 	return time;
 }
@@ -64,13 +64,14 @@ function fileUpload(files) {
 		$("#playPause, #upload, .btn-file").attr("disabled", true);
 		reader = new FileReader();
 		reader.onload = function(e) {
-			toastr.options.timeOut = "5000";
+			toastr.options.timeOut = 5000;
+			toastr.options.extendedTimeOut = 1000;
 			toastr.success(files[0].name + " uploaded!");
-			toastr.options.timeOut = "60000";
-			toastr.options.extendedTimeOut = "60000";
+			toastr.options.timeOut = 0;
+			toastr.options.extendedTimeOut = 0;
 			lastToast = toastr.info("Decoding audio data...");
-			toastr.options.timeOut = "5000";
-			toastr.options.extendedTimeOut = "1000";
+			toastr.options.timeOut = 5000;
+			toastr.options.extendedTimeOut = 1000;
 			canvasReady = false;
 			wavesurferReady = false;
 			if(!mobile) {
@@ -193,7 +194,7 @@ $(document).ready(function() {
 		function(callback) {
 			window.setTimeout(callback, 1000 / 60);
 		};
-	
+
 	c = document.getElementById("visualizer");
 	ctx = c.getContext("2d");
 	c.height = 1245;

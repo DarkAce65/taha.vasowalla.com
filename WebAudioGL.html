@@ -218,13 +218,14 @@
 					$("#playPause, #upload, .btn-file").attr("disabled", true);
 					var reader = new FileReader();
 					reader.onload = function(e) {
-						toastr.options.timeOut = "5000";
+						toastr.options.timeOut = 5000;
+						toastr.options.extendedTimeOut = 1000;
 						toastr.success(files[0].name + " uploaded!");
-						toastr.options.timeOut = "60000";
-						toastr.options.extendedTimeOut = "60000";
+						toastr.options.timeOut = 0;
+						toastr.options.extendedTimeOut = 0;
 						lastToast = toastr.info("Decoding audio data...");
-						toastr.options.timeOut = "5000";
-						toastr.options.extendedTimeOut = "1000";
+						toastr.options.timeOut = 5000;
+						toastr.options.extendedTimeOut = 1000;
 						audioCtx.decodeAudioData(e.target.result, function(buffer) {
 							fileName = files[0].name;
 							arrayBuffer = buffer;
