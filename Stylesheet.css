@@ -563,7 +563,6 @@ body a:hover, body a:focus {
 }
 #deviantArtBody #DAGallery .imageBackground .artworkDate {
   position: absolute;
-  z-index: 10;
   top: 0;
   right: 0;
   min-width: 10px;
