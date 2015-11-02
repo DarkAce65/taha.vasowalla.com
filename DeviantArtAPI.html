@@ -212,6 +212,8 @@
 						retrieving.remove();
 						$.each(entries, function(index, value) {
 							if(value.querySelectorAll("content").length != 0) {
+								var dataDate = new Date(value.querySelector("pubDate").childNodes[0].nodeValue);
+								dataDate = dataDate.getDate() + "/" + (dataDate.getMonth() + 1) + "/" + dataDate.getFullYear();
 								var dataTitle = value.querySelector("title").childNodes[0].nodeValue;
 								dataTitle = dataTitle.replace(/\b[A-Za-z]/, function(letter){return letter.toUpperCase();});
 								var dataAuthor = value.querySelector("credit").childNodes[0].nodeValue;
@@ -235,7 +237,7 @@
 										break;
 									case("image"):
 									default:
-										var card = $(pre + '<div class="imageBackground" style="padding-bottom: ' + imgHeight / imgWidth * 100 + '%;"><span class="loading">Loading...</span><img src="' + dataURL + '" class="animated" data-index="' + imgIndex + '" style="position: absolute; display: none; height: 100%; width: 100%;" onload="imageReady(this)"></div>' + post);
+										var card = $(pre + '<div class="imageBackground" style="padding-bottom: ' + imgHeight / imgWidth * 100 + '%;"><span class="artworkDate">' + dataDate + '</span><span class="loading">Loading...</span><img src="' + dataURL + '" class="animated" data-index="' + imgIndex + '" style="position: absolute; display: none; height: 100%; width: 100%;" onload="imageReady(this)"></div>' + post);
 
 										// Add item to photoswipeData
 										photoswipeData.push({title: '<a href="' + dataLink + '" target="_blank" class="imageCaption"><span>' + dataTitle + '</span><span style="display: block; color: gray;">' + dataAuthor + '</span><span style="color: #EF5350;">Click to view on DeviantArt.com</span></a>', src: dataURL, w: imgWidth, h: imgHeight});
