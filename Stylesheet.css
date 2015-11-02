@@ -556,12 +556,14 @@ body a:hover, body a:focus {
   color: #EF5350;
 }
 #deviantArtBody #DAGallery .imageBackground {
+  overflow: hidden;
   position: relative;
   width: 100%;
   background-color: #222222;
 }
 #deviantArtBody #DAGallery .imageBackground .artworkDate {
   position: absolute;
+  z-index: 10;
   top: 0;
   right: 0;
   min-width: 10px;
