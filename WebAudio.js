@@ -59,14 +59,14 @@ function reset() {
 }
 
 function fileUpload(files) {
-	audioFile = files[0];
 	if(files.length !== 0) {
+		audioFile = files[0];
 		$("#playPause, #upload, .btn-file").attr("disabled", true);
 		reader = new FileReader();
 		reader.onload = function(e) {
 			toastr.options.timeOut = 5000;
 			toastr.options.extendedTimeOut = 1000;
-			toastr.success(files[0].name + " uploaded!");
+			toastr.success(audioFile.name + " uploaded!");
 			toastr.options.timeOut = 0;
 			toastr.options.extendedTimeOut = 0;
 			lastToast = toastr.info("Decoding audio data...");
@@ -75,12 +75,11 @@ function fileUpload(files) {
 			canvasReady = false;
 			wavesurferReady = false;
 			if(!mobile) {
-				wavesurfer.loadBlob(files[0]);
+				wavesurfer.loadBlob(audioFile);
 				$("#wave").hide(250);
 			}
-			audioFile2 = e;
 			audioCtx.decodeAudioData(e.target.result, function(buffer) {
-				fileName = files[0].name;
+				fileName = audioFile.name;
 				arrayBuffer = buffer;
 				if(mobile) {
 					reset();
