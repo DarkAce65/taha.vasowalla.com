@@ -571,7 +571,7 @@ body a:hover, body a:focus {
   font-weight: 700;
   line-height: 1;
   text-align: center;
-  background-color: #171717;
+  background-color: rgba(23, 23, 23, 0.7);
 }
 #deviantArtBody #DAGallery .imageBackground .loading {
   position: absolute;
