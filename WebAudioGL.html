@@ -161,7 +161,7 @@
 			gainNode = audioCtx.createGain();
 			analyser = audioCtx.createAnalyser();
 			analyser.fftSize = 4096;
-			analyser.smoothingTimeConstant = 0.8;
+			analyser.smoothingTimeConstant = 0.75;
 			var volumeData = new Uint8Array(analyser.frequencyBinCount);
 			var f = new Uint8Array(analyser.frequencyBinCount);
 
