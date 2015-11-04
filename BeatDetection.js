@@ -33,7 +33,6 @@ function groupNeighborsByTempo(intervalCounts) {
 	var tempoCounts = [];
 	intervalCounts.forEach(function(intervalCount, i) {
 		var theoreticalTempo = 60 / (intervalCount.interval / 44100);
-		theoreticalTempo = Math.round(theoreticalTempo * 100) / 100;
 
 		// Adjust the tempo to fit within the 90-180 BPM range
 		while(theoreticalTempo < 90) {
@@ -56,8 +55,8 @@ function groupNeighborsByTempo(intervalCounts) {
 	return tempoCounts;
 }
 
-function getBPM(buffer, threshold) {
-	var bpm = [], peaksArray = [], intervalCounts = [], tempoCounts = [];
+function getBPM(buffer) {
+	var peaksArray = [], intervalCounts = [], tempoCounts = [];
 	var offlineContext = new OfflineAudioContext(1, buffer.length, buffer.sampleRate);
 	var beatSource = offlineContext.createBufferSource();
 	beatSource.buffer = buffer;
@@ -71,14 +70,18 @@ function getBPM(buffer, threshold) {
 	offlineContext.startRendering();
 	offlineContext.oncomplete = function(e) {
 		filteredBuffer = e.renderedBuffer;
-		peaksArray = getPeaksAtThreshold(filteredBuffer.getChannelData(0), threshold);
+		var i = 1;
+		while(peaksArray.length < 10) {
+			i -= 0.05;
+			peaksArray = getPeaksAtThreshold(filteredBuffer.getChannelData(0), i);
+		}
 		intervalCounts = countIntervalsBetweenNearbyPeaks(peaksArray);
 		tempoCounts = groupNeighborsByTempo(intervalCounts);
 		tempoCounts.sort(function(a, b) {
 			return b.count - a.count;
 		});
-		console.log(peaksArray.length, tempoCounts.length);
-		bpm.push(tempoCounts[0].tempo, tempoCounts[1].tempo, tempoCounts[2].tempo);
-		console.log(bpm);
+		bpm = tempoCounts[0].tempo;
 	};
 }
+
+var bpm = 0;
