@@ -590,6 +590,7 @@ body a:hover, body a:focus {
   padding: 5px;
 }
 #deviantArtBody #DAGallery .info .artworkTitle {
+  letter-spacing: 1.5px;
   -webkit-transition: 0.25s;
   -moz-transition: 0.25s;
   transition: 0.25s;

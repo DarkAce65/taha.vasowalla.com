@@ -63,6 +63,7 @@
 		padding: 5px;
 
 		.artworkTitle {
+			letter-spacing: 1.5px;
 			@include transition(0.25s);
 		}
 
