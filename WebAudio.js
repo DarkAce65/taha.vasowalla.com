@@ -37,27 +37,6 @@ function toHHMMSS(number) {
 	return time;
 }
 
-function reset() {
-	if(source) {
-		source.disconnect();
-		gainNode.disconnect();
-		analyser.disconnect();
-		source.stop();
-		document.getElementById("fileName").innerHTML = "";
-		document.getElementById("currentTime").innerHTML = "-:--";
-		document.getElementById("duration").innerHTML = "-:--";
-		source = undefined;
-	}
-	$("#upload").val(null);
-	playing = false;
-	startOffset = 0;
-	targetVolume = 0;
-	currentVolume = 0;
-	ctx.clearRect(0, 0, c.width, c.height);
-	ctx.fillStyle = "hsl(0, 67%, 20%)";
-	ctx.fillRect(0, 1199, c.width, 1);
-}
-
 function fileUpload(files) {
 	if(files.length !== 0) {
 		audioFile = files[0];
@@ -106,6 +85,28 @@ function fileUpload(files) {
 		};
 		reader.readAsArrayBuffer(files[0]);
 	}
+}
+
+function reset() {
+	if(source) {
+		source.disconnect();
+		gainNode.disconnect();
+		analyser.disconnect();
+		source.stop();
+		document.getElementById("fileName").innerHTML = "";
+		document.getElementById("currentTime").innerHTML = "-:--";
+		document.getElementById("duration").innerHTML = "-:--";
+		source = undefined;
+	}
+	$("#upload").val(null);
+	$("#playPause").attr("disabled", true);
+	playing = false;
+	startOffset = 0;
+	targetVolume = 0;
+	currentVolume = 0;
+	ctx.clearRect(0, 0, c.width, c.height);
+	ctx.fillStyle = "hsl(0, 67%, 20%)";
+	ctx.fillRect(0, 1199, c.width, 1);
 }
 
 function pause() {

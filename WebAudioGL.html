@@ -213,68 +213,15 @@
 				}
 			}
 
-			function fileUpload(files) {
-				if(files.length !== 0) {
-					$("#playPause, #upload, .btn-file").attr("disabled", true);
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						toastr.options.timeOut = 5000;
-						toastr.options.extendedTimeOut = 1000;
-						toastr.success(files[0].name + " uploaded!");
-						toastr.options.timeOut = 0;
-						toastr.options.extendedTimeOut = 0;
-						lastToast = toastr.info("Decoding audio data...");
-						toastr.options.timeOut = 5000;
-						toastr.options.extendedTimeOut = 1000;
-						audioCtx.decodeAudioData(e.target.result, function(buffer) {
-							fileName = files[0].name;
-							arrayBuffer = buffer;
-							reset();
-							emptySource = false;
-							toastr.clear(lastToast);
-							toastr.success("Audio data decoded!");
-							play();
-							setCamera("Side");
-						},
-						function() {
-							toastr.clear(lastToast);
-							toastr.error("Decoding error. Make sure the file is an audio file.");
-							$("#upload, .btn-file").attr("disabled", false);
-						});
-					};
-					reader.readAsArrayBuffer(files[0]);
-				}
-			}
-
-			function draw(data) {
-				var targetVolume = 0.0001;
-				for(var i = 0; i < lines.length; i++) {
-					var dataIndex = Math.floor(i / lines.length * 683);
-					var v = volumeData[dataIndex] - 128;
-					targetVolume += v * v;
-					var delta = 1575 / (dataIndex + 15) - 1;
-					var scalar = Math.max(0, (data[dataIndex] - delta) / 2.56 / 100) + 1;
-					lines[i].geometry.vertices[1].x = scalar * positions[i * 3];
-					lines[i].geometry.vertices[1].y = scalar * positions[i * 3 + 1];
-					lines[i].geometry.verticesNeedUpdate = true;
-					//lines[i].material.color.setHSL(0, 0.67, Math.min(100, Math.pow(11.762, scalar - 1.79) + 0.2));
-				}
-				targetVolume = Math.sqrt(targetVolume / lines.length) / 85;
-				if(currentVolume < targetVolume) {
-					currentVolume = Math.max(0.0001, lerp(currentVolume, targetVolume, attack));
+			function toggleResolution() {
+				if(document.querySelector("#resCheckbox").checked) {
+					createLines(500);
+					$('label[for="resCheckbox"]').html("Resolution: High");
 				}
 				else {
-					currentVolume = Math.max(0.0001, lerp(currentVolume, targetVolume, decay));
+					createLines(200);
+					$('label[for="resCheckbox"]').html("Resolution: Low");
 				}
-				currentVolume = Math.min(1, currentVolume);
-				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
-				if(playing) {currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);}
-			}
-
-			var zeroArray = new Uint8Array(analyser.frequencyBinCount);
-			var silence = new Uint8Array(analyser.frequencyBinCount);
-			for(var i = 0; i < silence.length; i++) {
-				silence[i] = 128;
 			}
 
 			function setCamera(position) {
@@ -316,14 +263,36 @@
 				TweenLite.to(camera.up, 1, {x: 0, y: 1, z: uz});
 			}
 
-			function toggleResolution() {
-				if(document.querySelector("#resCheckbox").checked) {
-					createLines(500);
-					$('label[for="resCheckbox"]').html("Resolution: High");
-				}
-				else {
-					createLines(200);
-					$('label[for="resCheckbox"]').html("Resolution: Low");
+			function fileUpload(files) {
+				if(files.length !== 0) {
+					$("#playPause, #upload, .btn-file").attr("disabled", true);
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						toastr.options.timeOut = 5000;
+						toastr.options.extendedTimeOut = 1000;
+						toastr.success(files[0].name + " uploaded!");
+						toastr.options.timeOut = 0;
+						toastr.options.extendedTimeOut = 0;
+						lastToast = toastr.info("Decoding audio data...");
+						toastr.options.timeOut = 5000;
+						toastr.options.extendedTimeOut = 1000;
+						audioCtx.decodeAudioData(e.target.result, function(buffer) {
+							fileName = files[0].name;
+							arrayBuffer = buffer;
+							reset();
+							emptySource = false;
+							toastr.clear(lastToast);
+							toastr.success("Audio data decoded!");
+							play();
+							setCamera("Side");
+						},
+						function() {
+							toastr.clear(lastToast);
+							toastr.error("Decoding error. Make sure the file is an audio file.");
+							$("#upload, .btn-file").attr("disabled", false);
+						});
+					};
+					reader.readAsArrayBuffer(files[0]);
 				}
 			}
 
@@ -339,6 +308,7 @@
 					source = undefined;
 				}
 				$("#upload").val(null);
+				$("#playPause").attr("disabled", true);
 				playing = false;
 				clock.stop();
 				scene.rotation.z = 0;
@@ -378,6 +348,37 @@
 					$("#playPause i").removeClass("fa-play");
 					$("#playPause i").addClass("fa-pause");
 				}
+			}
+
+			function draw(data) {
+				var targetVolume = 0.0001;
+				for(var i = 0; i < lines.length; i++) {
+					var dataIndex = Math.floor(i / lines.length * 683);
+					var v = volumeData[dataIndex] - 128;
+					targetVolume += v * v;
+					var delta = 1575 / (dataIndex + 15) - 1;
+					var scalar = Math.max(0, (data[dataIndex] - delta) / 2.56 / 100) + 1;
+					lines[i].geometry.vertices[1].x = scalar * positions[i * 3];
+					lines[i].geometry.vertices[1].y = scalar * positions[i * 3 + 1];
+					lines[i].geometry.verticesNeedUpdate = true;
+					//lines[i].material.color.setHSL(0, 0.67, Math.min(100, Math.pow(11.762, scalar - 1.79) + 0.2));
+				}
+				targetVolume = Math.sqrt(targetVolume / lines.length) / 85;
+				if(currentVolume < targetVolume) {
+					currentVolume = Math.max(0.0001, lerp(currentVolume, targetVolume, attack));
+				}
+				else {
+					currentVolume = Math.max(0.0001, lerp(currentVolume, targetVolume, decay));
+				}
+				currentVolume = Math.min(1, currentVolume);
+				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
+				if(playing) {currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);}
+			}
+
+			var zeroArray = new Uint8Array(analyser.frequencyBinCount);
+			var silence = new Uint8Array(analyser.frequencyBinCount);
+			for(var i = 0; i < silence.length; i++) {
+				silence[i] = 128;
 			}
 
 			function render() {
