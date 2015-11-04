@@ -69,7 +69,7 @@ function getBPM(buffer) {
 
 	offlineContext.startRendering();
 	offlineContext.oncomplete = function(e) {
-		filteredBuffer = e.renderedBuffer;
+		var filteredBuffer = e.renderedBuffer;
 		var i = 1;
 		while(peaksArray.length < 10) {
 			i -= 0.05;
