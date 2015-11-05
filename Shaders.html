@@ -91,7 +91,7 @@
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0xD5DDFF);
+			renderer.setClearColor(0x000000); // 0xD5DDFF - Gray
 			renderer.setPixelRatio(window.devicePixelRatio);
 			renderer.shadowMap.enabled = true;
 
@@ -115,7 +115,8 @@
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
 				vertexShader: document.getElementById("cubeVertexShader").innerHTML,
-				fragmentShader: document.getElementById("cubeFragmentShader").innerHTML
+				fragmentShader: document.getElementById("cubeFragmentShader").innerHTML,
+				side: THREE.DoubleSide
 			});
 			var objectGeometry = new THREE.BoxGeometry(50, 50, 50);
 			var object = new THREE.Mesh(objectGeometry, material);
