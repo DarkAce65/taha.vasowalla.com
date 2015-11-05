@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>GLSL Shaders</title>
+		<link rel="shortcut icon" href="img/icons/TV.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/three.js/build/three.js"></script>
+		<script src="GSAP/TweenMax.min.js"></script>
+		<script src="TrackballControls.js"></script>
+		<style type="text/css">
+			html, body {
+				overflow: hidden;
+			}
+
+			#controls {
+				position: fixed;
+				top: 5px;
+				right: 5px;
+				text-align: right;
+			}
+
+			.dropdown-menu > li > a, .dropdown-menu {
+				background-color: #d9534f;
+				color: white;
+			}
+
+			.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+				background-color: #c9302c;
+				color: white;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="controls">
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
+					<li><a href="javascript:void(0)" onclick="setCamera('Side')">Side</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="rendererContainer"></div>
+		<script type="text/javascript">
+			window.requestAnimFrame =
+				window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function(callback) {
+					window.setTimeout(callback, 1000 / 60);
+				};
+
+			var scene = new THREE.Scene();
+			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			$("#rendererContainer").append(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0xD5DDFF);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.shadowMap.enabled = true;
+
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+			camera.position.set(-9, 9, -16);
+			scene.add(camera);
+			var controls = new THREE.TrackballControls(camera, renderer.domElement);
+			camera.lookAt(scene.position);
+
+			var ambLight = new THREE.AmbientLight(0x040404);
+			scene.add(ambLight);
+
+			var spotLight = new THREE.SpotLight(0xffffff);
+			spotLight.exponent = 5;
+			spotLight.position.set(0, 4, -10);
+			scene.add(spotLight);
+
+			var ptLight = new THREE.PointLight(0xffffff, 1, 20);
+			ptLight.position.set(0, 10, 0);
+			scene.add(ptLight);
+
+			var ball = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), new THREE.MeshPhongMaterial({color: 0xc0c0c0, shininess: 50}));
+			scene.add(ball);
+
+			function setCamera(position) {
+				if(position) {
+					currentCamera = position;
+				}
+				else {
+					var index = cameraPositions.indexOf(currentCamera) + 1;
+					index %= cameraPositions.length;
+					currentCamera = cameraPositions[index];
+				}
+
+				var x = 0, y = 0, z = 0, uz = 0;
+
+				$("#currentCamera").html(currentCamera);
+
+				switch(currentCamera) {
+					case "Overhead":
+						x = 0;
+						y = 0;
+						z = 250;
+						uz = 0;
+						break;
+					case "Side":
+					default:
+						x = 95;
+						y = -165;
+						z = 165;
+						uz = 1;
+						break;
+				}
+
+				x *= factor;
+				y *= factor;
+				z *= factor;
+
+				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
+				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
+				TweenLite.to(camera.up, 1, {x: 0, y: 1, z: uz});
+			}
+
+			function render() {
+				requestAnimFrame(render);
+				renderer.render(scene, camera);
+				controls.update();
+			}
+
+			render();
+
+			$(window).resize(function() {
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+
+			$(window).load(function() {
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			});
+		</script>
+	</body>
+</html>
