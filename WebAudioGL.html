@@ -68,19 +68,17 @@
 			</p>
 			<p style="color: white;"><span id="fileName" style="font-style: italic;"></span><span id="currentTime">-:--</span> / <span id="duration">-:--</span></p>
 			<hr>
-			<p>
-				<div class="btn-group">
-					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
-						<li><a href="javascript:void(0)" onclick="setCamera('Side')">Side</a></li>
-					</ul>
-				</div>
-				<label for="resCheckbox" class="btn btn-danger">Resolution: Low</label>
-				<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleResolution();">
-			</p>
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
+					<li><a href="javascript:void(0)" onclick="setCamera('Side')">Side</a></li>
+				</ul>
+			</div>
+			<label for="resCheckbox" class="btn btn-danger">Resolution: Low</label>
+			<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleResolution();">
 		</div>
 		<div id="rendererContainer"></div>
 		<script type="text/javascript">
