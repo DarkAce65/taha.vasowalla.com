@@ -50,6 +50,28 @@
 			</div>
 		</div>
 		<div id="rendererContainer"></div>
+		<script id="cubeVertexShader" type="x-shader/x-vertex">
+			uniform float time;
+			varying vec2 vUv;
+
+			void main() {
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+			}
+		</script>
+		<script id="cubeFragmentShader" type="x-shader/x-fragment">
+			uniform float time;
+			varying vec2 vUv;
+
+			void main() {
+				vec2 position = -1.0 + 2.0 * vUv;
+
+				float red = abs(sin(position.x * position.y + time / 5.0));
+				float green = abs(sin(position.x * position.y + time / 4.0));
+				float blue = abs(sin(position.x * position.y + time / 3.0 ));
+				gl_FragColor = vec4(red, green, blue, 1.0);
+			}
+		</script>
 		<script type="text/javascript">
 			window.requestAnimFrame =
 				window.requestAnimationFrame ||
@@ -62,7 +84,9 @@
 				};
 
 			var currentCamera = "Overhead";
+			var factor = window.innerWidth < 768 ? 1.5 : 1;
 
+			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
@@ -77,29 +101,32 @@
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var ambLight = new THREE.AmbientLight(0x040404);
+			var ambLight = new THREE.AmbientLight(0x404040);
 			scene.add(ambLight);
 
-			var spotLight = new THREE.SpotLight(0xffffff);
-			spotLight.exponent = 5;
-			spotLight.position.set(0, 40, -100);
-			scene.add(spotLight);
-
-			var ptLight = new THREE.PointLight(0xffffff, 1, 200);
-			ptLight.position.set(0, 100, 00);
+			var ptLight = new THREE.PointLight(0xffffff, 1, 1000);
+			ptLight.position.set(100, -100, 100);
 			scene.add(ptLight);
 
-			var ballMaterial = new THREE.MeshPhongMaterial({color: 0xc0c0c0, shininess: 50});
-			var ballGeometry = new THREE.SphereGeometry(4, 32, 32);
-			var ball = new THREE.Mesh(ballGeometry, ballMaterial);
-			scene.add(ball);
+			var uniforms = {
+				time: {type: "f", value: 0},
+				resolution: {type: "v2", value: new THREE.Vector2}
+			};
+			var material = new THREE.ShaderMaterial({
+				uniforms: uniforms,
+				vertexShader: document.getElementById("cubeVertexShader").innerHTML,
+				fragmentShader: document.getElementById("cubeFragmentShader").innerHTML
+			});
+			var objectGeometry = new THREE.BoxGeometry(50, 50, 50);
+			var object = new THREE.Mesh(objectGeometry, material);
+			scene.add(object);
 
 			function setCamera(position) {
 				if(position) {
 					currentCamera = position;
 				}
 
-				var x = 0, y = 0, z = 0, uz = 0;
+				var x = 0, y = 0, z = 0, uy = 0, uz = 0;
 
 				$("#currentCamera").html(currentCamera);
 
@@ -108,13 +135,13 @@
 						x = 0;
 						y = 0;
 						z = 250;
-						uz = 0;
+						uy = 1;
 						break;
 					case "Side":
 					default:
-						x = 95;
-						y = -165;
-						z = 165;
+						x = 120;
+						y = -200;
+						z = 100;
 						uz = 1;
 						break;
 				}
@@ -125,21 +152,24 @@
 
 				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
 				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
-				TweenLite.to(camera.up, 1, {x: 0, y: 1, z: uz});
+				TweenLite.to(camera.up, 1.75, {x: 0, y: uy, z: uz});
 			}
 
 			function render() {
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
 				controls.update();
+				uniforms.time.value += clock.getDelta() * 3;
 			}
 
 			render();
+			setTimeout(setCamera, 1250, "Side");
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+				factor = window.innerWidth < 768 ? 1.5 : 1;
 			});
 
 			$(window).load(function() {
