@@ -226,11 +226,6 @@
 				if(position) {
 					currentCamera = position;
 				}
-				else {
-					var index = cameraPositions.indexOf(currentCamera) + 1;
-					index %= cameraPositions.length;
-					currentCamera = cameraPositions[index];
-				}
 
 				var x = 0, y = 0, z = 0, uz = 0;
 
