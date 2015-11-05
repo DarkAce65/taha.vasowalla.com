@@ -36,7 +36,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="threeContainer"></div>
+		<div id="rendererContainer"></div>
 		<div id="controls" class="visible-xs">
 			<button class="btn btn-default" onclick="move(0, 1)"><i class="fa fa-fw fa-arrow-up"></i></button>
 			<button class="btn btn-default" onclick="move(1, 0)"><i class="fa fa-fw fa-arrow-left"></i></button>
@@ -57,7 +57,7 @@
 			var timeline = new TimelineLite();
 			var scene = new THREE.Scene();
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-			$("#threeContainer").append(renderer.domElement);
+			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setClearColor(0xD5DDFF);
 			renderer.setPixelRatio(window.devicePixelRatio);
@@ -176,7 +176,7 @@
 						break;
 				}
 			});
-			
+
 			render();
 			move(0, 0);
 
