@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.js"></script>
 		<script src="GSAP/TweenMax.min.js"></script>
 		<script src="TrackballControls.js"></script>
@@ -69,7 +70,7 @@
 			renderer.shadowMap.enabled = true;
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(-9, 9, -16);
+			camera.position.set(0, 0, 250);
 			scene.add(camera);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
@@ -79,24 +80,21 @@
 
 			var spotLight = new THREE.SpotLight(0xffffff);
 			spotLight.exponent = 5;
-			spotLight.position.set(0, 4, -10);
+			spotLight.position.set(0, 40, -100);
 			scene.add(spotLight);
 
-			var ptLight = new THREE.PointLight(0xffffff, 1, 20);
-			ptLight.position.set(0, 10, 0);
+			var ptLight = new THREE.PointLight(0xffffff, 1, 200);
+			ptLight.position.set(0, 100, 00);
 			scene.add(ptLight);
 
-			var ball = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), new THREE.MeshPhongMaterial({color: 0xc0c0c0, shininess: 50}));
+			var ballMaterial = new THREE.MeshPhongMaterial({color: 0xc0c0c0, shininess: 50});
+			var ballGeometry = new THREE.SphereGeometry(4, 32, 32);
+			var ball = new THREE.Mesh(ballGeometry, ballMaterial);
 			scene.add(ball);
 
 			function setCamera(position) {
 				if(position) {
 					currentCamera = position;
-				}
-				else {
-					var index = cameraPositions.indexOf(currentCamera) + 1;
-					index %= cameraPositions.length;
-					currentCamera = cameraPositions[index];
 				}
 
 				var x = 0, y = 0, z = 0, uz = 0;
