@@ -51,16 +51,18 @@
 		</div>
 		<div id="rendererContainer"></div>
 		<script id="cubeVertexShader" type="x-shader/x-vertex">
-			uniform float time;
 			varying vec2 vUv;
 
 			void main() {
 				vUv = uv;
-				gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
 		<script id="cubeFragmentShader" type="x-shader/x-fragment">
 			uniform float time;
+			uniform vec2 resolution;
+
 			varying vec2 vUv;
 
 			void main() {
