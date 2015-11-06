@@ -230,7 +230,12 @@ body {
 		line-height: 24px;
 		width: 24px;
 		border-radius: 3px;
+		color: $dark-color;
 	}
+}
+
+.row-offcanvas .language {
+	color: gray;
 }
 
 .modal-body > img {
