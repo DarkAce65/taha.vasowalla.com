@@ -55,6 +55,17 @@
 			.btn {
 				margin-right: 3px;
 			}
+
+			.progress {
+				height: 4px;
+				margin: 0;
+			}
+
+			.progress-bar {
+				-webkit-transition: none;
+					 -o-transition: none;
+						transition: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -67,6 +78,9 @@
 				</span>
 			</p>
 			<p style="color: white;"><span id="fileName" style="font-style: italic;"></span><span id="currentTime">-:--</span> / <span id="duration">-:--</span></p>
+			<div class="progress">
+				<div class="progress-bar progress-bar-danger"></div>
+			</div>
 			<hr>
 			<div class="btn-group">
 				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
@@ -115,6 +129,8 @@
 
 			var currentTime = document.querySelector("#currentTime");
 			var currentCamera = "Overhead";
+
+			var progressBar = $(".progress-bar");
 
 			var resToast, lastToast;
 			var playing = false;
@@ -363,7 +379,10 @@
 				}
 				currentVolume = Math.min(1, currentVolume);
 				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
-				if(playing) {currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);}
+				if(playing) {
+					currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);
+					progressBar.width((audioCtx.currentTime - startTime + startOffset) / arrayBuffer.duration * 100 + "%");
+				}
 			}
 
 			var zeroArray = new Uint8Array(analyser.frequencyBinCount);
