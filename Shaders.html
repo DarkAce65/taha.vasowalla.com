@@ -60,18 +60,46 @@
 			}
 		</script>
 		<script id="cubeFragmentShader" type="x-shader/x-fragment">
+			// Author @patriciogv - 2015
+			// http://patriciogonzalezvivo.com
+
 			uniform float time;
-			uniform vec2 resolution;
+			uniform float speed;
+			uniform float rows;
 
 			varying vec2 vUv;
 
-			void main() {
-				vec2 position = -1.0 + 2.0 * vUv;
+			float random(in float x) {
+				return fract(sin(x) * 43758.5453);
+			}
 
-				float red = abs(sin(position.x * position.y + time / 5.0));
-				float green = abs(sin(position.x * position.y + time / 4.0));
-				float blue = abs(sin(position.x * position.y + time / 3.0));
-				gl_FragColor = vec4(red, green, blue, 1.0);
+			float random(in vec2 st) {
+				return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453);
+			}
+
+			float randomChar(in vec2 outer, in vec2 inner) {
+				vec2 margin = vec2(0.2, 0.05);
+				float seed = 23.0;
+				vec2 borders = step(margin, inner) * step(margin, 1.0 - inner);
+				return step(0.5, random(outer * seed + floor(inner * 3.0))) * borders.x * borders.y;
+			}
+
+			vec3 matrix(in vec2 st) {
+				vec2 ipos = floor(st * rows) + vec2(1.0, 0);
+
+				ipos += vec2(0, floor(time * speed * random(ipos.x)));
+
+				vec2 fpos = fract(st * rows);
+				vec2 center = 0.5 - fpos;
+
+				float pct = random(ipos);
+				float glowamount = (1.0 - dot(center, center) * 3.0);
+
+				return vec3(randomChar(ipos, fpos) * pct * glowamount) * vec3(0, 1.0, 0);
+			}
+
+			void main() {
+				gl_FragColor = vec4(matrix(vUv), 1.0);
 			}
 		</script>
 		<script type="text/javascript">
@@ -98,7 +126,7 @@
 			renderer.shadowMap.enabled = true;
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(0, 0, 250);
+			camera.position.set(0, 0, 85);
 			scene.add(camera);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
@@ -112,7 +140,8 @@
 
 			var uniforms = {
 				time: {type: "f", value: 0},
-				resolution: {type: "v2", value: new THREE.Vector2}
+				rows: {type: "f", value: 50.0},
+				speed: {type: "f", value: 4.0}
 			};
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
