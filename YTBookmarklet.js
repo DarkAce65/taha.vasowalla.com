@@ -22,6 +22,7 @@ javascript:(function() {
 				cssSheet.insertRule(".yt-card{position: relative;}", 0);
 				cssSheet.insertRule(".view-count, .g-hovercard, .stat{color: #333;}", 0);
 				cssSheet.insertRule(".yt-ui-ellipsis{background: transparent;}", 0);
+				cssSheet.insertRule(".watch-title{font-variant: small-caps; letter-spacing: 3px;}", 0);
 				var hq = 'url("https://i.ytimg.com/vi/' + vId + '/hqdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
 				var maxres = 'url("https://i.ytimg.com/vi/' + vId + '/maxresdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
 				var img = new Image();

@@ -35,6 +35,10 @@
                 cssSheet.insertRule(".yt-card {position: relative;}", 0);
                 cssSheet.insertRule(".view-count, .g-hovercard, .stat {color: #333;}", 0);
                 cssSheet.insertRule(".yt-ui-ellipsis {background: transparent;}", 0);
+				cssSheet.insertRule(".watch-title {
+					font-variant: small-caps;
+					letter-spacing: 3px;
+				}", 0);
 
                 /* YouTube uses two sizes for high quality thumbnails */
                 var hq = 'url("https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
@@ -74,7 +78,7 @@
         if(styleTag) {
             styleTag.remove();
         }
-        
+
         var video = document.querySelector(".html5-main-video");
         if(video) {
             video.removeEventListener("playing", window.youtubeBG);
