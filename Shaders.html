@@ -45,12 +45,13 @@
 				</button>
 				<ul class="dropdown-menu pull-right">
 					<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
-					<li><a href="javascript:void(0)" onclick="setCamera('Side')">Side</a></li>
+					<li><a href="javascript:void(0)" onclick="setCamera('Transparent')">Transparent Cube</a></li>
+					<li><a href="javascript:void(0)" onclick="setCamera('Matrix')">Matrix Cube</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="rendererContainer"></div>
-		<script id="cubeVertexShader" type="x-shader/x-vertex">
+		<script id="staticVertexShader" type="x-shader/x-vertex">
 			varying vec2 vUv;
 
 			void main() {
@@ -59,13 +60,13 @@
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
-		<script id="cubeFragmentShader" type="x-shader/x-fragment">
+		<script id="matrixFragmentShader" type="x-shader/x-fragment">
 			// Author @patriciogv - 2015
 			// http://patriciogonzalezvivo.com
 
-			uniform float time;
-			uniform float speed;
-			uniform float rows;
+			uniform float u_time;
+			uniform float u_speed;
+			uniform float u_rows;
 
 			varying vec2 vUv;
 
@@ -85,11 +86,11 @@
 			}
 
 			vec3 matrix(in vec2 st) {
-				vec2 ipos = floor(st * rows) + vec2(1.0, 0);
+				vec2 ipos = floor(st * u_rows) + vec2(1.0, 0);
 
-				ipos += vec2(0, floor(time * speed * random(ipos.x)));
+				ipos += vec2(0, floor(u_time * u_speed * random(ipos.x)));
 
-				vec2 fpos = fract(st * rows);
+				vec2 fpos = fract(st * u_rows);
 				vec2 center = 0.5 - fpos;
 
 				float pct = random(ipos);
@@ -100,6 +101,23 @@
 
 			void main() {
 				gl_FragColor = vec4(matrix(vUv), 1.0);
+			}
+		</script>
+		<script id="transparentFragmentShader" type="x-shader/x-fragment">
+			uniform float u_time;
+			uniform vec2 u_resolution;
+
+			varying vec2 vUv;
+
+			mat3 yuv2rgb = mat3(1.0, 0.0, 1.13983, 1.0, -0.39465, -0.58060, 1.0, 2.03211, 0.0);
+
+			void main() {
+				vec2 st = vUv * 2.0 - 1.0;
+				vec3 color = vec3(0.0);
+
+				color = yuv2rgb * vec3(0.5, st.x, st.y);
+
+				gl_FragColor = vec4(color, smoothstep(0.2, 0.8, distance(vec2(st.x, st.y), vec2(0.0))));
 			}
 		</script>
 		<script type="text/javascript">
@@ -126,7 +144,7 @@
 			renderer.shadowMap.enabled = true;
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(0, 0, 85);
+			camera.position.set(0, 0, 100);
 			scene.add(camera);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
@@ -139,42 +157,77 @@
 			scene.add(ptLight);
 
 			var uniforms = {
-				time: {type: "f", value: 0},
-				rows: {type: "f", value: 50.0},
-				speed: {type: "f", value: 4.0}
+				u_time: {type: "f", value: 0},
+				u_resolution: {type: "v2", value: new THREE.Vector2},
+				u_rows: {type: "f", value: 50.0},
+				u_speed: {type: "f", value: 4.0}
 			};
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
-				vertexShader: document.getElementById("cubeVertexShader").textContent,
-				fragmentShader: document.getElementById("cubeFragmentShader").textContent,
+				vertexShader: document.getElementById("staticVertexShader").textContent,
+				fragmentShader: document.getElementById("matrixFragmentShader").textContent,
 				side: THREE.DoubleSide
 			});
 			var objectGeometry = new THREE.BoxGeometry(75, 75, 75);
-			var object = new THREE.Mesh(objectGeometry, material);
-			scene.add(object);
+			var matrixCube = new THREE.Mesh(objectGeometry, material);
+			matrixCube.position.set(75, 0, 0);
+			scene.add(matrixCube);
+
+			material = new THREE.ShaderMaterial({
+				uniforms: uniforms,
+				vertexShader: document.getElementById("staticVertexShader").textContent,
+				fragmentShader: document.getElementById("transparentFragmentShader").textContent,
+				side: THREE.FrontSide,
+				transparent: true
+			});
+			var transparentCube = new THREE.Object3D();
+			var mesh = new THREE.Mesh(objectGeometry, material);
+			mesh.renderOrder = 2;
+			transparentCube.add(mesh);
+
+			material = new THREE.ShaderMaterial({
+				uniforms: uniforms,
+				vertexShader: document.getElementById("staticVertexShader").textContent,
+				fragmentShader: document.getElementById("transparentFragmentShader").textContent,
+				side: THREE.BackSide,
+				transparent: true
+			});
+			transparentCube.add(new THREE.Mesh(objectGeometry, material));
+			transparentCube.position.set(-75, 0, 0);
+			scene.add(transparentCube);
 
 			function setCamera(position) {
 				if(position) {
 					currentCamera = position;
 				}
 
-				var x = 0, y = 0, z = 0, uy = 0, uz = 0;
+				var x = 0, y = 0, z = 0,
+					uy = 0, uz = 0,
+					tx = 0, ty = 0, tz = 0;
 
 				$("#currentCamera").html(currentCamera);
 
 				switch(currentCamera) {
-					case "Overhead":
-						x = 0;
-						y = 0;
-						z = 250;
-						uy = 1;
+					case "Transparent":
+						x = -275;
+						y = -120;
+						z = 100;
+						uz = 1;
+						tx = -75;
 						break;
-					case "Side":
-					default:
-						x = 120;
+					case "Matrix":
+						x = 195;
 						y = -200;
 						z = 100;
 						uz = 1;
+						tx = 75;
+						break;
+					case "Overhead":
+					default:
+						x = 0;
+						y = 0;
+						z = 375;
+						uy = 1;
 						break;
 				}
 
@@ -183,7 +236,7 @@
 				z *= factor;
 
 				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
-				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
+				TweenLite.to(controls.target, 2, {x: tx, y: ty, z: tz, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
 				TweenLite.to(camera.up, 1.75, {x: 0, y: uy, z: uz});
 			}
 
@@ -191,11 +244,11 @@
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
 				controls.update();
-				uniforms.time.value += clock.getDelta() * 3;
+				uniforms.u_time.value += clock.getDelta() * 3;
 			}
 
 			render();
-			setTimeout(setCamera, 1000, "Side");
+			setTimeout(setCamera, 1000, "Overhead");
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
