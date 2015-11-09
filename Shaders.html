@@ -159,7 +159,7 @@
 			var uniforms = {
 				u_time: {type: "f", value: 0},
 				u_resolution: {type: "v2", value: new THREE.Vector2},
-				u_rows: {type: "f", value: 50.0},
+				u_rows: {type: "f", value: 40.0},
 				u_speed: {type: "f", value: 4.0}
 			};
 			var material = new THREE.ShaderMaterial({
@@ -209,15 +209,15 @@
 
 				switch(currentCamera) {
 					case "Transparent":
-						x = -275;
-						y = -120;
+						x = -250;
+						y = -150;
 						z = 100;
 						uz = 1;
 						tx = -75;
 						break;
 					case "Matrix":
-						x = 195;
-						y = -200;
+						x = 250;
+						y = -150;
 						z = 100;
 						uz = 1;
 						tx = 75;
@@ -254,13 +254,21 @@
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
-				factor = window.innerWidth < 768 ? 1.5 : 1;
+				factor = 1;
+				uniforms.u_rows.value = 40;
+				if(window.innerWidth < 768) {
+					factor = 1.5;
+					uniforms.u_rows.value = 20;
+				}
 			});
 
 			$(window).load(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+				if(window.innerWidth < 768) {
+					uniforms.u_rows.value = 20;
+				}
 			});
 		</script>
 	</body>
