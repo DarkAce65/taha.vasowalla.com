@@ -44,7 +44,7 @@
 					<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu pull-right">
-					<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
+					<li><a href="javascript:void(0)" onclick="setCamera('Overview')">Overview</a></li>
 					<li><a href="javascript:void(0)" onclick="setCamera('Transparent')">Transparent Cube</a></li>
 					<li><a href="javascript:void(0)" onclick="setCamera('Matrix')">Matrix Cube</a></li>
 				</ul>
@@ -131,7 +131,6 @@
 					window.setTimeout(callback, 1000 / 60);
 				};
 
-			var currentCamera = "Overhead";
 			var factor = window.innerWidth < 768 ? 1.5 : 1;
 
 			var clock = new THREE.Clock();
@@ -144,7 +143,7 @@
 			renderer.shadowMap.enabled = true;
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(0, 0, 100);
+			camera.position.set(0, 100, 0);
 			scene.add(camera);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
@@ -222,11 +221,11 @@
 						uz = 1;
 						tx = 75;
 						break;
-					case "Overhead":
+					case "Overview":
 					default:
 						x = 0;
-						y = 0;
-						z = 375;
+						y = -375;
+						z = 0;
 						uy = 1;
 						break;
 				}
@@ -248,7 +247,7 @@
 			}
 
 			render();
-			setTimeout(setCamera, 1000, "Overhead");
+			setTimeout(setCamera, 1000, "Overview");
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
