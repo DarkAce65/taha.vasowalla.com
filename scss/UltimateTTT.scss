@@ -1,5 +1,8 @@
+$red-color: #FF7B64;
+$blue-color: #647BFF;
+
 #ultimate td {
-    box-sizing: content-box;
+	box-sizing: content-box;
 }
 
 table {
@@ -47,24 +50,24 @@ table {
 }
 
 .Red:after {
-	background-color: #FF7B64;
+	background-color: $red-color;
 	width: 45px;
 	height: 45px;
 }
 
 .Blue:after {
-	background-color: #647BFF;
+	background-color: $blue-color;
 	width: 45px;
 	height: 45px;
 }
 
 table.Red {
-	background-color: #FFD7BF;
+	background-color: lighten($red-color, 17);
 	border-radius: 5px;
 }
 
 table.Blue {
-	background-color: #BFD7FF;
+	background-color: lighten($blue-color, 17);
 	border-radius: 5px;
 }
 
