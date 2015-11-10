@@ -211,13 +211,13 @@
 
 			$("#submitGuess").click(function() {
 				var guessedLetter = $("#guess").val().trim();
-				if(hangmanWord !== "" && guessedLetter !== "" && guessesLeft > 0) { // Check if a is word set, guess is not whitespace, and there are guesses left
+				if(hangmanWord !== "" && guessedLetter !== "" && guessesLeft > 0) { // Check if a word is set, guess is not whitespace, and there are guesses left
 					guess(guessedLetter.toUpperCase()); // Submit guess
 				}
 			});
 
 			$(".guess-xs").click(function() {
-				if(!$(this).is(".correct, .incorrect") && hangmanWord !== "" && guessesLeft > 0) { // Check if a is word set, guess is not whitespace, and there are guesses left
+				if(!$(this).is(".correct, .incorrect") && hangmanWord !== "" && guessesLeft > 0) { // Check if letter has not been guessed, a word is set, and there are guesses left
 					guess($(this).data("letter")); // Submit guess
 				}
 			});
