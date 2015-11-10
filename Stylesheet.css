@@ -996,21 +996,21 @@ body a:hover, body a:focus {
   }
 }
 #UTTTBody .Red:after {
-  background-color: #FFA38C;
+  background-color: #FF7B64;
   width: 45px;
   height: 45px;
 }
 #UTTTBody .Blue:after {
-  background-color: #8CA3FF;
+  background-color: #647BFF;
   width: 45px;
   height: 45px;
 }
 #UTTTBody table.Red {
-  background-color: #FFD7BF;
+  background-color: #ffc5bb;
   border-radius: 5px;
 }
 #UTTTBody table.Blue {
-  background-color: #BFD7FF;
+  background-color: #bbc5ff;
   border-radius: 5px;
 }
 #UTTTBody #ultimate > tbody > tr > td:nth-child(2) {
