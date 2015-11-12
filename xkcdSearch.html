@@ -10,7 +10,14 @@
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/jquery-unveil/jquery.unveil.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<style>
+			#output img {
+				opacity: 0;
+				transition: opacity .3s ease-in;
+			}
+		</style>
 	</head>
 	<body id="xkcdBody">
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +81,7 @@
 					alt[index] = data[i + 3];
 					transcript[index] = data[i + 4];
 				}
-				
+
 
 				$("#search").button("reset");
 				$("#searchInput").keypress(function(e) {
@@ -92,7 +99,13 @@
 
 				if(typeof i == "number" && i !== NaN && i < id.length) {
 					$("#error").addClass("hidden");
-					$("#output").append('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+					var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+					$("#output").append(comic);
+					comic.find("img").unveil(200, function() {
+						$(this).load(function() {
+							this.style.opacity = 1;
+						});
+					});
 				}
 				else if(query.length < 3) {
 					$("#error").removeClass("hidden");
@@ -114,7 +127,13 @@
 							}
 						}
 						if(found) {
-							$("#output").append('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+							var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+							$("#output").append(comic);
+							comic.find("img").unveil(200, function() {
+								$(this).load(function() {
+									this.style.opacity = 1;
+								});
+							});
 						}
 					}
 					if($("#output").html() == "") {
