@@ -403,7 +403,7 @@
 					analyser.getByteTimeDomainData(volumeData);
 					analyser.getByteFrequencyData(f);
 					draw(f);
-					if(audioCtx.currentTime - startTime + startOffset >= arrayBuffer.duration) {
+					if(playing && audioCtx.currentTime - startTime + startOffset >= arrayBuffer.duration) {
 						reset();
 					}
 				}
