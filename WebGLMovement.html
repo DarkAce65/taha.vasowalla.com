@@ -16,10 +16,33 @@
 			html, body {
 				overflow: hidden;
 			}
+
+			#controls {
+				position: absolute;
+				bottom: 5px;
+				right: 5px;
+				text-align: center;
+			}
+
+			#controls .btn {
+				margin: 2px;
+				padding: 6px;
+			}
+
+			#controls .btn:first-child {
+				display: block;
+				margin: 2px auto;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="rendererContainer"></div>
+		<div id="controls" class="visible-xs">
+			<button class="btn btn-default" onclick="move(0, 1)"><i class="fa fa-fw fa-arrow-up"></i></button>
+			<button class="btn btn-default" onclick="move(1, 0)"><i class="fa fa-fw fa-arrow-left"></i></button>
+			<button class="btn btn-default" onclick="move(0, -1)"><i class="fa fa-fw fa-arrow-down"></i></button>
+			<button class="btn btn-default" onclick="move(-1, 0)"><i class="fa fa-fw fa-arrow-right"></i></button>
+		</div>
 		<script type="text/javascript">
 			window.requestAnimFrame =
 				window.requestAnimationFrame ||
@@ -31,17 +54,17 @@
 					window.setTimeout(callback, 1000 / 60);
 				};
 
+			var timeline = new TimelineLite();
 			var scene = new THREE.Scene();
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setClearColor(0xD5DDFF);
 			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.shadowMap.enabled = true;
 
-			var width = window.innerWidth;
-			var height = window.innerHeight;
-			var camera = new THREE.OrthographicCamera(35, width / -2, width / 2, height / 2, height / -2, 0.1, 10000);
-			camera.position.set(0, 10, 0);
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+			camera.position.set(-9, 9, -16);
 			scene.add(camera);
 			//var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
@@ -92,13 +115,70 @@
 			ball.add(ballIndicator);
 			scene.add(ball);
 
+			function move(deltaX, deltaZ) {
+				if(timeline.isActive()) {
+					timeline.to(floorBoxes[newPos.x + 5][newPos.z + 5].position, 0.2, {y: -0.75}, timeline.time());
+					floorBoxes[newPos.x + 5][newPos.z + 5].material.color.r = 1;
+					newPos.x += deltaX;
+					newPos.z += deltaZ;
+					if(newPos.x <= 5 && newPos.x >= -5 && newPos.z <= 5 && newPos.z >= -5){
+						if(wallBoxes[newPos.x + 5][newPos.z + 5] != "empty") {
+							timeline.fromTo(wallBoxes[newPos.x + 5][newPos.z + 5].material.color, 1, {g: 0.32, b: 0.31}, {g: 1, b: 1}, timeline.time());
+							newPos.x -= deltaX;
+							newPos.z -= deltaZ;
+						}
+					}
+					newPos.clampScalar(-5, 5);
+					timeline.to(floorBoxes[newPos.x + 5][newPos.z + 5].position, 0.2, {y: -1}, timeline.time());
+					floorBoxes[newPos.x + 5][newPos.z + 5].material.color.r = 0.2;
+					timeline.to(ball.position, 0.2, {x: newPos.x, z: newPos.z}, timeline.time());
+				}
+				else {
+					prevPos = ball.position.round().clone();
+					newPos = prevPos.clone();
+					newPos.x += deltaX;
+					newPos.z += deltaZ;
+					if(newPos.x <= 5 && newPos.x >= -5 && newPos.z <= 5 && newPos.z >= -5){
+						if(wallBoxes[newPos.x + 5][newPos.z + 5] != "empty") {
+							timeline.fromTo(wallBoxes[newPos.x + 5][newPos.z + 5].material.color, 1, {g: 0.32, b: 0.31}, {g: 1, b: 1}, timeline.time());
+							newPos.x -= deltaX;
+							newPos.z -= deltaZ;
+						}
+					}
+					newPos.clampScalar(-5, 5);
+					timeline.to(floorBoxes[prevPos.x + 5][prevPos.z + 5].position, 0.2, {y: -0.75}, timeline.time());
+					floorBoxes[prevPos.x + 5][prevPos.z + 5].material.color.r = 1;
+					timeline.to(ball.position, 0.2, {x: newPos.x, z: newPos.z}, timeline.time());
+					timeline.to(floorBoxes[newPos.x + 5][newPos.z + 5].position, 0.2, {y: -1}, timeline.time());
+					floorBoxes[newPos.x + 5][newPos.z + 5].material.color.r = 0.2;
+				}
+			}
+
 			function render() {
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
 				//controls.update();
 			}
 
+			$(window).keydown(function(e) {
+				switch(e.which) {
+					case(37):
+						move(1, 0);
+						break;
+					case(38):
+						move(0, 1);
+						break;
+					case(39):
+						move(-1, 0);
+						break;
+					case(40):
+						move(0, -1);
+						break;
+				}
+			});
+
 			render();
+			move(0, 0);
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
