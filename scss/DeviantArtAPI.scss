@@ -23,15 +23,8 @@
 				color: $inv-accent-color;
 			}
 		}
-	}
 
-	.imageBackground {
-		overflow: hidden;
-		position: relative;
-		width: 100%;
-		background-color: #222222;
-
-		.artworkDate {
+		.artworkCategory {
 			position: absolute;
 			top: 0;
 			right: 0;
@@ -42,7 +35,18 @@
 			line-height: 1;
 			text-align: center;
 			background-color: rgba(#171717, 0.6);
+
+			&:empty {
+				display: none;
+			}
 		}
+	}
+
+	.imageBackground {
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+		background-color: #222222;
 
 		.loading {
 			position: absolute;

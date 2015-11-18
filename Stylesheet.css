@@ -559,13 +559,7 @@ body a:hover, body a:focus {
 #deviantArtBody #DAGallery .card:hover .artworkTitle {
   color: #EF5350;
 }
-#deviantArtBody #DAGallery .imageBackground {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  background-color: #222222;
-}
-#deviantArtBody #DAGallery .imageBackground .artworkDate {
+#deviantArtBody #DAGallery .card .artworkCategory {
   position: absolute;
   top: 0;
   right: 0;
@@ -576,6 +570,15 @@ body a:hover, body a:focus {
   line-height: 1;
   text-align: center;
   background-color: rgba(23, 23, 23, 0.6);
+}
+#deviantArtBody #DAGallery .card .artworkCategory:empty {
+  display: none;
+}
+#deviantArtBody #DAGallery .imageBackground {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-color: #222222;
 }
 #deviantArtBody #DAGallery .imageBackground .loading {
   position: absolute;
