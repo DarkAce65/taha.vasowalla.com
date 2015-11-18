@@ -21,23 +21,29 @@
 	<body>
 		<div id="rendererContainer"></div>
 		<script id="vertexShader" type="x-shader/x-vertex">
+			varying vec2 vUv;
+
 			void main() {
+				vUv = uv;
 				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
-			uniform sampler2D bg_map;
-
 			uniform float u_time;
 			uniform vec2 u_resolution;
 
-			void main() {
-				vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
-				st.x *= cos(u_time) + 1.0;
-				st.y *= sin(u_time) + 1.0;
+			uniform sampler2D u_bgMap;
 
-				gl_FragColor = vec4(st, 0.0, 1.0);
+			varying vec2 vUv;
+
+			void main() {
+				vec2 st = vUv;
+				vec4 tex = texture2D(u_bgMap, st);
+
+				vec3 color = tex.rgb;
+
+				gl_FragColor = vec4(color, 1.0);
 			}
 		</script>
 		<script type="text/javascript">
@@ -51,6 +57,7 @@
 					window.setTimeout(callback, 1000 / 60);
 				};
 
+			var loader = new THREE.TextureLoader();
 			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -65,12 +72,14 @@
 
 			var uniforms = {
 				u_time: {type: "f", value: 0},
-				u_resolution: {type: "v2", value: new THREE.Vector2()}
+				u_resolution: {type: "v2", value: new THREE.Vector2()},
+				u_bgMap: {type: "t", value: null}
 			};
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
 				vertexShader: document.getElementById("vertexShader").textContent,
 				fragmentShader: document.getElementById("fragmentShader").textContent,
+				transparent: true,
 				side: THREE.DoubleSide
 			});
 			var objectGeometry = new THREE.PlaneGeometry(2, 2);
@@ -83,6 +92,11 @@
 				uniforms.u_time.value += clock.getDelta();
 			}
 
+			loader.load("img/placeholder/Volcano.jpg", function(texture) {
+				uniforms.u_bgMap.value = texture;
+				uniforms.u_bgMap.value.wrapS = THREE.RepeatWrapping;
+				uniforms.u_bgMap.value.wrapT = THREE.RepeatWrapping;
+			});
 			render();
 
 			$(window).resize(function() {
