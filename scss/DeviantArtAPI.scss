@@ -23,23 +23,6 @@
 				color: $inv-accent-color;
 			}
 		}
-
-		.artworkCategory {
-			position: absolute;
-			top: 0;
-			right: 0;
-			min-width: 10px;
-			padding: 3px 7px;
-			font-size: 12px;
-			font-weight: 700;
-			line-height: 1;
-			text-align: center;
-			background-color: rgba(#171717, 0.6);
-
-			&:empty {
-				display: none;
-			}
-		}
 	}
 
 	.imageBackground {

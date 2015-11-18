@@ -559,21 +559,6 @@ body a:hover, body a:focus {
 #deviantArtBody #DAGallery .card:hover .artworkTitle {
   color: #EF5350;
 }
-#deviantArtBody #DAGallery .card .artworkCategory {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 10px;
-  padding: 3px 7px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  background-color: rgba(23, 23, 23, 0.6);
-}
-#deviantArtBody #DAGallery .card .artworkCategory:empty {
-  display: none;
-}
 #deviantArtBody #DAGallery .imageBackground {
   overflow: hidden;
   position: relative;
