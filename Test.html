@@ -20,22 +20,20 @@
 	</head>
 	<body>
 		<div id="rendererContainer"></div>
-		<script id="cubeVertexShader" type="x-shader/x-vertex">
-			varying vec2 vUv;
-
+		<script id="vertexShader" type="x-shader/x-vertex">
 			void main() {
-				vUv = uv;
 				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
-		<script id="cubeFragmentShader" type="x-shader/x-fragment">
-			uniform float u_time;
+		<script id="fragmentShader" type="x-shader/x-fragment">
+			uniform sampler2D bg_map;
 
-			varying vec2 vUv;
+			uniform float u_time;
+			uniform vec2 u_resolution;
 
 			void main() {
-				vec2 st = vUv;
+				vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
 				st.x *= cos(u_time) + 1.0;
 				st.y *= sin(u_time) + 1.0;
 
@@ -60,32 +58,28 @@
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setClearColor(0x000000);
 			renderer.setPixelRatio(window.devicePixelRatio);
-			renderer.shadowMap.enabled = true;
 
-			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			var factor = window.innerWidth < 768 ? 1.5 : 1;
-			camera.position.set(0, 0, 300 * factor);
+			var camera = new THREE.Camera();
+			camera.position.set(0, 0, 1);
 			scene.add(camera);
-			var controls = new THREE.TrackballControls(camera, renderer.domElement);
-			camera.lookAt(scene.position);
 
 			var uniforms = {
 				u_time: {type: "f", value: 0},
+				u_resolution: {type: "v2", value: new THREE.Vector2()}
 			};
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
-				vertexShader: document.getElementById("cubeVertexShader").textContent,
-				fragmentShader: document.getElementById("cubeFragmentShader").textContent,
+				vertexShader: document.getElementById("vertexShader").textContent,
+				fragmentShader: document.getElementById("fragmentShader").textContent,
 				side: THREE.DoubleSide
 			});
-			var objectGeometry = new THREE.BoxGeometry(75, 75, 75);
+			var objectGeometry = new THREE.PlaneGeometry(2, 2);
 			var object = new THREE.Mesh(objectGeometry, material);
 			scene.add(object);
 
 			function render() {
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
-				controls.update();
 				uniforms.u_time.value += clock.getDelta();
 			}
 
@@ -93,14 +87,14 @@
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+				uniforms.u_resolution.value.x = renderer.domElement.width;
+				uniforms.u_resolution.value.y = renderer.domElement.height;
 			});
 
 			$(window).load(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+				uniforms.u_resolution.value.x = renderer.domElement.width;
+				uniforms.u_resolution.value.y = renderer.domElement.height;
 			});
 		</script>
 	</body>
