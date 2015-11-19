@@ -39,7 +39,8 @@
 
 			void main() {
 				vec2 st = vUv;
-				vec4 tex = texture2D(u_bgMap, st);
+				float aspect = u_resolution.x / u_resolution.y / 2.0;
+				vec4 tex = texture2D(u_bgMap, st * vec2(aspect, 1.0));
 
 				vec3 color = tex.rgb;
 
