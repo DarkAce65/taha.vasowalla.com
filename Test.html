@@ -34,6 +34,8 @@
 			}
 		</script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
+			#define PI 3.14159265359
+
 			uniform float u_time;
 			uniform vec2 u_resolution;
 
@@ -42,10 +44,11 @@
 			varying vec2 vUv;
 
 			void main() {
-				vec2 st = vUv;
-				vec4 tex = texture2D(u_bgMap, vec2((atan(st.y, st.x) / 3.1415926 + 1.0) * 0.5, 0.5));
+				vec2 st = vUv * 2.0 - 1.0;
+				vec2 polar = vec2(length(st), atan(st.y / st.x));
+				vec4 tex = texture2D(u_bgMap, vec2(polar.r, sin(polar[1])));
 
-				vec3 color = tex.rgb;
+				vec3 color = tex.rgb * (1.0 - smoothstep(0.99, 1.0, polar.r));
 
 				gl_FragColor = vec4(color, 1.0);
 			}
@@ -91,7 +94,7 @@
 			scene.add(object);
 
 			function render() {
-				requestAnimFrame(render);
+				//requestAnimFrame(render);
 				renderer.render(scene, camera);
 				uniforms.u_time.value += clock.getDelta();
 			}
