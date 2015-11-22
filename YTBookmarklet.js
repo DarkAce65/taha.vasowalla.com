@@ -7,6 +7,7 @@ javascript:(function() {
 				styleTag.setAttribute("class", "youtubeBG");
 				document.getElementsByTagName("head")[0].appendChild(styleTag);
 				var cssSheet = styleTag.sheet ? styleTag.sheet : styleTag.styleSheet;
+				cssSheet.insertRule("#page{background: #222;}", 0);
 				cssSheet.insertRule('.yt-card:before{
 					visibility: visible;
 					content: "";
@@ -22,18 +23,15 @@ javascript:(function() {
 				cssSheet.insertRule(".yt-card{position: relative;}", 0);
 				cssSheet.insertRule(".video-list .video-list-item .stat{color: #333;}", 0);
 				cssSheet.insertRule(".yt-ui-ellipsis{background: transparent;}", 0);
-				cssSheet.insertRule(".watch-title{font-variant: small-caps; letter-spacing: 3px;}", 0);
 				var hq = 'url("https://i.ytimg.com/vi/' + vId + '/hqdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
 				var maxres = 'url("https://i.ytimg.com/vi/' + vId + '/maxresdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
 				var img = new Image();
 				img.src = 'https://i.ytimg.com/vi/' + vId + '/maxresdefault.jpg';
 				img.onload = function() {
 					if(img.width + "x" + img.height == "120x90") {
-						cssSheet.insertRule("#page{background: " + hq + "}", 0);
 						cssSheet.insertRule(".yt-card:before{background: " + hq + "}", 0);
 					}
 					else {
-						cssSheet.insertRule("#page{background: " + maxres + "}", 0);
 						cssSheet.insertRule(".yt-card:before{background: " + maxres + "}", 0);
 					}
 					if(document.querySelector(".youtubeBG") && document.querySelector(".youtubeBG") != styleTag) {

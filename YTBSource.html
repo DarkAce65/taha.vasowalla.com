@@ -19,6 +19,7 @@
                 styleTag.setAttribute("class", "youtubeBG");
                 document.getElementsByTagName("head")[0].appendChild(styleTag);
                 var cssSheet = styleTag.sheet ? styleTag.sheet : styleTag.styleSheet;
+                cssSheet.insertRule("#page{background: #222;}", 0);
                 cssSheet.insertRule('.yt-card:before {
                     visibility: visible;
                     content: "";
@@ -35,10 +36,6 @@
                 cssSheet.insertRule(".yt-card {position: relative;}", 0);
                 cssSheet.insertRule(".video-list .video-list-item .stat {color: #333;}", 0);
                 cssSheet.insertRule(".yt-ui-ellipsis {background: transparent;}", 0);
-				cssSheet.insertRule(".watch-title {
-					font-variant: small-caps;
-					letter-spacing: 3px;
-				}", 0);
 
                 /* YouTube uses two sizes for high quality thumbnails */
                 var hq = 'url("https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg") no-repeat fixed 50% 50% / cover transparent';
@@ -47,11 +44,9 @@
                 img.src = 'https://i.ytimg.com/vi/' + videoId + '/maxresdefault.jpg';
                 img.onload = function() {
                     if(img.width + "x" + img.height == "120x90") { // Check which thumbnail exists
-                        cssSheet.insertRule("#page{background: " + hq + "}", 0);
                         cssSheet.insertRule(".yt-card:before{background: " + hq + "}", 0);
                     }
                     else {
-                        cssSheet.insertRule("#page{background: " + maxres + "}", 0);
                         cssSheet.insertRule(".yt-card:before{background: " + maxres + "}", 0);
                     }
                     if(document.querySelector(".youtubeBG") && document.querySelector(".youtubeBG") != styleTag) {
