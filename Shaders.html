@@ -193,17 +193,11 @@
 			scene.add(transparentCube);
 
 			function setCamera(position) {
-				if(position) {
-					currentCamera = position;
-				}
-
 				var x = 0, y = 0, z = 0,
 					uy = 0, uz = 0,
 					tx = 0, ty = 0, tz = 0;
 
-				$("#currentCamera").html(currentCamera);
-
-				switch(currentCamera) {
+				switch(position) {
 					case "Transparent":
 						x = -250;
 						y = -150;
