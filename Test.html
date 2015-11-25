@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.js"></script>
 		<script src="GSAP/TweenMax.min.js"></script>
 		<script src="TrackballControls.js"></script>
@@ -20,16 +21,50 @@
 				padding: 0;
 				overflow: hidden;
 			}
+
+			#controls {
+				position: fixed;
+				top: 5px;
+				right: 5px;
+				text-align: right;
+			}
+
+			.dropdown-menu > li > a, .dropdown-menu {
+				background-color: #d9534f;
+				color: white;
+			}
+
+			.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+				background-color: #c9302c;
+				color: white;
+				text-decoration: none;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="controls">
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right">
+					<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
+				</ul>
+			</div>
+		</div>
 		<div id="rendererContainer"></div>
 		<script id="vertexShader" type="x-shader/x-vertex">
+			uniform float u_time;
+
 			varying vec2 vUv;
+
+			float random(vec2 st) {
+				return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+			}
 
 			void main() {
 				vUv = uv;
-				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+				vec4 mvPosition = modelViewMatrix * vec4(position * random(position.xy), 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
@@ -39,16 +74,12 @@
 			uniform float u_time;
 			uniform vec2 u_resolution;
 
-			uniform sampler2D u_bgMap;
-
 			varying vec2 vUv;
 
 			void main() {
-				vec2 st = vUv * 2.0 - 1.0;
-				vec2 polar = vec2(length(st), atan(st.y / st.x));
-				vec4 tex = texture2D(u_bgMap, vec2(polar.r, sin(polar[1])));
+				vec2 st = vUv;
 
-				vec3 color = tex.rgb * (1.0 - smoothstep(0.99, 1.0, polar.r));
+				vec3 color = vec3(vUv, 0);
 
 				gl_FragColor = vec4(color, 1.0);
 			}
@@ -64,7 +95,8 @@
 					window.setTimeout(callback, 1000 / 60);
 				};
 
-			var loader = new THREE.TextureLoader();
+			var factor = window.innerWidth < 768 ? 1.5 : 1;
+
 			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -73,14 +105,15 @@
 			renderer.setClearColor(0x000000);
 			renderer.setPixelRatio(window.devicePixelRatio);
 
-			var camera = new THREE.Camera();
-			camera.position.set(0, 0, 1);
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+			camera.position.set(0, 0, 375);
 			scene.add(camera);
+			var controls = new THREE.TrackballControls(camera, renderer.domElement);
+			camera.lookAt(scene.position);
 
 			var uniforms = {
 				u_time: {type: "f", value: 0},
-				u_resolution: {type: "v2", value: new THREE.Vector2()},
-				u_bgMap: {type: "t", value: null}
+				u_resolution: {type: "v2", value: new THREE.Vector2()}
 			};
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
@@ -89,33 +122,54 @@
 				transparent: true,
 				side: THREE.DoubleSide
 			});
-			var objectGeometry = new THREE.PlaneGeometry(2, 2);
+			var objectGeometry = new THREE.SphereGeometry(75, 32, 32);
 			var object = new THREE.Mesh(objectGeometry, material);
 			scene.add(object);
 
-			function render() {
-				//requestAnimFrame(render);
-				renderer.render(scene, camera);
-				uniforms.u_time.value += clock.getDelta();
+			function setCamera(position) {
+				var x = 0, y = 0, z = 0,
+					uy = 0, uz = 0,
+					tx = 0, ty = 0, tz = 0;
+
+				switch(position) {
+					case "Overhead":
+					default:
+						x = 0;
+						y = 0;
+						z = 375;
+						uy = 1;
+						break;
+				}
+
+				x *= factor;
+				y *= factor;
+				z *= factor;
+
+				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
+				TweenLite.to(controls.target, 2, {x: tx, y: ty, z: tz, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
+				TweenLite.to(camera.up, 1.75, {x: 0, y: uy, z: uz});
 			}
 
-			loader.load("img/placeholder/Volcano.jpg", function(texture) {
-				uniforms.u_bgMap.value = texture;
-				uniforms.u_bgMap.value.wrapS = THREE.RepeatWrapping;
-				uniforms.u_bgMap.value.wrapT = THREE.RepeatWrapping;
-			});
+			function render() {
+				requestAnimFrame(render);
+				renderer.render(scene, camera);
+				controls.update();
+				uniforms.u_time.value += clock.getDelta() * 3;
+			}
+
 			render();
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
-				uniforms.u_resolution.value.x = renderer.domElement.width;
-				uniforms.u_resolution.value.y = renderer.domElement.height;
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				factor = 1;
 			});
 
 			$(window).load(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
-				uniforms.u_resolution.value.x = renderer.domElement.width;
-				uniforms.u_resolution.value.y = renderer.domElement.height;
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
 			});
 		</script>
 	</body>
