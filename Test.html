@@ -56,17 +56,12 @@
 		<script id="vertexShader" type="x-shader/x-vertex">
 			uniform float u_time;
 
-			varying float displacement;
 			varying vec2 vUv;
-
-			float random(vec2 st) {
-				return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
-			}
 
 			void main() {
 				vUv = uv;
-				displacement = 1.0 - random(position.xy) * sin(u_time / 2.0);
-				vec4 mvPosition = modelViewMatrix * vec4(position * displacement, 1.0);
+
+				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
@@ -75,15 +70,30 @@
 
 			uniform float u_time;
 			uniform vec2 u_resolution;
+			uniform sampler2D u_textureMap;
+			uniform float u_textureRatio;
 
-			varying float displacement;
 			varying vec2 vUv;
+
+			vec2 scaleTexture(vec2 texCoord) {
+				float ratio = u_resolution.x / u_resolution.y;
+				vec2 scale = vec2(1.0, 1.0);
+				float ratioDelta = ratio - u_textureRatio;
+				if(ratioDelta >= 0.0) {
+					scale.y = 1.0 + ratioDelta;
+				}
+				else {
+					scale.x = 1.0 - ratioDelta;
+				}
+
+				return texCoord / scale;
+			}
 
 			void main() {
 				vec2 st = vUv;
-				vec3 color = vec3(vUv, displacement - 0.5);
+				st = scaleTexture(st);
 
-				gl_FragColor = vec4(color, 1.0);
+				gl_FragColor = texture2D(u_textureMap, st);
 			}
 		</script>
 		<script type="text/javascript">
@@ -99,6 +109,7 @@
 
 			var factor = window.innerWidth < 768 ? 1.5 : 1;
 
+			var loader = new THREE.TextureLoader();
 			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -115,7 +126,9 @@
 
 			var uniforms = {
 				u_time: {type: "f", value: 0},
-				u_resolution: {type: "v2", value: new THREE.Vector2()}
+				u_resolution: {type: "v2", value: new THREE.Vector2(150, 150)},
+				u_textureMap: {type: "t", value: null},
+				u_textureRatio: {type: "f", value: 1.0}
 			};
 			var material = new THREE.ShaderMaterial({
 				uniforms: uniforms,
@@ -124,7 +137,7 @@
 				transparent: true,
 				side: THREE.DoubleSide
 			});
-			var objectGeometry = new THREE.SphereGeometry(75, 32, 32);
+			var objectGeometry = new THREE.PlaneGeometry(150, 150);
 			var object = new THREE.Mesh(objectGeometry, material);
 			scene.add(object);
 
@@ -159,7 +172,13 @@
 				uniforms.u_time.value += clock.getDelta() * 3;
 			}
 
-			render();
+			loader.load("img/textures/brick.jpg", function(texture) {
+				uniforms.u_textureRatio.value = texture.image.width / texture.image.height;
+				uniforms.u_textureMap.value = texture;
+				uniforms.u_textureMap.value.wrapS = THREE.RepeatWrapping;
+				uniforms.u_textureMap.value.wrapT = THREE.RepeatWrapping;
+				render();
+			});
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
