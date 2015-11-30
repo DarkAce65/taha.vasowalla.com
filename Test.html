@@ -8,11 +8,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="toastr.min.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.js"></script>
 		<script src="GSAP/TweenMax.min.js"></script>
 		<script src="TrackballControls.js"></script>
+		<script src="toastr.min.js"></script>
 		<style type="text/css">
 			html, body {
 				width: 100%;
@@ -115,7 +117,7 @@
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0x000000);
+			renderer.setClearColor(0xD5DDFF);
 			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
@@ -134,7 +136,6 @@
 				uniforms: uniforms,
 				vertexShader: document.getElementById("vertexShader").textContent,
 				fragmentShader: document.getElementById("fragmentShader").textContent,
-				transparent: true,
 				side: THREE.DoubleSide
 			});
 			var objectGeometry = new THREE.PlaneGeometry(150, 150);
@@ -177,8 +178,14 @@
 				uniforms.u_textureMap.value = texture;
 				uniforms.u_textureMap.value.wrapS = THREE.RepeatWrapping;
 				uniforms.u_textureMap.value.wrapT = THREE.RepeatWrapping;
-				render();
+				toastr.clear(lastToast);
 			});
+
+			toastr.options = {"positionClass": "toast-bottom-right", "showMethod": "slideDown", "hideMethod": "slideUp", "tapToDismiss": false};
+			toastr.options.timeOut = 0;
+			toastr.options.extendedTimeOut = 0;
+			lastToast = toastr.info("Loading textures...");
+			render();
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
