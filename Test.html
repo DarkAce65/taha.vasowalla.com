@@ -91,7 +91,7 @@
 				return texCoord / scale;
 			}
 
-			vec3 makeNormalMap(in vec2 st) {
+			vec2 makeNormalMap(in vec2 st) {
 				st -= 0.5;
 				st *= mat2(
 					0.0, 1.0,
@@ -99,20 +99,24 @@
 				);
 				st += 0.5;
 
-				vec3 norm = vec3(st, 0.0);
+				vec2 norm = st;
 
 				norm.x = mix(norm.x, 0.5, smoothstep(0.68, 0.82, st.x));
 				norm.y = mix(norm.y, 0.5, smoothstep(0.68, 0.82, st.x));
 
-				return norm.yxz;
+				norm -= 0.5;
+
+				return norm.yx;
 			}
 
 			void main() {
 				vec2 st = vUv;
-				vec3 norm = makeNormalMap(st);
+				vec2 norm = makeNormalMap(st);
 				norm.y *= -1.0;
 
-				gl_FragColor = texture2D(u_textureMap, norm.xy);
+				vec2 pos = vec2(0.5 * (1.0 + norm.x), 0.5 * (1.0 + norm.y));
+
+				gl_FragColor = texture2D(u_textureMap, pos);
 			}
 		</script>
 		<script type="text/javascript">
