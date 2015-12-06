@@ -91,11 +91,28 @@
 				return texCoord / scale;
 			}
 
+			vec3 makeNormalMap(in vec2 st) {
+				st -= 0.5;
+				st *= mat2(
+					0.0, 1.0,
+					-1.0, 0.0
+				);
+				st += 0.5;
+
+				vec3 norm = vec3(st, 0.0);
+
+				norm.x = mix(norm.x, 0.5, smoothstep(0.68, 0.82, st.x));
+				norm.y = mix(norm.y, 0.5, smoothstep(0.68, 0.82, st.x));
+
+				return norm.yxz;
+			}
+
 			void main() {
 				vec2 st = vUv;
-				st = scaleTexture(st);
+				vec3 norm = makeNormalMap(st);
+				norm.y *= -1.0;
 
-				gl_FragColor = texture2D(u_textureMap, st);
+				gl_FragColor = texture2D(u_textureMap, norm.xy);
 			}
 		</script>
 		<script type="text/javascript">
@@ -173,7 +190,7 @@
 				uniforms.u_time.value += clock.getDelta() * 3;
 			}
 
-			loader.load("img/textures/brick.jpg", function(texture) {
+			loader.load("img/textures/texture-rain-fg.png", function(texture) {
 				uniforms.u_textureRatio.value = texture.image.width / texture.image.height;
 				uniforms.u_textureMap.value = texture;
 				uniforms.u_textureMap.value.wrapS = THREE.RepeatWrapping;
