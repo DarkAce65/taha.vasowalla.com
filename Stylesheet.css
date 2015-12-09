@@ -60,10 +60,10 @@ body ::selection {
   color: whitesmoke;
 }
 body a {
-  color: #ff5a00;
+  color: darkorange;
 }
 body a:hover, body a:focus {
-  color: darkorange;
+  color: #ff6200;
 }
 
 #body404 {
@@ -136,7 +136,7 @@ body a:hover, body a:focus {
   background-color: whitesmoke;
   text-align: center;
   font-variant: small-caps;
-  border-top: 3px solid orange;
+  border-top: 3px solid darkorange;
 }
 .footer .nav *, .footer-inverse .nav * {
   color: #757575;
@@ -786,16 +786,16 @@ body a:hover, body a:focus {
   cursor: pointer;
   overflow: hidden;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 165, 0, 0.5);
+  border: 1px solid rgba(255, 140, 0, 0.5);
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
 #origamiBody .card:hover {
-  border-color: orange;
+  border-color: darkorange;
 }
 #origamiBody .card:hover .imageTitle {
-  color: orange;
+  color: darkorange;
 }
 #origamiBody .info {
   text-align: right;

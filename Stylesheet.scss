@@ -2,8 +2,8 @@
 
 $light-color: whitesmoke;
 $dark-color: #333;
-$accent-color: orange;
-$dark-accent-color: darkorange;
+$accent-color: darkorange;
+$dark-accent-color: adjust_hue($accent-color, 350);
 $inv-accent-color: #EF5350;
 $dark-inv-accent-color: darken($inv-accent-color, 13);
 $main-accent-color: #43DBE8;
@@ -40,7 +40,7 @@ body {
 	}
 
 	a {
-		color: rgb(255, 90, 0);
+		color: $accent-color;
 	}
 
 	a:hover, a:focus {
