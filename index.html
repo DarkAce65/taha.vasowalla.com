@@ -229,6 +229,14 @@
 			var activeSubMenu = "";
 			var resizeTimeout;
 
+			function toggleMainMenu() {
+				var rev = sliderTimeline.reversed();
+				if(rev) {
+					TweenLite.to(window, 0.3, {scrollTo: {y: 0}, delay: 0.3});
+				}
+				sliderTimeline.reversed(!rev);
+			}
+
 			function openSubMenu(subMenu) {
 				activeSubMenu = subMenu;
 				menuTimeline.clear();
@@ -271,12 +279,7 @@
 			sliderTimeline.to(".row-offcanvas", 0.3, {right: "83%"}, 0);
 			sliderTimeline.reversed(true);
 
-			$("button[data-toggle='offcanvas']").click(function() {
-				if(sliderTimeline.reversed()) {
-					TweenLite.to(window, 0.3, {scrollTo: {y: 0}, delay: 0.3});
-				}
-				sliderTimeline.reversed(!sliderTimeline.reversed());
-			});
+			$("button[data-toggle='offcanvas']").click(toggleMainMenu);
 
 			$(window).resize(function() {
 				clearTimeout(resizeTimeout);
