@@ -1,0 +1,14 @@
+body ::-moz-selection {
+  background-color: #333;
+  color: whitesmoke;
+}
+body ::selection {
+  background-color: #333;
+  color: whitesmoke;
+}
+body a {
+  color: #13949f;
+  font-weight: 400;
+}
+
+/*# sourceMappingURL=index.css.map */

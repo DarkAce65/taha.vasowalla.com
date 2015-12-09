@@ -23,19 +23,6 @@ html, body {
 body {
 	min-height: 100%;
 	position: relative;
-
-	@include selection {
-		background-color: $dark-color;
-		color: $light-color;
-	}
-
-	a {
-		color: $accent-color;
-	}
-
-	a:hover, a:focus {
-		color: $alt-accent-color;
-	}
 }
 
 #body404 {
@@ -173,7 +160,7 @@ body {
 		width: 100%;
 
 		.fa-angle-left, .fa-angle-right {
-			color: $main-accent-color;
+			color: $index-accent-color;
 		}
 
 		.fa-angle-left {
@@ -201,14 +188,14 @@ body {
 	.list-group-item-divider {
 		font-weight: bold;
 		color: white;
-		background-color: $main-accent-color;
+		background-color: $index-accent-color;
 	}
 
 	a.list-group-item, button.list-group-item {
 		box-shadow: inset 2px 0px 0px 0px transparent;
 
 		&:hover {
-			box-shadow: inset 2px 0px 0px 0px $main-accent-color;
+			box-shadow: inset 2px 0px 0px 0px $index-accent-color;
 		}
 
 		span {

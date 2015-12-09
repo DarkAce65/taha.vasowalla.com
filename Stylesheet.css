@@ -1,7 +1,5 @@
 /* Fonts */
-@import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900");
-@import url("http://fonts.googleapis.com/css?family=Quicksand");
-@import url("http://fonts.googleapis.com/css?family=Raleway:500");
+@import url("http://fonts.googleapis.com/css?family=Lato:300,400,700|Quicksand|Raleway");
 @font-face {
   font-family: "CameraIcons";
   src: url("fonts/camera-icons.eot");
@@ -50,20 +48,6 @@ html, body {
 body {
   min-height: 100%;
   position: relative;
-}
-body ::-moz-selection {
-  background-color: #333;
-  color: whitesmoke;
-}
-body ::selection {
-  background-color: #333;
-  color: whitesmoke;
-}
-body a {
-  color: darkorange;
-}
-body a:hover, body a:focus {
-  color: #ff6200;
 }
 
 #body404 {
@@ -203,7 +187,7 @@ body a:hover, body a:focus {
   width: 100%;
 }
 .menuContainer .linkList .fa-angle-left, .menuContainer .linkList .fa-angle-right {
-  color: #43DBE8;
+  color: #13949f;
 }
 .menuContainer .linkList .fa-angle-left {
   text-align: left;
@@ -226,13 +210,13 @@ body a:hover, body a:focus {
 .linkList .list-group-item-divider {
   font-weight: bold;
   color: white;
-  background-color: #19c1cf;
+  background-color: #13949f;
 }
 .linkList a.list-group-item, .linkList button.list-group-item {
   box-shadow: inset 2px 0px 0px 0px transparent;
 }
 .linkList a.list-group-item:hover, .linkList button.list-group-item:hover {
-  box-shadow: inset 2px 0px 0px 0px #43DBE8;
+  box-shadow: inset 2px 0px 0px 0px #13949f;
 }
 .linkList a.list-group-item span, .linkList button.list-group-item span {
   line-height: 24px;

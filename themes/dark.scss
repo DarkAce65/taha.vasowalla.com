@@ -1,0 +1,20 @@
+@import "../bourbon/bourbon";
+@import "../scss/Colors";
+
+body {
+	color: white;
+	background: url("img/DarkBG.png") no-repeat fixed 50% 50% / cover #2F2F2F;
+
+	@include selection {
+		background-color: $light-color;
+		color: $dark-color;
+	}
+
+	a {
+		color: $inv-accent-color;
+	}
+
+	a:hover, a:focus {
+		color: $alt-inv-accent-color;
+	}
+}

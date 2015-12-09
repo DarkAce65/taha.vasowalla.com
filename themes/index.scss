@@ -1,0 +1,14 @@
+@import "../bourbon/bourbon";
+@import "../scss/Colors";
+
+body {
+	@include selection {
+		background-color: $dark-color;
+		color: $light-color;
+	}
+
+	a {
+		color: $index-accent-color;
+		font-weight: 400;
+	}
+}

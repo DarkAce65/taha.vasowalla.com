@@ -1,0 +1,16 @@
+body ::-moz-selection {
+  background-color: #333;
+  color: whitesmoke;
+}
+body ::selection {
+  background-color: #333;
+  color: whitesmoke;
+}
+body a {
+  color: darkorange;
+}
+body a:hover, body a:focus {
+  color: #ff6200;
+}
+
+/*# sourceMappingURL=light.css.map */

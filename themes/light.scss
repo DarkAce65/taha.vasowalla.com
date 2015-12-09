@@ -1,0 +1,17 @@
+@import "../bourbon/bourbon";
+@import "../scss/Colors";
+
+body {
+	@include selection {
+		background-color: $dark-color;
+		color: $light-color;
+	}
+
+	a {
+		color: $accent-color;
+	}
+
+	a:hover, a:focus {
+		color: $alt-accent-color;
+	}
+}
