@@ -1,0 +1,7 @@
+$light-color: whitesmoke;
+$dark-color: #333;
+$main-accent-color: #13949f;
+$accent-color: darkorange;
+$alt-accent-color: adjust_hue($accent-color, 350);
+$inv-accent-color: #EF5350;
+$alt-inv-accent-color: darken($inv-accent-color, 13);

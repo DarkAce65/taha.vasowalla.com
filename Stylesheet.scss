@@ -1,13 +1,6 @@
 @import "bourbon/bourbon";
 
-$light-color: whitesmoke;
-$dark-color: #333;
-$accent-color: darkorange;
-$dark-accent-color: adjust_hue($accent-color, 350);
-$inv-accent-color: #EF5350;
-$dark-inv-accent-color: darken($inv-accent-color, 13);
-$main-accent-color: #43DBE8;
-$dark-main-accent-color: darken($main-accent-color, 13);
+@import "scss/Colors";
 
 /* Fonts */
 
@@ -44,7 +37,7 @@ body {
 	}
 
 	a:hover, a:focus {
-		color: $dark-accent-color;
+		color: $alt-accent-color;
 	}
 }
 
@@ -211,7 +204,7 @@ body {
 	.list-group-item-divider {
 		font-weight: bold;
 		color: white;
-		background-color: $dark-main-accent-color;
+		background-color: $main-accent-color;
 	}
 
 	a.list-group-item, button.list-group-item {
