@@ -1,1 +1,0 @@
-sass --style expanded Stylesheet.scss Stylesheet.css
