@@ -15,3 +15,33 @@ body {
 		color: $alt-accent-color;
 	}
 }
+
+.footer {
+	display: none;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	padding: 20px 0;
+	background-color: $light-color;
+	text-align: center;
+	font-variant: small-caps;
+	border-top: 3px solid $accent-color;
+
+	.nav * {
+		color: lighten($dark-color, 26);
+		margin: 0 3px;
+		text-decoration: none;
+	}
+
+	.nav a:hover {
+		color: #5E5E5E;
+	}
+}
+
+
+@media screen and (max-width: 767px) {
+	.footer {
+		display: block;
+	}
+}

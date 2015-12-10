@@ -116,35 +116,6 @@ body {
   padding-top: 70px;
 }
 
-.footer, .footer-inverse {
-  display: none;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  padding: 20px 0;
-  background-color: whitesmoke;
-  text-align: center;
-  font-variant: small-caps;
-  border-top: 3px solid darkorange;
-}
-.footer .nav *, .footer-inverse .nav * {
-  color: #757575;
-  margin: 0 3px;
-  text-decoration: none;
-}
-.footer .nav a:hover, .footer-inverse .nav a:hover {
-  color: #5E5E5E;
-}
-
-.footer-inverse {
-  background-color: #333;
-  border-top: 3px solid #EF5350;
-}
-.footer-inverse .nav a:hover {
-  color: white;
-}
-
 #toast-container > div, #toast-container > div:hover {
   box-shadow: none;
 }
@@ -1112,10 +1083,6 @@ body {
 }
 
 @media screen and (max-width: 767px) {
-  .footer, .footer-inverse {
-    display: block;
-  }
-
   .jumbotron {
     padding-right: 30px;
     padding-left: 30px;

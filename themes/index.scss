@@ -12,3 +12,33 @@ body {
 		font-weight: 400;
 	}
 }
+
+.footer {
+	display: none;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	padding: 20px 0;
+	background-color: $dark-color;
+	text-align: center;
+	font-variant: small-caps;
+	border-top: 3px solid $index-accent-color;
+
+	.nav * {
+		color: lighten($dark-color, 26);
+		margin: 0 3px;
+		text-decoration: none;
+	}
+
+	.nav a:hover {
+		color: white;
+	}
+}
+
+
+@media screen and (max-width: 767px) {
+	.footer {
+		display: block;
+	}
+}
