@@ -1,0 +1,10 @@
+[
+	{
+		"title": "Design rework",
+		"descriptions": ["New home page color scheme and layout", "Dedicated light and dark themes"]
+	},
+	{
+		"title": "Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
+		"descriptions": ["Experimenting with mathematical art"]
+	}
+]

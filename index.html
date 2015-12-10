@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<link rel="stylesheet" type="text/css" href="themes/index.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="GSAP/TweenMax.min.js"></script>
@@ -47,11 +48,13 @@
 		<div class="fixedNav content container">
 			<div class="row row-offcanvas">
 				<div class="col-xs-12 col-sm-8 col-md-9">
+					<img src="img/SiteHeader.jpg" class="banner">
 					<div class="jumbotron">
-						<img src="img/SiteHeader.jpg" class="thumbnail" style="max-width: 100%;">
-						<h1 class="Lato">Welcome to my website.</h1>
-						<p class="lead">I made this site mainly for experimenting with web development and to create a place to upload my work.</p>
-						<p class="lead"><span class="label" style="background-color: #13949f;">What's new</span> Experimenting with the visual effects of <a href="Shaders.html">shaders</a></p>
+						<p class="lead">I made this site mainly for experimenting with web development and to create a place to host my projects.</p>
+						<div id="new">
+							<h3 style="color: #13949F;">What's new</h3>
+							<hr>
+						</div>
 					</div>
 				</div>
 				<div class="col-xs-9 col-sm-4 col-md-3 sidebar-offcanvas hidden-xs">
@@ -279,6 +282,18 @@
 
 			sliderTimeline.to(".row-offcanvas", 0.3, {right: "83%"}, 0);
 			sliderTimeline.reversed(true);
+
+			$.getJSON("siteUpdates.json", function(data) {
+				for(var i = 0; i < data.length; i++) {
+					var item = data[i];
+					var el = "<blockquote>" + item.title;
+					for(var j = 0; j < item.descriptions.length; j++) {
+						el += "<footer>" + item.descriptions[j] + "</footer>";
+					}
+					el += "</blockquote>";
+					$("#new").append(el);
+				}
+			});
 
 			$("button[data-toggle='offcanvas']").click(toggleMainMenu);
 

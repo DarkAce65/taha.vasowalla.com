@@ -74,6 +74,12 @@ body {
   font-weight: normal;
 }
 
+.banner {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
 .page-header p, .Quicksand {
   font-family: "Quicksand", cursive;
 }
@@ -92,8 +98,8 @@ body {
   filter: blur(10px);
 }
 
-.jumbotron p {
-  font-weight: 300;
+.jumbotron blockquote, .jumbotron hr {
+  border-color: #ccc;
 }
 
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
