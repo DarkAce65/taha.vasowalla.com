@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="bower_components/photoswipe/dist/photoswipe.css"/>
 		<link rel="stylesheet" type="text/css" href="bower_components/photoswipe/dist/default-skin/default-skin.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<link rel="stylesheet" type="text/css" href="themes/light.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/photoswipe/dist/photoswipe.min.js"></script>
@@ -218,17 +219,17 @@
 
 			var gallery;
 			var photoswipeData = [
-				{src: "img/origami/PHiZZDodecahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Dodecahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 30 PHiZZ Units</span></div>'}, 
-				{src: "img/origami/PHiZZTruncatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Truncated Icosahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 90 PHiZZ Units</span></div>'}, 
-				{src: "img/origami/PHiZZTorus.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Torus</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 360 PHiZZ Units</span></div>'}, 
-				{src: "img/origami/SonobeCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Cube</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 6 Sonobe Units</span></div>'}, 
-				{src: "img/origami/SonobeStellatedOctahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Octahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 12 Sonobe Units</span></div>'}, 
-				{src: "img/origami/SonobeStellatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Icosahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 30 Sonobe Units</span></div>'}, 
-				{src: "img/origami/WhirlCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Whirl Cube</span><span class="subtitle">Designed by Meenakshi Mukerji</span><span class="subtitle">Made from 24 Units</span></div>'}, 
-				{src: "img/origami/Convertible_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'}, 
-				{src: "img/origami/Convertible_(Back).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'}, 
-				{src: "img/origami/Name_(Top).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'}, 
-				{src: "img/origami/Name_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'}, 
+				{src: "img/origami/PHiZZDodecahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Dodecahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 30 PHiZZ Units</span></div>'},
+				{src: "img/origami/PHiZZTruncatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Truncated Icosahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 90 PHiZZ Units</span></div>'},
+				{src: "img/origami/PHiZZTorus.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Torus</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 360 PHiZZ Units</span></div>'},
+				{src: "img/origami/SonobeCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Cube</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 6 Sonobe Units</span></div>'},
+				{src: "img/origami/SonobeStellatedOctahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Octahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 12 Sonobe Units</span></div>'},
+				{src: "img/origami/SonobeStellatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Icosahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 30 Sonobe Units</span></div>'},
+				{src: "img/origami/WhirlCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Whirl Cube</span><span class="subtitle">Designed by Meenakshi Mukerji</span><span class="subtitle">Made from 24 Units</span></div>'},
+				{src: "img/origami/Convertible_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'},
+				{src: "img/origami/Convertible_(Back).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'},
+				{src: "img/origami/Name_(Top).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'},
+				{src: "img/origami/Name_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'},
 				{src: "img/origami/Tanks.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Tanks</span><span class="subtitle">Designed by Jo Nakashima</span><span class="subtitle">Two pieces of paper per tank</span></div>'}
 			];
 
