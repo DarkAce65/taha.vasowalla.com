@@ -64,7 +64,7 @@
 			$.getJSON("siteUpdates.json", function(data) {
 				for(var i = 0; i < data.length; i++) {
 					var item = data[i];
-					var el = '<blockquote><div style="font-size: 80%;"><label class="label label-default">' + item.datestamp + '</label> ';
+					var el = '<blockquote><div style="font-size: 80%;"><label class="label label-default">' + item.date + '</label> ';
 					if(item.active) {
 						el += '<label class="label"style="background-color: #13949F">Active</label> ';
 					}
