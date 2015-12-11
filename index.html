@@ -284,7 +284,7 @@
 			sliderTimeline.reversed(true);
 
 			$.getJSON("siteUpdates.json", function(data) {
-				for(var i = 0; i < data.length; i++) {
+				for(var i = 0; i < 2; i++) {
 					var item = data[i];
 					var el = "<blockquote><span>" + item.title + "</span>";
 					for(var j = 0; j < item.descriptions.length; j++) {
