@@ -76,6 +76,12 @@ body {
 	}
 }
 
+.historyPanel {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 5px 30px;
+}
+
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
 	@include transition(0.2s);
 }

@@ -2,14 +2,14 @@
 <html>
 	<head>
 		<title>History</title>
-		<link rel="shortcut icon" href="img/icons/[ICON].png"/>
+		<link rel="shortcut icon" href="img/icons/Clock.png"/>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
-		<link rel="stylesheet" type="text/css" href="themes/light.css"/>
+		<link rel="stylesheet" type="text/css" href="themes/index.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	</head>
@@ -41,10 +41,13 @@
 			</div>
 		</nav>
 		<div class="content container">
-			<div class="page-header">
-				<p class="h1">History</p>
-			</div>
 			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+					<div id="history" class="historyPanel">
+						<h3 style="color: #13949F; text-align: center;">Site History</h3>
+						<hr style="width: 30%;">
+					</div>
+				</div>
 			</div>
 		</div>
 		<footer class="footer">
@@ -57,5 +60,22 @@
 				<a href="https://github.com/DarkAce65" target="_blank" class="fa fa-fw fa-github"></a>
 			</nav>
 		</footer>
+		<script type="text/javascript">
+			$.getJSON("siteUpdates.json", function(data) {
+				for(var i = 0; i < data.length; i++) {
+					var item = data[i];
+					var el = "<blockquote><label class=\"label label-default\">" + item.datestamp + "</label> ";
+					if(item.active) {
+						el += "<label class=\"label\" style=\"background-color: #13949F\">Active</label> ";
+					}
+					el += "<br><span>" + item.title + "</span>";
+					for(var j = 0; j < item.descriptions.length; j++) {
+						el += "<footer>" + item.descriptions[j] + "</footer>";
+					}
+					el += "</blockquote>";
+					$("#history").append(el);
+				}
+			});
+		</script>
 	</body>
 </html>

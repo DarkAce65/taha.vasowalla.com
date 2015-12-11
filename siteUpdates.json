@@ -1,9 +1,13 @@
 [
 	{
+		"datestamp": "12-8-15",
+		"active": false,
 		"title": "Design rework",
 		"descriptions": ["New home page color scheme and layout", "Dedicated light and dark themes"]
 	},
 	{
+		"datestamp": "12-10-15",
+		"active": true,
 		"title": "Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
 		"descriptions": ["Experimenting with mathematical art"]
 	}

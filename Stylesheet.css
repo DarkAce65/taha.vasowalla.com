@@ -102,6 +102,12 @@ body {
   border-color: #ccc;
 }
 
+.historyPanel {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 30px;
+}
+
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
