@@ -1,6 +1,6 @@
 body {
   color: white;
-  background: url("img/DarkBG.png") no-repeat fixed 50% 50%/cover #2F2F2F;
+  background: url("/img/DarkBG.png") no-repeat fixed 50% 50%/cover #2F2F2F;
 }
 body ::-moz-selection {
   background-color: whitesmoke;
