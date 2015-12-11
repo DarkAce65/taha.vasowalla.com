@@ -76,7 +76,7 @@ body {
 
 .banner {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 6px;
   margin-bottom: 20px;
 }
 
@@ -98,7 +98,7 @@ body {
   filter: blur(10px);
 }
 
-.jumbotron blockquote, .jumbotron hr {
+#history blockquote, #history hr {
   border-color: #ccc;
 }
 

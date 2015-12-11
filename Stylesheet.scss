@@ -70,7 +70,7 @@ body {
 	@include filter(blur(10px));
 }
 
-.jumbotron {
+#history {
 	blockquote, hr {
 		border-color: #ccc;
 	}

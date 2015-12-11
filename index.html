@@ -51,7 +51,7 @@
 					<img src="img/SiteHeader.jpg" class="banner">
 					<div class="jumbotron">
 						<p class="lead">I made this site mainly for experimenting with web development and to create a place to host my projects.</p>
-						<div id="new">
+						<div id="history">
 							<h3 style="color: #13949F;">What's new</h3>
 							<hr>
 						</div>
@@ -286,12 +286,12 @@
 			$.getJSON("siteUpdates.json", function(data) {
 				for(var i = 0; i < data.length; i++) {
 					var item = data[i];
-					var el = "<blockquote>" + item.title;
+					var el = "<blockquote><span>" + item.title + "</span>";
 					for(var j = 0; j < item.descriptions.length; j++) {
 						el += "<footer>" + item.descriptions[j] + "</footer>";
 					}
 					el += "</blockquote>";
-					$("#new").append(el);
+					$("#history").append(el);
 				}
 			});
 
