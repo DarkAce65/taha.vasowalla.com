@@ -1,12 +1,18 @@
 [
 	{
-		"datestamp": "12-8-15",
+		"date": "Planned",
+		"active": false,
+		"title": "Online multiplayer games",
+		"descriptions": ["Online <a href=\"UltimateTTT.html\">Ultimate Tic Tac Toe</a>", "Card based two-player battle"]
+	},
+	{
+		"date": "12-8-15",
 		"active": false,
 		"title": "Design rework",
 		"descriptions": ["New home page color scheme and layout", "Dedicated light and dark themes"]
 	},
 	{
-		"datestamp": "12-10-15",
+		"date": "11-4-15",
 		"active": true,
 		"title": "Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
 		"descriptions": ["Experimenting with mathematical art"]
