@@ -79,7 +79,7 @@ body {
 .historyPanel {
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	padding: 5px 30px;
+	padding: 5px 40px;
 }
 
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
@@ -294,6 +294,14 @@ body {
 	.jumbotron {
 		padding-right: 30px;
 		padding-left: 30px;
+	}
+
+	.historyPanel {
+		padding: 5px 15px;
+
+		blockquote {
+			padding: 10px 15px;
+		}
 	}
 
 	.content {
