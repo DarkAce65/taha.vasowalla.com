@@ -1,0 +1,49 @@
+@import "../bourbon/bourbon";
+@import "../scss/Colors";
+
+body {
+	background: url("../img/DarkBG.png") no-repeat fixed 50% 50% / cover #2F2F2F;
+
+	@include selection {
+		background-color: $dark-color;
+		color: $light-color;
+	}
+
+	a {
+		color: $inv-accent-color;
+	}
+
+	a:hover, a:focus {
+		color: $alt-inv-accent-color;
+	}
+}
+
+.footer {
+	display: none;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	padding: 20px 0;
+	background-color: $dark-color;
+	text-align: center;
+	font-variant: small-caps;
+	border-top: 3px solid $inv-accent-color;
+
+	.nav * {
+		color: lighten($dark-color, 26);
+		margin: 0 3px;
+		text-decoration: none;
+	}
+
+	.nav a:hover {
+		color: white;
+	}
+}
+
+
+@media screen and (max-width: 767px) {
+	.footer {
+		display: block;
+	}
+}
