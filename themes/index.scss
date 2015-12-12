@@ -8,7 +8,7 @@ body {
 	}
 
 	a {
-		color: $index-accent-color;
+		color: $light-alt-accent-color;
 		font-weight: 400;
 	}
 }
@@ -23,7 +23,7 @@ body {
 	background-color: $dark-color;
 	text-align: center;
 	font-variant: small-caps;
-	border-top: 3px solid $index-accent-color;
+	border-top: 3px solid $light-alt-accent-color;
 
 	.nav * {
 		color: lighten($dark-color, 26);

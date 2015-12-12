@@ -21,14 +21,14 @@
 	cursor: pointer;
 	overflow: hidden;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-	border: 1px solid rgba($accent-color, 0.5);
+	border: 1px solid rgba($light-accent-color, 0.5);
 	@include transition(0.2s);
 
 	&:hover {
-		border-color: $accent-color;
+		border-color: $light-accent-color;
 
 		.imageTitle {
-			color: $accent-color;
+			color: $light-accent-color;
 		}
 	}
 }

@@ -10,11 +10,11 @@ body {
 	}
 
 	a {
-		color: $inv-accent-color;
+		color: $dark-accent-color;
 	}
 
 	a:hover, a:focus {
-		color: $alt-inv-accent-color;
+		color: $dark-secondary-color;
 	}
 }
 
@@ -28,7 +28,7 @@ body {
 	background-color: $dark-color;
 	text-align: center;
 	font-variant: small-caps;
-	border-top: 3px solid $inv-accent-color;
+	border-top: 3px solid $dark-accent-color;
 
 	.nav * {
 		color: lighten($dark-color, 26);

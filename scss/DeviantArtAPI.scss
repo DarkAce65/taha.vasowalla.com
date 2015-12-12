@@ -13,14 +13,14 @@
 		cursor: pointer;
 		overflow: hidden;
 		box-shadow: 2px 2px 5px rgba(black, 0.5);
-		border: 1px solid rgba($inv-accent-color, 0.2);
+		border: 1px solid rgba($dark-accent-color, 0.2);
 		@include transition(0.25s);
 
 		&:hover {
-			border-color: $inv-accent-color;
+			border-color: $dark-accent-color;
 
 			.artworkTitle {
-				color: $inv-accent-color;
+				color: $dark-accent-color;
 			}
 		}
 	}

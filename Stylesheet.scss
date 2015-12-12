@@ -86,7 +86,7 @@ body {
 	box-shadow: none;
 }
 
-#history {
+#history.panel-body, #palettes.panel-body {
 	padding: 5px 40px;
 
 	blockquote, hr {
@@ -94,7 +94,7 @@ body {
 	}
 }
 
-.swatch {
+.palette {
 	font-family: "Quicksand";
 
 	.color {
@@ -106,7 +106,7 @@ body {
 .listCollapse {
 	font-family: "Quicksand";
 	color: white;
-	background-color: $inv-accent-color;
+	background-color: $dark-accent-color;
 	padding: 20px 15px;
 	border-radius: 4px;
 
@@ -147,7 +147,7 @@ body {
 		width: 100%;
 
 		.fa-angle-left, .fa-angle-right {
-			color: $index-accent-color;
+			color: $light-alt-accent-color;
 		}
 
 		.fa-angle-left {
@@ -175,14 +175,14 @@ body {
 	.list-group-item-divider {
 		font-weight: bold;
 		color: white;
-		background-color: $index-accent-color;
+		background-color: $light-alt-accent-color;
 	}
 
 	a.list-group-item, button.list-group-item {
 		box-shadow: inset 2px 0px 0px 0px transparent;
 
 		&:hover {
-			box-shadow: inset 2px 0px 0px 0px $index-accent-color;
+			box-shadow: inset 2px 0px 0px 0px $light-alt-accent-color;
 		}
 
 		span {
@@ -303,7 +303,7 @@ body {
 		padding-left: 30px;
 	}
 
-	#history {
+	#history.panel-body, #palettes.panel-body {
 		padding: 5px 15px;
 
 		blockquote {

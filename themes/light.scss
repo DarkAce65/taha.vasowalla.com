@@ -8,11 +8,11 @@ body {
 	}
 
 	a {
-		color: $accent-color;
+		color: $light-accent-color;
 	}
 
 	a:hover, a:focus {
-		color: $alt-accent-color;
+		color: $light-secondary-color;
 	}
 }
 
@@ -26,7 +26,7 @@ body {
 	background-color: $light-color;
 	text-align: center;
 	font-variant: small-caps;
-	border-top: 3px solid $accent-color;
+	border-top: 3px solid $light-accent-color;
 
 	.nav * {
 		color: lighten($dark-color, 26);
