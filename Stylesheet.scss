@@ -70,19 +70,6 @@ body {
 	@include filter(blur(10px));
 }
 
-#history {
-	blockquote, hr {
-		border-color: #ccc;
-	}
-}
-
-.historyPanel {
-	background-color: white;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	padding: 5px 40px;
-}
-
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
 	@include transition(0.2s);
 }
@@ -97,6 +84,23 @@ body {
 
 #toast-container > div, #toast-container > div:hover {
 	box-shadow: none;
+}
+
+#history {
+	padding: 5px 40px;
+
+	blockquote, hr {
+		border-color: #ccc;
+	}
+}
+
+.swatch {
+	font-family: "Quicksand";
+
+	.color {
+		padding: 5px;
+		width: 20%;
+	}
 }
 
 .listCollapse {
@@ -299,7 +303,7 @@ body {
 		padding-left: 30px;
 	}
 
-	.historyPanel {
+	#history {
 		padding: 5px 15px;
 
 		blockquote {
