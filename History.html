@@ -9,12 +9,12 @@
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
-		<link rel="stylesheet" type="text/css" href="themes/index.css"/>
+		<link rel="stylesheet" type="text/css" href="themes/dark-alt.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
@@ -44,7 +44,7 @@
 			<div class="row">
 				<div class="col-sm-10 col-sm-offset-1">
 					<div id="history" class="historyPanel">
-						<h3 style="color: #13949F; text-align: center;">Site History</h3>
+						<h3 style="color: #EF5350; text-align: center;">Site History</h3>
 						<hr style="width: 30%;">
 					</div>
 				</div>
@@ -66,7 +66,7 @@
 					var item = data[i];
 					var el = '<blockquote><div style="font-size: 80%;"><label class="label label-default">' + item.date + '</label> ';
 					if(item.active) {
-						el += '<label class="label"style="background-color: #13949F">Active</label> ';
+						el += '<label class="label" style="background-color: #EF5350">Active</label> ';
 					}
 					el += "</div><span>" + item.title + "</span>";
 					for(var j = 0; j < item.descriptions.length; j++) {
