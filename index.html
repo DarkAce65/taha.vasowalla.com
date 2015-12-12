@@ -286,7 +286,11 @@
 			$.getJSON("siteUpdates.json", function(data) {
 				for(var i = 0; i < 2; i++) {
 					var item = data[i];
-					var el = "<blockquote><span>" + item.title + "</span>";
+					var el = '<blockquote><div style="font-size: 80%;"><label class="label label-default">' + item.date + '</label> ';
+					if(item.active) {
+						el += '<label class="label"style="background-color: #13949F">Active</label> ';
+					}
+					el += "</div><span>" + item.title + "</span>";
 					for(var j = 0; j < item.descriptions.length; j++) {
 						el += "<footer>" + item.descriptions[j] + "</footer>";
 					}
