@@ -97,11 +97,24 @@ body {
 }
 
 .palette {
-	font-family: "Quicksand";
+	@include display(flex);
 
 	.color {
+		@include flex(1 1 auto);
+		cursor: pointer;
+		background: transparent;
+		display: inline-block;
 		padding: 5px;
-		width: 20%;
+
+		&:first-child {
+			border-top-left-radius: 6px;
+			border-bottom-left-radius: 6px;
+		}
+
+		&:last-child {
+			border-top-right-radius: 6px;
+			border-bottom-right-radius: 6px;
+		}
 	}
 }
 
@@ -310,6 +323,22 @@ body {
 
 		blockquote {
 			padding: 10px 15px;
+		}
+	}
+
+	.palette {
+		@include flex-direction(column);
+
+		.color {
+			&:first-child {
+				border-bottom-left-radius: 0;
+				border-top-right-radius: 6px;
+			}
+
+			&:last-child {
+				border-top-right-radius: 0;
+				border-bottom-left-radius: 6px;
+			}
 		}
 	}
 

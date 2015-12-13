@@ -12,6 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="themes/dark-alt.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="GSAP/TweenMax.min.js"></script>
+		<script src="chroma.min.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -41,21 +43,10 @@
 			</div>
 		</nav>
 		<div class="content container">
-			<div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
-					<div class="panel panel-default">
-						<div id="history" class="panel-body">
-							<h3 style="color: #EF5350; text-align: center;">Color Palette</h3>
-							<hr style="width: 30%;">
-							<div class="swatch">
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-							</div>
-						</div>
-					</div>
+			<div class="panel panel-default">
+				<div id="palettes" class="panel-body">
+					<h3 style="color: #EF5350; text-align: center;">Color Palette</h3>
+					<hr style="width: 30%;">
 				</div>
 			</div>
 		</div>
@@ -70,20 +61,81 @@
 			</nav>
 		</footer>
 		<script type="text/javascript">
-			$.getJSON("siteUpdates.json", function(data) {
-				for(var i = 0; i < data.length; i++) {
-					var item = data[i];
-					var el = '<blockquote><div style="font-size: 80%;"><label class="label label-default">' + item.date + '</label> ';
-					if(item.active) {
-						el += '<label class="label" style="background-color: #EF5350">Active</label> ';
+			var palettes = {
+				"light": [
+					{
+						description: "Text",
+						color: "#333"
+					},
+					{
+						description: "Background",
+						color: chroma("whitesmoke").hex()
+					},
+					{
+						description: "Accent",
+						color: chroma("darkorange").hex()
+					},
+					{
+						description: "Secondary",
+						color: "#FF6200"
 					}
-					el += "</div><span>" + item.title + "</span>";
-					for(var j = 0; j < item.descriptions.length; j++) {
-						el += "<footer>" + item.descriptions[j] + "</footer>";
+				],
+				"light-alt": [
+					{
+						description: "Text",
+						color: "#333"
+					},
+					{
+						description: "Background",
+						color: chroma("whitesmoke").hex()
+					},
+					{
+						description: "Accent",
+						color: "#13949F"
+					},
+					{
+						description: "Secondary",
+						color: "#23527c"
 					}
-					el += "</blockquote>";
-					$("#history").append(el);
+				],
+				"dark": [
+					{
+						description: "Text",
+						color: chroma("whitesmoke").hex()
+					},
+					{
+						description: "Background",
+						color: "#333"
+					},
+					{
+						description: "Accent",
+						color: "#EF5350"
+					},
+					{
+						description: "Secondary",
+						color: "#E51915"
+					}
+				]
+			};
+
+			$.each(palettes, function(paletteName, palette) {
+				var el = '<div class="palette">';
+				for(var c = 0; c < palette.length; c++) {
+					var color = palette[c];
+					var textColor = chroma("white").alpha(0.7).hex();
+					if(chroma(color.color).luminance() > 1 - chroma(color.color).luminance()) {
+						textColor = "rgba(0, 0, 0, 0.7)";
+					}
+					el += '<div data-description="' + color.description + '" data-color="' + color.color + '" class="color" style="color: ' + textColor + '; background: ' + color.color + ';">' + color.description + '</div>';
 				}
+				$el = $('<dl class="dl-horizontal"><dt>' + paletteName + " theme</dt><dd>" + el + "</blockquote></dd></dl>");
+				$("#palettes").append($el);
+
+				TweenMax.staggerFrom($el.find(".color"), 2, {
+					delay: 1,
+					color: "#333",
+					backgroundColor: "white"
+				}, 0.4);
 			});
 		</script>
 	</body>
