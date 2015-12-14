@@ -62,79 +62,53 @@
 		</footer>
 		<script type="text/javascript">
 			var palettes = {
-				"light": [
-					{
-						description: "Text",
-						color: "#333"
-					},
-					{
-						description: "Background",
-						color: chroma("whitesmoke").hex()
-					},
-					{
-						description: "Accent",
-						color: chroma("darkorange").hex()
-					},
-					{
-						description: "Secondary",
-						color: "#FF6200"
-					}
-				],
-				"light-alt": [
-					{
-						description: "Text",
-						color: "#333"
-					},
-					{
-						description: "Background",
-						color: chroma("whitesmoke").hex()
-					},
-					{
-						description: "Accent",
-						color: "#13949F"
-					},
-					{
-						description: "Secondary",
-						color: "#23527c"
-					}
-				],
-				"dark": [
-					{
-						description: "Text",
-						color: chroma("whitesmoke").hex()
-					},
-					{
-						description: "Background",
-						color: "#333"
-					},
-					{
-						description: "Accent",
-						color: "#EF5350"
-					},
-					{
-						description: "Secondary",
-						color: "#E51915"
-					}
-				]
+				"light": {
+					fontColor: "#333333",
+					background: chroma("whitesmoke").hex(),
+					accent: chroma("darkorange").hex(),
+					secondary: "#FF6200"
+				},
+				"light-alt": {
+					fontColor: "#333333",
+					background: chroma("whitesmoke").hex(),
+					accent: "#13949F",
+					secondary: "#23527c"
+				},
+				"dark": {
+					fontColor: chroma("whitesmoke").hex(),
+					background: "#333333",
+					accent: "#EF5350",
+					secondary: "#E51915"
+				}
 			};
+
+			function getTextColor(color) {
+				if(chroma(color).luminance() > 1 - chroma(color).luminance()) {
+					return chroma("black").alpha(0.7).hex();
+				}
+
+				return chroma("white").alpha(0.7).hex();
+			}
 
 			$.each(palettes, function(paletteName, palette) {
 				var el = '<div class="palette">';
-				for(var c = 0; c < palette.length; c++) {
-					var color = palette[c];
-					var textColor = chroma("white").alpha(0.7).hex();
-					if(chroma(color.color).luminance() > 1 - chroma(color.color).luminance()) {
-						textColor = "rgba(0, 0, 0, 0.7)";
-					}
-					el += '<div data-description="' + color.description + '" data-color="' + color.color + '" class="color" style="color: ' + textColor + '; background: ' + color.color + ';">' + color.description + '</div>';
-				}
+
+				el += '<div class="color main" style="color: ' + palette.fontColor + '; background: ' + palette.background + ';">Sample Text<div class="accents"><div class="color" style="color: ' + getTextColor(palette.accent) + '; background: ' + palette.accent + ';">Accent</div><div class="color" style="color: ' + getTextColor(palette.secondary) + '; background: ' + palette.secondary + ';">Secondary</div></div></div>';
+
+				el += '<div class="labels"><label class="label" style="color: ' + getTextColor(palette.fontColor) + '; background: ' + palette.fontColor + ';">' + palette.fontColor + '</label> <label class="label" style="color: ' + getTextColor(palette.background) + '; background: ' + palette.background + ';">' + palette.background + '</label> <label class="label" style="color: ' + getTextColor(palette.accent) + '; background: ' + palette.accent + ';">' + palette.accent + '</label> <label class="label" style="color: ' + getTextColor(palette.secondary) + '; background: ' + palette.secondary + ';">' + palette.secondary + '</label></div>';
 				$el = $('<dl class="dl-horizontal"><dt>' + paletteName + " theme</dt><dd>" + el + "</blockquote></dd></dl>");
 				$("#palettes").append($el);
 
 				TweenMax.staggerFrom($el.find(".color"), 2, {
-					delay: 1,
+					delay: 1.4,
 					color: "#333",
 					backgroundColor: "white"
+				}, 0.4);
+
+				TweenMax.staggerFrom($el.find(".label"), 2, {
+					delay: 1,
+					color: "white",
+					backgroundColor: "#777"
 				}, 0.4);
 			});
 		</script>
