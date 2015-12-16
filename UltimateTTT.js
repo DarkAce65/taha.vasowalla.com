@@ -1,4 +1,4 @@
-var turn = true; // true: Red/Red, false: Blue
+var turn = true; // true: Red, false: Blue
 var grid = [
 	[
 		[["", "", ""], ["", "", ""], ["", "", ""]], // 0, 0
@@ -93,7 +93,7 @@ $(document).ready(function() {
 		}
 		innerhtml += "</tr>"
 	}
-	
+
 	$("#ultimate").html(innerhtml);
 	$("table table td").addClass("possible");
 
