@@ -3,9 +3,15 @@ Router.configure({
 	notFoundTemplate: "404"
 });
 
-Router.route("/", function() {
-	this.response.writeHead(302, {
-		"Location": "http://taha.vasowalla.com/"
-	});
-	this.response.end();
-}, {where: "server"});
+Router.route("/",
+	function() {
+		this.response.writeHead(302, {
+			"Location": "http://taha.vasowalla.com/"
+		});
+		this.response.end();
+	},
+	{
+		name: "home",
+		where: "server"
+	}
+);
