@@ -1,5 +1,4 @@
 Router.configure({
-	layoutTemplate: "main",
 	notFoundTemplate: "404"
 });
 
@@ -13,5 +12,22 @@ Router.route("/",
 	{
 		name: "home",
 		where: "server"
+	}
+);
+
+Router.route("UltimateTTT",
+	function() {
+		this.layout("main");
+	},
+	{
+		name: "UTTT",
+		template: "UltimateTTT",
+		onBeforeAction: function() {
+			$("body").addClass("class");
+			this.next();
+		},
+		onStop: function() {
+			$("body").removeClass("class");
+		}
 	}
 );
