@@ -11,15 +11,10 @@
 		<link rel="stylesheet" type="text/css" href="/Stylesheet.css"/>
 		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="/sine-waves.min.js"></script>
-		<style type="text/css">
-			.spacer {
-				height: 100px;
-			}
-		</style>
 	</head>
 	<body id="body404">
-		<div class="spacer hidden-xs"></div>
-		<div class="error col-xs-12 col-sm-6 col-sm-offset-3">
+		<div class="hidden-xs" style="height: 100px;"></div>
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 			<p style="font-size: 5.5em; margin: 0.2em 0 0.1em;">404</p>
 			<div class="row">
 				<div id="waveContainer" class="col-lg-6 col-lg-offset-3">
@@ -72,7 +67,7 @@
 					gradient.addColorStop(0, "rgba(114, 187, 191, 0)");
 					gradient.addColorStop(0.5, "rgba(114, 187, 191, 1)");
 					gradient.addColorStop(1, "rgba(114, 187, 191, 0)");
-					
+
 					for(var i = 0; i < this.waves.length; i++) {
 						this.waves[i].strokeStyle = gradient;
 					}
