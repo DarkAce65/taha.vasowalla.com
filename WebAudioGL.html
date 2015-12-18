@@ -89,6 +89,8 @@
 			</div>
 			<label for="resCheckbox" class="btn btn-danger">Resolution: Low</label>
 			<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleResolution();">
+			<label for="rotationCheckbox" class="btn btn-danger">Rotation: Off</label>
+			<input id="rotationCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleRotation();">
 		</div>
 		<div id="rendererContainer"></div>
 		<script type="text/javascript">
@@ -130,6 +132,7 @@
 
 			var resToast, lastToast;
 			var playing = false;
+			var rotate = false;
 			var currentVolume = 0.0001;
 			var attack = 0.95, decay = 0.2;
 			var circle;
@@ -230,6 +233,19 @@
 				else {
 					createLines(200);
 					$('label[for="resCheckbox"]').html("Resolution: Low");
+				}
+			}
+
+			function toggleRotation() {
+				if(document.querySelector("#rotationCheckbox").checked) {
+					rotate = true;
+					$('label[for="rotationCheckbox"]').html("Rotation: On");
+					$('label[for="rotationCheckbox"]').addClass("active");
+				}
+				else {
+					rotate = false;
+					$('label[for="rotationCheckbox"]').html("Rotation: Off");
+					$('label[for="rotationCheckbox"]').removeClass("active");
 				}
 			}
 
@@ -404,9 +420,9 @@
 					}
 				}
 
-				if(playing) {
-					volumeObject.rotation.z += 0.3 * delta;
-					scene.rotation.z -= 0.15 * delta;
+				if(playing && rotate) {
+					volumeObject.rotation.z += 0.4 * delta;
+					scene.rotation.z -= 0.2 * delta;
 				}
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
