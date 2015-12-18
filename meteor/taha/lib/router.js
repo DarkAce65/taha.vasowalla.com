@@ -15,19 +15,14 @@ Router.route("/",
 	}
 );
 
-Router.route("UltimateTTT",
-	function() {
-		this.layout("main");
+Router.route("UltimateTTT", {
+	name: "UTTT",
+	template: "UltimateTTT",
+	onBeforeAction: function() {
+		$("body").addClass("class");
+		this.next();
 	},
-	{
-		name: "UTTT",
-		template: "UltimateTTT",
-		onBeforeAction: function() {
-			$("body").addClass("class");
-			this.next();
-		},
-		onStop: function() {
-			$("body").removeClass("class");
-		}
+	onStop: function() {
+		$("body").removeClass("class");
 	}
-);
+});
