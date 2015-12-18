@@ -1,7 +1,7 @@
 [
 	{
-		"date": "Planned",
-		"status": false,
+		"date": "12-17-15",
+		"status": "In Production",
 		"title": "Online multiplayer games",
 		"descriptions": ["Online <a href=\"UltimateTTT.html\">Ultimate Tic Tac Toe</a>", "Card based two-player battle"]
 	},
