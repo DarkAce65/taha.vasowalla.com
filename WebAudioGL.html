@@ -80,15 +80,15 @@
 			<hr>
 			<div class="btn-group">
 				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
+					<i class="fa fa-fw fa-video-camera"></i> <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
 					<li><a href="javascript:void(0)" onclick="setCamera('Overhead')">Overhead</a></li>
 					<li><a href="javascript:void(0)" onclick="setCamera('Side')">Side</a></li>
 				</ul>
 			</div>
-			<label for="resCheckbox" class="btn btn-danger">Resolution: Low</label>
-			<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleResolution();">
+			<label for="resCheckbox" class="btn btn-danger">Quality: Low</label>
+			<input id="resCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleQuality();">
 			<label for="rotationCheckbox" class="btn btn-danger">Rotation: Off</label>
 			<input id="rotationCheckbox" type="checkbox" style="position: absolute; opacity: 0;" onchange="toggleRotation();">
 		</div>
@@ -225,14 +225,14 @@
 				}
 			}
 
-			function toggleResolution() {
+			function toggleQuality() {
 				if(document.querySelector("#resCheckbox").checked) {
 					createLines(500);
-					$('label[for="resCheckbox"]').html("Resolution: High");
+					$('label[for="resCheckbox"]').html("Quality: High");
 				}
 				else {
 					createLines(200);
-					$('label[for="resCheckbox"]').html("Resolution: Low");
+					$('label[for="resCheckbox"]').html("Quality: Low");
 				}
 			}
 
