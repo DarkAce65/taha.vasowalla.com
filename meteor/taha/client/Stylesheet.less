@@ -79,7 +79,7 @@ body {
 
 .lh-selection(~'background-color: @{dark-color}; color: @{light-color};');
 
-body {
+body.light-theme {
 	a {
 		color: @light-accent-color;
 	}
@@ -89,7 +89,7 @@ body {
 	}
 }
 
-.footer {
+.light-theme .footer {
 	display: none;
 	position: absolute;
 	width: 100%;
@@ -114,7 +114,7 @@ body {
 
 
 @media screen and (max-width: 767px) {
-	.footer {
+	.light-theme .footer {
 		display: block;
 	}
 }

@@ -19,10 +19,10 @@ Router.route("UltimateTTT", {
 	name: "UTTT",
 	template: "UltimateTTT",
 	onBeforeAction: function() {
-		$("body").addClass("class");
+		$("body").addClass("light-theme");
 		this.next();
 	},
 	onStop: function() {
-		$("body").removeClass("class");
+		$("body").removeClass("light-theme");
 	}
 });
