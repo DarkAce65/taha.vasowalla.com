@@ -374,7 +374,7 @@
 					var v = volumeData[dataIndex] - 128;
 					targetVolume += v * v;
 					var delta = 1575 / (dataIndex + 15) - 1;
-					var scalar = (frequencyData[dataIndex] - delta) / 256;
+					var scalar = (frequencyData[dataIndex] - delta) / 256 + 1;
 					if(scalar < 1) {
 						scalar = 1;
 					}
