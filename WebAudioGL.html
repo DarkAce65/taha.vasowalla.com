@@ -175,7 +175,7 @@
 			analyser.fftSize = 4096;
 			analyser.smoothingTimeConstant = 0.675;
 			var volumeData = new Uint8Array(analyser.frequencyBinCount);
-			var f = new Uint8Array(analyser.frequencyBinCount);
+			var frequencyData = new Uint8Array(analyser.frequencyBinCount);
 
 			function createLines(resolution) {
 				for(var i = 0; i < lines.length; i++) {
@@ -333,10 +333,8 @@
 				clock.stop();
 				emptySource = true;
 				startOffset = 0;
-				for(var i = 0; i < volumeData.length; i++) {
-					volumeData[i] = silence[i];
-				}
-				f = new Uint8Array(analyser.frequencyBinCount);
+				volumeData = silence;
+				frequencyData = new Uint8Array(analyser.frequencyBinCount);
 			}
 
 			function pause() {
@@ -369,14 +367,17 @@
 				}
 			}
 
-			function draw(data) {
+			function draw(frequencyData) {
 				var targetVolume = 0.0001;
 				for(var i = 0; i < lines.length; i++) {
 					var dataIndex = Math.floor(i / lines.length * 683);
 					var v = volumeData[dataIndex] - 128;
 					targetVolume += v * v;
 					var delta = 1575 / (dataIndex + 15) - 1;
-					var scalar = Math.max(0, (data[dataIndex] - delta) / 2.56 / 100) + 1;
+					var scalar = (frequencyData[dataIndex] - delta) / 256;
+					if(scalar < 1) {
+						scalar = 1;
+					}
 					lines[i].geometry.vertices[1].x = scalar * positions[i * 3];
 					lines[i].geometry.vertices[1].y = scalar * positions[i * 3 + 1];
 					lines[i].geometry.verticesNeedUpdate = true;
@@ -384,12 +385,17 @@
 				}
 				targetVolume = Math.sqrt(targetVolume / lines.length) / 85;
 				if(currentVolume < targetVolume) {
-					currentVolume = Math.max(0.0001, lerp(currentVolume, targetVolume, attack));
+					currentVolume = lerp(currentVolume, targetVolume, attack);
 				}
 				else {
-					currentVolume = Math.max(0.0001, lerp(currentVolume, targetVolume, decay));
+					currentVolume = lerp(currentVolume, targetVolume, decay);
 				}
-				currentVolume = Math.min(1, currentVolume);
+				if(currentVolume < 0.0001) {
+					currentVolume = 0.0001;
+				}
+				else if(currentVolume > 1) {
+					currentVolume = 1;
+				}
 				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
 				if(playing) {
 					currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);
@@ -406,15 +412,13 @@
 			function render() {
 				var delta = clock.getDelta();
 				if(emptySource) {
-					for(var i = 0; i < volumeData.length; i++) {
-						volumeData[i] = silence[i];
-					}
+					volumeData = silence;
 					draw(zeroArray);
 				}
 				else {
 					analyser.getByteTimeDomainData(volumeData);
-					analyser.getByteFrequencyData(f);
-					draw(f);
+					analyser.getByteFrequencyData(frequencyData);
+					draw(frequencyData);
 					if(playing && audioCtx.currentTime - startTime + startOffset >= arrayBuffer.duration) {
 						reset();
 					}

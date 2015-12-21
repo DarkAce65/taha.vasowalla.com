@@ -1,7 +1,7 @@
 var mobile = false, fileName = "";
-var c, ctx, audioCtx, arrayBuffer, source, gainNode, analyser, lastToast;
+var c, ctx, cWidth = 2049, cHeight = 1245, audioCtx, arrayBuffer, source, gainNode, analyser, lastToast;
 var targetVolume = 0, currentVolume = 0, attack = 0.85, decay = 0.2, startOffset = 0, startTime = 0;
-var bufferLength, timeDomainArray, frequencyArray;
+var bufferLength, volumeData, frequencyData;
 var playing = false, canvasReady = false, wavesurferReady = false;
 var wavesurfer = Object.create(WaveSurfer);
 
@@ -104,9 +104,9 @@ function reset() {
 	startOffset = 0;
 	targetVolume = 0;
 	currentVolume = 0;
-	ctx.clearRect(0, 0, c.width, c.height);
+	ctx.clearRect(0, 0, cWidth, cHeight);
 	ctx.fillStyle = "hsl(0, 67%, 20%)";
-	ctx.fillRect(0, 1199, c.width, 1);
+	ctx.fillRect(0, 1199, cWidth, 1);
 }
 
 function pause() {
@@ -130,6 +130,9 @@ function play() {
 		gainNode.connect(analyser);
 		analyser.connect(audioCtx.destination);
 		source.start(0, startOffset % arrayBuffer.duration);
+		bufferLength = analyser.frequencyBinCount;
+		volumeData = new Uint8Array(bufferLength);
+		frequencyData = new Uint8Array(bufferLength);
 		if(!mobile) {
 			wavesurfer.seekAndCenter(startOffset / arrayBuffer.duration);
 			wavesurfer.play();
@@ -144,23 +147,21 @@ function play() {
 }
 
 function draw() {
-	bufferLength = analyser.frequencyBinCount;
-	timeDomainArray = new Uint8Array(bufferLength);
-	frequencyArray = new Uint8Array(bufferLength);
-	analyser.getByteTimeDomainData(timeDomainArray);
-	analyser.getByteFrequencyData(frequencyArray);
-	ctx.clearRect(0, 0, c.width, c.height);
+	analyser.getByteTimeDomainData(volumeData);
+	analyser.getByteFrequencyData(frequencyData);
+	ctx.clearRect(0, 0, cWidth, cHeight);
 	var fx = 0;
+	var fxInc = cWidth / 683;
 	targetVolume = 0;
 	for(var i = 0; i < bufferLength; i++) {
-		var v = timeDomainArray[i] - 128;
+		var v = volumeData[i] - 128;
 		targetVolume += v * v;
 
 		var delta = 10000 / (i + 80) - 13;
-		var y = Math.max(0.64 / 3, (frequencyArray[i] - delta)) / 256;
+		var y = Math.max(0.64 / 3, frequencyData[i] - delta) / 256;
 		ctx.fillStyle = "hsl(0, 67%, " + Math.min(100, Math.pow(266.97, y + 0.034473) + 20) + "%)";
-		ctx.fillRect(fx, (1 - y) * 1200, c.width / 683, y * 1200);
-		fx += c.width / 683;
+		ctx.fillRect(fx, (1 - y) * 1200, fxInc, y * 1200);
+		fx += fxInc;
 	}
 	targetVolume = Math.sqrt(targetVolume / bufferLength) / 85;
 	if(currentVolume < targetVolume) {
@@ -170,8 +171,8 @@ function draw() {
 		currentVolume = lerp(currentVolume, targetVolume, decay);
 	}
 	currentVolume = Math.min(1, currentVolume);
-	ctx.fillStyle = "white";
-	ctx.fillRect(10, 1210, currentVolume * (c.width - 20), 25);
+	ctx.fillStyle = "#fff";
+	ctx.fillRect(10, 1210, currentVolume * (cWidth - 20), 25);
 	if(playing) {
 		document.getElementById("currentTime").innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);
 		if(audioCtx.currentTime - startTime + startOffset >= arrayBuffer.duration) {
@@ -197,8 +198,8 @@ $(document).ready(function() {
 
 	c = document.getElementById("visualizer");
 	ctx = c.getContext("2d");
-	c.height = 1245;
-	c.width = 2049;
+	c.height = cHeight;
+	c.width = cWidth;
 	ctx.fillStyle = "#0F0";
 	ctx.font = "16px serif";
 	toastr.options = {"positionClass": "toast-bottom-right", "showMethod": "slideDown", "hideMethod": "slideUp"};
@@ -237,8 +238,8 @@ $(document).ready(function() {
 	$("#wave").hide();
 
 	$(window).resize(function() {
-		c.height = 1245;
-		c.width = 2049;
+		c.height = cHeight;
+		c.width = cWidth;
 		ctx = c.getContext("2d");
 		ctx.fillStyle = "#0F0";
 		ctx.font = "16px serif";
