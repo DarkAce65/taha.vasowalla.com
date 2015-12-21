@@ -55,7 +55,7 @@
 					<div class="card" onclick="openPhotoSwipe(0);">
 						<img src="img/origami/PHiZZDodecahedron.jpg">
 						<div class="info">
-							<span class="imageTitle">Dodecahedron</span>
+							<div class="imageTitle">Dodecahedron</div>
 							<span class="imageSubtitle">30 Units</span>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 					<div class="card" onclick="openPhotoSwipe(1);">
 						<img src="img/origami/PHiZZTruncatedIcosahedron.jpg">
 						<div class="info">
-							<span class="imageTitle">Truncated Icosahedron</span>
+							<div class="imageTitle">Truncated Icosahedron</div>
 							<span class="imageSubtitle">90 Units</span>
 						</div>
 					</div>
@@ -73,8 +73,8 @@
 					<div class="card" onclick="openPhotoSwipe(2);">
 						<img src="img/origami/PHiZZTorus.jpg">
 						<div class="info">
-							<span class="imageTitle">Torus</span>
-							<span class="imageSubtitle">360 Units</span>
+							<div class="imageTitle">Torus</div>
+							<span class="imageSubtitle">161 of 360 Units Completed</span>
 						</div>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 					<div class="card" onclick="openPhotoSwipe(3);">
 						<img src="img/origami/SonobeCube.jpg">
 						<div class="info">
-							<span class="imageTitle">Cube</span>
+							<div class="imageTitle">Cube</div>
 							<span class="imageSubtitle">6 Units</span>
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 					<div class="card" onclick="openPhotoSwipe(4);">
 						<img src="img/origami/SonobeStellatedOctahedron.jpg">
 						<div class="info">
-							<span class="imageTitle">Stellated Octahedron</span>
+							<div class="imageTitle">Stellated Octahedron</div>
 							<span class="imageSubtitle">12 Units</span>
 						</div>
 					</div>
@@ -104,7 +104,7 @@
 					<div class="card" onclick="openPhotoSwipe(5);">
 						<img src="img/origami/SonobeStellatedIcosahedron.jpg">
 						<div class="info">
-							<span class="imageTitle">Stellated Icosahedron</span>
+							<div class="imageTitle">Stellated Icosahedron</div>
 							<span class="imageSubtitle">30 Units</span>
 						</div>
 					</div>
@@ -116,7 +116,7 @@
 					<div class="card" onclick="openPhotoSwipe(6);">
 						<img src="img/origami/WhirlCube.jpg">
 						<div class="info">
-							<span class="imageTitle">Whirl Cube</span>
+							<div class="imageTitle">Whirl Cube</div>
 							<span class="imageSubtitle">24 Units</span>
 						</div>
 					</div>
@@ -125,7 +125,7 @@
 					<div class="card" onclick="openPhotoSwipe(7);">
 						<img src="img/origami/Convertible_(Front).jpg">
 						<div class="info">
-							<span class="imageTitle">Convertible</span>
+							<div class="imageTitle">Convertible</div>
 							<span class="imageSubtitle">Front View</span>
 						</div>
 					</div>
@@ -134,7 +134,7 @@
 					<div class="card" onclick="openPhotoSwipe(8);">
 						<img src="img/origami/Convertible_(Back).jpg">
 						<div class="info">
-							<span class="imageTitle">Convertible</span>
+							<div class="imageTitle">Convertible</div>
 							<span class="imageSubtitle">Rear View</span>
 						</div>
 					</div>
@@ -143,7 +143,7 @@
 					<div class="card" onclick="openPhotoSwipe(9);">
 						<img src="img/origami/Name_(Top).jpg">
 						<div class="info">
-							<span class="imageTitle">My Name</span>
+							<div class="imageTitle">My Name</div>
 							<span class="imageSubtitle">Top View</span>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 					<div class="card" onclick="openPhotoSwipe(10);">
 						<img src="img/origami/Name_(Front).jpg">
 						<div class="info">
-							<span class="imageTitle">My Name</span>
+							<div class="imageTitle">My Name</div>
 							<span class="imageSubtitle">Front View</span>
 						</div>
 					</div>
@@ -161,7 +161,7 @@
 					<div class="card" onclick="openPhotoSwipe(11);">
 						<img src="img/origami/Tanks.jpg">
 						<div class="info">
-							<span class="imageTitle">Tanks</span>
+							<div class="imageTitle">Tanks</div>
 							<span class="imageSubtitle">2 Sheets Each</span>
 						</div>
 					</div>
@@ -219,18 +219,18 @@
 
 			var gallery;
 			var photoswipeData = [
-				{src: "img/origami/PHiZZDodecahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Dodecahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 30 PHiZZ Units</span></div>'},
-				{src: "img/origami/PHiZZTruncatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Truncated Icosahedron</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 90 PHiZZ Units</span></div>'},
-				{src: "img/origami/PHiZZTorus.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Torus</span><span class="subtitle">Designed by Tom Hull</span><span class="subtitle">Made from 360 PHiZZ Units</span></div>'},
-				{src: "img/origami/SonobeCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Cube</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 6 Sonobe Units</span></div>'},
-				{src: "img/origami/SonobeStellatedOctahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Octahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 12 Sonobe Units</span></div>'},
-				{src: "img/origami/SonobeStellatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Icosahedron</span><span class="subtitle">Designed by Mitsunobu Sonobe</span><span class="subtitle">Made from 30 Sonobe Units</span></div>'},
-				{src: "img/origami/WhirlCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Whirl Cube</span><span class="subtitle">Designed by Meenakshi Mukerji</span><span class="subtitle">Made from 24 Units</span></div>'},
-				{src: "img/origami/Convertible_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'},
-				{src: "img/origami/Convertible_(Back).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><span class="subtitle">Designed by Jason Ku</span><span class="subtitle">One sheet of paper, double-sided</span></div>'},
-				{src: "img/origami/Name_(Top).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'},
-				{src: "img/origami/Name_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><span class="subtitle">Letters designed by Jo Nakashima</span><span class="subtitle">One sheet of paper per letter</span></div>'},
-				{src: "img/origami/Tanks.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Tanks</span><span class="subtitle">Designed by Jo Nakashima</span><span class="subtitle">Two pieces of paper per tank</span></div>'}
+				{src: "img/origami/PHiZZDodecahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Dodecahedron</span><div class="subtitle">Designed by Tom Hull</div><div class="subtitle">Made from 30 PHiZZ Units</div></div>'},
+				{src: "img/origami/PHiZZTruncatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Truncated Icosahedron</span><div class="subtitle">Designed by Tom Hull</div><div class="subtitle">Made from 90 PHiZZ Units</div></div>'},
+				{src: "img/origami/PHiZZTorus.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Torus</span><div class="subtitle">Designed by Tom Hull</div><div class="subtitle">Made from 360 PHiZZ Units</div></div>'},
+				{src: "img/origami/SonobeCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Cube</span><div class="subtitle">Designed by Mitsunobu Sonobe</div><div class="subtitle">Made from 6 Sonobe Units</div></div>'},
+				{src: "img/origami/SonobeStellatedOctahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Octahedron</span><div class="subtitle">Designed by Mitsunobu Sonobe</div><div class="subtitle">Made from 12 Sonobe Units</div></div>'},
+				{src: "img/origami/SonobeStellatedIcosahedron.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Stellated Icosahedron</span><div class="subtitle">Designed by Mitsunobu Sonobe</div><div class="subtitle">Made from 30 Sonobe Units</div></div>'},
+				{src: "img/origami/WhirlCube.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Whirl Cube</span><div class="subtitle">Designed by Meenakshi Mukerji</div><div class="subtitle">Made from 24 Units</div></div>'},
+				{src: "img/origami/Convertible_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><div class="subtitle">Designed by Jason Ku</div><div class="subtitle">One sheet of paper, double-sided</div></div>'},
+				{src: "img/origami/Convertible_(Back).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Convertible</span><div class="subtitle">Designed by Jason Ku</div><div class="subtitle">One sheet of paper, double-sided</div></div>'},
+				{src: "img/origami/Name_(Top).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><div class="subtitle">Letters designed by Jo Nakashima</div><div class="subtitle">One sheet of paper per letter</div></div>'},
+				{src: "img/origami/Name_(Front).jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>My Name</span><div class="subtitle">Letters designed by Jo Nakashima</div><div class="subtitle">One sheet of paper per letter</div></div>'},
+				{src: "img/origami/Tanks.jpg", w: 1478, h: 980, title: '<div class="imageCaption"><span>Tanks</span><div class="subtitle">Designed by Jo Nakashima</div><div class="subtitle">Two pieces of paper per tank</div></div>'}
 			];
 
 			var photoswipeOptions = {history: false, loop: false, index: 0, closeOnScroll: false, closeOnVerticalDrag: false,
