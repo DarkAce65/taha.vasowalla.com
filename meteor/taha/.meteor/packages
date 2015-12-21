@@ -20,6 +20,7 @@ autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
 iron:router
 less
+reactive-var
 nemo64:bootstrap
 fortawesome:fontawesome
 ostrio:iron-router-title
