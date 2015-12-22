@@ -13,13 +13,13 @@
 						{{#let lRowIndex=@index}}
 							{{#each smGrid in lRow}}
 								<td>
-									<table data-row="{{lRowIndex}}" data-column="{{@index}}">
+									<table data-row="{{lRowIndex}}" data-column="{{@index}}" class="{{bigSquare lRowIndex @index}}">
 										<tbody>
 											{{#each sRow in smGrid}}
 												<tr>
 													{{#let smRowIndex=@index}}
 														{{#each square in sRow}}
-															<td data-row="{{smRowIndex}}" data-column="{{@index}}" class="{{#if equals square ''}}possible{{else}}{{square}}{{/if}}"></td>
+															<td data-row="{{smRowIndex}}" data-column="{{@index}}" class="{{square}}"></td>
 														{{/each}}
 													{{/let}}
 												</tr>
