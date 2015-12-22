@@ -26,3 +26,15 @@ Router.route("UltimateTTT", {
 		$("body").removeClass("light-theme");
 	}
 });
+
+Router.route("Mafia", {
+	name: "mafia",
+	template: "mafia",
+	onBeforeAction: function() {
+		$("body").addClass("light-theme");
+		this.next();
+	},
+	onStop: function() {
+		$("body").removeClass("light-theme");
+	}
+});
