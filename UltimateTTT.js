@@ -107,20 +107,19 @@ $(document).ready(function() {
 			$(".possible").removeClass("possible");
 			$(this).addClass(grid[row][col][i][j]);
 
-			if(winSquare(row, col)) {
+			if(winSquare(row, col)) { // Move won a square
 				grid[row][col] = turn ? "Red" : "Blue";
 				$("table table[data-row=" + row + "][data-column=" + col + "]").addClass(turn ? "Red" : "Blue");
 			}
-			if($.isArray(grid[row][col])) {
+			if($.isArray(grid[row][col])) { // Tied square
 				if(grid[row][col][0].indexOf("") === -1 &&
 					grid[row][col][1].indexOf("") === -1 &&
 					grid[row][col][2].indexOf("") === -1) {
-
 					grid[row][col] = "";
 				}
 			}
 
-			if(winner()) {
+			if(winner()) { // Game winner
 				$("#TTT-winner").html((turn ? "Red" : "Blue") + " won! Congrats!");
 				$("#TTT-turnText").css("display", "none");
 				$("#TTT-button").css("display", "inline-block");
@@ -132,7 +131,7 @@ $(document).ready(function() {
 					confirmButtonText: "OK"
 				});
 			}
-			else if(tie()) {
+			else if(tie()) { // Game tied
 				$("#TTT-winner").html("The match ended with a tie!");
 				$("#TTT-turnText").css("display", "none");
 				$("#TTT-button").css("display", "inline-block");
@@ -144,7 +143,7 @@ $(document).ready(function() {
 					confirmButtonText: "OK"
 				});
 			}
-			else {
+			else { // If square is available, make it possible. If not, make everything possible
 				if($.isArray(grid[i][j])) {
 					$("table table[data-row=" + i + "][data-column=" + j + "] td:not(.Red, .Blue)").addClass("possible");
 				}
