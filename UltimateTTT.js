@@ -45,8 +45,8 @@ function tie() {
 function winner() {
 	var result = false;
 	for(var i = 0; i < 3; i++) {
-		result = result || JSON.stringify(grid[i]) === JSON.stringify(["Red","Red","Red"]);
-		result = result || JSON.stringify(grid[i]) === JSON.stringify(["Blue","Blue","Blue"]);
+		result = result || JSON.stringify(grid[i]) === JSON.stringify(["Red", "Red", "Red"]);
+		result = result || JSON.stringify(grid[i]) === JSON.stringify(["Blue", "Blue", "Blue"]);
 
 		result = result || JSON.stringify([grid[0][i], grid[1][i], grid[2][i]]) === JSON.stringify(["Red", "Red", "Red"]);
 		result = result || JSON.stringify([grid[0][i], grid[1][i], grid[2][i]]) === JSON.stringify(["Blue", "Blue", "Blue"]);
@@ -62,8 +62,8 @@ function winner() {
 function winSquare(row, col) {
 	var result = false;
 	for(var i = 0; i < 3; i++) {
-		result = result || JSON.stringify(grid[row][col][i]) === JSON.stringify(["Red","Red","Red"]);
-		result = result || JSON.stringify(grid[row][col][i]) === JSON.stringify(["Blue","Blue","Blue"]);
+		result = result || JSON.stringify(grid[row][col][i]) === JSON.stringify(["Red", "Red", "Red"]);
+		result = result || JSON.stringify(grid[row][col][i]) === JSON.stringify(["Blue", "Blue", "Blue"]);
 
 		result = result || JSON.stringify([grid[row][col][0][i], grid[row][col][1][i], grid[row][col][2][i]]) === JSON.stringify(["Red", "Red", "Red"]);
 		result = result || JSON.stringify([grid[row][col][0][i], grid[row][col][1][i], grid[row][col][2][i]]) === JSON.stringify(["Blue", "Blue", "Blue"]);
