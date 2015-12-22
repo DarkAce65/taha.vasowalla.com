@@ -6,7 +6,33 @@
 		</div>
 		<p>Rules and instructions can be found <a target="_blank" href="http://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe">here</a>.</p>
 		<p>Programmed and designed as a group effort by Taha and Eli.</p>
-		<table id="ultimate" style="margin: auto"></table>
+		<table id="ultimate" style="margin: auto">
+			<tbody>
+				{{#each lRow in grid}}
+					<tr>
+						{{#let lRowIndex=@index}}
+							{{#each smGrid in lRow}}
+								<td>
+									<table data-row="{{lRowIndex}}" data-column="{{@index}}">
+										<tbody>
+											{{#each sRow in smGrid}}
+												<tr>
+													{{#let smRowIndex=@index}}
+														{{#each square in sRow}}
+															<td data-row="{{smRowIndex}}" data-column="{{@index}}" class="{{#if equals square ''}}possible{{else}}{{square}}{{/if}}"></td>
+														{{/each}}
+													{{/let}}
+												</tr>
+											{{/each}}
+										</tbody>
+									</table>
+								</td>
+							{{/each}}
+						{{/let}}
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
 		<div style="text-align: center;">
 			<p id="TTT-winner" class="h3"></p>
 			<p id="TTT-turnText" class="h3" style="text-align: center;">It is <span id="turn" style="color: red">Red</span>'s turn.</p>
