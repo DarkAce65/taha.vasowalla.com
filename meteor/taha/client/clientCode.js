@@ -195,3 +195,9 @@ Template.UltimateTTT.events({
 		}
 	}
 });
+
+Template.mafia.helpers({
+	"lobbies": function() {
+		return Lobbies.find();
+	}
+});

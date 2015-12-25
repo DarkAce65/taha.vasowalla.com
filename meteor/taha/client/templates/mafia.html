@@ -4,6 +4,27 @@
 		<div class="page-header">
 			<p class="h1">Mafia</p>
 		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">Lobbies</div>
+					<div class="panel-body">
+						{{#each lobby in lobbies}}
+							<div class="lobby">
+								{{lobby.name}}
+							</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="list-group">
+					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> Menu</div>
+					<button href="{{pathFor 'profileSettings'}}" class="list-group-item"><i class="fa fa-fw fa-globe"></i> Create Public Lobby</button>
+					<button href="{{pathFor 'notificationCenter'}}" class="list-group-item"><i class="fa fa-fw fa-bell-o"></i> Create Private Lobby</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	{{> footer}}
 </template>
