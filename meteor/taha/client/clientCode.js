@@ -1,3 +1,9 @@
+/* Subscriptions */
+
+Meteor.subscribe("lobbies");
+
+/* Templates */
+
 Template.registerHelper("equals", function(v1, v2) {
 	return v1 === v2;
 });
@@ -5,8 +11,6 @@ Template.registerHelper("equals", function(v1, v2) {
 Template.registerHelper("isArray", function(a) {
 	return $.isArray(a);
 });
-
-Meteor.subscribe("lobbies");
 
 Template.UltimateTTT.onCreated(function() {
 	var turn = true; // true: Red, false: Blue
@@ -198,8 +202,51 @@ Template.UltimateTTT.events({
 	}
 });
 
+Template.mafia.onCreated(function() {
+	this.creatingLobby = false;
+});
+
 Template.mafia.helpers({
 	"lobbies": function() {
 		return Lobbies.find();
+	},
+	"username": function() {
+		return Session.get("username");
+	},
+	"menuHeader": function() {
+		if(Session.get("username")) {
+			return Session.get("username");
+		}
+		return "Menu";
+	}
+});
+
+Template.mafia.events({
+	"click #newLobby": function(e) {
+		Template.instance().creatingLobby = true;
+		if(Session.get("username")) {
+			$("#newLobbyModal").modal("show");
+		}
+		else {
+			$("#usernameModal").modal("show");
+		}
+	},
+	"click #changeUsername": function(e) {
+		Template.instance().creatingLobby = false;
+	},
+	"submit #createLobby": function(e) {
+		e.preventDefault();
+		var lobbyName = $(e.target).find("#lobbyName").val();
+		var password = $(e.target).find("#password").val();
+		Meteor.call("createLobby", lobbyName, password);
+		$("#newLobbyModal").modal("hide");
+	},
+	"submit #setUsername": function(e) {
+		e.preventDefault();
+		Session.set("username", $(e.target).find("#username").val());
+		$("#usernameModal").modal("hide");
+		if(Template.instance().creatingLobby) {
+			$("#newLobbyModal").modal("show");
+		}
 	}
 });
