@@ -1,11 +1,19 @@
 /* Subscriptions */
 
+Meteor.subscribe("userPresence");
 Meteor.subscribe("lobbies");
 
 /* Templates */
 
 Template.registerHelper("equals", function(v1, v2) {
 	return v1 === v2;
+});
+
+Template.registerHelper("existsIn", function(el, array) {
+	if($.isArray(array)) {
+		return array.indexOf(el) !== -1;
+	}
+	return false;
 });
 
 Template.registerHelper("isArray", function(a) {
@@ -240,8 +248,14 @@ Template.mafia.events({
 	"click #changeUsername": function(e) {
 		Template.instance().creatingLobby = false;
 	},
+	"click .joinLobby": function(e) {
+		Meteor.call("joinLobby", $(e.target).closest(".lobby").data("id"));
+	},
+	"click .leaveLobby": function(e) {
+		Meteor.call("leaveLobby", $(e.target).closest(".lobby").data("id"));
+	},
 	"click .deleteLobby": function(e) {
-		Meteor.call("deleteLobby", $(e.target).data("lobby"));
+		Meteor.call("deleteLobby", $(e.target).closest(".lobby").data("id"));
 	},
 	"submit #createLobby": function(e) {
 		e.preventDefault();
