@@ -6,6 +6,8 @@ Template.registerHelper("isArray", function(a) {
 	return $.isArray(a);
 });
 
+Meteor.subscribe("lobbies");
+
 Template.UltimateTTT.onCreated(function() {
 	var turn = true; // true: Red, false: Blue
 	var grid = [];
