@@ -20,6 +20,7 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 #insecure                # Allow all DB writes from clients (for prototyping)
 iron:router
 less
+random
 reactive-var
 nemo64:bootstrap
 fortawesome:fontawesome
