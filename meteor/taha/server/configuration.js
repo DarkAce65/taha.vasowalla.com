@@ -7,3 +7,7 @@ AccountsGuest.anonymous = true;
 Meteor.publish("lobbies", function() {
 	return Lobbies.find();
 });
+
+Meteor.publish("userPresence", function() {
+	return Presences.find();
+});
