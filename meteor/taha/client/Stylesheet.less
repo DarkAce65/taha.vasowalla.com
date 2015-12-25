@@ -71,6 +71,30 @@ body {
 	background-color: #f5f5f5;
 }
 
+.btn-group-sm {
+	& > .btn-group-addon {
+		float: left;
+		padding: 5px 10px;
+		font-size: 12px;
+		line-height: 1.5;
+		color: #555;
+		text-align: center;
+		background-color: #eee;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+
+		&:first-child:not(:last-child) {
+			border-bottom-right-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		&:last-child:not(:first-child) {
+			border-bottom-left-radius: 0;
+			border-top-left-radius: 0;
+		}
+	}
+}
+
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
 	.lh-transition(0.2s);
 }
@@ -118,9 +142,25 @@ body.light-theme {
 	}
 }
 
+.lobby {
+	margin-bottom: 10px;
+
+	.col-sm-4 {
+		text-align: right;
+	}
+}
+
 
 @media screen and (max-width: 767px) {
 	.light-theme .footer {
 		display: block;
+	}
+
+	.content {
+		padding-bottom: 88px;
+	}
+
+	.lobby .col-sm-4 {
+		text-align: inherit;
 	}
 }

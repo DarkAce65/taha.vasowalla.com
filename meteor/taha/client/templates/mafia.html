@@ -10,12 +10,16 @@
 					<div class="panel-heading">Lobbies</div>
 					<div class="panel-body">
 						{{#each lobby in lobbies}}
-							<div class="lobby">
-								<h4 class="lobbyName">{{lobby.name}} {{#if lobby.private}}<i class="fa fa-lock"></i>{{/if}}</h4>
-								<div style="text-align: right;">
-									<span>{{lobby.members}} / 16</span>
-									{{#if equals sessionId lobby.owner}}<button class="btn btn-sm btn-danger">Delete</button>{{/if}}
-									<button class="btn btn-sm btn-success joinLobby">Join</button>
+							<div class="lobby row">
+								<div class="col-sm-8">
+									<p class="lobbyName">{{lobby.name}} {{#if lobby.private}}<i class="fa fa-lock"></i>{{/if}}</p>
+								</div>
+								<div class="col-sm-4">
+									<div class="btn-group btn-group-sm">
+										<span class="btn-group-addon">{{lobby.members.length}} / 16</span>
+										{{#if equals userId lobby.owner}}<button data-lobby="{{lobby._id}}" class="btn btn-danger deleteLobby">Delete</button>{{/if}}
+										<button class="btn btn-success joinLobby">Join</button>
+									</div>
 								</div>
 							</div>
 						{{/each}}
