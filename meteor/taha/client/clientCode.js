@@ -204,22 +204,24 @@ Template.UltimateTTT.events({
 
 Template.mafia.onCreated(function() {
 	this.creatingLobby = false;
-	Session.set("sessionId", Random.id());
 });
 
 Template.mafia.helpers({
 	"lobbies": function() {
 		return Lobbies.find();
 	},
-	"sessionId": function() {
-		return Session.get("sessionId");
+	"userId": function() {
+		return Meteor.userId();
 	},
 	"username": function() {
-		return Session.get("username");
+		if(Meteor.user() && Meteor.user().profile.name) {
+			return Meteor.user().profile.name;
+		}
+		return false;
 	},
 	"menuHeader": function() {
-		if(Session.get("username")) {
-			return Session.get("username");
+		if(Meteor.user() && Meteor.user().profile.name) {
+			return Meteor.user().profile.name;
 		}
 		return "Menu";
 	}
@@ -228,7 +230,7 @@ Template.mafia.helpers({
 Template.mafia.events({
 	"click #newLobby": function(e) {
 		Template.instance().creatingLobby = true;
-		if(Session.get("username")) {
+		if(Meteor.user().profile.name) {
 			$("#newLobbyModal").modal("show");
 		}
 		else {
@@ -238,16 +240,19 @@ Template.mafia.events({
 	"click #changeUsername": function(e) {
 		Template.instance().creatingLobby = false;
 	},
+	"click .deleteLobby": function(e) {
+		Meteor.call("deleteLobby", $(e.target).data("lobby"));
+	},
 	"submit #createLobby": function(e) {
 		e.preventDefault();
 		var lobbyName = $(e.target).find("#lobbyName").val();
 		var password = $(e.target).find("#password").val();
-		Meteor.call("createLobby", Session.get("sessionId"), lobbyName, password);
+		Meteor.call("createLobby", lobbyName, password);
 		$("#newLobbyModal").modal("hide");
 	},
 	"submit #setUsername": function(e) {
 		e.preventDefault();
-		Session.set("username", $(e.target).find("#username").val());
+		Meteor.users.update(Meteor.userId(), {$set: {"profile.name": $(e.target).find("#username").val()}});
 		$("#usernameModal").modal("hide");
 		if(Template.instance().creatingLobby) {
 			$("#newLobbyModal").modal("show");
