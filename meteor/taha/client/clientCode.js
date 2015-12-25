@@ -204,11 +204,15 @@ Template.UltimateTTT.events({
 
 Template.mafia.onCreated(function() {
 	this.creatingLobby = false;
+	Session.set("sessionId", Random.id());
 });
 
 Template.mafia.helpers({
 	"lobbies": function() {
 		return Lobbies.find();
+	},
+	"sessionId": function() {
+		return Session.get("sessionId");
 	},
 	"username": function() {
 		return Session.get("username");
@@ -238,7 +242,7 @@ Template.mafia.events({
 		e.preventDefault();
 		var lobbyName = $(e.target).find("#lobbyName").val();
 		var password = $(e.target).find("#password").val();
-		Meteor.call("createLobby", lobbyName, password);
+		Meteor.call("createLobby", Session.get("sessionId"), lobbyName, password);
 		$("#newLobbyModal").modal("hide");
 	},
 	"submit #setUsername": function(e) {

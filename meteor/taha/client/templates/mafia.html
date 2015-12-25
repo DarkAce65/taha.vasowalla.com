@@ -11,7 +11,12 @@
 					<div class="panel-body">
 						{{#each lobby in lobbies}}
 							<div class="lobby">
-								{{lobby.name}}
+								<h4 class="lobbyName">{{lobby.name}} {{#if lobby.private}}<i class="fa fa-lock"></i>{{/if}}</h4>
+								<div style="text-align: right;">
+									<span>{{lobby.members}} / 16</span>
+									{{#if equals sessionId lobby.owner}}<button class="btn btn-sm btn-danger">Delete</button>{{/if}}
+									<button class="btn btn-sm btn-success joinLobby">Join</button>
+								</div>
 							</div>
 						{{/each}}
 					</div>

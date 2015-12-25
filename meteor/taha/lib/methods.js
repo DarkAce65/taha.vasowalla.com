@@ -1,9 +1,9 @@
 Meteor.methods({
-	"createLobby": function(lobbyName, password) {
+	"createLobby": function(owner, lobbyName, password) {
 		if(lobbyName.trim() === "") {
 			throw new Meteor.Error("invalid-lobby-name", "Invalid lobby name.");
 		}
-		var lobby = {name: lobbyName, private: false};
+		var lobby = {"owner": owner, "name": lobbyName, "members": 0, "private": false};
 		if(password) {
 			lobby.private = true;
 			lobby.password = password;
