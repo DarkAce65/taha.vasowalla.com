@@ -25,6 +25,7 @@ random
 reactive-var
 accounts-base
 nemo64:bootstrap
+kevohagan:sweetalert
 fortawesome:fontawesome
 artwells:accounts-guest
 tmeasday:presence

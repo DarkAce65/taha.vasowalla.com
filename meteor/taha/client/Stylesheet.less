@@ -92,11 +92,19 @@ body {
 			border-bottom-left-radius: 0;
 			border-top-left-radius: 0;
 		}
+
+		&:not(:first-child):not(:last-child) {
+			border-radius: 0;
+		}
 	}
 }
 
 .btn, .nav a, .navbar a, .dropdown-menu > li > a, .linkList a, .linkList button {
 	.lh-transition(0.2s);
+}
+
+.sweet-alert .sa-input-error {
+	top: 22px;
 }
 
 .content {
@@ -145,11 +153,18 @@ body.light-theme {
 .lobby {
 	margin-bottom: 10px;
 
-	.col-sm-4 {
+	.col-sm-6:last-child {
 		text-align: right;
 	}
-}
 
+	.btn-group {
+		.btn-group-addon + .btn,
+		.btn + .btn-group-addon,
+		.btn-group-addon + .btn-group-addon {
+			margin-left: -1px;
+		}
+	}
+}
 
 @media screen and (max-width: 767px) {
 	.light-theme .footer {
