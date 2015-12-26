@@ -5,7 +5,11 @@ Accounts.removeOldGuests(before);
 AccountsGuest.anonymous = true;
 
 Meteor.publish("lobbies", function() {
-	return Lobbies.find();
+	return Lobbies.find({}, {
+		fields: {
+			"password": 0
+		}
+	});
 });
 
 Meteor.publish("userPresence", function() {
