@@ -10,16 +10,24 @@
 					<div class="panel-heading">Lobbies</div>
 					<div class="panel-body">
 						{{#each lobby in lobbies}}
-							<div class="lobby row" data-id="{{lobby._id}}">
-								<div class="col-sm-8">
+							<div class="lobby row" data-id="{{lobby._id}}" data-name="{{lobby.name}}">
+								<div class="col-sm-6">
 									<p class="lobbyName">{{lobby.name}} {{#if lobby.private}}<i class="fa fa-lock"></i>{{/if}}</p>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-6">
 									<div class="btn-group btn-group-sm">
 										<span class="btn-group-addon">{{lobby.members.length}} / 16</span>
 										{{#if equals userId lobby.owner}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
-										{{#if existsIn userId lobby.members}}<button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby">Join</button>{{/if}}
+										{{#if existsIn userId lobby.members}}<button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby" data-private="{{lobby.private}}">Join</button>{{/if}}
 									</div>
+									{{#if lobby.private}}
+										<div class="input-group input-group-sm">
+											<input type="text" class="form-control" placeholder="Enter password...">
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="button">Go</button>
+											</span>
+										</div>
+									{{/if}}
 								</div>
 							</div>
 						{{/each}}

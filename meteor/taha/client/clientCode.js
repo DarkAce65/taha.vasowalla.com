@@ -249,7 +249,13 @@ Template.mafia.events({
 		Template.instance().creatingLobby = false;
 	},
 	"click .joinLobby": function(e) {
-		Meteor.call("joinLobby", $(e.target).closest(".lobby").data("id"));
+		var lobbyId = $(e.target).closest(".lobby").data("id");
+		if($(e.target).data("private")) {
+			Meteor.call("joinLobby", lobbyId, input);
+		}
+		else {
+			Meteor.call("joinLobby", lobbyId);
+		}
 	},
 	"click .leaveLobby": function(e) {
 		Meteor.call("leaveLobby", $(e.target).closest(".lobby").data("id"));

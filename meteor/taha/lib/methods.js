@@ -10,12 +10,16 @@ Meteor.methods({
 		}
 		Lobbies.insert(lobby);
 	},
-	"joinLobby": function(lobbyId) {
-		if(!Lobbies.findOne(lobbyId)) {
+	"joinLobby": function(lobbyId, password) {
+		var Lobby = Lobbies.findOne(lobbyId);
+		if(!Lobby) {
 			throw new Meteor.Error("lobby-not-found", "The lobby was not found.");
 		}
-		if(Lobbies.findOne(lobbyId).members.length >= 16) {
+		if(Lobby.members.length >= 16) {
 			throw new Meteor.Error("lobby-full", "The lobby is full.");
+		}
+		if(Lobby.private && Lobby.password !== password) {
+			throw new Meteor.Error("incorrect-password", "The password was incorrect.");
 		}
 		Lobbies.update(lobbyId, {$push: {members: this.userId}});
 	},
