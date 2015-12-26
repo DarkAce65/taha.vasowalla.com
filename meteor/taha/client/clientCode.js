@@ -250,8 +250,27 @@ Template.mafia.events({
 	},
 	"click .joinLobby": function(e) {
 		var lobbyId = $(e.target).closest(".lobby").data("id");
+		$(".showInput").removeClass("showInput");
+		$(".joinLobby").html("Join");
 		if($(e.target).data("private")) {
-			Meteor.call("joinLobby", lobbyId, input);
+			$(e.target).html("Enter");
+			var lobbyPassword = $(e.target).closest(".lobby").find(".lobbyPassword");
+			lobbyPassword.addClass("showInput");
+			if($(e.target).hasClass("visibleInput")) {
+				Meteor.call("joinLobby", lobbyId, lobbyPassword.find("input").val(), function(error) {
+					if(error) {
+						console.log(error.message);
+					}
+					else {
+						lobbyPassword.removeClass("showInput");
+						$(e.target).removeClass("visibleInput");
+					}
+				});
+				lobbyPassword.find("input").val("");
+			}
+			else {
+				$(e.target).addClass("visibleInput");
+			}
 		}
 		else {
 			Meteor.call("joinLobby", lobbyId);
