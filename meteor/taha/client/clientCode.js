@@ -291,10 +291,19 @@ Template.mafia.events({
 	},
 	"submit #setUsername": function(e) {
 		e.preventDefault();
-		Meteor.users.update(Meteor.userId(), {$set: {"profile.name": $(e.target).find("#username").val()}});
-		$("#usernameModal").modal("hide");
-		if(Template.instance().creatingLobby) {
-			$("#newLobbyModal").modal("show");
+		var username = $(e.target).find("#username").val().trim();
+		if(username === "") {
+			$(e.target).find(".form-group").addClass("has-error");
+			$(e.target).find(".help-block").html("Please enter a username.");
+		}
+		else {
+			$(e.target).find(".form-group").removeClass("has-error");
+			$(e.target).find(".help-block").html("");
+			Meteor.users.update(Meteor.userId(), {$set: {"profile.name": username}});
+			$("#usernameModal").modal("hide");
+			if(Template.instance().creatingLobby) {
+				$("#newLobbyModal").modal("show");
+			}
 		}
 	}
 });
