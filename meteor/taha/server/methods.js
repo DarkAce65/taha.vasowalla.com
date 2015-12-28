@@ -28,23 +28,7 @@ Meteor.methods({
 			throw new Meteor.Error("lobby-not-found", "The lobby was not found.");
 		}
 		Lobbies.update(lobbyId, {$pull: {members: this.userId}});
-
-		if(Lobbies.findOne(lobbyId).members.length === 0) {
-			Lobbies.remove(lobbyId);
-		}
-		else {
-			var members = Lobbies.findOne(lobbyId).members;
-			var onlineMembers = false;
-			var presences = Presences.find().fetch();
-			for(var i = 0; i < presences.length; i++) {
-				if(members.indexOf(presences[i].userId) !== -1) {
-					onlineMembers = true;
-				}
-			}
-			if(!onlineMembers) {
-				Lobbies.remove(lobbyId);
-			}
-		}
+		Meteor.call("removeInactiveLobbies", lobbyId);
 	},
 	"deleteLobby": function(lobbyId) {
 		if(!Lobbies.findOne(lobbyId)) {
@@ -54,5 +38,17 @@ Meteor.methods({
 			throw new Meteor.Error("invalid-permissions", "You do not have permission to delete this lobby.");
 		}
 		Lobbies.remove(lobbyId);
+	},
+	"removeInactiveLobbies": function(lobbyId) {
+		var lobbyFilter = {};
+		if(lobbyId) {
+			lobbyFilter = lobbyId;
+		}
+		var presences = Presences.find().fetch();
+		for(var i = 0; i < presences.length; i++) {
+			presences[i] = presences[i].userId;
+		}
+		Lobbies.update(lobbyFilter, {$pull: {members: {$nin: presences}}}, {multi: true});
+		Lobbies.remove({members: {$size: 0}});
 	}
 });

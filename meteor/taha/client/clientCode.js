@@ -1,7 +1,19 @@
+Session.set("inGame", false);
+Session.set("currentRoomId", false);
+
 /* Subscriptions */
 
 Meteor.subscribe("userPresence");
 Meteor.subscribe("lobbies");
+
+/* Presence Setup */
+
+Presence.state = function() {
+	return {
+		inGame: Session.get("inGame"),
+		currentRoomId: Session.get("currentRoomId")
+	};
+}
 
 /* Templates */
 
@@ -262,6 +274,7 @@ Template.mafia.events({
 						console.log(error.message);
 					}
 					else {
+						Session.set("currentRoomId", lobbyId);
 						lobbyPassword.removeClass("showInput");
 						$(e.target).removeClass("visibleInput");
 					}
