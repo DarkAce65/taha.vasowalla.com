@@ -10,12 +10,12 @@ Meteor.setInterval(function() {
 
 Meteor.publish("lobbies", function() {
 	return Lobbies.find({}, {
-		fields: {
+		"fields": {
 			"password": 0
 		}
 	});
 });
 
 Meteor.publish("userPresence", function() {
-	return Presences.find();
+	return Presences.find({userId: {$in: Lobbies.findOne({members: this.userId}).members}});
 });
