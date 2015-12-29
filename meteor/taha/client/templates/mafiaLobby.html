@@ -7,7 +7,7 @@
 					<div class="panel-heading">{{name}}</div>
 					<div class="panel-body">
 						{{#each memberId in members}}
-							<p>{{memberId}}</p>
+							<p>{{#if equals memberId owner}}<b>Owner: </b>{{/if}}{{memberId}}</p>
 						{{/each}}
 					</div>
 				</div>
