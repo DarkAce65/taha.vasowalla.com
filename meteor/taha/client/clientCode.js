@@ -229,13 +229,10 @@ Template.mafia.helpers({
 		return Meteor.userId();
 	},
 	"username": function() {
-		if(Meteor.user() && Meteor.user().profile.name) {
-			return Meteor.user().profile.name;
-		}
-		return false;
+		return Meteor.user().profile.name;
 	},
 	"menuHeader": function() {
-		if(Meteor.user() && Meteor.user().profile.name) {
+		if(Meteor.user().profile.name) {
 			return Meteor.user().profile.name;
 		}
 		return "Menu";
