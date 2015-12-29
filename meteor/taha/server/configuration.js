@@ -4,7 +4,9 @@ Accounts.removeOldGuests(before);
 
 AccountsGuest.anonymous = true;
 
-Meteor.call("removeInactiveLobbies");
+Meteor.startup(function() {
+	Meteor.call("removeInactiveLobbies");
+});
 Meteor.setInterval(function() {
 	Meteor.call("removeInactiveLobbies");
 }, 10000);
