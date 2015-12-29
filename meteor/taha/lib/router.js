@@ -41,7 +41,7 @@ Router.route("/Mafia/lobby/:_id", {
 	name: "mafiaLobby",
 	template: "mafiaLobby",
 	waitOn: function() {
-		return Meteor.subscribe("lobbies");
+		return [Meteor.subscribe("userPresence"), Meteor.subscribe("lobbies")];
 	},
 	data: function() {
 		return Lobbies.findOne(this.params._id);
