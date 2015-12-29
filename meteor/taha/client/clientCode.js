@@ -1,15 +1,3 @@
-Session.set("inGame", false);
-Session.set("currentRoomId", false);
-
-/* Presence Setup */
-
-Presence.state = function() {
-	return {
-		inGame: Session.get("inGame"),
-		currentRoomId: Session.get("currentRoomId")
-	};
-}
-
 /* Templates */
 
 Template.registerHelper("equals", function(v1, v2) {
@@ -266,7 +254,6 @@ Template.mafia.events({
 						console.log(error.message);
 					}
 					else {
-						Session.set("currentRoomId", lobbyId);
 						lobbyPassword.removeClass("showInput");
 						$(e.target).removeClass("visibleInput");
 					}
