@@ -34,6 +34,10 @@ Router.route("Mafia", {
 	template: "mafia",
 	waitOn: function() {
 		return Meteor.subscribe("lobbies");
+	},
+	action: function() {
+		Meteor.users.update(Meteor.userId(), {$set: {"profile.currentRoomId": false}});
+		this.render();
 	}
 });
 
@@ -45,5 +49,9 @@ Router.route("/Mafia/lobby/:_id", {
 	},
 	data: function() {
 		return Lobbies.findOne(this.params._id);
+	},
+	action: function() {
+		Meteor.users.update(Meteor.userId(), {$set: {"profile.currentRoomId": this.params._id}});
+		this.render();
 	}
 });
