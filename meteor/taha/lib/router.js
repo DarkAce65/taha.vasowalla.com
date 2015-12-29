@@ -1,6 +1,15 @@
 Router.configure({
-	notFoundTemplate: "404"
+	notFoundTemplate: "404",
+	onBeforeAction: function() {
+		$("body").addClass("light-theme");
+		this.next();
+	},
+	onStop: function() {
+		$("body").removeClass("light-theme");
+	}
 });
+
+Router.onBeforeAction("dataNotFound");
 
 Router.route("/",
 	function() {
@@ -17,28 +26,14 @@ Router.route("/",
 
 Router.route("UltimateTTT", {
 	name: "UTTT",
-	template: "UltimateTTT",
-	onBeforeAction: function() {
-		$("body").addClass("light-theme");
-		this.next();
-	},
-	onStop: function() {
-		$("body").removeClass("light-theme");
-	}
+	template: "UltimateTTT"
 });
 
 Router.route("Mafia", {
 	name: "mafia",
 	template: "mafia",
-	onBeforeAction: function() {
-		$("body").addClass("light-theme");
-		this.next();
-	},
 	waitOn: function() {
 		return Meteor.subscribe("lobbies");
-	},
-	onStop: function() {
-		$("body").removeClass("light-theme");
 	}
 });
 
