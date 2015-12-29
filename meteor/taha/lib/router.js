@@ -1,15 +1,13 @@
 Router.configure({
-	notFoundTemplate: "404",
-	onBeforeAction: function() {
-		$("body").addClass("light-theme");
-		this.next();
-	},
-	onStop: function() {
-		$("body").removeClass("light-theme");
-	}
+	notFoundTemplate: "404"
 });
 
 Router.onBeforeAction("dataNotFound");
+
+Router.onBeforeAction(function() {
+	$("body").addClass("light-theme");
+	this.next();
+}, {except: ["home", "404"]});
 
 Router.route("/",
 	function() {
