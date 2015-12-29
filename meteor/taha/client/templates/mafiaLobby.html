@@ -1,0 +1,23 @@
+<template name="mafiaLobby">
+	{{> navigation navType="navbar-default"}}
+	<div class="content container">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">{{name}}</div>
+					<div class="panel-body">
+						{{#each memberId in members}}
+							{{getUsername memberId}}
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="list-group">
+					<div class="list-group-item list-group-item-divider"><i class="fa fa-fw fa-bars"></i> Menu</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{> footer}}
+</template>
