@@ -254,8 +254,7 @@ Template.mafia.events({
 						console.log(error.message);
 					}
 					else {
-						lobbyPassword.removeClass("showInput");
-						$(e.target).removeClass("visibleInput");
+						Router.go("mafiaLobby", {_id: lobbyId});
 					}
 				});
 				lobbyPassword.find("input").val("");
@@ -265,7 +264,14 @@ Template.mafia.events({
 			}
 		}
 		else {
-			Meteor.call("joinLobby", lobbyId);
+			Meteor.call("joinLobby", lobbyId, function(error) {
+				if(error) {
+					console.log(error.message);
+				}
+				else {
+					Router.go("mafiaLobby", {_id: lobbyId});
+				}
+			});
 		}
 	},
 	"click .leaveLobby": function(e) {
@@ -278,8 +284,15 @@ Template.mafia.events({
 		e.preventDefault();
 		var lobbyName = $(e.target).find("#lobbyName").val();
 		var password = $(e.target).find("#password").val();
-		Meteor.call("createLobby", lobbyName, password);
-		$("#newLobbyModal").modal("hide");
+		Meteor.call("createLobby", lobbyName, password, function(error, lobbyId) {
+			if(error) {
+				console.log(error.message);
+			}
+			else {
+				$("#newLobbyModal").modal("hide");
+				Router.go("mafiaLobby", {_id: lobbyId});
+			}
+		});
 	},
 	"submit #setUsername": function(e) {
 		e.preventDefault();

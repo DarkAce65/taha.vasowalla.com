@@ -8,7 +8,7 @@ Meteor.methods({
 			lobby.private = true;
 			lobby.password = password;
 		}
-		Lobbies.insert(lobby);
+		return Lobbies.insert(lobby);
 	},
 	"joinLobby": function(lobbyId, password) {
 		var Lobby = Lobbies.findOne(lobbyId);
