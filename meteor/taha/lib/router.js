@@ -34,7 +34,21 @@ Router.route("Mafia", {
 		$("body").addClass("light-theme");
 		this.next();
 	},
+	waitOn: function() {
+		return Meteor.subscribe("lobbies");
+	},
 	onStop: function() {
 		$("body").removeClass("light-theme");
+	}
+});
+
+Router.route("/Mafia/lobby/:_id", {
+	name: "mafiaLobby",
+	template: "mafiaLobby",
+	waitOn: function() {
+		return Meteor.subscribe("lobbies");
+	},
+	data: function() {
+		return Lobbies.findOne(this.params._id);
 	}
 });

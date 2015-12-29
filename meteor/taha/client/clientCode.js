@@ -1,11 +1,6 @@
 Session.set("inGame", false);
 Session.set("currentRoomId", false);
 
-/* Subscriptions */
-
-Meteor.subscribe("userPresence");
-Meteor.subscribe("lobbies");
-
 /* Presence Setup */
 
 Presence.state = function() {
