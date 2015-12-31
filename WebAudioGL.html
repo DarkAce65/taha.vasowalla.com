@@ -388,7 +388,7 @@
 					currentVolume = targetVolume;
 				}
 				else {
-					currentVolume = lerp(currentVolume, targetVolume, decay);
+					currentVolume = lerp(currentVolume, targetVolume, volDecay);
 				}
 				if(currentVolume < 0.0001) {
 					currentVolume = 0.0001;
