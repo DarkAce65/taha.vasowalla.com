@@ -6,6 +6,12 @@
 		"descriptions": ["Mafia", "Online multiplayer version of <a href=\"UltimateTTT.html\">Ultimate Tic Tac Toe</a>", "Card based two-player battle"]
 	},
 	{
+		"date": "12-30-15",
+		"status": "Completed",
+		"title": "Reorganization of Website File Tree",
+		"descriptions": ["Organized all file dependencies and external libraries", "Standardized headers and footers across the site"]
+	},
+	{
 		"date": "12-8-15",
 		"status": "Completed",
 		"title": "Design rework",
