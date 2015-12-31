@@ -328,9 +328,9 @@ $(document).ready(function() {
 					break;
 				default:
 					swal({
-						title: "Warning!",
+						title: "Error!",
 						text: errorMessage,
-						type: "warning",
+						type: "error",
 						confirmButtonClass: "btn-danger",
 						confirmButtonText: "OK"
 					});
@@ -342,9 +342,9 @@ $(document).ready(function() {
 			else {errorMessage = "Leave one value blank."}
 			$(".alert").alert("close");
 			swal({
-				title: "Warning!",
+				title: "Error!",
 				text: errorMessage,
-				type: "warning",
+				type: "error",
 				confirmButtonClass: "btn-danger",
 				confirmButtonText: "OK"
 			});
@@ -392,9 +392,9 @@ $(document).ready(function() {
 			else {errorMessage = "Leave one value blank."}
 			$(".alert").alert("close");
 			swal({
-				title: "Warning!",
+				title: "Error!",
 				text: errorMessage,
-				type: "warning",
+				type: "error",
 				confirmButtonClass: "btn-danger",
 				confirmButtonText: "OK"
 			});
@@ -440,9 +440,9 @@ $(document).ready(function() {
 			else {errorMessage = "Leave one value blank."}
 			$(".alert").alert("close");
 			swal({
-				title: "Warning!",
+				title: "Error!",
 				text: errorMessage,
-				type: "warning",
+				type: "error",
 				confirmButtonClass: "btn-danger",
 				confirmButtonText: "OK"
 			});
@@ -473,9 +473,9 @@ $(document).ready(function() {
 		else {
 			$(".alert").alert("close");
 			swal({
-				title: "Warning!",
+				title: "Error!",
 				text: errorMessage,
-				type: "warning",
+				type: "error",
 				confirmButtonClass: "btn-danger",
 				confirmButtonText: "OK"
 			});
