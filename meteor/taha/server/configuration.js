@@ -7,9 +7,10 @@ AccountsGuest.anonymous = true;
 Meteor.startup(function() {
 	Meteor.call("removeInactiveLobbies");
 });
+
 Meteor.setInterval(function() {
 	Meteor.call("removeInactiveLobbies");
-}, 10000);
+}, 3333);
 
 Meteor.publish("lobbies", function() {
 	return Lobbies.find({}, {

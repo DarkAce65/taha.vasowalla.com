@@ -1,4 +1,7 @@
 Meteor.methods({
+	"heartbeat": function() {
+		Meteor.users.update(this.userId, {$set: {"heartbeat": Date.now()}});
+	},
 	"createLobby": function(lobbyName, password, game) {
 		if(lobbyName.trim() === "") {
 			throw new Meteor.Error("invalid-lobby-name", "Invalid lobby name.");
@@ -24,14 +27,14 @@ Meteor.methods({
 		return Lobbies.insert(lobby);
 	},
 	"joinLobby": function(lobbyId, password) {
-		var Lobby = Lobbies.findOne(lobbyId);
-		if(!Lobby) {
+		var lobby = Lobbies.findOne(lobbyId);
+		if(!lobby) {
 			throw new Meteor.Error("lobby-not-found", "The lobby was not found.");
 		}
-		if(Lobby.members.length >= lobby.maxPlayers) {
+		if(lobby.members.length >= lobby.maxPlayers) {
 			throw new Meteor.Error("lobby-full", "The lobby is full.");
 		}
-		if(Lobby.private && Lobby.password !== password) {
+		if(lobby.private && lobby.password !== password) {
 			throw new Meteor.Error("incorrect-password", "The password was incorrect.");
 		}
 		Lobbies.update(lobbyId, {$push: {members: this.userId}});
@@ -57,11 +60,18 @@ Meteor.methods({
 		if(lobbyId) {
 			lobbyFilter = lobbyId;
 		}
-		var presences = Presences.find().fetch();
-		for(var i = 0; i < presences.length; i++) {
-			presences[i] = presences[i].userId;
+		var activeUsers = Meteor.users.find().fetch();
+		var now = Date.now();
+		for(var i = 0; i < activeUsers.length; i++) {
+			if(now - activeUsers[i].heartbeat < 10000) {
+				activeUsers[i] = activeUsers[i]._id;
+			}
+			else {
+				activeUsers.splice(i, 1);
+				i--;
+			}
 		}
-		Lobbies.update(lobbyFilter, {$pull: {"members": {$nin: presences}}}, {"multi": true});
+		Lobbies.update(lobbyFilter, {$pull: {"members": {$nin: activeUsers}}}, {"multi": true});
 		Lobbies.remove({"members": {$size: 0}});
 	}
 });

@@ -1,3 +1,9 @@
+/* Heartbeat */
+
+Meteor.setInterval(function() {
+	Meteor.call("heartbeat");
+}, 3333);
+
 /* Templates */
 
 Template.registerHelper("equals", function(v1, v2) {
