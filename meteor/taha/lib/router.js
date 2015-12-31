@@ -27,9 +27,9 @@ Router.route("UltimateTTT", {
 	template: "UltimateTTT"
 });
 
-Router.route("Mafia", {
-	name: "mafia",
-	template: "mafia",
+Router.route("lobbies", {
+	name: "lobbyList",
+	template: "lobbyList",
 	waitOn: function() {
 		return Meteor.subscribe("lobbies");
 	},
@@ -39,9 +39,9 @@ Router.route("Mafia", {
 	}
 });
 
-Router.route("/Mafia/lobby/:_id", {
-	name: "mafiaLobby",
-	template: "mafiaLobby",
+Router.route("/lobby/:_id", {
+	name: "gameLobby",
+	template: "gameLobby",
 	waitOn: function() {
 		return [Meteor.subscribe("userPresence"), Meteor.subscribe("lobbies")];
 	},

@@ -1,26 +1,26 @@
-<template name="mafia">
+<template name="lobbyList">
 	{{> navigation navType="navbar-default"}}
 	<div class="content container">
 		<div class="page-header">
-			<p class="h1">Mafia</p>
+			<p class="h1">Main Lobby</p>
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-default">
-					<div class="panel-heading">Lobbies</div>
+					<div class="panel-heading">Active Games</div>
 					<div class="panel-body">
-						{{#each lobby in lobbies}}
-							<div class="lobby row" data-id="{{lobby._id}}" data-name="{{lobby.name}}">
+						{{#each lobbies}}
+							<div class="lobby row" data-id="{{_id}}" data-name="{{name}}">
 								<div class="col-sm-6">
-									<p class="lobbyName">{{lobby.name}} {{#if lobby.private}}<i class="fa fa-lock"></i>{{/if}}</p>
+									<h4 class="lobbyName">{{name}} {{#if private}}<i class="fa fa-lock"></i>{{/if}}<br><small class="lobbyName">{{gameName}}</small></h4>
 								</div>
 								<div class="col-sm-6">
 									<p class="btn-group btn-group-sm">
-										<span class="btn-group-addon">{{lobby.members.length}} / 16</span>
-										{{#if equals userId lobby.owner}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
-										{{#if existsIn userId lobby.members}}<button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby" data-private="{{lobby.private}}">Join</button>{{/if}}
+										<span class="btn-group-addon">{{members.length}} / {{maxPlayers}}</span>
+										{{#if equals userId owner}}<button class="btn btn-danger deleteLobby">Delete</button>{{/if}}
+										{{#if existsIn userId members}}<button class="btn btn-warning leaveLobby">Leave</button>{{else}}<button class="btn btn-success joinLobby" data-private="{{private}}">Join</button>{{/if}}
 									</p>
-									{{#if lobby.private}}
+									{{#if private}}
 										<div class="lobbyPassword">
 											<input type="text" class="form-control input-sm" placeholder="Enter password...">
 										</div>
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="newLobbyModal" class="modal fade" role="dialog">
+	<div id="newLobbyModal" class="modal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -59,6 +59,13 @@
 								<label for="password" class="control-label">Lobby password (Optional):</label>
 								<input id="password" type="password" class="form-control">
 							</div>
+							<div class="form-group">
+								<label for="lobbyGame" class="control-label">Game:</label>
+								<select id="lobbyGame" class="form-control">
+									<option value="mafia">Mafia</option>
+									<option value="uttt">Ultimate Tic Tac Toe</option>
+								</select>
+							</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -68,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="usernameModal" class="modal fade" role="dialog">
+	<div id="usernameModal" class="modal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">

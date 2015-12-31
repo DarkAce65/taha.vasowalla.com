@@ -205,16 +205,26 @@ Template.UltimateTTT.events({
 	}
 });
 
-Template.mafia.onCreated(function() {
+Template.lobbyList.onCreated(function() {
 	this.creatingLobby = false;
 });
 
-Template.mafia.helpers({
+Template.lobbyList.helpers({
 	"lobbies": function() {
 		return Lobbies.find();
 	},
 	"userId": function() {
 		return Meteor.userId();
+	},
+	"gameName": function() {
+		switch(this.game) {
+			case "mafia":
+				return "Mafia";
+			case "uttt":
+				return "Ultimate Tic Tac Toe";
+			default:
+				return "";
+		}
 	},
 	"username": function() {
 		return Meteor.user().profile.name;
@@ -227,7 +237,7 @@ Template.mafia.helpers({
 	}
 });
 
-Template.mafia.events({
+Template.lobbyList.events({
 	"click #newLobby": function(e) {
 		Template.instance().creatingLobby = true;
 		if(Meteor.user().profile.name) {
@@ -254,7 +264,7 @@ Template.mafia.events({
 						console.log(error.message);
 					}
 					else {
-						Router.go("mafiaLobby", {_id: lobbyId});
+						Router.go("gameLobby", {_id: lobbyId});
 					}
 				});
 				lobbyPassword.find("input").val("");
@@ -269,7 +279,7 @@ Template.mafia.events({
 					console.log(error.message);
 				}
 				else {
-					Router.go("mafiaLobby", {_id: lobbyId});
+					Router.go("gameLobby", {_id: lobbyId});
 				}
 			});
 		}
@@ -284,13 +294,14 @@ Template.mafia.events({
 		e.preventDefault();
 		var lobbyName = $(e.target).find("#lobbyName").val();
 		var password = $(e.target).find("#password").val();
-		Meteor.call("createLobby", lobbyName, password, function(error, lobbyId) {
+		var game = $(e.target).find("#lobbyGame").val();
+		Meteor.call("createLobby", lobbyName, password, game, function(error, lobbyId) {
 			if(error) {
 				console.log(error.message);
 			}
 			else {
 				$("#newLobbyModal").modal("hide");
-				Router.go("mafiaLobby", {_id: lobbyId});
+				Router.go("gameLobby", {_id: lobbyId});
 			}
 		});
 	},
@@ -309,6 +320,19 @@ Template.mafia.events({
 			if(Template.instance().creatingLobby) {
 				$("#newLobbyModal").modal("show");
 			}
+		}
+	}
+});
+
+Template.gameLobby.helpers({
+	"gameName": function() {
+		switch(this.game) {
+			case "mafia":
+				return "Mafia";
+			case "uttt":
+				return "Ultimate Tic Tac Toe";
+			default:
+				return "Game Lobby";
 		}
 	}
 });

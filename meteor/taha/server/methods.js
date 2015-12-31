@@ -1,9 +1,22 @@
 Meteor.methods({
-	"createLobby": function(lobbyName, password) {
+	"createLobby": function(lobbyName, password, game) {
 		if(lobbyName.trim() === "") {
 			throw new Meteor.Error("invalid-lobby-name", "Invalid lobby name.");
 		}
-		var lobby = {"owner": this.userId, "name": lobbyName, "members": [this.userId], "private": false};
+		var lobby = {
+			"owner": this.userId,
+			"name": lobbyName,
+			"members": [this.userId],
+			"private": false,
+			"game": game,
+			"maxPlayers": 0
+		};
+		if(game === "mafia") {
+			lobby.maxPlayers = 16;
+		}
+		else if(game === "uttt") {
+			lobby.maxPlayers = 2;
+		}
 		if(password) {
 			lobby.private = true;
 			lobby.password = password;
@@ -15,7 +28,7 @@ Meteor.methods({
 		if(!Lobby) {
 			throw new Meteor.Error("lobby-not-found", "The lobby was not found.");
 		}
-		if(Lobby.members.length >= 16) {
+		if(Lobby.members.length >= lobby.maxPlayers) {
 			throw new Meteor.Error("lobby-full", "The lobby is full.");
 		}
 		if(Lobby.private && Lobby.password !== password) {
@@ -48,7 +61,7 @@ Meteor.methods({
 		for(var i = 0; i < presences.length; i++) {
 			presences[i] = presences[i].userId;
 		}
-		Lobbies.update(lobbyFilter, {$pull: {members: {$nin: presences}}}, {multi: true});
-		Lobbies.remove({members: {$size: 0}});
+		Lobbies.update(lobbyFilter, {$pull: {"members": {$nin: presences}}}, {"multi": true});
+		Lobbies.remove({"members": {$size: 0}});
 	}
 });
