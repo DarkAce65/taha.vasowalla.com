@@ -56,10 +56,6 @@ body {
 	margin-top: 0;
 }
 
-.dropdown-menu a {
-	outline: 0 !important;
-}
-
 .blur {
 	filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
 	@include filter(blur(10px));
