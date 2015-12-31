@@ -30,7 +30,7 @@ body {
 	font-variant: small-caps;
 	border-top: 3px solid $dark-accent-color;
 
-	.nav * {
+	.nav p, .nav a {
 		color: lighten($dark-color, 26);
 		margin: 0 3px;
 		text-decoration: none;
