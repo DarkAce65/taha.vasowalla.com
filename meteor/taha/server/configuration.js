@@ -19,7 +19,3 @@ Meteor.publish("lobbies", function() {
 		}
 	});
 });
-
-Meteor.publish("userPresence", function() {
-	return Presences.find({userId: {$in: Lobbies.findOne({members: this.userId}).members}});
-});

@@ -43,7 +43,7 @@ Router.route("/lobby/:_id", {
 	name: "gameLobby",
 	template: "gameLobby",
 	waitOn: function() {
-		return [Meteor.subscribe("userPresence"), Meteor.subscribe("lobbies")];
+		return [Meteor.subscribe("lobbies")];
 	},
 	data: function() {
 		return Lobbies.findOne(this.params._id);
