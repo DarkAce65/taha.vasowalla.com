@@ -1,6 +1,6 @@
 var mobile = false, fileName = "";
 var c, ctx, cWidth = 2049, cHeight = 1245, audioCtx, arrayBuffer, source, gainNode, analyser, lastToast;
-var targetVolume = 0, currentVolume = 0, attack = 0.85, decay = 0.2, startOffset = 0, startTime = 0;
+var targetVolume = 0, currentVolume = 0, volDecay = 0.1, startOffset = 0, startTime = 0;
 var bufferLength, volumeData, frequencyData;
 var playing = false, canvasReady = false, wavesurferReady = false;
 var wavesurfer = Object.create(WaveSurfer);
@@ -165,12 +165,14 @@ function draw() {
 	}
 	targetVolume = Math.sqrt(targetVolume / bufferLength) / 85;
 	if(currentVolume < targetVolume) {
-		currentVolume = lerp(currentVolume, targetVolume, attack);
+		currentVolume = targetVolume;
 	}
 	else {
-		currentVolume = lerp(currentVolume, targetVolume, decay);
+		currentVolume = lerp(currentVolume, targetVolume, volDecay);
 	}
-	currentVolume = Math.min(1, currentVolume);
+	if(currentVolume > 1) {
+		currentVolume = 1;
+	}
 	ctx.fillStyle = "#fff";
 	ctx.fillRect(10, 1210, currentVolume * (cWidth - 20), 25);
 	if(playing) {

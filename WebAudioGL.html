@@ -134,7 +134,7 @@
 			var playing = false;
 			var rotate = false;
 			var currentVolume = 0.0001;
-			var attack = 0.95, decay = 0.2;
+			var volDecay = 0.1;
 			var circle;
 			var lines = [];
 			var positions = [];
@@ -385,7 +385,7 @@
 				}
 				targetVolume = Math.sqrt(targetVolume / lines.length) / 85;
 				if(currentVolume < targetVolume) {
-					currentVolume = lerp(currentVolume, targetVolume, attack);
+					currentVolume = targetVolume;
 				}
 				else {
 					currentVolume = lerp(currentVolume, targetVolume, decay);
