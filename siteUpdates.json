@@ -8,7 +8,7 @@
 	{
 		"date": "12-30-15",
 		"status": "Completed",
-		"title": "Reorganization of Website File Tree",
+		"title": "Reorganization of Website Files",
 		"descriptions": ["Organized all file dependencies and external libraries", "Standardized headers and footers across the site"]
 	},
 	{
