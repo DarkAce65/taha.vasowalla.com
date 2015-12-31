@@ -22,7 +22,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -91,7 +91,7 @@ else{
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
