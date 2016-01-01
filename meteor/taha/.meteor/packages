@@ -25,6 +25,7 @@ random
 reactive-var
 accounts-base
 nemo64:bootstrap
+pcel:loading
 fortawesome:fontawesome
 artwells:accounts-guest
 ostrio:iron-router-title

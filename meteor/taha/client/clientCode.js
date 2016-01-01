@@ -22,6 +22,24 @@ Template.registerHelper("isArray", function(a) {
 	return $.isArray(a);
 });
 
+/* Loading Template */
+
+Template.loading.onRendered(function() {
+	if(!Session.get("loadingSplash")) {
+		this.loading = window.pleaseWait({
+			backgroundColor: "#333",
+			loadingHtml: '<div class="sk-spinner sk-spinner-rotating-plane" style="background-color: #fff;"></div>'
+		});
+		Session.set("loadingSplash", true); // Only show loading splash once
+	}
+});
+
+Template.loading.onDestroyed(function() {
+	if(this.loading) {
+		this.loading.finish();
+	}
+});
+
 Template.UltimateTTT.onCreated(function() {
 	var turn = true; // true: Red, false: Blue
 	var grid = [];

@@ -1,4 +1,5 @@
 Router.configure({
+	loadingTemplate: "loading",
 	notFoundTemplate: "404"
 });
 
