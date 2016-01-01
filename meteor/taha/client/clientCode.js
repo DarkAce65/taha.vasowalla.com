@@ -1,5 +1,6 @@
 /* Heartbeat */
 
+Meteor.call("heartbeat");
 Meteor.setInterval(function() {
 	Meteor.call("heartbeat");
 }, 3333);
