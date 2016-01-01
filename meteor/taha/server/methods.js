@@ -44,6 +44,7 @@ Meteor.methods({
 			throw new Meteor.Error("lobby-not-found", "The lobby was not found.");
 		}
 		Lobbies.update(lobbyId, {$pull: {members: this.userId}});
+		Lobbies.remove({"members": {$size: 0}});
 	},
 	"deleteLobby": function(lobbyId) {
 		if(!Lobbies.findOne(lobbyId)) {
