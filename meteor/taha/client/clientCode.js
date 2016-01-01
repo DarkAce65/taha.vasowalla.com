@@ -361,3 +361,16 @@ Template.gameLobby.helpers({
 		}
 	}
 });
+
+Template.gameLobby.events({
+	"click #leaveLobby": function(e) {
+		Meteor.call("leaveLobby", this._id, function(error) {
+			if(error) {
+				console.log(error.message);
+			}
+			else {
+				Router.go("lobbyList");
+			}
+		});
+	}
+});
