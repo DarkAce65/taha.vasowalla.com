@@ -44,7 +44,6 @@ Meteor.methods({
 			throw new Meteor.Error("lobby-not-found", "The lobby was not found.");
 		}
 		Lobbies.update(lobbyId, {$pull: {members: this.userId}});
-		Meteor.call("removeInactiveLobbies", lobbyId);
 	},
 	"deleteLobby": function(lobbyId) {
 		if(!Lobbies.findOne(lobbyId)) {
@@ -55,11 +54,7 @@ Meteor.methods({
 		}
 		Lobbies.remove(lobbyId);
 	},
-	"removeInactiveLobbies": function(lobbyId) {
-		var lobbyFilter = {};
-		if(lobbyId) {
-			lobbyFilter = lobbyId;
-		}
+	"removeInactiveLobbies": function() {
 		var activeUsers = Meteor.users.find().fetch();
 		var now = Date.now();
 		for(var i = 0; i < activeUsers.length; i++) {
@@ -71,7 +66,7 @@ Meteor.methods({
 				i--;
 			}
 		}
-		Lobbies.update(lobbyFilter, {$pull: {"members": {$nin: activeUsers}}}, {"multi": true});
+		Lobbies.update({}, {$pull: {"members": {$nin: activeUsers}}}, {"multi": true});
 		Lobbies.remove({"members": {$size: 0}});
 	}
 });

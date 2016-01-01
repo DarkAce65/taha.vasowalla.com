@@ -15,7 +15,7 @@ Meteor.setInterval(function() {
 Meteor.publish("lobbies", function() {
 	return Lobbies.find({}, {
 		"fields": {
-			"password": 0
+			"password": false
 		}
 	});
 });
