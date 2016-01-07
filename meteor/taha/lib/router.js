@@ -44,13 +44,13 @@ Router.route("/lobby/:_id", {
 	name: "gameLobby",
 	template: "gameLobby",
 	waitOn: function() {
-		return [Meteor.subscribe("lobbies")];
+		var lobbyId = Meteor.user().profile.currentRoomId;
+		return [Meteor.subscribe("gameLobby", lobbyId)];
 	},
 	data: function() {
 		return Lobbies.findOne(this.params._id);
 	},
 	action: function() {
-		Meteor.users.update(Meteor.userId(), {$set: {"profile.currentRoomId": this.params._id}});
 		this.render();
 	}
 });

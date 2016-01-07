@@ -15,6 +15,16 @@ Meteor.setInterval(function() {
 Meteor.publish("lobbies", function() {
 	return Lobbies.find({}, {
 		"fields": {
+			"owner": false,
+			"members": false,
+			"password": false
+		}
+	});
+});
+
+Meteor.publish("gameLobby", function() {
+	return Lobbies.find({}, {
+		"fields": {
 			"password": false
 		}
 	});
