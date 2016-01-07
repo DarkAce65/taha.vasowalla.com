@@ -276,15 +276,31 @@ Template.lobbyList.events({
 		Template.instance().creatingLobby = false;
 	},
 	"click .joinLobby": function(e) {
-		var lobbyId = $(e.target).closest(".lobby").data("id");
-		$(".showInput").removeClass("showInput");
-		$(".joinLobby").html("Join");
-		if($(e.target).data("private")) {
-			$(e.target).html("Enter");
-			var lobbyPassword = $(e.target).closest(".lobby").find(".lobbyPassword");
-			lobbyPassword.addClass("showInput");
-			if($(e.target).hasClass("visibleInput")) {
-				Meteor.call("joinLobby", lobbyId, lobbyPassword.find("input").val(), function(error) {
+		if(Meteor.user().profile.name) {
+			var lobbyId = $(e.target).closest(".lobby").data("id");
+			$(".showInput").removeClass("showInput");
+			$(".joinLobby").html("Join");
+			if($(e.target).data("private")) {
+				$(e.target).html("Enter");
+				var lobbyPassword = $(e.target).closest(".lobby").find(".lobbyPassword");
+				lobbyPassword.addClass("showInput");
+				if($(e.target).hasClass("visibleInput")) {
+					Meteor.call("joinLobby", lobbyId, lobbyPassword.find("input").val(), function(error) {
+						if(error) {
+							console.log(error.message);
+						}
+						else {
+							Router.go("gameLobby", {_id: lobbyId});
+						}
+					});
+					lobbyPassword.find("input").val("");
+				}
+				else {
+					$(e.target).addClass("visibleInput");
+				}
+			}
+			else {
+				Meteor.call("joinLobby", lobbyId, function(error) {
 					if(error) {
 						console.log(error.message);
 					}
@@ -292,21 +308,7 @@ Template.lobbyList.events({
 						Router.go("gameLobby", {_id: lobbyId});
 					}
 				});
-				lobbyPassword.find("input").val("");
 			}
-			else {
-				$(e.target).addClass("visibleInput");
-			}
-		}
-		else {
-			Meteor.call("joinLobby", lobbyId, function(error) {
-				if(error) {
-					console.log(error.message);
-				}
-				else {
-					Router.go("gameLobby", {_id: lobbyId});
-				}
-			});
 		}
 	},
 	"click .leaveLobby": function(e) {
