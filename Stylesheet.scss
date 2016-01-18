@@ -173,9 +173,11 @@ body {
 
 		.fa-angle-left, .fa-angle-right {
 			color: $light-alt-accent-color;
+			@include transition(0.2s);
 		}
 
 		.fa-angle-left {
+			margin-right: 0;
 			text-align: left;
 		}
 
@@ -208,6 +210,15 @@ body {
 
 		&:hover {
 			box-shadow: inset 2px 0px 0px 0px $light-alt-accent-color;
+
+			.fa-angle-left {
+				margin-left: -3px;
+				margin-right: 3px;
+			}
+
+			.fa-angle-right {
+				margin-right: -3px;
+			}
 		}
 
 		span {
