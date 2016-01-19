@@ -327,6 +327,13 @@ body {
 	@import "scss/xkcd";
 }
 
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	.container .jumbotron {
+		padding: 48px;
+	}
+}
+
+
 @media screen and (max-width: 767px) {
 	.jumbotron {
 		padding-right: 30px;
