@@ -79,7 +79,7 @@ function winSquare(row, col) {
 $(document).ready(function() {
 	var innerhtml = "";
 	for(var row = 0; row < 3; row++) {
-		innerhtml += "<tr>"
+		innerhtml += "<tr>";
 		for(var col = 0; col < 3; col++) {
 			innerhtml += "<td><table data-row=\"" + row + "\" data-column=\"" + col + "\">";
 			for(var i = 0; i < 3; i++) {
@@ -91,7 +91,7 @@ $(document).ready(function() {
 			}
 			innerhtml += "</table></td>";
 		}
-		innerhtml += "</tr>"
+		innerhtml += "</tr>";
 	}
 
 	$("#ultimate").html(innerhtml);

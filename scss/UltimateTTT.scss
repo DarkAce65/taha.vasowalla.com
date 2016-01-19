@@ -71,28 +71,28 @@ table.Blue {
 	border-radius: 5px;
 }
 
-#ultimate > tbody > tr > td:nth-child(2) {
+#ultimate tr > td:nth-child(2) {
 	border-left: 3px solid #555;
 	border-right: 3px solid #555;
 }
 
-#ultimate > tbody > tr:nth-child(2) > td {
+#ultimate tr:nth-child(2) > td {
 	border-top: 3px solid #555;
 	border-bottom: 3px solid #555;
 }
 
-table table td:nth-child(2) {
-	border-left: 1px solid #555;
-	border-right: 1px solid #555;
+#ultimate table td:nth-child(2) {
+	border-left-width: 1px;
+	border-right-width: 1px;
 }
 
-table table tr:nth-child(2) > td {
-	border-top: 1px solid #555;
-	border-bottom: 1px solid #555;
+#ultimate table tr:nth-child(2) > td {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
 }
 
 @media(max-width: 568px) {
-	table table {
+	#ultimate table {
 		margin: 5px;
 
 		td {
