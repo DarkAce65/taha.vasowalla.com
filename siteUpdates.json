@@ -12,6 +12,12 @@
 		"descriptions": ["Organized all file dependencies and external libraries", "Standardized headers and footers across the site"]
 	},
 	{
+		"date": "12-9-15",
+		"status": "Completed",
+		"title": "Site History",
+		"descriptions": ["A log of new pages, projects and modifications"]
+	},
+	{
 		"date": "12-8-15",
 		"status": "Completed",
 		"title": "Design rework",
