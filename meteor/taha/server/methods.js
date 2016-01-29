@@ -21,12 +21,12 @@ Meteor.methods({
 		else if(game === "uttt") {
 			lobby.maxPlayers = 2;
 		}
-		if(password) {
+		if(password.trim()) {
 			lobby.private = true;
-			lobby.password = password;
+			lobby.password = password.trim();
 		}
 		var lobbyId = Lobbies.insert(lobby);
-		Meteor.users.update(this.userId, {$set: {"profile.currentRoomId": lobbyId}});
+		Meteor.users.update(this.userId, {$set: {"currentRoomId": lobbyId}});
 		return lobbyId;
 	},
 	"joinLobby": function(lobbyId, password) {
@@ -41,7 +41,7 @@ Meteor.methods({
 			throw new Meteor.Error("incorrect-password", "The password was incorrect.");
 		}
 		Lobbies.update(lobbyId, {$push: {members: this.userId}});
-		Meteor.users.update(this.userId, {$set: {"profile.currentRoomId": lobbyId}});
+		Meteor.users.update(this.userId, {$set: {"currentRoomId": lobbyId}});
 	},
 	"leaveLobby": function(lobbyId) {
 		if(!Lobbies.findOne(lobbyId)) {
@@ -49,6 +49,7 @@ Meteor.methods({
 		}
 		Lobbies.update(lobbyId, {$pull: {members: this.userId}});
 		Lobbies.remove({"members": {$size: 0}});
+		Meteor.users.update(this.userId, {$set: {"currentRoomId": false}});
 	},
 	"deleteLobby": function(lobbyId) {
 		if(!Lobbies.findOne(lobbyId)) {
