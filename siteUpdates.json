@@ -1,5 +1,11 @@
 [
 	{
+		"date": "1-31-16",
+		"status": "Ongoing",
+		"title": "Experiments / <a href=\"Test.html\">Testing Lab</a><br>Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
+		"descriptions": ["3D fireball with Perlin noise", "Experimenting with mathematical art"]
+	},
+	{
 		"date": "12-17-15",
 		"status": "In Production",
 		"title": "Online multiplayer games",
@@ -22,11 +28,5 @@
 		"status": "Completed",
 		"title": "Design rework",
 		"descriptions": ["Experiments / <a href=\"Palette.html\">Site Colors</a>", "New home page color scheme and layout", "Dedicated light and dark themes"]
-	},
-	{
-		"date": "11-4-15",
-		"status": "Active",
-		"title": "Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
-		"descriptions": ["Experimenting with mathematical art"]
 	}
 ]
