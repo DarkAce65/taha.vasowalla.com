@@ -1699,8 +1699,6 @@ anciently
 ancients
 ancillary
 andante
-andes
-andrew
 androgynous
 android
 androids
@@ -1721,7 +1719,6 @@ angel
 angelic
 angelica
 angels
-angelus
 anger
 angered
 angering
@@ -1737,9 +1734,6 @@ angles
 anglian
 anglican
 angling
-angola
-angolan
-angolans
 angora
 angoras
 angrier
@@ -1781,7 +1775,6 @@ aniseeds
 anisotropic
 anisotropies
 anisotropy
-ankara
 ankle
 ankles
 anklet
@@ -3638,7 +3631,6 @@ bargaining
 bargains
 barge
 barged
-bargepole
 barges
 barging
 baring
@@ -26161,8 +26153,6 @@ irritation
 irritations
 irrupted
 irruption
-islam
-islamic
 island
 islander
 islanders
@@ -26204,9 +26194,6 @@ isotopic
 isotropic
 isotropically
 isotropy
-israel
-israeli
-israelis
 issuable
 issuance
 issue
@@ -26308,9 +26295,7 @@ janitor
 janitors
 january
 janus
-japan
 japes
-japonica
 jargon
 jargons
 jarred
@@ -26353,7 +26338,6 @@ jeering
 jeeringly
 jeerings
 jeers
-jehad
 jejune
 jejunum
 jellied
@@ -26412,18 +26396,14 @@ jewelry
 jewels
 jewess
 jewish
-jewsharp
-jezebel
 jiffy
 jiggle
 jiggling
 jigsaw
 jigsaws
-jihad
 jilted
 jilting
 jilts
-jimmy
 jingle
 jingled
 jingles
@@ -26487,10 +26467,6 @@ jolly
 jolted
 jolting
 jolts
-jonah
-jonathan
-joseph
-joshua
 jostle
 jostled
 jostles
@@ -26744,9 +26720,6 @@ keywords
 khaki
 khalif
 khans
-khoikhoi
-khoisan
-kibbutz
 kickback
 kicked
 kicker
@@ -26956,14 +26929,10 @@ koalas
 kongo
 kookaburra
 koran
-korea
-korean
-koreans
 kosher
 kraal
 kraals
 kraft
-kremlin
 kriegspiel
 krill
 krypton
@@ -35493,7 +35462,6 @@ plague
 plagued
 plagues
 plaguing
-plaice
 plaid
 plaids
 plain
@@ -35781,6 +35749,7 @@ plywood
 pneumatic
 pneumatics
 pneumonia
+pneumonoultramicroscopicsilicovolcanoconiosis
 poach
 poached
 poacher
@@ -54647,7 +54616,6 @@ wooly
 woozy
 wordage
 worded
-wordgame
 wordier
 wordiest
 wordiness
@@ -54656,7 +54624,6 @@ wordings
 wordless
 wordlessly
 wordplay
-wordprocessing
 words
 wordsmith
 wordy
@@ -55015,7 +54982,6 @@ zippy
 zither
 zithers
 zodiac
-zombi
 zombie
 zombies
 zonal
@@ -55032,4 +54998,3 @@ zoomed
 zooming
 zooms
 zooplankton
-zulus
