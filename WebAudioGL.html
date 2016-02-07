@@ -392,7 +392,7 @@
 					lines[i].geometry.vertices[1].x = scalar * positions[i * 3];
 					lines[i].geometry.vertices[1].y = scalar * positions[i * 3 + 1];
 					lines[i].geometry.verticesNeedUpdate = true;
-					//lines[i].material.color.setHSL(0, 0.67, Math.min(100, Math.pow(11.762, scalar - 1.79) + 0.2));
+					//lines[i].material.color.setHSL(0, 0.67, Math.pow(11.762, scalar - 1.79) + 0.2);
 				}
 				targetVolume = Math.sqrt(targetVolume / lines.length) / 85;
 				if(currentVolume < targetVolume) {
@@ -408,6 +408,7 @@
 					currentVolume = 1;
 				}
 				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
+				volumeObject.children[0].material.color.setHSL(0, 0.67, currentVolume + 0.1);
 				if(playing) {
 					currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);
 					progressBar.width((audioCtx.currentTime - startTime + startOffset) / arrayBuffer.duration * 100 + "%");
