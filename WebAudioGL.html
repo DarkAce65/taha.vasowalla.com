@@ -409,6 +409,7 @@
 				}
 				volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
 				volumeObject.children[0].material.color.setHSL(0, 0.67, currentVolume + 0.1);
+				volumeObject.children[1].material.color.setHSL(0, 0.67, 1.1 - currentVolume);
 				if(playing) {
 					currentTime.innerHTML = toHHMMSS(audioCtx.currentTime - startTime + startOffset);
 					progressBar.width((audioCtx.currentTime - startTime + startOffset) / arrayBuffer.duration * 100 + "%");
