@@ -290,7 +290,7 @@
 				z *= factor;
 
 				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
-				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeInOut, onUpdate: function(){camera.lookAt(controls.target);}});
+				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeOut, onUpdate: function(){camera.lookAt(controls.target);}});
 				TweenLite.to(camera.up, 1, {x: 0, y: 1, z: uz});
 			}
 
