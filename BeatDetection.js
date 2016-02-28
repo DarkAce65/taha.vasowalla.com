@@ -1,11 +1,11 @@
 function getPeaksAtThreshold(data, threshold) {
 	var peaksArray = [];
 	var length = data.length;
-	for(var i = 0; i < length; i += 10000) {
+	for(var i = 0; i < length; i++) {
 		if(data[i] > threshold) {
 			peaksArray.push(i);
+			i += 10000;
 		}
-		i++;
 	}
 	return peaksArray;
 }
@@ -41,6 +41,7 @@ function groupNeighborsByTempo(intervalCounts) {
 		while(theoreticalTempo > 180) {
 			theoreticalTempo /= 2;
 		}
+		theoreticalTempo = Math.round(theoreticalTempo);
 
 		var foundTempo = tempoCounts.some(function(tempoCount) {
 			if(tempoCount.tempo === theoreticalTempo) return tempoCount.count += intervalCount.count;
@@ -70,8 +71,8 @@ function getBPM(buffer) {
 	offlineContext.startRendering();
 	offlineContext.oncomplete = function(e) {
 		var filteredBuffer = e.renderedBuffer;
-		var i = 1;
-		while(peaksArray.length < 10) {
+		var i = 0.9;
+		while(peaksArray.length < 30 && i > 0.3) {
 			i -= 0.05;
 			peaksArray = getPeaksAtThreshold(filteredBuffer.getChannelData(0), i);
 		}
@@ -80,8 +81,9 @@ function getBPM(buffer) {
 		tempoCounts.sort(function(a, b) {
 			return b.count - a.count;
 		});
-		bpm = tempoCounts[0].tempo;
+		tempos = tempoCounts.map(function(v) {return v.tempo;});
+		console.log(tempos);
 	};
 }
 
-var bpm = 0;
+var tempos = [];
