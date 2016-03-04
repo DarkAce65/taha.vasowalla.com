@@ -160,7 +160,7 @@
 			#endif
 
 			void main() {
-				vec3 color = vec3(noise, 0.0, 0.0);
+				vec3 color = vec3(0.5, 0.0, 0.0);
 				#if NUM_POINT_LIGHTS > 0
 					vec3 addedLights = vec3(0.0);
 					for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
@@ -194,14 +194,17 @@
 			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(0, 80, 30);
+			camera.position.set(0, 105, 60);
 			camera.up.set(0, 0, 1);
 			scene.add(camera);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var sun = new THREE.PointLight(0x4c4c4c, 4);
-			sun.position.set(20, 10, 20);
+			var ambient = new THREE.AmbientLight(0x4c4c4c);
+			scene.add(ambient);
+
+			var sun = new THREE.PointLight(0xdddddd, 4);
+			sun.position.set(0, -20, 20);
 			sun.add(new THREE.Mesh(new THREE.IcosahedronGeometry(2), new THREE.MeshBasicMaterial({color: 0xffe624})));
 			scene.add(sun);
 
@@ -225,20 +228,23 @@
 			}
 			var object = new THREE.Mesh(objectGeometry, material);
 			scene.add(object);
+			object.position.set(20, 0, 0);
 			var face = new THREE.FaceNormalsHelper(object, 2, 0x00ff00, 1);
 			scene.add(face);
 			var vertex = new THREE.VertexNormalsHelper(object, 2, 0x0000ff, 1);
 			scene.add(vertex);
 
-			material = new THREE.MeshBasicMaterial({
-				wireframe: false,
-				color: 0x0000ff,
-				shading: THREE.FlatShading,
+			var baseMaterial = new THREE.MeshLambertMaterial({
+				color: 0x00007f,
 				side: THREE.DoubleSide
 			});
-			var baseGeom = new THREE.PlaneGeometry(40, 40, 5, 5);
-			var base = new THREE.Mesh(baseGeom, material);
+			var base = new THREE.Mesh(objectGeometry, baseMaterial);
 			scene.add(base);
+			base.position.set(-20, 0, 0);
+			var baseFace = new THREE.FaceNormalsHelper(base, 2, 0x00ff00, 1);
+			scene.add(baseFace);
+			var baseVertex = new THREE.VertexNormalsHelper(base, 2, 0x0000ff, 1);
+			scene.add(baseVertex);
 
 			function setCamera(position) {
 				var x = 0, y = 0, z = 0,
@@ -248,8 +254,8 @@
 					case "Reset":
 					default:
 						x = 0;
-						y = 80;
-						z = 30;
+						y = 105;
+						z = 60;
 						uz = 1;
 						break;
 				}
