@@ -282,14 +282,12 @@
 			}
 
 			function recomputeNormals() {
-				object.geometry.computeVertexNormals();
-				object.geometry.computeFaceNormals();
-				object.geometry.verticesNeedUpdate = true;
+				objectGeometry.computeVertexNormals();
+				objectGeometry.computeFaceNormals();
+				objectGeometry.verticesNeedUpdate = true;
+
 				objectFace.update();
 				objectVertex.update();
-				base.geometry.computeVertexNormals();
-				base.geometry.computeFaceNormals();
-				base.geometry.verticesNeedUpdate = true;
 				baseFace.update();
 				baseVertex.update();
 			}
