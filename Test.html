@@ -278,6 +278,19 @@
 				uniforms.u_time.value += delta;
 			}
 
+			function recomputeNormals() {
+				object.geometry.computeVertexNormals();
+				object.geometry.computeFaceNormals();
+				object.geometry.verticesNeedUpdate = true;
+				objectFace.update();
+				objectVertex.update();
+				base.geometry.computeVertexNormals();
+				base.geometry.computeFaceNormals();
+				base.geometry.verticesNeedUpdate = true;
+				baseFace.update();
+				baseVertex.update();
+			}
+
 			render();
 
 			$(window).resize(function() {
