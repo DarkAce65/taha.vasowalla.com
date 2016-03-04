@@ -1,37 +1,23 @@
 {
   "name": "taha.vasowalla.com",
-  "authors": [
-    "DarkAce65 <tvdood99@gmail.com>"
-  ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "animate.css": "animate-css#~3.5.0",
-    "bootstrap-sweetalert": "~0.4.5",
-    "bootstrap-select": "~1.9.3",
-    "bootstrap": "~3.3.5",
-    "chroma-js": "~1.1.1",
-    "font-awesome": "fontawesome#~4.5.0",
-    "jPlayer": "jplayer#~2.9.2",
-    "jquery-unveil": "unveil#~1.3.0",
-    "KaTeX": "katex#~0.5.1",
-    "packery": "~1.4.3",
-    "photoswipe": "~4.1.0",
-    "sine-waves": "~0.3.0",
-    "three.js": "threejs#*",
-    "toastr": "~2.1.2",
-    "Snap.svg": "snap.svg#~0.4.1",
-    "wavesurfer.js": "~1.0.48"
-  },
   "private": true,
-  "description": "",
-  "main": "",
-  "moduleType": [],
-  "license": "MIT",
-  "homepage": ""
+  "dependencies": {
+    "animate.css": "animate-css#latest",
+    "bootstrap-sweetalert": "latest",
+    "bootstrap-select": "latest",
+    "bootstrap": "~3",
+    "chroma-js": "latest",
+    "font-awesome": "fontawesome#latest",
+    "jPlayer": "jplayer#latest",
+    "jquery": "~2",
+    "jquery-unveil": "unveil#latest",
+    "KaTeX": "katex#latest",
+    "packery": "latest",
+    "photoswipe": "latest",
+    "sine-waves": "latest",
+    "three.js": "threejs#*",
+    "toastr": "latest",
+    "Snap.svg": "snap.svg#latest",
+    "wavesurfer.js": "latest"
+  }
 }
