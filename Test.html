@@ -125,9 +125,12 @@
 			void main() {
 				vUv = uv;
 				vPosition = position;
-				vNormal = normal;
+				float small = 0.01;
+				vec3 bitangent = vec3(position.xy, position.z + abs(snoise(vec2(vUv.x + small, vUv.y) + vec2(u_time / 5.0))) * 5.0) - position;
+				vec3 tangent = vec3(position.xy, position.z + abs(snoise(vec2(vUv.x, vUv.y + small) + vec2(u_time / 5.0))) * 5.0) - position;
+				vNormal = normal;//ize(cross(tangent, bitangent));
 
-				noise = abs(snoise(vUv + vec2(u_time / 5.0)));
+				noise = 0.0;//abs(snoise(vUv + vec2(u_time / 5.0)));
 				vec4 mvPosition = modelViewMatrix * vec4(position.xy, position.z + noise * 5.0, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
@@ -160,7 +163,8 @@
 				vec3 color = vec3(noise, 0.0, 0.0);
 				#if NUM_POINT_LIGHTS > 0
 					for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-						color = mix(color, pointLights[l].color, 0.5);
+						vec3 direction = pointLights[l].position - vPosition;
+						color += vec3(max(0.0, dot(vNormal, normalize(direction)))) * pointLights[l].color;
 					}
 				#endif
 				gl_FragColor = vec4(color, 1.0);
@@ -195,7 +199,6 @@
 
 			var sun = new THREE.PointLight(0x4c4c4c, 4);
 			sun.position.set(20, 10, 20);
-			sun.distance = 2;
 			sun.add(new THREE.Mesh(new THREE.IcosahedronGeometry(5), new THREE.MeshBasicMaterial({color: 0xffe624})));
 			scene.add(sun);
 
@@ -214,6 +217,9 @@
 				side: THREE.DoubleSide
 			});
 			var objectGeometry = new THREE.PlaneGeometry(40, 40, 5, 5);
+			for(vertex of objectGeometry.vertices) {
+				vertex.setZ(Math.random() * 10);
+			}
 			var object = new THREE.Mesh(objectGeometry, material);
 			scene.add(object);
 
