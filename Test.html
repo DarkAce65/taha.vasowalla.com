@@ -124,12 +124,9 @@
 
 			void main() {
 				vUv = uv;
-				float small = 0.01;
-				vec3 bitangent = vec3(position.xy, position.z + abs(snoise(vec2(vUv.x + small, vUv.y) + vec2(u_time / 5.0))) * 5.0) - position;
-				vec3 tangent = vec3(position.xy, position.z + abs(snoise(vec2(vUv.x, vUv.y + small) + vec2(u_time / 5.0))) * 5.0) - position;
-				vNormal = normal * normalMatrix;//ize(cross(tangent, bitangent));
-
+				vNormal = normal * normalMatrix;
 				noise = 0.0;//abs(snoise(vUv + vec2(u_time / 5.0)));
+
 				vec4 mvPosition = modelViewMatrix * vec4(position.xy, position.z + noise * 5.0, 1.0);
 				vPosition = mvPosition.xyz;
 				gl_Position = projectionMatrix * mvPosition;
@@ -208,6 +205,16 @@
 			sun.add(new THREE.Mesh(new THREE.IcosahedronGeometry(2), new THREE.MeshBasicMaterial({color: 0xffe624})));
 			scene.add(sun);
 
+			var objectGeometry = new THREE.PlaneGeometry(40, 40, 5, 5);
+			for(var i = 0; i < objectGeometry.vertices.length; i++) {
+				if(i % 6 === 5) {
+					objectGeometry.vertices[i].setZ(objectGeometry.vertices[i - 5].z);
+				}
+				else {
+					objectGeometry.vertices[i].setZ(Math.random() * 10);
+				}
+			}
+
 			var uniforms = THREE.UniformsUtils.merge([
 				THREE.UniformsLib["ambient"],
 				THREE.UniformsLib["lights"],
@@ -222,17 +229,13 @@
 				lights: true,
 				side: THREE.DoubleSide
 			});
-			var objectGeometry = new THREE.PlaneGeometry(40, 40, 5, 5);
-			for(vertex of objectGeometry.vertices) {
-				vertex.setZ(Math.random() * 10);
-			}
 			var object = new THREE.Mesh(objectGeometry, material);
 			scene.add(object);
 			object.position.set(20, 0, 0);
-			var face = new THREE.FaceNormalsHelper(object, 2, 0x00ff00, 1);
-			scene.add(face);
-			var vertex = new THREE.VertexNormalsHelper(object, 2, 0x0000ff, 1);
-			scene.add(vertex);
+			var objectFace = new THREE.FaceNormalsHelper(object, 2, 0x00ff00, 1);
+			scene.add(objectFace);
+			var objectVertex = new THREE.VertexNormalsHelper(object, 2, 0x0000ff, 1);
+			scene.add(objectVertex);
 
 			var baseMaterial = new THREE.MeshLambertMaterial({
 				color: 0x00007f,
