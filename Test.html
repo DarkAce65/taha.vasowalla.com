@@ -59,7 +59,24 @@
 			varying vec2 vUv;
 			varying vec3 vViewPosition;
 			varying vec3 vNormal;
+			varying vec3 vLightFront;
 			varying float noise;
+
+			#if NUM_POINT_LIGHTS > 0
+				struct PointLight {
+					vec3 position;
+					vec3 color;
+					float distance;
+					float decay;
+
+					int shadow;
+					float shadowBias;
+					float shadowRadius;
+					vec2 shadowMapSize;
+				};
+
+				uniform PointLight pointLights[NUM_POINT_LIGHTS];
+			#endif
 
 			// Credit for Perlin noise function goes to Stefan Gustavson
 			vec3 mod289(vec3 x) {
@@ -125,10 +142,20 @@
 			void main() {
 				vUv = uv;
 				vNormal = normalize(normal * normalMatrix);
+				vLightFront = vec3(0.0);
 				noise = 0.0;//abs(snoise(vUv + vec2(u_time / 5.0)));
 
 				vec4 mvPosition = modelViewMatrix * vec4(position.xy, position.z + noise * 5.0, 1.0);
 				vViewPosition = mvPosition.xyz;
+
+				#if NUM_POINT_LIGHTS > 0
+					for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
+						vec3 direction = normalize(pointLights[l].position - vViewPosition);
+						float dotNL = dot(vNormal, direction);
+						vLightFront += clamp(dotNL, 0.0, 1.0) * pointLights[l].color;
+					}
+				#endif
+
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
@@ -138,39 +165,19 @@
 			varying vec2 vUv;
 			varying vec3 vViewPosition;
 			varying vec3 vNormal;
+			varying vec3 vLightFront;
 			varying float noise;
-
-			#if NUM_POINT_LIGHTS > 0
-				struct PointLight {
-					vec3 position;
-					vec3 color;
-					float distance;
-					float decay;
-
-					int shadow;
-					float shadowBias;
-					float shadowRadius;
-					vec2 shadowMapSize;
-				};
-
-				uniform PointLight pointLights[NUM_POINT_LIGHTS];
-			#endif
 
 			void main() {
 				vec3 fdx = vec3(dFdx(vViewPosition));
 				vec3 fdy = vec3(dFdy(vViewPosition));
 				vec3 normal = normalize(cross(fdx, fdy));
 
-				vec3 color = vec3(0.5, 0.0, 0.0);
-				#if NUM_POINT_LIGHTS > 0
-					vec3 addedLights = vec3(0.0);
-					for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-						vec3 direction = pointLights[l].position - vViewPosition;
-						addedLights += vec3(clamp(dot(vNormal, normalize(direction)), 0.0, 1.0)) * pointLights[l].color;
-					}
-					color += addedLights;
-				#endif
-				gl_FragColor = vec4(color, 1.0);
+				vec4 color = vec4(0.5, 0.0, 0.0, 1.0);
+				vec3 directDiffuse = vLightFront;
+				vec3 indirectDiffuse = vec3(0.5, 0.5, 0.5) * color.rgb;
+				vec3 outgoingLight = directDiffuse + indirectDiffuse;
+				gl_FragColor = vec4(outgoingLight, color.a);
 			}
 		</script>
 		<script type="text/javascript">
