@@ -146,7 +146,7 @@ body {
 }
 
 #skills, #clubs, #projects, #achievements {
-	.list-group-item p:nth-child(2n) {
+	.description {
 		font-size: 13px;
 	}
 }
