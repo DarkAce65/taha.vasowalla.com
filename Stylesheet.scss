@@ -145,7 +145,7 @@ body {
 	@include transform(rotate(-180deg));
 }
 
-#skills, #clubs, #projects, #achievements {
+#skills, #clubs, #workexp, #achievements {
 	.description {
 		font-size: 13px;
 	}
@@ -375,7 +375,7 @@ body {
 		}
 	}
 
-	#projects .list-group-item .dateStyle {
+	#workexp .list-group-item .dateStyle {
 		display: block;
 	}
 
@@ -403,12 +403,12 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-	#skills, #clubs, #projects, #achievements {
+	#skills, #clubs, #workexp, #achievements {
 		display: block !important;
 		height: auto !important;
 	}
 
-	#projects .list-group-item .dateStyle {
+	#workexp .list-group-item .dateStyle {
 		float: right;
 	}
 
