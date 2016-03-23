@@ -135,14 +135,16 @@
 					window.setTimeout(callback, 1000 / 60);
 				};
 
+			var uniforms = {
+				u_time: {type: "f", value: 0},
+				u_resolution: {type: "v2", value: new THREE.Vector2},
+				u_rows: {type: "f", value: 40.0},
+				u_speed: {type: "f", value: 4.0}
+			};
+
 			function shaderConfig(vertex, fragment) {
 				return {
-					"uniforms": {
-						u_time: {type: "f", value: 0},
-						u_resolution: {type: "v2", value: new THREE.Vector2},
-						u_rows: {type: "f", value: 40.0},
-						u_speed: {type: "f", value: 4.0}
-					},
+					"uniforms": uniforms,
 					"vertexShader": document.getElementById(vertex).textContent,
 					"fragmentShader": document.getElementById(fragment).textContent
 				}
@@ -165,12 +167,12 @@
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
+			var cubes = {};
 			var cubeGeometry = new THREE.BoxGeometry(75, 75, 75);
 
 			var material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "matrixFragmentShader"));
 			material.side = THREE.DoubleSide;
-			var matrixCube = new THREE.Mesh(cubeGeometry, material);
-			scene.add(matrixCube);
+			cubes["matrix"] = new THREE.Mesh(cubeGeometry, material);
 
 			material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
 			material.side = THREE.FrontSide;
@@ -178,44 +180,40 @@
 			var mesh = new THREE.Mesh(cubeGeometry, material);
 			mesh.renderOrder = 2;
 
-			var transparentCube = new THREE.Object3D();
 			material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
 			material.side = THREE.BackSide;
 			material.transparent = true;
+			var transparentCube = new THREE.Object3D();
 			transparentCube.add(new THREE.Mesh(cubeGeometry, material));
 			transparentCube.add(mesh);
-			scene.add(transparentCube);
+			cubes["transparent"] = transparentCube;
 
-			matrixCube.position.set(75, 0, 0);
-			transparentCube.position.set(-75, 0, 0);
+			var cubeKeys = Object.keys(cubes);
+			for(var i = 0; i < cubeKeys.length; i++) {
+				var angle = 2 * Math.PI * i / cubeKeys.length;
+				cubes[cubeKeys[i]].position.set(125 * Math.cos(angle), 125 * Math.sin(angle), 0);
+				scene.add(cubes[cubeKeys[i]]);
+			}
 
 			function setCamera(position) {
 				var x = 0, y = 0, z = 0,
 					uy = 0, uz = 0,
 					tx = 0, ty = 0, tz = 0;
 
-				switch(position) {
-					case "Transparent":
-						x = -250;
-						y = -150;
-						z = 100;
-						uz = 1;
-						tx = -75;
-						break;
-					case "Matrix":
-						x = 250;
-						y = -150;
-						z = 100;
-						uz = 1;
-						tx = 75;
-						break;
-					case "Overview":
-					default:
-						x = 0;
-						y = 0;
-						z = 375;
-						uy = 1;
-						break;
+				position = position.toLowerCase();
+				if(cubeKeys.indexOf(position) != -1) {
+					tx = cubes[position].position.x;
+					ty = cubes[position].position.y;
+					x = tx + 100;
+					y = ty - 180;
+					z = 100;
+					uz = 1;
+				}
+				else {
+					x = 0;
+					y = 0;
+					z = 375;
+					uy = 1;
 				}
 
 				x *= factor;
