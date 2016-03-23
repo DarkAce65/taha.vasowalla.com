@@ -135,6 +135,19 @@
 					window.setTimeout(callback, 1000 / 60);
 				};
 
+			function shaderConfig(vertex, fragment) {
+				return {
+					"uniforms": {
+						u_time: {type: "f", value: 0},
+						u_resolution: {type: "v2", value: new THREE.Vector2},
+						u_rows: {type: "f", value: 40.0},
+						u_speed: {type: "f", value: 4.0}
+					},
+					"vertexShader": document.getElementById(vertex).textContent,
+					"fragmentShader": document.getElementById(fragment).textContent
+				}
+			}
+
 			var factor = window.innerWidth < 768 ? 1.5 : 1;
 
 			var clock = new THREE.Clock();
@@ -152,45 +165,29 @@
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var uniforms = {
-				u_time: {type: "f", value: 0},
-				u_resolution: {type: "v2", value: new THREE.Vector2},
-				u_rows: {type: "f", value: 40.0},
-				u_speed: {type: "f", value: 4.0}
-			};
-			var material = new THREE.ShaderMaterial({
-				uniforms: uniforms,
-				vertexShader: document.getElementById("staticVertexShader").textContent,
-				fragmentShader: document.getElementById("matrixFragmentShader").textContent,
-				side: THREE.DoubleSide
-			});
-			var objectGeometry = new THREE.BoxGeometry(75, 75, 75);
-			var matrixCube = new THREE.Mesh(objectGeometry, material);
-			matrixCube.position.set(75, 0, 0);
+			var cubeGeometry = new THREE.BoxGeometry(75, 75, 75);
+
+			var material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "matrixFragmentShader"));
+			material.side = THREE.DoubleSide;
+			var matrixCube = new THREE.Mesh(cubeGeometry, material);
 			scene.add(matrixCube);
 
-			material = new THREE.ShaderMaterial({
-				uniforms: uniforms,
-				vertexShader: document.getElementById("staticVertexShader").textContent,
-				fragmentShader: document.getElementById("transparentFragmentShader").textContent,
-				side: THREE.FrontSide,
-				transparent: true
-			});
-			var transparentCube = new THREE.Object3D();
-			var mesh = new THREE.Mesh(objectGeometry, material);
+			material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
+			material.side = THREE.FrontSide;
+			material.transparent = true;
+			var mesh = new THREE.Mesh(cubeGeometry, material);
 			mesh.renderOrder = 2;
-			transparentCube.add(mesh);
 
-			material = new THREE.ShaderMaterial({
-				uniforms: uniforms,
-				vertexShader: document.getElementById("staticVertexShader").textContent,
-				fragmentShader: document.getElementById("transparentFragmentShader").textContent,
-				side: THREE.BackSide,
-				transparent: true
-			});
-			transparentCube.add(new THREE.Mesh(objectGeometry, material));
-			transparentCube.position.set(-75, 0, 0);
+			var transparentCube = new THREE.Object3D();
+			material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
+			material.side = THREE.BackSide;
+			material.transparent = true;
+			transparentCube.add(new THREE.Mesh(cubeGeometry, material));
+			transparentCube.add(mesh);
 			scene.add(transparentCube);
+
+			matrixCube.position.set(75, 0, 0);
+			transparentCube.position.set(-75, 0, 0);
 
 			function setCamera(position) {
 				var x = 0, y = 0, z = 0,
@@ -238,7 +235,6 @@
 			}
 
 			render();
-			setTimeout(setCamera, 1000, "Overview");
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
@@ -259,6 +255,7 @@
 				if(window.innerWidth < 768) {
 					uniforms.u_rows.value = 20;
 				}
+				setCamera("Overview");
 			});
 		</script>
 	</body>
