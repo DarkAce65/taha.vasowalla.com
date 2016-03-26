@@ -58,7 +58,10 @@
 			lighting[0].position.set(45, 15, 105);
 
 			lighting[1] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
-			lighting[1].position.set(-90, 0, 120);
+			lighting[1].position.set(-90, 10, 120);
+
+			lighting[2] = new THREE.PointLight(0x513c1f, 1, 300, 3);
+			lighting[2].position.set(40, -40, 80);
 
 			for(var i = 0; i < lighting.length; i++) {
 				scene.add(lighting[i]);
@@ -68,7 +71,13 @@
 			var disc = new THREE.Mesh(new THREE.CircleGeometry(90, 20), discMaterial);
 			scene.add(disc);
 
-			var planetMaterial = new THREE.MeshPhongMaterial({shininess: 30, color: 0x526464, morphTargets: true, side: THREE.DoubleSide, shading: THREE.FlatShading});
+			var planetMaterial = new THREE.MeshPhongMaterial({
+				shininess: 30,
+				color: 0x526464,
+				morphTargets: true,
+				side: THREE.DoubleSide,
+				shading: THREE.FlatShading
+			});
 			var planet = new THREE.Mesh(new THREE.IcosahedronGeometry(60, 3), planetMaterial);
 			for(var i = 0; i < planet.geometry.vertices.length; i++) {
 				planet.geometry.vertices[i].x += Math.random() * 6 - 3;
