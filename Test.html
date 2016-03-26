@@ -12,6 +12,7 @@
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.min.js"></script>
 		<script src="lib/GSAP/TweenMax.min.js"></script>
+		<script src="lib/THREE.Controls/TrackballControls.js"></script>
 		<style type="text/css">
 			html, body {
 				width: 100%;
@@ -46,31 +47,34 @@
 			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(-45, -160, 110);
+			camera.position.set(-50, -170, 90);
 			scene.add(camera);
+			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var pointLight = new THREE.PointLight(0xeeeeee, 2, 100);
-			pointLight.position.set(10, 0, 70);
+			var pointLight = new THREE.PointLight(0xeeeefe, 3, 100);
+			pointLight.position.set(20, 0, 70);
 			scene.add(pointLight);
 
-			var pointLight = new THREE.PointLight(0xdddddd, 2, 100);
-			pointLight.position.set(-70, -25, 20);
+			var pointLight = new THREE.PointLight(0x060321, 1);
+			pointLight.position.set(-100, -35, 90);
 			scene.add(pointLight);
 
-			var discMaterial = new THREE.MeshLambertMaterial({color: 0x93c2c8, side: THREE.DoubleSide});
+			var discMaterial = new THREE.MeshLambertMaterial({color: 0x526464, side: THREE.DoubleSide});
 			var disc = new THREE.Mesh(new THREE.CircleGeometry(60, 60), discMaterial);
 			scene.add(disc);
 
-			var planetMaterial = new THREE.MeshLambertMaterial({color: 0x93c2c8, side: THREE.DoubleSide});
-			var planet = new THREE.Mesh(new THREE.IcosahedronGeometry(40, 2), planetMaterial);
+			var planetMaterial = new THREE.MeshPhongMaterial({shininess: 5, color: 0x526464, side: THREE.DoubleSide, shading: THREE.FlatShading});
+			var planet = new THREE.Mesh(new THREE.IcosahedronGeometry(40, 3), planetMaterial);
 			scene.add(planet);
 
 			function render() {
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
+				controls.update();
 
 				var delta = clock.getDelta();
+				planet.rotation.z += delta / 5;
 			}
 
 			render();
