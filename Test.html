@@ -52,19 +52,19 @@
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var lighting = [];
+			var lights = [];
 
-			lighting[0] = new THREE.PointLight(0xeeeefe, 3, 150, 1.5);
-			lighting[0].position.set(45, 15, 105);
+			lights[0] = new THREE.PointLight(0xeeeefe, 3, 150, 1.5);
+			lights[0].position.set(45, 15, 105);
 
-			lighting[1] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
-			lighting[1].position.set(-90, 10, 120);
+			lights[1] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
+			lights[1].position.set(-90, 10, 120);
 
-			lighting[2] = new THREE.PointLight(0x513c1f, 1, 300, 3);
-			lighting[2].position.set(40, -40, 80);
+			lights[2] = new THREE.PointLight(0x513c1f, 1, 300, 3);
+			lights[2].position.set(40, -40, 80);
 
-			for(var i = 0; i < lighting.length; i++) {
-				scene.add(lighting[i]);
+			for(var i = 0; i < lights.length; i++) {
+				scene.add(lights[i]);
 			}
 
 			var discMaterial = new THREE.MeshLambertMaterial({color: 0x526464, side: THREE.DoubleSide});
