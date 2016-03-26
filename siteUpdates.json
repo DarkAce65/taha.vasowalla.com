@@ -1,8 +1,14 @@
 [
 	{
+		"date": "3-26-16",
+		"status": "Ongoing",
+		"title": "Experiments / <a href=\"Test.html\">Testing Lab</a>",
+		"descriptions": ["Experimenting with 3D low-poly art"]
+	},
+	{
 		"date": "1-31-16",
 		"status": "Ongoing",
-		"title": "Experiments / <a href=\"Fireball.html\">Testing Lab</a><br>Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
+		"title": "Experiments / <a href=\"Fireball.html\">Fireball</a><br>Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
 		"descriptions": ["3D fireball with Perlin noise", "Experimenting with mathematical art"]
 	},
 	{
