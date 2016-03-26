@@ -68,8 +68,13 @@
 			var disc = new THREE.Mesh(new THREE.CircleGeometry(60, 60), discMaterial);
 			scene.add(disc);
 
-			var planetMaterial = new THREE.MeshPhongMaterial({shininess: 5, color: 0x526464, side: THREE.DoubleSide, shading: THREE.FlatShading});
+			var planetMaterial = new THREE.MeshPhongMaterial({shininess: 5, color: 0x526464, morphTargets: true, side: THREE.DoubleSide, shading: THREE.FlatShading});
 			var planet = new THREE.Mesh(new THREE.IcosahedronGeometry(40, 3), planetMaterial);
+			for(var i = 0; i < planet.geometry.vertices.length; i++) {
+				planet.geometry.vertices[i].x += Math.random() * 4 - 2;
+				planet.geometry.vertices[i].y += Math.random() * 4 - 2;
+				planet.geometry.vertices[i].setLength(39.25 + Math.random() * 1.5);
+			}
 			scene.add(planet);
 
 			function render() {
