@@ -43,7 +43,7 @@
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0x3d3d3d);
+			renderer.setClearColor(0x131d29);
 			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
@@ -52,13 +52,17 @@
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var pointLight = new THREE.PointLight(0xeeeefe, 3, 100);
-			pointLight.position.set(20, 0, 70);
-			scene.add(pointLight);
+			var lighting = [];
 
-			var pointLight = new THREE.PointLight(0x060321, 1);
-			pointLight.position.set(-100, -35, 90);
-			scene.add(pointLight);
+			lighting[0] = new THREE.PointLight(0xeeeefe, 3, 100);
+			lighting[0].position.set(20, 0, 70);
+
+			lighting[1] = new THREE.PointLight(0x060321, 1);
+			lighting[1].position.set(-100, -35, 90);
+
+			for(var i = 0; i < lighting.length; i++) {
+				scene.add(lighting[i]);
+			}
 
 			var discMaterial = new THREE.MeshLambertMaterial({color: 0x526464, side: THREE.DoubleSide});
 			var disc = new THREE.Mesh(new THREE.CircleGeometry(60, 60), discMaterial);
