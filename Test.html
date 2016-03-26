@@ -12,7 +12,6 @@
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.min.js"></script>
 		<script src="lib/GSAP/TweenMax.min.js"></script>
-		<script src="lib/THREE.Controls/TrackballControls.js"></script>
 		<style type="text/css">
 			html, body {
 				width: 100%;
@@ -21,165 +20,10 @@
 				padding: 0;
 				overflow: hidden;
 			}
-
-			#controls {
-				position: fixed;
-				top: 5px;
-				right: 5px;
-				text-align: right;
-			}
-
-			.dropdown-menu > li > a, .dropdown-menu {
-				background-color: #d9534f;
-				color: white;
-			}
-
-			.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
-				background-color: #c9302c;
-				color: white;
-				text-decoration: none;
-			}
 		</style>
 	</head>
 	<body>
-		<div id="controls">
-			<div class="btn-group">
-				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-fw fa-video-camera"></i> Camera <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu pull-right">
-					<li><a href="javascript:void(0)" onclick="setCamera('Reset')">Reset</a></li>
-				</ul>
-			</div>
-		</div>
 		<div id="rendererContainer"></div>
-		<script id="vertexShader" type="x-shader/x-vertex">
-			uniform float u_time;
-
-			varying vec2 vUv;
-			varying vec3 vViewPosition;
-			varying vec3 vNormal;
-			varying vec3 vLightFront;
-			varying float noise;
-
-			#if NUM_POINT_LIGHTS > 0
-				struct PointLight {
-					vec3 position;
-					vec3 color;
-					float distance;
-					float decay;
-
-					int shadow;
-					float shadowBias;
-					float shadowRadius;
-					vec2 shadowMapSize;
-				};
-
-				uniform PointLight pointLights[NUM_POINT_LIGHTS];
-			#endif
-
-			// Credit for Perlin noise function goes to Stefan Gustavson
-			vec3 mod289(vec3 x) {
-				return x - floor(x * (1.0 / 289.0)) * 289.0;
-			}
-
-			vec2 mod289(vec2 x) {
-				return x - floor(x * (1.0 / 289.0)) * 289.0;
-			}
-
-			vec3 permute(vec3 x) {
-				return mod289(((x*34.0)+1.0)*x);
-			}
-
-			float snoise(vec2 v) {
-				const vec4 C = vec4(0.211324865405187,  // (3.0-sqrt(3.0))/6.0
-				0.366025403784439,  // 0.5*(sqrt(3.0)-1.0)
-				-0.577350269189626,  // -1.0 + 2.0 * C.x
-				0.024390243902439); // 1.0 / 41.0
-				// First corner
-				vec2 i  = floor(v + dot(v, C.yy) );
-				vec2 x0 = v -   i + dot(i, C.xx);
-
-				// Other corners
-				vec2 i1;
-				//i1.x = step( x0.y, x0.x ); // x0.x > x0.y ? 1.0 : 0.0
-				//i1.y = 1.0 - i1.x;
-				i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-				// x0 = x0 - 0.0 + 0.0 * C.xx ;
-				// x1 = x0 - i1 + 1.0 * C.xx ;
-				// x2 = x0 - 1.0 + 2.0 * C.xx ;
-				vec4 x12 = x0.xyxy + C.xxzz;
-				x12.xy -= i1;
-
-				// Permutations
-				i = mod289(i); // Avoid truncation effects in permutation
-				vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
-				+ i.x + vec3(0.0, i1.x, 1.0 ));
-
-				vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-				m = m*m ;
-				m = m*m ;
-
-				// Gradients: 41 points uniformly over a line, mapped onto a diamond.
-				// The ring size 17*17 = 289 is close to a multiple of 41 (41*7 = 287)
-
-				vec3 x = 2.0 * fract(p * C.www) - 1.0;
-				vec3 h = abs(x) - 0.5;
-				vec3 ox = floor(x + 0.5);
-				vec3 a0 = x - ox;
-
-				// Normalise gradients implicitly by scaling m
-				// Approximation of: m *= inversesqrt( a0*a0 + h*h );
-				m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
-
-				// Compute final noise value at P
-				vec3 g;
-				g.x  = a0.x  * x0.x  + h.x  * x0.y;
-				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-				return 130.0 * dot(m, g);
-			}
-
-			void main() {
-				vUv = uv;
-				vNormal = normalize(normal * normalMatrix);
-				vLightFront = vec3(0.0);
-				noise = 0.0;//abs(snoise(vUv + vec2(u_time / 5.0)));
-
-				vec4 mvPosition = modelViewMatrix * vec4(position.xy, position.z + noise * 5.0, 1.0);
-				vViewPosition = mvPosition.xyz;
-
-				#if NUM_POINT_LIGHTS > 0
-					for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-						vec3 direction = normalize(pointLights[l].position - vViewPosition);
-						float dotNL = dot(vNormal, direction);
-						vLightFront += clamp(dotNL, 0.0, 1.0) * pointLights[l].color;
-					}
-				#endif
-
-				gl_Position = projectionMatrix * mvPosition;
-			}
-		</script>
-		<script id="fragmentShader" type="x-shader/x-fragment">
-			uniform float u_time;
-
-			varying vec2 vUv;
-			varying vec3 vViewPosition;
-			varying vec3 vNormal;
-			varying vec3 vLightFront;
-			varying float noise;
-
-			void main() {
-				vec3 fdx = vec3(dFdx(vViewPosition));
-				vec3 fdy = vec3(dFdy(vViewPosition));
-				vec3 normal = normalize(cross(fdx, fdy));
-
-				vec4 color = vec4(0.5, 0.0, 0.0, 1.0);
-				vec3 directDiffuse = vLightFront;
-				vec3 indirectDiffuse = vec3(0.5, 0.5, 0.5) * color.rgb;
-				vec3 outgoingLight = directDiffuse + indirectDiffuse;
-				gl_FragColor = vec4(outgoingLight, color.a);
-			}
-		</script>
 		<script type="text/javascript">
 			window.requestAnimFrame =
 				window.requestAnimationFrame ||
@@ -202,109 +46,31 @@
 			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(0, 105, 60);
-			camera.up.set(0, 0, 1);
+			camera.position.set(-45, -160, 110);
 			scene.add(camera);
-			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
-			var ambient = new THREE.AmbientLight(0x4c4c4c);
-			scene.add(ambient);
-
-			var pointLight = new THREE.PointLight(0xdddddd, 4);
-			pointLight.position.set(0, -20, 20);
+			var pointLight = new THREE.PointLight(0xeeeeee, 2, 100);
+			pointLight.position.set(10, 0, 70);
 			scene.add(pointLight);
-			var pointLightHelper = new THREE.PointLightHelper(pointLight, 2);
-			scene.add(pointLightHelper);
 
-			var objectGeometry = new THREE.PlaneGeometry(40, 40, 5, 5);
-			for(var i = 0; i < objectGeometry.vertices.length; i++) {
-				if(i % 6 === 5) {
-					objectGeometry.vertices[i].setZ(objectGeometry.vertices[i - 5].z);
-				}
-				else {
-					objectGeometry.vertices[i].setZ(Math.random() * 10);
-				}
-			}
+			var pointLight = new THREE.PointLight(0xdddddd, 2, 100);
+			pointLight.position.set(-70, -25, 20);
+			scene.add(pointLight);
 
-			var uniforms = THREE.UniformsUtils.merge([
-				THREE.UniformsLib["ambient"],
-				THREE.UniformsLib["lights"],
-				{
-					u_time: {type: "f", value: 0}
-				}
-			]);
-			var material = new THREE.ShaderMaterial({
-				uniforms: uniforms,
-				vertexShader: document.getElementById("vertexShader").textContent,
-				fragmentShader: document.getElementById("fragmentShader").textContent,
-				extensions: {
-					derivatives: true
-				},
-				lights: true,
-				side: THREE.DoubleSide
-			});
-			var object = new THREE.Mesh(objectGeometry, material);
-			scene.add(object);
-			object.position.set(20, 0, 0);
-			var objectFace = new THREE.FaceNormalsHelper(object, 2, 0x00ff00, 1);
-			scene.add(objectFace);
-			var objectVertex = new THREE.VertexNormalsHelper(object, 2, 0x0000ff, 1);
-			scene.add(objectVertex);
+			var discMaterial = new THREE.MeshLambertMaterial({color: 0x93c2c8, side: THREE.DoubleSide});
+			var disc = new THREE.Mesh(new THREE.CircleGeometry(60, 60), discMaterial);
+			scene.add(disc);
 
-			var baseMaterial = new THREE.ShaderMaterial(THREE.ShaderLib["lambert"]);
-			baseMaterial.lights = true;
-			baseMaterial.uniforms.diffuse.value = new THREE.Color(0x00007f);
-			baseMaterial.side = THREE.DoubleSide;
-			var base = new THREE.Mesh(objectGeometry, baseMaterial);
-			scene.add(base);
-			base.position.set(-20, 0, 0);
-			var baseFace = new THREE.FaceNormalsHelper(base, 2, 0x00ff00, 1);
-			scene.add(baseFace);
-			var baseVertex = new THREE.VertexNormalsHelper(base, 2, 0x0000ff, 1);
-			scene.add(baseVertex);
-
-			function setCamera(position) {
-				var x = 0, y = 0, z = 0,
-					uz = 0;
-
-				switch(position) {
-					case "Reset":
-					default:
-						x = 0;
-						y = 105;
-						z = 60;
-						uz = 1;
-						break;
-				}
-
-				x *= factor;
-				y *= factor;
-				z *= factor;
-
-				TweenLite.to(camera.position, 2, {x: x, y: y, z: z, ease: Power2.easeInOut});
-				TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, ease: Power2.easeOut, onUpdate: function(){camera.lookAt(controls.target);}});
-				TweenLite.to(camera.up, 1, {x: 0, y: 0, z: uz});
-			}
+			var planetMaterial = new THREE.MeshLambertMaterial({color: 0x93c2c8, side: THREE.DoubleSide});
+			var planet = new THREE.Mesh(new THREE.IcosahedronGeometry(40, 2), planetMaterial);
+			scene.add(planet);
 
 			function render() {
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
-				controls.update();
 
 				var delta = clock.getDelta();
-				uniforms.u_time.value += delta;
-			}
-
-			function recomputeNormals() {
-				objectGeometry.computeVertexNormals();
-				objectGeometry.computeFaceNormals();
-				objectGeometry.verticesNeedUpdate = true;
-
-				objectFace.update();
-				objectVertex.update();
-				baseFace.update();
-				baseVertex.update();
 			}
 
 			render();
