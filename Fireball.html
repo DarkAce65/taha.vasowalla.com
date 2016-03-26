@@ -14,7 +14,6 @@
 		<script src="bower_components/three.js/build/three.js"></script>
 		<script src="lib/GSAP/TweenMax.min.js"></script>
 		<script src="lib/THREE.Controls/TrackballControls.js"></script>
-		<script src="bower_components/toastr/toastr.min.js"></script>
 		<style type="text/css">
 			html, body {
 				width: 100%;
@@ -264,12 +263,7 @@
 
 			loader.load("img/textures/fireball.png", function(texture) {
 				uniforms.u_textureMap.value = texture;
-				toastr.clear(lastToast);
 			});
-			toastr.options = {"positionClass": "toast-bottom-right", "showMethod": "slideDown", "hideMethod": "slideUp", "tapToDismiss": false};
-			toastr.options.timeOut = 0;
-			toastr.options.extendedTimeOut = 0;
-			lastToast = toastr.info("Loading textures...");
 			render();
 
 			$(window).resize(function() {
