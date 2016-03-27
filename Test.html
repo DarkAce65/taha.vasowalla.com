@@ -89,6 +89,17 @@
 			var planet = new THREE.Mesh(planetGeometry, planetMaterial);
 			scene.add(planet);
 
+			var satellites = [];
+			for(var i = 0; i < 200; i++) {
+				var satellite = new THREE.Mesh(new THREE.IcosahedronGeometry(Math.random() * 3), planetMaterial);
+				var c = Math.cos(i * Math.PI / 50);
+				var s = Math.sin(i * Math.PI / 50);
+				satellite.position.set(110 * c - c * Math.random() * 30, 110 * s - s * Math.random() * 30, Math.random() * 30 - 15);
+				satellite.rotation.set(Math.random(), Math.random(), Math.random());
+				scene.add(satellite);
+				satellites.push(satellite);
+			}
+
 			function render() {
 				requestAnimFrame(render);
 				renderer.render(scene, camera);
