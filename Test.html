@@ -49,7 +49,7 @@
 
 			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
-			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+			var renderer = new THREE.WebGLRenderer({antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setClearColor(0x131d29);
@@ -112,12 +112,13 @@
 				if(radius > 2.5) {
 					displaceSatelliteGeometry(satelliteGeometry);
 				}
-				var satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
 				var positionR = 110 - Math.random() * 30;
 				var c = positionR * Math.cos(i * Math.PI / 150);
 				var s = positionR * Math.sin(i * Math.PI / 150);
-				satellite.position.set(c, s, Math.random() * 30 - 15);
-				satellite.rotation.set(Math.random(), Math.random(), Math.random());
+				satelliteGeometry.applyMatrix(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Math.random(), Math.random(), Math.random(), "XYZ")));
+				satelliteGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(c, s, Math.random() * 30 - 15));
+				var satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
+				satellite.orbitSpeed = 0.3 / radius;
 				scene.add(satellite);
 				satellites.push(satellite);
 			}
@@ -129,6 +130,9 @@
 
 				var delta = clock.getDelta();
 				planet.rotation.z += delta / 5;
+				for(var i = 0; i < satellites.length; i++) {
+					satellites[i].rotation.z += satellites[i].orbitSpeed * delta;
+				}
 			}
 
 			render();
