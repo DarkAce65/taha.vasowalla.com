@@ -67,10 +67,6 @@
 				scene.add(lights[i]);
 			}
 
-			var discMaterial = new THREE.MeshLambertMaterial({color: 0x526464, side: THREE.DoubleSide});
-			var disc = new THREE.Mesh(new THREE.CircleGeometry(90, 20), discMaterial);
-			scene.add(disc);
-
 			var planetMaterial = new THREE.MeshPhongMaterial({
 				shininess: 30,
 				color: 0x526464,
