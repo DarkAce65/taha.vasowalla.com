@@ -68,18 +68,19 @@
 			}
 
 			var planetMaterial = new THREE.MeshPhongMaterial({
+				morphTargets: true,
 				shininess: 30,
 				color: 0x526464,
-				morphTargets: true,
 				side: THREE.DoubleSide,
 				shading: THREE.FlatShading
 			});
-			var planet = new THREE.Mesh(new THREE.IcosahedronGeometry(60, 3), planetMaterial);
-			for(var i = 0; i < planet.geometry.vertices.length; i++) {
-				planet.geometry.vertices[i].x += Math.random() * 6 - 3;
-				planet.geometry.vertices[i].y += Math.random() * 6 - 3;
-				planet.geometry.vertices[i].setLength(59 + Math.random() * 2);
+			var planetGeometry = new THREE.IcosahedronGeometry(60, 3);
+			for(var i = 0; i < planetGeometry.vertices.length; i++) {
+				planetGeometry.vertices[i].x += Math.random() * 6 - 3;
+				planetGeometry.vertices[i].y += Math.random() * 6 - 3;
+				planetGeometry.vertices[i].setLength(59 + Math.random() * 2);
 			}
+			var planet = new THREE.Mesh(planetGeometry, planetMaterial);
 			scene.add(planet);
 
 			function render() {
