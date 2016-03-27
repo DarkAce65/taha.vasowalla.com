@@ -75,11 +75,17 @@
 				shading: THREE.FlatShading
 			});
 			var planetGeometry = new THREE.IcosahedronGeometry(60, 3);
+			var implodedVertices = [];
+			var cubeVertices = [];
 			for(var i = 0; i < planetGeometry.vertices.length; i++) {
+				implodedVertices[i] = planetGeometry.vertices[i].clone().setLength(0.01);
 				planetGeometry.vertices[i].x += Math.random() * 6 - 3;
 				planetGeometry.vertices[i].y += Math.random() * 6 - 3;
 				planetGeometry.vertices[i].setLength(59 + Math.random() * 2);
+				cubeVertices[i] = planetGeometry.vertices[i].clone().clampScalar(-30, 30);
 			}
+			planetGeometry.morphTargets.push({"name": "implode", "vertices": implodedVertices});
+			planetGeometry.morphTargets.push({"name": "cube", "vertices": cubeVertices});
 			var planet = new THREE.Mesh(planetGeometry, planetMaterial);
 			scene.add(planet);
 
