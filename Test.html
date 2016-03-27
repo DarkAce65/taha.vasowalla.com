@@ -47,14 +47,14 @@
 			renderer.setPixelRatio(window.devicePixelRatio);
 
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-			camera.position.set(-75, -255, 135);
+			camera.position.set(-50, -300, 100);
 			scene.add(camera);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
 
 			var lights = [];
 
-			lights[0] = new THREE.PointLight(0xeeeefe, 3, 150, 1.5);
+			lights[0] = new THREE.PointLight(0xeeeefe, 2, 300, 1.5);
 			lights[0].position.set(45, 15, 105);
 
 			lights[1] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
