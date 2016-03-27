@@ -106,11 +106,17 @@
 				shading: THREE.FlatShading
 			});
 			for(var i = 0; i < 300; i++) {
-				var radius = Math.max(0.1, Math.pow(Math.random(), 2) * 4);
-				var satellite = new THREE.Mesh(new THREE.IcosahedronGeometry(radius), satelliteMaterial);
-				var c = Math.cos(i * Math.PI / 150);
-				var s = Math.sin(i * Math.PI / 150);
-				satellite.position.set(110 * c - c * Math.random() * 30, 110 * s - s * Math.random() * 30, Math.random() * 30 - 15);
+				var radius = Math.max(0.2, Math.pow(Math.random(), 2) * 3);
+				var detail = radius > 2.5 ? 1 : 0;
+				var satelliteGeometry = new THREE.IcosahedronGeometry(radius, detail);
+				if(radius > 2.5) {
+					displaceSatelliteGeometry(satelliteGeometry);
+				}
+				var satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
+				var positionR = 110 - Math.random() * 30;
+				var c = positionR * Math.cos(i * Math.PI / 150);
+				var s = positionR * Math.sin(i * Math.PI / 150);
+				satellite.position.set(c, s, Math.random() * 30 - 15);
 				satellite.rotation.set(Math.random(), Math.random(), Math.random());
 				scene.add(satellite);
 				satellites.push(satellite);
