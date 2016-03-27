@@ -11,6 +11,7 @@
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/three.js/build/three.min.js"></script>
+		<script src="lib/perlin.js"></script>
 		<script src="lib/GSAP/TweenMax.min.js"></script>
 		<script src="lib/THREE.Controls/TrackballControls.js"></script>
 		<style type="text/css">
@@ -35,6 +36,14 @@
 				function(callback) {
 					window.setTimeout(callback, 1000 / 60);
 				};
+
+			function displaceSatelliteGeometry(satelliteGeometry) {
+				noise.seed(Math.random());
+				for(var i = 0; i < satelliteGeometry.vertices.length; i++) {
+					var v = satelliteGeometry.vertices[i].clone().setLength(0.4);
+					satelliteGeometry.vertices[i].setLength(3 + Math.abs(noise.simplex3(v.x, v.y, v.z)) * 2);
+				}
+			}
 
 			var factor = window.innerWidth < 768 ? 1.5 : 1;
 
