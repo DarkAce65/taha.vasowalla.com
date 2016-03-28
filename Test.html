@@ -77,13 +77,24 @@
 				scene.add(lights[i]);
 			}
 
-			var planetMaterial = new THREE.MeshPhongMaterial({
-				morphTargets: true,
-				shininess: 30,
-				color: 0x526464,
-				side: THREE.DoubleSide,
-				shading: THREE.FlatShading
-			});
+			var planetMaterial = new THREE.MultiMaterial([
+				new THREE.MeshPhongMaterial({
+					morphTargets: true,
+					shininess: 30,
+					color: 0x526464,
+					side: THREE.DoubleSide,
+					shading: THREE.FlatShading
+				}),
+				new THREE.MeshPhongMaterial({
+					transparent: true,
+					morphTargets: true,
+					shininess: 30,
+					color: 0x526464,
+					opacity: 0,
+					side: THREE.DoubleSide,
+					shading: THREE.FlatShading
+				})
+			]);
 			var planetGeometry = new THREE.IcosahedronGeometry(60, 3);
 			var implodedVertices = [];
 			var cubeVertices = [];
@@ -93,6 +104,9 @@
 				planetGeometry.vertices[i].y += Math.random() * 6 - 3;
 				planetGeometry.vertices[i].setLength(59 + Math.random() * 2);
 				cubeVertices[i] = planetGeometry.vertices[i].clone().clampScalar(-30, 30);
+			}
+			for(var i = 0; i < planetGeometry.faces.length; i++) {
+				planetGeometry.faces[i].materialIndex = Math.round(Math.random());
 			}
 			planetGeometry.morphTargets.push({"name": "implode", "vertices": implodedVertices});
 			planetGeometry.morphTargets.push({"name": "cube", "vertices": cubeVertices});
