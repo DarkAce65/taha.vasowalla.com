@@ -46,6 +46,7 @@
 			}
 
 			var factor = window.innerWidth < 768 ? 1.5 : 1;
+			var animation = {planetRotation: 1, satelliteOrbit: 1};
 
 			var clock = new THREE.Clock();
 			var scene = new THREE.Scene();
@@ -129,9 +130,9 @@
 				controls.update();
 
 				var delta = clock.getDelta();
-				planet.rotation.z += delta / 5;
+				planet.rotation.z += delta * animation.planetRotation / 5;
 				for(var i = 0; i < satellites.length; i++) {
-					satellites[i].rotation.z += satellites[i].orbitSpeed * delta;
+					satellites[i].rotation.z += satellites[i].orbitSpeed * delta * animation.satelliteOrbit;
 				}
 			}
 
