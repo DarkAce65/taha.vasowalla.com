@@ -64,14 +64,16 @@
 
 			var lights = [];
 
-			lights[0] = new THREE.PointLight(0xeeeefe, 2, 300, 1.5);
-			lights[0].position.set(45, 15, 105);
+			lights[0] = new THREE.PointLight(0xffffff, 3);
 
-			lights[1] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
-			lights[1].position.set(-90, 10, 120);
+			lights[1] = new THREE.PointLight(0xeeeefe, 2, 300, 1.5);
+			lights[1].position.set(45, 15, 105);
 
-			lights[2] = new THREE.PointLight(0x513c1f, 1, 300, 3);
-			lights[2].position.set(40, -40, 80);
+			lights[2] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
+			lights[2].position.set(-90, 10, 120);
+
+			lights[3] = new THREE.PointLight(0x513c1f, 1, 300, 3);
+			lights[3].position.set(40, -40, 80);
 
 			for(var i = 0; i < lights.length; i++) {
 				scene.add(lights[i]);
