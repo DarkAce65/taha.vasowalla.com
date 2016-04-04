@@ -1,5 +1,11 @@
 [
 	{
+		"date": "4-4-16",
+		"status": "In Production",
+		"title": "Game lobby system",
+		"descriptions": ["A framework for game lobbies built with <a href=\"https://www.meteor.com/\" target=\"_blank\">Meteor</a>", "<a href=\"https://github.com/DarkAce65/GameLobbySystem\" target=\"_blank\">GitHub <i class=\"fa fa-github-square\"></i></a>"]
+	},
+	{
 		"date": "3-26-16",
 		"status": "Ongoing",
 		"title": "Experiments / <a href=\"Test.html\">Testing Lab</a>",
@@ -10,12 +16,6 @@
 		"status": "Ongoing",
 		"title": "Experiments / <a href=\"Fireball.html\">Fireball</a><br>Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
 		"descriptions": ["3D fireball with Perlin noise", "Experimenting with mathematical art"]
-	},
-	{
-		"date": "12-17-15",
-		"status": "In Production",
-		"title": "Online multiplayer games",
-		"descriptions": ["Mafia", "Online multiplayer version of <a href=\"UltimateTTT.html\">Ultimate Tic Tac Toe</a>", "Card based two-player battle"]
 	},
 	{
 		"date": "12-30-15",
