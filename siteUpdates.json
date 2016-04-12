@@ -12,6 +12,12 @@
 		"descriptions": ["Experimenting with 3D low-poly art"]
 	},
 	{
+		"date": "2-2-16",
+		"status": "Ongoing",
+		"title": "Games / <a href=\"QuantumChess.html\">Quantum Chess</a>",
+		"descriptions": ["A quantum variant of chess invented by Dr. Selim Akl where pieces are not always what they appear to be", "Dr. Selim Akl's <a href=\"http://research.cs.queensu.ca/home/akl/techreports/quantumchessTR.pdf\" target=\"_blank\">paper</a> and <a href=\"http://research.cs.queensu.ca/Parallel/QuantumChess/QuantumChess.html\" target=\"_blank\">instructions</a>", "<a href=\"https://github.com/elicik/QuantumChess\" target=\"_blank\">GitHub</a>"]
+	},
+	{
 		"date": "1-31-16",
 		"status": "Ongoing",
 		"title": "Experiments / <a href=\"Fireball.html\">Fireball</a><br>Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",

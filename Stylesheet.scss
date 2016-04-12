@@ -313,7 +313,13 @@ body {
 	@import "scss/Photography";
 }
 
-// UTTT Styles
+// Quantum Chess Styles
+
+#QCBody {
+	@import "scss/QuantumChess";
+}
+
+// Ultimate Tic Tac Toe Styles
 
 #UTTTBody {
 	@import "scss/UltimateTTT";
