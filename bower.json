@@ -3,7 +3,6 @@
   "private": true,
   "dependencies": {
     "animate.css": "animate-css#latest",
-    "bootstrap-sweetalert": "latest",
     "bootstrap-select": "latest",
     "bootstrap": "~3",
     "chroma-js": "latest",
@@ -18,6 +17,7 @@
     "three.js": "threejs#*",
     "toastr": "latest",
     "Snap.svg": "snap.svg#latest",
-    "wavesurfer.js": "latest"
+    "wavesurfer.js": "latest",
+    "sweetalert2": "~1.1.0"
   }
 }
