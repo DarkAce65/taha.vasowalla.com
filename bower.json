@@ -18,6 +18,6 @@
     "toastr": "latest",
     "Snap.svg": "snap.svg#latest",
     "wavesurfer.js": "latest",
-    "sweetalert2": "~1.1.0"
+    "sweetalert2": "latest"
   }
 }
