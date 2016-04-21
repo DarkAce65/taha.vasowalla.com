@@ -1,1 +1,0 @@
-Lobbies = new Meteor.Collection("lobbies");
