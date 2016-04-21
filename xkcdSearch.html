@@ -102,7 +102,7 @@
 					$("#error").addClass("hidden");
 					var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
 					$("#output").append(comic);
-					comic.find("img").unveil(200, function() {
+					comic.find("img").unveil(0, function() {
 						$(this).load(function() {
 							this.style.opacity = 1;
 						});
@@ -130,7 +130,7 @@
 						if(found) {
 							var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
 							$("#output").append(comic);
-							comic.find("img").unveil(200, function() {
+							comic.find("img").unveil(0, function() {
 								$(this).load(function() {
 									this.style.opacity = 1;
 								});
