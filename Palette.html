@@ -14,7 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="themes/dark-alt.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="lib/GSAP/TweenMax.min.js"></script>
 		<script src="bower_components/chroma-js/chroma.min.js"></script>
 	</head>
 	<body>
@@ -101,18 +100,6 @@
 				el += '<div class="labels"><label class="label" style="color: ' + getTextColor(palette.fontColor) + '; background: ' + palette.fontColor + ';">' + palette.fontColor + '</label> <label class="label" style="color: ' + getTextColor(palette.background) + '; background: ' + palette.background + ';">' + palette.background + '</label> <label class="label" style="color: ' + getTextColor(palette.accent) + '; background: ' + palette.accent + ';">' + palette.accent + '</label> <label class="label" style="color: ' + getTextColor(palette.secondary) + '; background: ' + palette.secondary + ';">' + palette.secondary + '</label></div>';
 				$el = $('<dl class="dl-horizontal"><dt>' + paletteName + " theme</dt><dd>" + el + "</blockquote></dd></dl>");
 				$("#palettes").append($el);
-
-				TweenMax.staggerFrom($el.find(".color"), 2, {
-					delay: 1.4,
-					color: "#333",
-					backgroundColor: "white"
-				}, 0.4);
-
-				TweenMax.staggerFrom($el.find(".label"), 2, {
-					delay: 1,
-					color: "white",
-					backgroundColor: "#777"
-				}, 0.4);
 			});
 		</script>
 	</body>
