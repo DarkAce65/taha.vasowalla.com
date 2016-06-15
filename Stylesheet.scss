@@ -228,11 +228,6 @@ body {
 	}
 }
 
-.row-offcanvas .language {
-	display: block;
-	color: gray;
-}
-
 .modal-body > img {
 	max-width: 100%;
 }
@@ -341,7 +336,7 @@ body {
 		padding-left: 30px;
 	}
 
-	#history.panel-body, #palettes.panel-body {
+	#history.panel-body {
 		padding: 5px 15px;
 
 		blockquote {
