@@ -77,11 +77,11 @@ body {
 	box-shadow: none;
 }
 
-#history.panel-body, #palettes.panel-body {
+#history.panel-body {
 	padding: 5px 40px;
 }
 
-#history, #palettes {
+#history {
 	blockquote, hr {
 		border-color: #ccc;
 	}
@@ -216,7 +216,7 @@ body {
 			}
 		}
 
-		span {
+		div {
 			line-height: 24px;
 		}
 	}
