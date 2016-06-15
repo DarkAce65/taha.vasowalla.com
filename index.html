@@ -74,6 +74,10 @@
 									<img src="img/icons/Origami.png" class="icon pull-right">
 									<span>Origami</span>
 								</a>
+								<button class="list-group-item" onclick="openSubMenu('#projects');">
+									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
+									<span>Projects</span>
+								</button>
 								<div class="list-group-item list-group-item-divider">Programming</div>
 								<button class="list-group-item" onclick="openSubMenu('#util');">
 									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
@@ -103,6 +107,23 @@
 							</div>
 						</div>
 						<div class="menu-sub">
+							<div id="projects" class="linkList list-group">
+								<button class="list-group-item" onclick="closeSubMenu(0.5);">
+									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
+									<div>Back</div>
+								</button>
+								<div class="list-group-item list-group-item-divider">Projects</div>
+								<a href="Eagle.html" class="list-group-item">
+									<img src="img/icons/Eagle.png" class="icon pull-right">
+									<b>Eagle Project</b>
+									<div class="text-muted">[Troop 77]</div>
+								</a>
+								<a href="SARndbox.html" class="list-group-item">
+									<img src="img/icons/Sandbox.png" class="icon pull-right">
+									<b>SARndbox</b>
+									<div class="text-muted">[Augmented Reality]</div>
+								</a>
+							</div>
 							<div id="util" class="linkList list-group">
 								<button class="list-group-item" onclick="closeSubMenu(0.5);">
 									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
