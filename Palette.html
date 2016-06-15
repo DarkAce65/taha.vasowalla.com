@@ -11,13 +11,13 @@
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
-		<link rel="stylesheet" type="text/css" href="themes/dark-alt.css"/>
+		<link rel="stylesheet" type="text/css" href="themes/light.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/chroma-js/chroma.min.js"></script>
 	</head>
 	<body>
-		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
@@ -44,11 +44,37 @@
 			</div>
 		</nav>
 		<div class="content container">
-			<div class="panel panel-default">
-				<div id="palettes" class="panel-body">
-					<h3 style="color: #EF5350; text-align: center;">Color Palettes</h3>
-					<hr style="width: 30%;">
-					<p>A styled display of the colors and themes used on this site.</p>
+			<div class="page-header">
+				<p class="h1">Color Palettes</p>
+			</div>
+			<div class="row">
+				<div class="palette col-md-6">
+					<div class="background" style="background: #ffffff;">
+						<div class="foreground lead" style="color: #333333;">Light theme</div>
+						<div><span class="hex" style="color: #ffffff; background: #333333;">#333333<br>font</span><span class="hex insetBorder" style="color: #000000; background: #ffffff;">#ffffff<br>background</span><br class="visible-xs-block"><span class="hex" style="color: #ffffff; background: #ff8c00;">#ff8c00<br>accent</span><span class="hex" style="color: #ffffff; background: #ff6200;">#ff6200<br>secondary</span></div>
+					</div>
+				</div>
+				<div class="palette col-md-6">
+					<div class="background" style="background: #ffffff;">
+						<div class="foreground lead" style="color: #333333;">Alternate Light theme</div>
+						<div><span class="hex" style="color: #ffffff; background: #333333;">#333333<br>font</span><span class="hex insetBorder" style="color: #000000; background: #ffffff;">#ffffff<br>background</span><br class="visible-xs-block"><span class="hex" style="color: #ffffff; background: #13949F;">#13949F<br>accent</span><span class="hex" style="color: #ffffff; background: #23527c;">#23527c<br>secondary</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="palette col-md-6">
+					<div class="background" style="background: url('img/DarkBG.png') no-repeat 50% 50%/cover #333333;">
+						<div class="foreground lead" style="color: #ffffff;">Dark theme</div>
+						<div><span class="hex" style="color: #000000; background: #ffffff;">#ffffff<br>font</span><span class="hex" style="color: #ffffff; background: #333333;">#333333<br>background</span><br class="visible-xs-block"><span class="hex" style="color: #ffffff; background: #ef5350;">#ef5350<br>accent</span><span class="hex" style="color: #ffffff; background: #e51915;">#e51915<br>secondary</span></div>
+					</div>
+				</div>
+				<div class="palette col-md-6">
+					<div class="background" style="background: url('img/DarkBG.png') no-repeat 50% 50%/cover #333333;">
+						<div class="foreground lead" style="color: #333333;">
+							<div class="panel panel-default" style="margin-bottom: 0;"><div class="panel-body">Alternate Dark theme</div></div>
+						</div>
+						<div><span class="hex" style="color: #ffffff; background: #333333;">#333333<br>font</span><span class="hex" style="color: #000000; background: #ffffff;">#ffffff<br>background</span><br class="visible-xs-block"><span class="hex" style="color: #ffffff; background: #ef5350;">#ef5350<br>accent</span><span class="hex" style="color: #ffffff; background: #e51915;">#e51915<br>secondary</span></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -62,45 +88,5 @@
 				<a href="https://github.com/DarkAce65" target="_blank"><i class="fa fa-fw fa-github"></i></a>
 			</nav>
 		</footer>
-		<script type="text/javascript">
-			var palettes = {
-				"light": {
-					fontColor: "#333333",
-					background: chroma("whitesmoke").hex(),
-					accent: chroma("darkorange").hex(),
-					secondary: "#FF6200"
-				},
-				"light-alt": {
-					fontColor: "#333333",
-					background: chroma("whitesmoke").hex(),
-					accent: "#13949F",
-					secondary: "#23527c"
-				},
-				"dark": {
-					fontColor: chroma("whitesmoke").hex(),
-					background: "#333333",
-					accent: "#EF5350",
-					secondary: "#E51915"
-				}
-			};
-
-			function getTextColor(color) {
-				if(chroma(color).luminance() > 1 - chroma(color).luminance()) {
-					return chroma("black").alpha(0.7).hex();
-				}
-
-				return chroma("white").alpha(0.7).hex();
-			}
-
-			$.each(palettes, function(paletteName, palette) {
-				var el = '<div class="palette">';
-
-				el += '<div class="color main" style="color: ' + palette.fontColor + '; background: ' + palette.background + ';">Sample Text<div class="accents"><div class="color" style="color: ' + getTextColor(palette.accent) + '; background: ' + palette.accent + ';">Accent</div><div class="color" style="color: ' + getTextColor(palette.secondary) + '; background: ' + palette.secondary + ';">Secondary</div></div></div>';
-
-				el += '<div class="labels"><label class="label" style="color: ' + getTextColor(palette.fontColor) + '; background: ' + palette.fontColor + ';">' + palette.fontColor + '</label> <label class="label" style="color: ' + getTextColor(palette.background) + '; background: ' + palette.background + ';">' + palette.background + '</label> <label class="label" style="color: ' + getTextColor(palette.accent) + '; background: ' + palette.accent + ';">' + palette.accent + '</label> <label class="label" style="color: ' + getTextColor(palette.secondary) + '; background: ' + palette.secondary + ';">' + palette.secondary + '</label></div>';
-				$el = $('<dl class="dl-horizontal"><dt>' + paletteName + " theme</dt><dd>" + el + "</blockquote></dd></dl>");
-				$("#palettes").append($el);
-			});
-		</script>
 	</body>
 </html>

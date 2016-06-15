@@ -88,37 +88,32 @@ body {
 }
 
 .palette {
-	.main {
-		position: relative;
+	text-align:center;
+
+	.background {
 		border-radius: 6px;
-		padding: 25px 10px;
 		margin-bottom: 5px;
+		padding-bottom: 10px;
+		border: 1px solid darkgray;
 	}
 
-	.accents {
-		position: absolute;
-		top: 5px;
-		right: 5px;
-
-		.color {
-			display: inline-block;
-			padding: 0.2em 0.6em 0.3em;
-
-			&:first-child {
-				border-top-left-radius: 6px;
-				border-bottom-left-radius: 6px;
-			}
-
-			&:last-child {
-				border-top-right-radius: 6px;
-				border-bottom-right-radius: 6px;
-			}
-		}
+	.foreground {
+		padding: 10px;
 	}
 
-	.labels {
+	.hex {
+		display: inline-block;
 		font-family: monospace;
-		font-size: 110%;
+		padding: 3px 8px;
+		margin: 2px;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: 3px;
+
+		&.insetBorder {
+			box-shadow: 0 0 2px inset;
+		}
 	}
 }
 
