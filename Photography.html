@@ -60,7 +60,7 @@
 			</p>
 			<div id="gallery" class="row"></div>
 		</div>
-		<div class="pswp" tabindex="-1" role="dialog">
+		<div class="pswp defaultCaption" tabindex="-1" role="dialog">
 			<div class="pswp__bg"></div>
 			<div class="pswp__scroll-wrap">
 				<div class="pswp__container">
@@ -110,7 +110,7 @@
 				gallery.listen("afterChange", function() {
 					var index = gallery.getCurrentIndex();
 					var imageUrl = photoswipeData[$(psThumb).data("album")][index].src;
-					$(psThumb).find(".square").css("background-image", "url(" + imageUrl + ")");
+					$(psThumb).find(".psThumbnail").css("background-image", "url(" + imageUrl + ")");
 					$(psThumb).data("index", index);
 				});
 			}
@@ -210,14 +210,14 @@
 			for(var key in photoswipeData) {
 				var albumData = photoswipeData[key];
 				var albumTitle = key.replace(/\b[A-Za-z]/, function(letter){return letter.toUpperCase();});
-				$("#gallery").append('<div class="col-xs-6 col-sm-3"><div class="album" data-album="' + key + '" data-index="0" onclick="openPhotoSwipe(this)"><div class="square" style="background-image: url(' + albumData[0].src + ')"></div><div class="albumTitle">' + albumTitle + '</div></div></div>');
+				$("#gallery").append('<div class="col-xs-6 col-sm-3"><div class="psAlbum" data-album="' + key + '" data-index="0" onclick="openPhotoSwipe(this)"><div class="psThumbnail" style="background-image: url(' + albumData[0].src + ')"></div><div class="title">' + albumTitle + '</div></div></div>');
 				for(var i = 0; i < photoswipeData[key].length; i++) {
 					var titleData = photoswipeData[key][i].title;
-					photoswipeData[key][i].title = '<div class="imageCaption"><span class="imageTitle">' + titleData[0] + '</span><span class="imageDate">' + titleData[1] + '</span><div><i class="fa fa-camera"></i>' + titleData[2] + '</div><div class="grid"><span><i class="photoicon photoicon-aperture"></i>' + titleData[3] + '</span><span><i class="photoicon photoicon-exposure"></i>' + titleData[4] + '</span><span><i class="photoicon photoicon-focal-length"></i>' + titleData[5] + '</span><span><i class="photoicon photoicon-iso"></i>' + titleData[6] + '</span></div></div>';
+					photoswipeData[key][i].title = '<div class="caption"><div class="title">' + titleData[0] + '</div><div class="text-muted">' + titleData[1] + '</div><div><i class="fa fa-camera"></i>' + titleData[2] + '</div><div class="grid"><span><i class="photoicon photoicon-aperture"></i>' + titleData[3] + '</span><span><i class="photoicon photoicon-exposure"></i>' + titleData[4] + '</span><span><i class="photoicon photoicon-focal-length"></i>' + titleData[5] + '</span><span><i class="photoicon photoicon-iso"></i>' + titleData[6] + '</span></div></div>';
 				}
 			}
 
-			$('.album[data-album="instagram"]').append('<div class="albumSubtitle">@darkace65</div>');
+			$('.psAlbum[data-album="instagram"]').append('<div class="subtitle">@darkace65</div>');
 
 			var photoswipeOptions = {history: false, loop: false, index: 0, closeOnScroll: false, closeOnVerticalDrag: false, showHideOpacity: true,
 				getThumbBoundsFn: function() {

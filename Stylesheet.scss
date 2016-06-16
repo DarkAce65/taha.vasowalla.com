@@ -228,6 +228,71 @@ body {
 	}
 }
 
+.psAlbum {
+	position: relative;
+	cursor: pointer;
+	color: white;
+
+	.psThumbnail {
+		width: 100%;
+		padding-bottom: 100%;
+		background: no-repeat 50% 50% / cover #2F2F2F;
+	}
+
+	.title {
+		position: absolute;
+		width: 100%;
+		padding: 15px 5px 10px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		text-align: right;
+		font-size: 24px;
+		font-family: Quicksand;
+		@include linear-gradient(transparent, black);
+	}
+
+	.subtitle {
+		position: absolute;
+		width: 100%;
+		padding: 5px 10px;
+		top: 0;
+		left: 0;
+		right: 0;
+		text-align: right;
+		font-size: 14px;
+		font-family: Quicksand;
+		@include linear-gradient(black, transparent);
+		background-color: transparent;
+	}
+}
+
+.defaultCaption .pswp__caption {
+	background: none;
+
+	.pswp__caption__center {
+		max-width: 100%;
+		text-align: center;
+		font-size: 14px;
+		padding: 15px;
+	}
+
+	.caption {
+		display: inline-block;
+		background-color: $light-color;
+		color: $dark-color;
+		padding: 5px 20px;
+		text-decoration: none !important;
+
+		.title {
+			color: $dark-accent-color;
+			padding: 5px 0;
+			font-size: 20px;
+			font-family: Raleway;
+		}
+	}
+}
+
 .modal-body > img {
 	max-width: 100%;
 }

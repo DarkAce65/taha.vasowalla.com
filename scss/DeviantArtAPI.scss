@@ -1,8 +1,8 @@
 #DAGallery {
 	position: relative;
 
-	a {
-		padding: 0;
+	.pswp__bg {
+		background-color: #121212;
 	}
 
 	.cardWrapper {
@@ -72,30 +72,5 @@
 		color: white;
 		background-color: rgba(15, 69, 115, 0.67);
 		padding: 10px;
-	}
-
-	.pswp__bg {
-		background-color: #121212;
-	}
-
-	.pswp__caption {
-		background: none;
-	}
-
-	.pswp__caption__center {
-		max-width: 100%;
-		text-align: center;
-		font-size: 14px;
-		padding: 15px;
-
-		.imageCaption {
-			display: inline-block;
-			text-align: center;
-			font-family: Raleway;
-			background-color: $light-color;
-			color: $dark-color;
-			padding: 5px 20px;
-			text-decoration: none !important;
-		}
 	}
 }

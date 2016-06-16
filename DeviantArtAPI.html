@@ -57,7 +57,7 @@
 			<p>Credit goes to the original authors of the works.</p>
 			<p><button class="btn btn-danger" onclick="shuffleImages()">Shuffle <i class="fa fa-random"></i></button></p>
 			<div id="DAGallery">
-				<div class="pswp" tabindex="-1" role="dialog">
+				<div class="pswp defaultCaption" tabindex="-1" role="dialog">
 					<div class="pswp__bg"></div>
 					<div class="pswp__scroll-wrap">
 						<div class="pswp__container">
@@ -219,7 +219,7 @@
 										var card = $(pre + '<div class="imageBackground" style="padding-bottom: ' + imgHeight / imgWidth * 100 + '%;"><span class="loading">Loading...</span><img src="' + dataURL + '" class="animated" data-index="' + imgIndex + '" style="position: absolute; display: none; height: 100%; width: 100%;" onload="imageReady(this)"></div>' + post);
 
 										// Add item to photoswipeData
-										photoswipeData.push({title: '<a href="' + dataLink + '" target="_blank" class="imageCaption"><span>' + dataTitle + '</span><span style="display: block; color: gray;">' + dataAuthor + '</span><span style="color: #EF5350;">Click to view on DeviantArt.com</span></a>', src: dataURL, w: imgWidth, h: imgHeight});
+										photoswipeData.push({title: '<a href="' + dataLink + '" target="_blank" class="caption"><div class="title">' + dataTitle + '</div><div class="text-muted">' + dataAuthor + '<br>Click to view on DeviantArt.com</div></a>', src: dataURL, w: imgWidth, h: imgHeight});
 										break;
 								}
 								newCards.push(card[0]);
