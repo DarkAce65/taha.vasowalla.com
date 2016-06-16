@@ -267,7 +267,7 @@ body {
 	}
 }
 
-.defaultCaption .pswp__caption {
+.styledCaption .pswp__caption {
 	background: none;
 
 	.pswp__caption__center {
@@ -279,17 +279,26 @@ body {
 
 	.caption {
 		display: inline-block;
-		background-color: darken($dark-color, 10);
-		color: darken($light-color, 30);
+		background-color: $light-color;
+		color: $dark-color;
 		padding: 5px 20px;
 		text-decoration: none !important;
 
 		.title {
-			color: $dark-accent-color;
+			color: $light-accent-color;
 			padding: 5px 0;
 			font-size: 20px;
 			font-family: Raleway;
 		}
+	}
+}
+
+.styledCaption.dark .pswp__caption .caption {
+	background-color: darken($dark-color, 10);
+	color: darken($light-color, 30);
+
+	.title {
+		color: $dark-accent-color;
 	}
 }
 
