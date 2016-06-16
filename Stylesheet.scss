@@ -279,8 +279,8 @@ body {
 
 	.caption {
 		display: inline-block;
-		background-color: $light-color;
-		color: $dark-color;
+		background-color: darken($dark-color, 10);
+		color: darken($light-color, 30);
 		padding: 5px 20px;
 		text-decoration: none !important;
 
