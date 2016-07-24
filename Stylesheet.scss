@@ -182,15 +182,25 @@ body {
 	}
 }
 
-.menu-main {
-	position: absolute;
-	width: 100%;
+.menuContainer {
+	@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
 }
 
-.menu-sub {
+.menuContainer .linkList {
+	z-index: 0;
 	position: absolute;
-	width: 100%;
-	left: calc(100% + 30px);
+	top: 0;
+	pointer-events: none;
+	opacity: 0;
+	@include transform(translateX(50px));
+	@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
+}
+
+.menuContainer .linkList.active {
+	z-index: 1;
+	pointer-events: all;
+	opacity: 1;
+	@include transform(none);
 }
 
 .linkList {
@@ -425,9 +435,14 @@ body {
 	.row-offcanvas {
 		position: relative;
 		right: 0;
+		@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
+
+		&.active {
+			@include transform(translateX(-75%));
+		}
 	}
 
-	.row-offcanvas .language {
+	.row-offcanvas .linkList .text-muted {
 		display: none;
 		visibility: hidden;
 	}

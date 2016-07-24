@@ -1,5 +1,11 @@
 [
 	{
+		"date": "7-24-16",
+		"status": "Completed",
+		"title": "Homepage Menu Rework",
+		"descriptions": ["Rebuilt the main menu to eliminate lag and greatly reduce data usage"]
+	},
+	{
 		"date": "4-4-16",
 		"status": "In Production",
 		"title": "Game lobby system",

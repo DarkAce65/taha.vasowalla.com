@@ -20,10 +20,6 @@
 		<link rel="stylesheet" type="text/css" href="themes/light-alt.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="lib/GSAP/TweenLite.min.js"></script>
-		<script src="lib/GSAP/TimelineLite.min.js"></script>
-		<script src="lib/GSAP/plugins/CSSPlugin.min.js"></script>
-		<script src="lib/GSAP/plugins/ScrollToPlugin.min.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -61,188 +57,184 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-9 col-sm-4 col-md-3 sidebar-offcanvas hidden-xs">
+				<div class="col-xs-9 col-sm-4 col-md-3 sidebar-offcanvas">
 					<div class="menuContainer">
-						<div class="menu-main">
-							<div class="linkList list-group">
-								<div class="list-group-item list-group-item-divider">About Me</div>
-								<a href="About.html" class="list-group-item">
-									<img src="img/icons/TV.png" class="icon pull-right">
-									<span>Resum&eacute;</span>
-								</a>
-								<a href="Origami.html" class="list-group-item">
-									<img src="img/icons/Origami.png" class="icon pull-right">
-									<span>Origami</span>
-								</a>
-								<button class="list-group-item" onclick="openSubMenu('#projects');">
-									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
-									<span>Projects</span>
-								</button>
-								<div class="list-group-item list-group-item-divider">Programming</div>
-								<button class="list-group-item" onclick="openSubMenu('#util');">
-									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
-									<span>Useful Tools</span>
-								</button>
-								<button class="list-group-item" onclick="openSubMenu('#visual');">
-									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
-									<span>Visual Projects</span>
-								</button>
-								<button class="list-group-item" onclick="openSubMenu('#games');">
-									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
-									<span>Games</span>
-								</button>
-								<button class="list-group-item" onclick="openSubMenu('#experiments');">
-									<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
-									<span>Experiments</span>
-								</button>
-								<a href="Palette.html" class="list-group-item">
-									<img src="img/icons/Color.png" class="icon pull-right">
-									<span>Site Colors</span>
-								</a>
-								<div class="list-group-item list-group-item-divider">My Friends</div>
-								<a href="http://eli.gukovsky.com/" target="_blank" class="list-group-item">
-									<i class="icon pull-right fa fa-fw fa-lg fa-laptop"></i>
-									<span>Eli's Website</span>
-								</a>
-							</div>
+						<div id="main" class="active linkList list-group">
+							<div class="list-group-item list-group-item-divider">About Me</div>
+							<a href="About.html" class="list-group-item">
+								<img src="img/icons/TV.png" class="icon pull-right">
+								<span>Resum&eacute;</span>
+							</a>
+							<a href="Origami.html" class="list-group-item">
+								<img src="img/icons/Origami.png" class="icon pull-right">
+								<span>Origami</span>
+							</a>
+							<button class="list-group-item" onclick="openMenu('#projects');">
+								<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
+								<span>Projects</span>
+							</button>
+							<div class="list-group-item list-group-item-divider">Programming</div>
+							<button class="list-group-item" onclick="openMenu('#util');">
+								<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
+								<span>Useful Tools</span>
+							</button>
+							<button class="list-group-item" onclick="openMenu('#visual');">
+								<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
+								<span>Visual Projects</span>
+							</button>
+							<button class="list-group-item" onclick="openMenu('#games');">
+								<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
+								<span>Games</span>
+							</button>
+							<button class="list-group-item" onclick="openMenu('#experiments');">
+								<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
+								<span>Experiments</span>
+							</button>
+							<a href="Palette.html" class="list-group-item">
+								<img src="img/icons/Color.png" class="icon pull-right">
+								<span>Site Colors</span>
+							</a>
+							<div class="list-group-item list-group-item-divider">My Friends</div>
+							<a href="http://eli.gukovsky.com/" target="_blank" class="list-group-item">
+								<i class="icon pull-right fa fa-fw fa-lg fa-laptop"></i>
+								<span>Eli's Website</span>
+							</a>
 						</div>
-						<div class="menu-sub">
-							<div id="projects" class="linkList list-group">
-								<button class="list-group-item" onclick="closeSubMenu(0.5);">
-									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
-									<div>Back</div>
-								</button>
-								<div class="list-group-item list-group-item-divider">Projects</div>
-								<a href="Eagle.html" class="list-group-item">
-									<img src="img/icons/Eagle.png" class="icon pull-right">
-									<b>Eagle Project</b>
-									<div class="text-muted">[Troop 77]</div>
-								</a>
-								<a href="SARndbox.html" class="list-group-item">
-									<img src="img/icons/Sandbox.png" class="icon pull-right">
-									<b>SARndbox</b>
-									<div class="text-muted">[Augmented Reality]</div>
-								</a>
-							</div>
-							<div id="util" class="linkList list-group">
-								<button class="list-group-item" onclick="closeSubMenu(0.5);">
-									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
-									<div>Back</div>
-								</button>
-								<div class="list-group-item list-group-item-divider">Useful Tools</div>
-								<a href="ChemistryCalculators.html" class="list-group-item">
-									<img src="img/icons/Chemistry.png" class="icon pull-right">
-									<b>Chemistry Calculators</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="FinancialCalculators.html" class="list-group-item">
-									<img src="img/icons/Finance.png" class="icon pull-right">
-									<b>Financial Tools</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="Clock.html" class="list-group-item">
-									<img src="img/icons/Clock.png" class="icon pull-right">
-									<b>Clock + Weather</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="xkcdSearch.html" class="list-group-item">
-									<img src="img/icons/xkcdIcon.png" class="icon pull-right">
-									<b>xkcd Search Engine</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-							</div>
-							<div id="visual" class="linkList list-group">
-								<button class="list-group-item" onclick="closeSubMenu(0.5);">
-									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
-									<div>Back</div>
-								</button>
-								<div class="list-group-item list-group-item-divider">Visual Projects</div>
-								<a href="DeviantArtAPI.html" class="list-group-item">
-									<img src="img/icons/DA.png" class="icon pull-right">
-									<b>DeviantArt API</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="WebAudio.html" class="list-group-item">
-									<img src="img/icons/WebAudio.png" class="icon pull-right">
-									<b>Web Audio API</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="Animation.html" class="list-group-item">
-									<i class="icon pull-right fa fa-fw fa-inverse fa-paper-plane" style="background-color: lightseagreen;"></i>
-									<b>Animation Testing</b>
-									<div class="text-muted">[Greensock]</div>
-								</a>
-								<a href="Kemps-Ridley/" class="list-group-item">
-									<img src="img/icons/ecybermission.jpg" class="icon pull-right">
-									<b>JAYS eCyberMission</b>
-									<div class="text-muted">[HTML / CSS]</div>
-								</a>
-								<a href="YoutubeBookmarklet.html" class="list-group-item">
-									<img src="img/icons/YT.png" class="icon pull-right">
-									<b>YouTube Bookmarklet</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-							</div>
-							<div id="games" class="linkList list-group">
-								<button class="list-group-item" onclick="closeSubMenu(0.5);">
-									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
-									<div>Back</div>
-								</button>
-								<div class="list-group-item list-group-item-divider">Games</div>
-								<a href="UltimateTTT.html" class="list-group-item">
-									<img src="img/icons/TTT.png" class="icon pull-right">
-									<b>Ultimate Tic Tac Toe</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="Hangman.html" class="list-group-item">
-									<img src="img/icons/Hangman.png" class="icon pull-right">
-									<b>Hangman</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-								<a href="QuantumChess.html" class="list-group-item">
-									<img src="lib/chessboardjs/img/chesspieces/wK.png" class="icon pull-right">
-									<b>Quantum Chess</b>
-									<div class="text-muted">[JavaScript]</div>
-								</a>
-							</div>
-							<div id="experiments" class="linkList list-group">
-								<button class="list-group-item" onclick="closeSubMenu(0.5);">
-									<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
-									<div>Back</div>
-								</button>
-								<div class="list-group-item list-group-item-divider">Experiments</div>
-								<a href="Canvas.html" class="list-group-item">
-									<img src="img/icons/HTML5.png" class="icon pull-right" style="border-radius: 0;">
-									<b>HTML5 Canvas</b>
-									<div class="text-muted">[HTML5 / Javascript]</div>
-								</a>
-								<a href="Shaders.html" class="list-group-item">
-									<img src="img/icons/chip.png" class="icon pull-right">
-									<b>GLSL Shaders</b>
-									<div class="text-muted">[GLSL]</div>
-								</a>
-								<a href="Fireball.html" class="list-group-item">
-									<img src="img/icons/fireball.png" class="icon pull-right">
-									<b>Fireball</b>
-									<div class="text-muted">[GLSL]</div>
-								</a>
-								<a href="SVG.html" class="list-group-item">
-									<img src="img/icons/Snap.svg" class="icon pull-right">
-									<b>SVG</b>
-									<div class="text-muted">[Snap.svg]</div>
-								</a>
-								<a href="Secured.php" class="list-group-item">
-									<img src="img/icons/Lock.png" class="icon pull-right">
-									<b>PHP Web Security</b>
-									<div class="text-muted">[PHP]</div>
-								</a>
-								<a href="Test.html" class="list-group-item">
-									<i class="icon pull-right fa fa-fw fa-lg fa-warning"></i>
-									<b>Testing Lab</b>
-									<br>
-									<span class="label label-danger">May not work in all browsers</span>
-								</a>
-							</div>
+						<div id="projects" class="linkList list-group">
+							<button class="list-group-item" onclick="openMenu('#main');">
+								<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
+								<div>Back</div>
+							</button>
+							<div class="list-group-item list-group-item-divider">Projects</div>
+							<a href="Eagle.html" class="list-group-item">
+								<img src="img/icons/Eagle.png" class="icon pull-right">
+								<b>Eagle Project</b>
+								<div class="text-muted">[Troop 77]</div>
+							</a>
+							<a href="SARndbox.html" class="list-group-item">
+								<img src="img/icons/Sandbox.png" class="icon pull-right">
+								<b>SARndbox</b>
+								<div class="text-muted">[Augmented Reality]</div>
+							</a>
+						</div>
+						<div id="util" class="linkList list-group">
+							<button class="list-group-item" onclick="openMenu('#main');">
+								<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
+								<div>Back</div>
+							</button>
+							<div class="list-group-item list-group-item-divider">Useful Tools</div>
+							<a href="ChemistryCalculators.html" class="list-group-item">
+								<img src="img/icons/Chemistry.png" class="icon pull-right">
+								<b>Chemistry Calculators</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="FinancialCalculators.html" class="list-group-item">
+								<img src="img/icons/Finance.png" class="icon pull-right">
+								<b>Financial Tools</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="Clock.html" class="list-group-item">
+								<img src="img/icons/Clock.png" class="icon pull-right">
+								<b>Clock + Weather</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="xkcdSearch.html" class="list-group-item">
+								<img src="img/icons/xkcdIcon.png" class="icon pull-right">
+								<b>xkcd Search Engine</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+						</div>
+						<div id="visual" class="linkList list-group">
+							<button class="list-group-item" onclick="openMenu('#main');">
+								<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
+								<div>Back</div>
+							</button>
+							<div class="list-group-item list-group-item-divider">Visual Projects</div>
+							<a href="DeviantArtAPI.html" class="list-group-item">
+								<img src="img/icons/DA.png" class="icon pull-right">
+								<b>DeviantArt API</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="WebAudio.html" class="list-group-item">
+								<img src="img/icons/WebAudio.png" class="icon pull-right">
+								<b>Web Audio API</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="Animation.html" class="list-group-item">
+								<i class="icon pull-right fa fa-fw fa-inverse fa-paper-plane" style="background-color: lightseagreen;"></i>
+								<b>Animation Testing</b>
+								<div class="text-muted">[Greensock]</div>
+							</a>
+							<a href="Kemps-Ridley/" class="list-group-item">
+								<img src="img/icons/ecybermission.jpg" class="icon pull-right">
+								<b>JAYS eCyberMission</b>
+								<div class="text-muted">[HTML / CSS]</div>
+							</a>
+							<a href="YoutubeBookmarklet.html" class="list-group-item">
+								<img src="img/icons/YT.png" class="icon pull-right">
+								<b>YouTube Bookmarklet</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+						</div>
+						<div id="games" class="linkList list-group">
+							<button class="list-group-item" onclick="openMenu('#main');">
+								<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
+								<div>Back</div>
+							</button>
+							<div class="list-group-item list-group-item-divider">Games</div>
+							<a href="UltimateTTT.html" class="list-group-item">
+								<img src="img/icons/TTT.png" class="icon pull-right">
+								<b>Ultimate Tic Tac Toe</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="Hangman.html" class="list-group-item">
+								<img src="img/icons/Hangman.png" class="icon pull-right">
+								<b>Hangman</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="QuantumChess.html" class="list-group-item">
+								<img src="lib/chessboardjs/img/chesspieces/wK.png" class="icon pull-right">
+								<b>Quantum Chess</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+						</div>
+						<div id="experiments" class="linkList list-group">
+							<button class="list-group-item" onclick="openMenu('#main');">
+								<i class="icon pull-left fa fa-fw fa-lg fa-angle-left"></i>
+								<div>Back</div>
+							</button>
+							<div class="list-group-item list-group-item-divider">Experiments</div>
+							<a href="Canvas.html" class="list-group-item">
+								<img src="img/icons/HTML5.png" class="icon pull-right" style="border-radius: 0;">
+								<b>HTML5 Canvas</b>
+								<div class="text-muted">[HTML5 / Javascript]</div>
+							</a>
+							<a href="Shaders.html" class="list-group-item">
+								<img src="img/icons/chip.png" class="icon pull-right">
+								<b>GLSL Shaders</b>
+								<div class="text-muted">[GLSL]</div>
+							</a>
+							<a href="Fireball.html" class="list-group-item">
+								<img src="img/icons/fireball.png" class="icon pull-right">
+								<b>Fireball</b>
+								<div class="text-muted">[GLSL]</div>
+							</a>
+							<a href="SVG.html" class="list-group-item">
+								<img src="img/icons/Snap.svg" class="icon pull-right">
+								<b>SVG</b>
+								<div class="text-muted">[Snap.svg]</div>
+							</a>
+							<a href="Secured.php" class="list-group-item">
+								<img src="img/icons/Lock.png" class="icon pull-right">
+								<b>PHP Web Security</b>
+								<div class="text-muted">[PHP]</div>
+							</a>
+							<a href="Test.html" class="list-group-item">
+								<i class="icon pull-right fa fa-fw fa-lg fa-warning"></i>
+								<b>Testing Lab</b>
+								<br>
+								<span class="label label-danger">May not work in all browsers</span>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -259,59 +251,24 @@
 			</nav>
 		</footer>
 		<script type="text/javascript">
-			var menuTimeline = new TimelineLite();
-			var activeSubMenu = "";
-			var resizeTimeout;
+			var activeMenu = "#main";
 
 			function toggleMainMenu() {
-				var rev = sliderTimeline.reversed();
-				if(rev) {
-					TweenLite.to(window, 0.3, {scrollTo: {y: 0}, delay: 0.3});
+				$(".row-offcanvas").toggleClass("active");
+				if($(".row-offcanvas").hasClass("active")) {
+					activeMenu = "#main";
 				}
-				sliderTimeline.reversed(!rev);
+				openMenu(activeMenu);
 			}
 
-			function openSubMenu(subMenu) {
-				activeSubMenu = subMenu;
-				menuTimeline.clear();
-				menuTimeline.set(".menu-sub>div", {display: "none"});
-				menuTimeline.set(subMenu, {display: "block"});
-				menuTimeline.to(".menuContainer>div", 0.5, {x: -$(".menuContainer").width() - 30}, menuTimeline.time());
-				menuTimeline.to(".menuContainer", 0.25, {height: $(".menu-sub").height()}, menuTimeline.time());
-				menuTimeline.to(".row-offcanvas", 0.5, {minHeight: $(".menu-sub").height()}, menuTimeline.time());
+			function openMenu(menu) {
+				activeMenu = menu;
+				$(".linkList").removeClass("active");
+				$(menu).addClass("active");
+				$(".menuContainer").height($(menu).height());
 			}
 
-			function closeSubMenu(duration) {
-				activeSubMenu = "";
-				menuTimeline.clear();
-				menuTimeline.to(".menuContainer>div", duration, {x: 0}, menuTimeline.time());
-				menuTimeline.to(".menuContainer", duration / 2, {height: $(".menu-main").height()}, menuTimeline.time());
-				menuTimeline.to(".row-offcanvas", 0.5, {minHeight: $(".menu-main").height()}, menuTimeline.time());
-			}
-
-			function endResize() {
-				if(activeSubMenu === "") {
-					closeSubMenu(0);
-				}
-				else {
-					openSubMenu(activeSubMenu);
-				}
-			}
-
-			var sliderTimeline = new TimelineLite();
-
-			sliderTimeline.eventCallback("onStart", function() {
-				$(".sidebar-offcanvas").removeClass("hidden-xs");
-				closeSubMenu(0);
-			});
-
-			sliderTimeline.eventCallback("onReverseComplete", function() {
-				$(".sidebar-offcanvas").addClass("hidden-xs");
-				menuTimeline.to(".row-offcanvas", 0.2, {minHeight: 0}, menuTimeline.time());
-			});
-
-			sliderTimeline.to(".row-offcanvas", 0.3, {right: "83%"}, 0);
-			sliderTimeline.reversed(true);
+			openMenu(activeMenu);
 
 			$.getJSON("siteUpdates.json", function(data) {
 				for(var i = 0; i < 2; i++) {
@@ -331,13 +288,6 @@
 			});
 
 			$("button[data-toggle='offcanvas']").click(toggleMainMenu);
-
-			$(window).resize(function() {
-				clearTimeout(resizeTimeout);
-				resizeTimeout = setTimeout(endResize, 500);
-			});
-
-			endResize();
 		</script>
 	</body>
 </html>
