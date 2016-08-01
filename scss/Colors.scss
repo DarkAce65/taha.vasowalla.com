@@ -1,8 +1,8 @@
 $light-color: white;
 $dark-color: #333;
 
-$light-accent-color: darkorange;
-$light-secondary-color: adjust_hue($light-accent-color, 350);
+$light-accent-color: #dc6700;
+$light-secondary-color: lighten($light-accent-color, 13);
 
 $light-alt-accent-color: #13949f;
 
