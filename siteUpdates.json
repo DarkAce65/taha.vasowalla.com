@@ -1,5 +1,11 @@
 [
 	{
+		"date": "8-2-16",
+		"status": "In Production",
+		"title": "Projects<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"Eagle.html\">Eagle Project</a><br>Projects<i class=\"fa fa-angle-right fa-fw\"></i>SARndbox",
+		"descriptions": ["Creating description pages for various real-world projects I've worked on"]
+	},
+	{
 		"date": "7-24-16",
 		"status": "Completed",
 		"title": "Homepage Menu Rework",
@@ -7,26 +13,26 @@
 	},
 	{
 		"date": "4-4-16",
-		"status": "In Production",
+		"status": "Inactive",
 		"title": "Game lobby system",
-		"descriptions": ["A framework for game lobbies built with <a href=\"https://www.meteor.com/\" target=\"_blank\">Meteor</a>", "<a href=\"https://github.com/DarkAce65/GameLobbySystem\" target=\"_blank\">GitHub</a>"]
+		"descriptions": ["A framework for game lobbies built with <a href=\"https://www.meteor.com/\" target=\"_blank\">Meteor</a>", "<a href=\"https://github.com/RedAce65/GameLobbySystem\" target=\"_blank\">GitHub</a>"]
 	},
 	{
 		"date": "3-26-16",
 		"status": "Ongoing",
-		"title": "Experiments / <a href=\"Test.html\">Testing Lab</a>",
+		"title": "Experiments<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"Test.html\">Testing Lab</a>",
 		"descriptions": ["Experimenting with 3D low-poly art"]
 	},
 	{
 		"date": "2-2-16",
 		"status": "Ongoing",
-		"title": "Games / <a href=\"QuantumChess.html\">Quantum Chess</a>",
+		"title": "Games<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"QuantumChess.html\">Quantum Chess</a>",
 		"descriptions": ["A quantum variant of chess invented by Dr. Selim Akl where pieces are not always what they appear to be", "Dr. Selim Akl's <a href=\"http://research.cs.queensu.ca/home/akl/techreports/quantumchessTR.pdf\" target=\"_blank\">paper</a> and <a href=\"http://research.cs.queensu.ca/Parallel/QuantumChess/QuantumChess.html\" target=\"_blank\">instructions</a>", "<a href=\"https://github.com/elicik/QuantumChess\" target=\"_blank\">GitHub</a>"]
 	},
 	{
 		"date": "1-31-16",
 		"status": "Ongoing",
-		"title": "Experiments / <a href=\"Fireball.html\">Fireball</a><br>Experiments / <a href=\"Shaders.html\">GLSL Shaders</a>",
+		"title": "Experiments<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"Fireball.html\">Fireball</a><br>Experiments<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"Shaders.html\">GLSL Shaders</a>",
 		"descriptions": ["3D fireball with Perlin noise", "Experimenting with mathematical art"]
 	},
 	{
@@ -45,6 +51,6 @@
 		"date": "12-8-15",
 		"status": "Completed",
 		"title": "Design rework",
-		"descriptions": ["Experiments / <a href=\"Palette.html\">Site Colors</a>", "New home page color scheme and layout", "Dedicated light and dark themes"]
+		"descriptions": ["Experiments<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"Palette.html\">Site Colors</a>", "New home page color scheme and layout", "Dedicated light and dark themes"]
 	}
 ]
