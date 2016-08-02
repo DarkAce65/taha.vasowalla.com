@@ -289,6 +289,14 @@
 			});
 
 			$("button[data-toggle='offcanvas']").click(toggleMainMenu);
+
+			var resizeTimeout;
+			$(window).resize(function() {
+				clearTimeout(resizeTimeout);
+				resizeTimeout = setTimeout(function() {
+					$(".menuContainer").height($(activeMenu).height());
+				}, 500);
+			});
 		</script>
 	</body>
 </html>
