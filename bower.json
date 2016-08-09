@@ -10,21 +10,21 @@
 	],
 	"dependencies": {
 		"animate-css": "latest",
-		"bootstrap-select": "latest",
 		"bootstrap": "~3",
+		"bootstrap-select": "latest",
 		"chroma-js": "latest",
 		"fontawesome": "latest",
 		"jplayer": "latest",
 		"jquery": "~2",
-		"unveil": "latest",
 		"katex": "latest",
 		"packery": "latest",
 		"photoswipe": "latest",
 		"sine-waves": "latest",
+		"snap.svg": "latest",
+		"sweetalert": "latest",
 		"threejs": "latest",
 		"toastr": "latest",
-		"snap.svg": "latest",
-		"wavesurfer.js": "latest",
-		"sweetalert": "latest"
+		"unveil": "latest",
+		"wavesurfer.js": "latest"
 	}
 }
