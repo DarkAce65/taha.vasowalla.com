@@ -2,22 +2,24 @@
 <html>
 	<head>
 		<title>Origami</title>
-		<link rel="shortcut icon" href="img/icons/Origami.png"/>
+		<link rel="shortcut icon" href="../img/icons/Origami.png"/>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="bower_components/fontawesome/css/font-awesome.min.css"/>
-		<link rel="stylesheet" type="text/css" href="bower_components/photoswipe/dist/photoswipe.css"/>
-		<link rel="stylesheet" type="text/css" href="bower_components/photoswipe/dist/default-skin/default-skin.css"/>
-		<link rel="stylesheet" type="text/css" href="global.css"/>
-		<link rel="stylesheet" type="text/css" href="themes/light.css"/>
-		<script src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="bower_components/photoswipe/dist/photoswipe.min.js"></script>
-		<script src="bower_components/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../bower_components/fontawesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../bower_components/photoswipe/dist/photoswipe.css"/>
+		<link rel="stylesheet" type="text/css" href="../bower_components/photoswipe/dist/default-skin/default-skin.css"/>
+		<link rel="stylesheet" type="text/css" href="../global.css"/>
+		<link rel="stylesheet" type="text/css" href="../themes/light.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="../bower_components/photoswipe/dist/photoswipe.min.js"></script>
+		<script src="../bower_components/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+		<script src="script.js"></script>
 	</head>
-	<body id="origamiBody">
+	<body>
 		<nav class="navbar navbar-default navbar-static-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -53,7 +55,7 @@
 			<div class="row" style="margin: 0 -5px;">
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(0);">
-						<img src="img/origami/PHiZZDodecahedron.jpg">
+						<img src="img/PHiZZDodecahedron.jpg">
 						<div class="info">
 							<div class="imageTitle">Dodecahedron</div>
 							<span class="imageSubtitle">30 Units</span>
@@ -62,7 +64,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(1);">
-						<img src="img/origami/PHiZZTruncatedIcosahedron.jpg">
+						<img src="img/PHiZZTruncatedIcosahedron.jpg">
 						<div class="info">
 							<div class="imageTitle">Truncated Icosahedron</div>
 							<span class="imageSubtitle">90 Units</span>
@@ -71,7 +73,7 @@
 				</div>
 				<div class="cardWrapper col-xs-12 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(2);">
-						<img src="img/origami/PHiZZTorus.jpg">
+						<img src="img/PHiZZTorus.jpg">
 						<div class="info">
 							<div class="imageTitle">Torus</div>
 							<span class="imageSubtitle">161 of 360 Units Completed</span>
@@ -84,7 +86,7 @@
 			<div class="row" style="margin: 0 -5px;">
 				<div class="cardWrapper col-xs-12 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(3);">
-						<img src="img/origami/SonobeCube.jpg">
+						<img src="img/SonobeCube.jpg">
 						<div class="info">
 							<div class="imageTitle">Cube</div>
 							<span class="imageSubtitle">6 Units</span>
@@ -93,7 +95,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(4);">
-						<img src="img/origami/SonobeStellatedOctahedron.jpg">
+						<img src="img/SonobeStellatedOctahedron.jpg">
 						<div class="info">
 							<div class="imageTitle">Stellated Octahedron</div>
 							<span class="imageSubtitle">12 Units</span>
@@ -102,7 +104,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(5);">
-						<img src="img/origami/SonobeStellatedIcosahedron.jpg">
+						<img src="img/SonobeStellatedIcosahedron.jpg">
 						<div class="info">
 							<div class="imageTitle">Stellated Icosahedron</div>
 							<span class="imageSubtitle">30 Units</span>
@@ -114,7 +116,7 @@
 			<div class="row" style="margin: 0 -5px;">
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(6);">
-						<img src="img/origami/WhirlCube.jpg">
+						<img src="img/WhirlCube.jpg">
 						<div class="info">
 							<div class="imageTitle">Whirl Cube</div>
 							<span class="imageSubtitle">24 Units</span>
@@ -123,7 +125,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(7);">
-						<img src="img/origami/Convertible_(Front).jpg">
+						<img src="img/Convertible_(Front).jpg">
 						<div class="info">
 							<div class="imageTitle">Convertible</div>
 							<span class="imageSubtitle">Front View</span>
@@ -132,7 +134,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(8);">
-						<img src="img/origami/Convertible_(Back).jpg">
+						<img src="img/Convertible_(Back).jpg">
 						<div class="info">
 							<div class="imageTitle">Convertible</div>
 							<span class="imageSubtitle">Rear View</span>
@@ -141,7 +143,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(9);">
-						<img src="img/origami/Name_(Top).jpg">
+						<img src="img/Name_(Top).jpg">
 						<div class="info">
 							<div class="imageTitle">My Name</div>
 							<span class="imageSubtitle">Top View</span>
@@ -150,7 +152,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(10);">
-						<img src="img/origami/Name_(Front).jpg">
+						<img src="img/Name_(Front).jpg">
 						<div class="info">
 							<div class="imageTitle">My Name</div>
 							<span class="imageSubtitle">Front View</span>
@@ -159,7 +161,7 @@
 				</div>
 				<div class="cardWrapper col-xs-6 col-sm-4">
 					<div class="card" onclick="openPhotoSwipe(11);">
-						<img src="img/origami/Tanks.jpg">
+						<img src="img/Tanks.jpg">
 						<div class="info">
 							<div class="imageTitle">Tanks</div>
 							<span class="imageSubtitle">2 Sheets Each</span>
@@ -208,83 +210,5 @@
 				<a href="https://github.com/DarkAce65" target="_blank"><i class="fa fa-fw fa-github"></i></a>
 			</nav>
 		</footer>
-		<script type="text/javascript">
-			function openPhotoSwipe(targetIndex) {
-				targetIndex = (typeof targetIndex === 'undefined') ? 0 : targetIndex;
-				photoswipeOptions.index = targetIndex;
-				photoswipeOptions.history = (window.innerWidth < 768);
-				gallery = new PhotoSwipe(document.querySelector(".pswp"), PhotoSwipeUI_Default, photoswipeData, photoswipeOptions);
-				gallery.init();
-			}
-
-			var gallery;
-			var photoswipeData = [
-				{
-					src: "img/origami/PHiZZDodecahedron.jpg", w: 1478, h: 980,
-					title: ["Dodecahedron", "Designed by Tom Hull", "Made from 30 PHiZZ Units"]
-				},
-				{
-					src: "img/origami/PHiZZTruncatedIcosahedron.jpg", w: 1478, h: 980,
-					title: ["Truncated Icosahedron", "Designed by Tom Hull", "Made from 90 PHiZZ Units"]
-				},
-				{
-					src: "img/origami/PHiZZTorus.jpg", w: 1478, h: 980,
-					title: ["Torus", "Designed by Tom Hull", "Made from 360 PHiZZ Units"]
-				},
-				{
-					src: "img/origami/SonobeCube.jpg", w: 1478, h: 980,
-					title: ["Cube", "Designed by Mitsunobu Sonobe", "Made from 6 Sonobe Units"]
-				},
-				{
-					src: "img/origami/SonobeStellatedOctahedron.jpg", w: 1478, h: 980,
-					title: ["Stellated Octahedron", "Designed by Mitsunobu Sonobe", "Made from 12 Sonobe Units"]
-				},
-				{
-					src: "img/origami/SonobeStellatedIcosahedron.jpg", w: 1478, h: 980,
-					title: ["Stellated Icosahedron", "Designed by Mitsunobu Sonobe", "Made from 30 Sonobe Units"]
-				},
-				{
-					src: "img/origami/WhirlCube.jpg", w: 1478, h: 980,
-					title: ["Whirl Cube", "Designed by Meenakshi Mukerji", "Made from 24 Units"]
-				},
-				{
-					src: "img/origami/Convertible_(Front).jpg", w: 1478, h: 980,
-					title: ["Convertible", "Designed by Jason Ku", "One sheet of paper, double-sided"]
-				},
-				{
-					src: "img/origami/Convertible_(Back).jpg", w: 1478, h: 980,
-					title: ["Convertible", "Designed by Jason Ku", "One sheet of paper, double-sided"]
-				},
-				{
-					src: "img/origami/Name_(Top).jpg", w: 1478, h: 980,
-					title: ["My Name", "Letters designed by Jo Nakashima", "One sheet of paper per letter"]
-				},
-				{
-					src: "img/origami/Name_(Front).jpg", w: 1478, h: 980,
-					title: ["My Name", "Letters designed by Jo Nakashima", "One sheet of paper per letter"]
-				},
-				{
-					src: "img/origami/Tanks.jpg", w: 1478, h: 980,
-					title: ["Tanks", "Designed by Jo Nakashima", "Two pieces of paper per tank"]
-				}
-			];
-
-			for(var i = 0; i < photoswipeData.length; i++) {
-				var titleData = photoswipeData[i].title;
-				var caption = '<div class="caption"><div class="title">' + titleData[0] + '</div>';
-				for(var j = 1; j < titleData.length; j++)  {
-					caption += '<div>' + titleData[j] + '</div>';
-				}
-				caption += '</div>';
-				photoswipeData[i].title = caption;
-			}
-
-			var photoswipeOptions = {history: false, loop: false, index: 0, closeOnScroll: false, closeOnVerticalDrag: false,
-				getThumbBoundsFn: function(index){
-					var bounds = $(".card img")[index].getBoundingClientRect();
-					return {x: bounds.left, y: bounds.top + $(window).scrollTop(), w: bounds.width};
-				}
-			};
-		</script>
 	</body>
 </html>
