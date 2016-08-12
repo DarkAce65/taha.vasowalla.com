@@ -23,15 +23,6 @@ body {
 	position: relative;
 }
 
-#body404 {
-	height: 100%;
-	padding-bottom: 10px;
-	color: white;
-	text-align: center;
-	font-family: "Raleway";
-	@include linear-gradient(40deg, #4ac1ff, #795bb0);
-}
-
 code {
 	color: $dark-accent-color;
 }

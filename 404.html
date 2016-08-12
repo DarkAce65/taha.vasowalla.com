@@ -13,8 +13,20 @@
 		<link rel="stylesheet" type="text/css" href="/global.css"/>
 		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="/bower_components/sine-waves/sine-waves.min.js"></script>
+		<style type="text/css">
+			body {
+				height: 100%;
+				padding-bottom: 10px;
+				color: white;
+				text-align: center;
+				font-family: "Raleway";
+				background-color: #4ac1ff;
+				background-image: -webkit-linear-gradient(-310deg, #4ac1ff, #795bb0);
+				background-image:         linear-gradient(40deg, #4ac1ff, #795bb0);
+			}
+		</style>
 	</head>
-	<body id="body404">
+	<body>
 		<div class="hidden-xs" style="height: 100px;"></div>
 		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 			<p style="font-size: 5.5em; margin: 0.2em 0 0.1em;">404</p>
@@ -26,7 +38,7 @@
 			<br/>
 			<p style="font-size: 1.5em;">Oops, you encountered an error.<br/>The page you are looking for cannot be found.</p>
 			<button class="btn btn-default" onclick="window.history.back();"><i class="fa fa-reply"></i> Go back</button>
-			<a href="index.html" class="btn btn-default">Back to Main Page</a>
+			<a href="/" class="btn btn-default">Back to Main Page</a>
 		</div>
 		<script type="text/javascript">
 			var waves = new SineWaves({
