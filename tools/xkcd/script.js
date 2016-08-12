@@ -1,3 +1,4 @@
+var lazyload;
 var id = [], titles = [], url = [], alt = [], transcript = [];
 var txtData = [];
 
@@ -29,11 +30,7 @@ function search() {
 		$("#error").addClass("hidden");
 		var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
 		$("#output").append(comic);
-		comic.find("img").unveil(0, function() {
-			$(this).on("load", function() {
-				this.style.opacity = 1;
-			});
-		});
+		lazyload.update();
 	}
 	else if(query.length < 3) {
 		$("#error").removeClass("hidden");
@@ -55,13 +52,9 @@ function search() {
 				}
 			}
 			if(found) {
-				var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+				var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img data-original="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
 				$("#output").append(comic);
-				comic.find("img").unveil(0, function() {
-					$(this).on("load", function() {
-						this.style.opacity = 1;
-					});
-				});
+				lazyload.update();
 			}
 		}
 		if($("#output").html() == "") {
@@ -71,7 +64,12 @@ function search() {
 }
 
 $(function() {
+	lazyload = new LazyLoad({
+		elements_selector: ".comic img"
+	});
+
 	$("#search").button("loading");
+
 	$.get("xkcdData.txt", function(response) {
 		txtData = response.split("\n");
 		sort(txtData);

@@ -24,7 +24,7 @@
 		"sweetalert": "latest",
 		"threejs": "latest",
 		"toastr": "latest",
-		"unveil": "latest",
+		"vanilla-lazyload": "latest",
 		"wavesurfer.js": "latest"
 	},
 	"resolutions": {
