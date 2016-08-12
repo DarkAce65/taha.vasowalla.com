@@ -249,6 +249,7 @@
 				u_rows: {type: "f", value: 40.0},
 				u_speed: {type: "f", value: 4.0}
 			};
+			uniforms.u_rows.value = window.innerWidth < 768 ? 20 : 40;
 
 			function shaderConfig(vertex, fragment) {
 				return {
@@ -359,6 +360,7 @@
 			}
 
 			render();
+			setCamera("Overview");
 
 			$(window).resize(function() {
 				renderer.setSize(window.innerWidth, window.innerHeight);
@@ -370,16 +372,6 @@
 					factor = 1.5;
 					uniforms.u_rows.value = 20;
 				}
-			});
-
-			$(window).load(function() {
-				renderer.setSize(window.innerWidth, window.innerHeight);
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				if(window.innerWidth < 768) {
-					uniforms.u_rows.value = 20;
-				}
-				setCamera("Overview");
 			});
 		</script>
 	</body>

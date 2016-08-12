@@ -16,7 +16,7 @@
 		<meta property="og:description" content="I made this site mainly for experimenting with web development and to create a place to host my projects."/>
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="bower_components/fontawesome/css/font-awesome.min.css"/>
-		<link rel="stylesheet" type="text/css" href="Stylesheet.css"/>
+		<link rel="stylesheet" type="text/css" href="global.css"/>
 		<link rel="stylesheet" type="text/css" href="themes/light-alt.css"/>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -48,7 +48,7 @@
 		<div class="fixedNav content container">
 			<div class="row row-offcanvas">
 				<div class="col-xs-12 col-sm-8 col-md-9">
-					<img src="img/SiteHeader.jpg" class="banner">
+					<img src="img/banner.jpg" class="banner">
 					<div class="jumbotron">
 						<p class="lead">An aspiring, self-taught developer interested in technology and well-versed in software development. Always looking for opportunities to gain more knowledge and experience. Avid origami artist and Eagle Scout for life.</p>
 						<div id="history">
@@ -71,7 +71,7 @@
 							</a>
 							<button class="list-group-item" onclick="openMenu('#projects');">
 								<i class="icon pull-right fa fa-fw fa-lg fa-angle-right"></i>
-								<span>Projects</span>
+								<span>Ventures</span>
 							</button>
 							<div class="list-group-item list-group-item-divider">Programming</div>
 							<button class="list-group-item" onclick="openMenu('#util');">
@@ -106,12 +106,12 @@
 								<div>Back</div>
 							</button>
 							<div class="list-group-item list-group-item-divider">Projects</div>
-							<a href="Eagle.html" class="list-group-item">
+							<a href="ventures/eagle/" class="list-group-item">
 								<img src="img/icons/Eagle.png" class="icon pull-right">
 								<b>Eagle Project</b>
 								<div class="text-muted">[Troop 77]</div>
 							</a>
-							<div href="SARndbox.html" class="list-group-item disabled">
+							<div href="ventures/sarndbox/" class="list-group-item disabled">
 								<img src="img/icons/Sandbox.png" class="icon pull-right">
 								<b>SARndbox</b>
 								<div class="text-muted">[Augmented Reality]</div>
@@ -124,22 +124,22 @@
 								<div>Back</div>
 							</button>
 							<div class="list-group-item list-group-item-divider">Useful Tools</div>
-							<a href="ChemistryCalculators.html" class="list-group-item">
+							<a href="tools/chemistry/" class="list-group-item">
 								<img src="img/icons/Chemistry.png" class="icon pull-right">
 								<b>Chemistry Calculators</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="FinancialCalculators.html" class="list-group-item">
+							<a href="tools/financial/" class="list-group-item">
 								<img src="img/icons/Finance.png" class="icon pull-right">
 								<b>Financial Tools</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="Clock.html" class="list-group-item">
+							<a href="tools/clock/" class="list-group-item">
 								<img src="img/icons/Clock.png" class="icon pull-right">
 								<b>Clock + Weather</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="xkcdSearch.html" class="list-group-item">
+							<a href="tools/xkcd/" class="list-group-item">
 								<img src="img/icons/xkcdIcon.png" class="icon pull-right">
 								<b>xkcd Search Engine</b>
 								<div class="text-muted">[JavaScript]</div>
@@ -151,22 +151,27 @@
 								<div>Back</div>
 							</button>
 							<div class="list-group-item list-group-item-divider">Visual Projects</div>
-							<a href="DeviantArtAPI.html" class="list-group-item">
+							<a href="visual/deviantart/" class="list-group-item">
 								<img src="img/icons/DA.png" class="icon pull-right">
 								<b>DeviantArt API</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="WebAudio.html" class="list-group-item">
+							<a href="visual/webaudio2d/" class="list-group-item">
 								<img src="img/icons/WebAudio.png" class="icon pull-right">
-								<b>Audio Visualizer</b>
+								<b>2D Audio Visualizer</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="Animation.html" class="list-group-item">
+							<a href="visual/webaudio3d/" class="list-group-item">
+								<img src="img/icons/WebAudio.png" class="icon pull-right">
+								<b>3D Audio Visualizer</b>
+								<div class="text-muted">[JavaScript]</div>
+							</a>
+							<a href="visual/animation/" class="list-group-item">
 								<i class="icon pull-right fa fa-fw fa-inverse fa-paper-plane" style="background-color: lightseagreen;"></i>
 								<b>Animation with Cards</b>
 								<div class="text-muted">[Greensock]</div>
 							</a>
-							<a href="YoutubeBookmarklet.html" class="list-group-item">
+							<a href="visual/ytbookmarklet/" class="list-group-item">
 								<img src="img/icons/YT.png" class="icon pull-right">
 								<b>YouTube Bookmarklet</b>
 								<div class="text-muted">[JavaScript]</div>
@@ -178,17 +183,17 @@
 								<div>Back</div>
 							</button>
 							<div class="list-group-item list-group-item-divider">Games</div>
-							<a href="UltimateTTT.html" class="list-group-item">
+							<a href="games/ultimatettt/" class="list-group-item">
 								<img src="img/icons/TTT.png" class="icon pull-right">
 								<b>Ultimate Tic Tac Toe</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="Hangman.html" class="list-group-item">
+							<a href="visual/hangman/" class="list-group-item">
 								<img src="img/icons/Hangman.png" class="icon pull-right">
 								<b>Hangman</b>
 								<div class="text-muted">[JavaScript]</div>
 							</a>
-							<a href="QuantumChess.html" class="list-group-item">
+							<a href="visual/quantumchess/" class="list-group-item">
 								<img src="lib/chessboardjs/img/chesspieces/wK.png" class="icon pull-right">
 								<b>Quantum Chess</b>
 								<div class="text-muted">[JavaScript]</div>
@@ -200,32 +205,32 @@
 								<div>Back</div>
 							</button>
 							<div class="list-group-item list-group-item-divider">Experiments</div>
-							<a href="Canvas.html" class="list-group-item">
+							<a href="experiments/canvas/" class="list-group-item">
 								<img src="img/icons/HTML5.png" class="icon pull-right" style="border-radius: 0;">
 								<b>HTML5 Canvas</b>
 								<div class="text-muted">[HTML5 / Javascript]</div>
 							</a>
-							<a href="Shaders.html" class="list-group-item">
+							<a href="experiments/shaders/" class="list-group-item">
 								<img src="img/icons/chip.png" class="icon pull-right">
 								<b>GLSL Shaders</b>
 								<div class="text-muted">[GLSL]</div>
 							</a>
-							<a href="Fireball.html" class="list-group-item">
+							<a href="experiments/fireball/" class="list-group-item">
 								<img src="img/icons/fireball.png" class="icon pull-right">
 								<b>Fireball</b>
 								<div class="text-muted">[GLSL]</div>
 							</a>
-							<a href="SVG.html" class="list-group-item">
+							<a href="experiments/svg/" class="list-group-item">
 								<img src="img/icons/Snap.svg" class="icon pull-right">
 								<b>SVG</b>
 								<div class="text-muted">[Snap.svg]</div>
 							</a>
-							<a href="Secured.php" class="list-group-item">
+							<a href="experiments/security/" class="list-group-item">
 								<img src="img/icons/Lock.png" class="icon pull-right">
 								<b>PHP Web Security</b>
 								<div class="text-muted">[PHP]</div>
 							</a>
-							<a href="Test.html" class="list-group-item">
+							<a href="experiments/testing/" class="list-group-item">
 								<i class="icon pull-right fa fa-fw fa-lg fa-flask"></i>
 								<b>Testing Lab</b>
 								<br>

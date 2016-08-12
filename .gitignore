@@ -1,18 +1,18 @@
-# Batch scripts
+# batch scripts
 *.bat
 
-# Bower components
+# bower components
 bower_components/
 
-# Bourbon files
+# bourbon files
 bourbon/
 
-# Sass cache files
+# sass cache files
 .sass-cache/
 
-# Source map files
+# source map files
 *.css.map
 *.js.map
 
-# Atom files
+# atom files
 .atom*

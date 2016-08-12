@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Photography</title>
+		<link rel="shortcut icon" href="../img/icons/Photography.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#222">
+		<meta name="msapplication-navbutton-color" content="#222">
+		<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../bower_components/fontawesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../bower_components/photoswipe/dist/photoswipe.css"/>
+		<link rel="stylesheet" type="text/css" href="../bower_components/photoswipe/dist/default-skin/default-skin.css"/>
+		<link rel="stylesheet" type="text/css" href="../global.css"/>
+		<link rel="stylesheet" type="text/css" href="../themes/dark.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="../bower_components/photoswipe/dist/photoswipe.min.js"></script>
+		<script src="../bower_components/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="../about.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+						<li><p class="navbar-text hidden-sm">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="page-header">
+				<p class="h1">Photography Albums</p>
+			</div>
+			<p>
+				Photography icons made by
+				<a href="http://www.freepik.com">Freepik</a>
+				 from
+				<a href="http://www.flaticon.com">www.flaticon.com</a>
+				 and are licensed by
+				<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+			</p>
+			<div id="gallery" class="row"></div>
+		</div>
+		<div class="pswp styledCaption dark" tabindex="-1" role="dialog">
+			<div class="pswp__bg"></div>
+			<div class="pswp__scroll-wrap">
+				<div class="pswp__container">
+					<div class="pswp__item"></div>
+					<div class="pswp__item"></div>
+					<div class="pswp__item"></div>
+				</div>
+				<div class="pswp__ui pswp__ui--hidden">
+					<div class="pswp__top-bar">
+						<div class="pswp__counter"></div>
+						<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+						<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+						<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+						<div class="pswp__preloader">
+							<div class="pswp__preloader__icn">
+								<div class="pswp__preloader__cut">
+									<div class="pswp__preloader__donut"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="pswp__button pswp__button--arrow--left" title="Previous"></button>
+					<button class="pswp__button pswp__button--arrow--right" title="Next"></button>
+					<div class="pswp__caption">
+						<div class="pswp__caption__center"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
+				<a href="http://instagram.com/darkace65/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+				<a href="https://github.com/DarkAce65" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+			</nav>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+.spacer {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.btn {
+	margin-right: 3px;
+}
+
+#visualizer {
+	height: 400px;
+	width: 100%;
+	background: black;
+}
+
+#wave {
+	background: rgba(0, 0, 0, 0.4);
+	margin-bottom: 10px;
+}
+
+.fullscreen {
+	overflow: hidden;
+	max-height: 100%;
+
+	#controls {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		z-index: 10000;
+		text-align: right;
+	}
+
+	#visualizer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		z-index: 9999;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	#visualizer {
+		height: 250px;
+	}
+}
