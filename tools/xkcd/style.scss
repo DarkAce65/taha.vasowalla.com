@@ -1,4 +1,5 @@
 @import "../../bourbon/bourbon";
+@import "../colors";
 
 body {
 	background-color: #96A8C8;
@@ -85,7 +86,7 @@ body {
 			
 			img {
 				opacity: 0;
-				transition: opacity .3s ease-in;
+				transition: opacity 0.3s ease-in;
 			}
 		}
 	}

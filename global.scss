@@ -1,5 +1,5 @@
 @import "bourbon/bourbon";
-@import "scss/Colors";
+@import "colors";
 
 /* Fonts */
 
@@ -331,7 +331,7 @@ code {
 }
 
 // Fancy Input
-@import "scss/fancyInput";
+@import "fancyInput";
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
 	.container .jumbotron {
