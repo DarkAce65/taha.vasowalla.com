@@ -76,7 +76,7 @@ function winSquare(row, col) {
 	return result;
 }
 
-$(document).ready(function() {
+$(function() {
 	var innerhtml = "";
 	for(var row = 0; row < 3; row++) {
 		innerhtml += "<tr>";

@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Quantum Chess</title>
-		<link rel="shortcut icon" href="lib/chessboardjs/img/chesspieces/wK.png"/>
+		<title>Tic Tac Toe</title>
+		<link rel="shortcut icon" href="../../img/icons/TTT.png"/>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="bower_components/fontawesome/css/font-awesome.min.css"/>
-		<link rel="stylesheet" type="text/css" href="bower_components/sweetalert/dist/sweetalert.css">
-		<link rel="stylesheet" type="text/css" href="lib/chessboardjs/css/chessboard-0.3.0.css">
-		<link rel="stylesheet" type="text/css" href="global.css">
-		<link rel="stylesheet" type="text/css" href="themes/light.css"/>
-		<script src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
-		<script src="lib/chessboardjs/js/chessboard-0.3.0.js"></script>
-		<script src="lib/chessjs/chess.js"></script>
-		<script src="QuantumChess.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../bower_components/fontawesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../bower_components/sweetalert/dist/sweetalert.css">
+		<link rel="stylesheet" type="text/css" href="../../global.css">
+		<link rel="stylesheet" type="text/css" href="../../themes/light.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="../../bower_components/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="script.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-default navbar-static-top" role="navigation">
@@ -29,11 +27,11 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.html"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+					<a class="navbar-brand" href="../../"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
 				</div>
 				<div id="collapse" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="About.html">About Me</a></li>
+						<li><a href="../../about.html">About Me</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right hidden-xs">
 						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
@@ -46,16 +44,17 @@
 				</div>
 			</div>
 		</nav>
-		<div id="QCBody" class="content container">
+		<div class="content container">
 			<div class="page-header">
-				<p class="h1">Quantum Chess<br><small>In development</small></p>
+				<p class="h1">Ultimate Tic Tac Toe</p>
 			</div>
-			<p>A quantum variant of chess invented by Dr. Selim Akl where pieces are not always what they appear to be.<br>Dr. Selim Akl's <a href="http://research.cs.queensu.ca/home/akl/techreports/quantumchessTR.pdf" target="_blank">paper</a> and <a href="http://research.cs.queensu.ca/Parallel/QuantumChess/QuantumChess.html" target="_blank">instructions</a>.</p>
+			<p>Rules and instructions can be found <a target="_blank" href="http://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe">here</a>.</p>
 			<p>Programmed and designed as a group effort by Eli Gukovsky and myself.</p>
+			<table id="ultimate" style="margin: auto"></table>
 			<div style="text-align: center;">
-				<button id="qc-reset" style="display: none;">Play again</button>
-				<div id="board"></div>
-				<h3 id="qc-turnText">It is <span id="turn" class="red">Red's</span> turn.</h3>
+				<p id="TTT-winner" class="h3"></p>
+				<p id="TTT-turnText" class="h3" style="text-align: center;">It is <span id="turn" style="color: red">Red</span>'s turn.</p>
+				<button id="TTT-button" class="btn btn-danger" onClick="reset()" style="display: none;">Play again</button>
 			</div>
 		</div>
 		<footer class="footer">

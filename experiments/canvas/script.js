@@ -136,7 +136,7 @@ function updateRain() {
 	}
 }
 
-$(document).ready(function() {
+$(function() {
 	TweenLite.set("#rainDial", {transformOrigin: "50% 50%"});
 	Draggable.create("#rainDial", {
 		type: "rotation",
@@ -159,11 +159,25 @@ $(document).ready(function() {
 	for(var i = 0; i < $("#bubbles").width() / 3; i++) {
 		bubbles[i] = new Bubble(Math.random() * bubblesCanvas.width, Math.random() * 190 + 10 + bubblesCanvas.height);
 	}
-});
 
-$(window).resize(function() {
-	rainCanvas.height = $("#rain").height() * 2;
-	rainCanvas.width = $("#rain").width() * 2;
-	bubblesCanvas.height = $("#bubbles").height() * 2;
-	bubblesCanvas.width = $("#bubbles").width() * 2;
+	$("#rainToggle").click(function() {
+		animateBubbles = false;
+		$("#bubbleToggle").removeClass("active");
+		animateRain = !animateRain;
+		updateRain();
+	});
+
+	$("#bubbleToggle").click(function() {
+		animateRain = false;
+		$('#rainToggle').removeClass('active');
+		animateBubbles = !animateBubbles;
+		updateBubbles();
+	});
+
+	$(window).resize(function() {
+		rainCanvas.height = $("#rain").height() * 2;
+		rainCanvas.width = $("#rain").width() * 2;
+		bubblesCanvas.height = $("#bubbles").height() * 2;
+		bubblesCanvas.width = $("#bubbles").width() * 2;
+	});
 });

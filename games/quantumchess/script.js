@@ -93,14 +93,15 @@ function promotePiece(source, target) {
 	for(var i = 0; i < 4; i++) {
 		var letter = "bnrq".split("")[i];
 		promotionOptions += '<button data-piecetype="' + letter + '" class="btn btn-default">';
-		promotionOptions += '<img src="lib/chessboardjs/img/chesspieces/' + color + letter.toUpperCase() + '.png">';
+		promotionOptions += '<img src="chessboardjs/img/chesspieces/' + color + letter.toUpperCase() + '.png">';
 		promotionOptions += '</button>';
 	}
 	promotionOptions += '</div>';
 
 	sweetAlert({
 		title: "Which piece would you like to promote this pawn to?",
-		html: promotionOptions,
+		text: promotionOptions,
+		html: true,
 		showConfirmButton: false,
 		allowEscapeKey: false
 	});
@@ -148,7 +149,7 @@ function displayBoard() {
 	$(".square-" + locked).addClass("highlight1-32417");
 }
 
-$(document).ready(function() {
+$(function() {
 	var onDragStart = function(source, piece, position, orientation) {
 		if ((turn === "w" && piece.search(/^w/) === -1) || (turn === "b" && piece.search(/^b/) === -1)) {
 			return false;
@@ -279,7 +280,7 @@ $(document).ready(function() {
 		"quantum": true,
 		"draggable": true,
 		"showNotation": false,
-		"pieceTheme": "lib/chessboardjs/img/chesspieces/{piece}.png",
+		"pieceTheme": "chessboardjs/img/chesspieces/{piece}.png",
 		"onDragStart": onDragStart,
 		"onDrop": onDragEnd,
 		"onSnapbackEnd": onSnapbackEnd

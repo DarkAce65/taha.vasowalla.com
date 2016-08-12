@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hangman</title>
+		<link rel="shortcut icon" href="../../img/icons/Hangman.png"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../bower_components/fontawesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../bower_components/sweetalert/dist/sweetalert.css"/>
+		<link rel="stylesheet" type="text/css" href="../../global.css"/>
+		<link rel="stylesheet" type="text/css" href="../../themes/light.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="../../lib/GSAP/TweenMax.min.js"></script>
+		<script src="../../lib/GSAP/plugins/DrawSVGPlugin.min.js"></script>
+		<script src="../../bower_components/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../../"><i class="fa fa-home fa-fw"></i> Everything Taha</a>
+				</div>
+				<div id="collapse" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="../../about.html">About Me</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><a href="https://www.facebook.com/taha.vasowalla" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+						<li><a href="https://www.google.com/+TahaVasowalla/about" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a></li>
+						<li><a href="http://instagram.com/darkace65/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a></li>
+						<li><a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a></li>
+						<li><a href="https://github.com/DarkAce65" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+						<li><p class="navbar-text hidden-sm">Designed and Built by Taha Vasowalla</p></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content container">
+			<div id="wordDialog" class="modal fade" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button class="close" data-dismiss="modal"><span>&times;</span></button>
+							<h4 class="modal-title">Enter your word below</h4>
+						</div>
+						<div class="modal-body">
+							<span class="fancyInput">
+								<input id="wordInput" type="password">
+								<label for="wordInput" class="floatingLabel">
+									<span class="labelContent">Word</span>
+								</label>
+							</span>
+							<p id="error" style="color: red; display: none;">Your word contains invalid characters. Only letters are accepted.</p>
+							<p style="text-align: right;"><button id="submitWord" class="btn btn-primary">Go!</button></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page-header">
+				<p class="h1">Hangman</p>
+			</div>
+			<div class="row">
+				<svg id="hangmanSVG" viewBox="0 0 500 400" class="col-xs-7 col-sm-8 col-md-6 col-md-offset-1">
+					<path id="base" style="fill: none; stroke: black;" d="m 52.567061,362.68341 c 88.653899,-29.13563 197.359959,-17.43136 278.732599,4.8749"></path>
+					<path id="gallow" style="fill: none; stroke: black;" d="m 143.44166,345.45176 c 10.88005,-103.29584 11.68263,-208.83798 14.14214,-312.13713 82.3107,-8.19067 165.55984,-11.1117 248.49747,-11.1117 -0.27648,13.64776 -1.34605,26.92097 -2.0203,40.4061"></path>
+					<g id="man">
+						<path id="rLeg" style="fill: none; stroke: black;" d="m 411.3892,235.7377 c 15.23931,17.1561 17.75142,48.02831 24.34193,69.7654"></path>
+						<path id="lLeg" style="fill: none; stroke: black;" d="m 412.16038,235.78408 c -4.90664,25.6128 -14.93038,50.305 -23.94217,74.7332"></path>
+						<path id="rArm" style="fill: none; stroke: black;" d="m 400.61306,116.44399 c 17.06809,19.19532 26.85158,38.1177 33.04254,74.68829"></path>
+						<path id="lArm" style="fill: none; stroke: black;" d="m 398.29597,117.58622 c -3.27985,28.78639 -14.14214,53.78348 -14.14214,82.83251"></path>
+						<path id="body" style="fill: none; stroke: black;" d="m 399.64285,116.42857 12.5,120.35714"></path>
+						<path id="head" style="fill: none; stroke: black;" d="m 392.19072,67.57406 c -65.92616,96.50587 108.15832,29.76716 3.94514,-8.87456"></path>
+					</g>
+					<g id="xEyes">
+						<path style="fill: none; stroke: black;" d="m 391.93919,86.18434 c -1.69509,2.28862 -3.75231,4.83465 -5.55584,6.81853"></path>
+						<path style="fill: none; stroke: black;" d="m 386.88843,86.94196 c 2.55432,1.43504 4.2581,4.04221 5.55584,6.06091"></path>
+						<path style="fill: none; stroke: black;" d="m 411.8897,81.63866 c -0.1828,2.6209 -2.30291,4.40199 -4.04061,6.31345"></path>
+						<path style="fill: none; stroke: black;" d="m 407.34402,81.89119 c 0.62853,3.02856 3.3129,4.10015 5.80837,5.55584"></path>
+					</g>
+				</svg>
+				<div class="col-xs-5 col-sm-4 col-md-4">
+					<div class="hidden-xs">
+						<p class="h4">Guessed Letters</p>
+						<div id="guessedLetters"></div>
+					</div>
+					<p id="guessesLeft"></p>
+					<p style="text-align: center;">
+						<button class="btn btn-sm btn-warning" style="margin: 0 5px 5px;" tabindex="1" data-toggle="modal" data-target="#wordDialog">Set word</button>
+						<button id="randomWord" class="btn btn-sm btn-warning" style="margin: 0 5px 5px;" tabindex="2" data-loading-text="Loading...">Random Word<span class="hidden-xs"> (Shift + R)</span></button>
+					</p>
+				</div>
+			</div>
+			<div id="wordDisplay"></div>
+			<div id="guessContainer" class="input-group hidden-xs">
+				<input id="guess" maxlength="1" class="form-control" tabindex="3">
+				<span class="input-group-btn">
+					<button id="submitGuess" class="btn btn-default" tabindex="4" data-trigger="manual" data-container="body" data-toggle="tooltip" data-placement="right" title="Error"><i class="fa fa-arrow-right fa-fw"></i></button>
+				</span>
+			</div>
+			<div id="guessContainer-xs" class="input-group visible-xs-block" style="text-align: center;">
+				<span class="guess-xs" data-letter="A">A</span>
+				<span class="guess-xs" data-letter="B">B</span>
+				<span class="guess-xs" data-letter="C">C</span>
+				<span class="guess-xs" data-letter="D">D</span>
+				<span class="guess-xs" data-letter="E">E</span>
+				<span class="guess-xs" data-letter="F">F</span>
+				<span class="guess-xs" data-letter="G">G</span>
+				<span class="guess-xs" data-letter="H">H</span>
+				<span class="guess-xs" data-letter="I">I</span>
+				<span class="guess-xs" data-letter="J">J</span>
+				<span class="guess-xs" data-letter="K">K</span>
+				<span class="guess-xs" data-letter="L">L</span>
+				<span class="guess-xs" data-letter="M">M</span>
+				<span class="guess-xs" data-letter="N">N</span>
+				<span class="guess-xs" data-letter="O">O</span>
+				<span class="guess-xs" data-letter="P">P</span>
+				<span class="guess-xs" data-letter="Q">Q</span>
+				<span class="guess-xs" data-letter="R">R</span>
+				<span class="guess-xs" data-letter="S">S</span>
+				<span class="guess-xs" data-letter="T">T</span>
+				<span class="guess-xs" data-letter="U">U</span>
+				<span class="guess-xs" data-letter="V">V</span>
+				<span class="guess-xs" data-letter="W">W</span>
+				<span class="guess-xs" data-letter="X">X</span>
+				<span class="guess-xs" data-letter="Y">Y</span>
+				<span class="guess-xs" data-letter="Z">Z</span>
+			</div>
+		</div>
+		<footer class="footer">
+			<nav class="nav">
+				<p>Designed and Built by Taha Vasowalla</p>
+				<a href="https://www.facebook.com/taha.vasowalla" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+				<a href="https://www.google.com/+TahaVasowalla/about" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
+				<a href="http://instagram.com/darkace65/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/in/TahaVasowalla" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+				<a href="https://github.com/DarkAce65" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+			</nav>
+		</footer>
+	</body>
+</html>
