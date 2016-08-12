@@ -16,3 +16,9 @@ bourbon/
 
 # atom files
 .atom*
+
+# compiled css files
+global.css
+origami.css
+photography/photoicons.css
+style.css
