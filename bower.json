@@ -15,7 +15,7 @@
 		"chroma-js": "latest",
 		"fontawesome": "latest",
 		"jplayer": "latest",
-		"jquery": "~2",
+		"jquery": "~3",
 		"katex": "latest",
 		"packery": "latest",
 		"photoswipe": "latest",
@@ -26,5 +26,8 @@
 		"toastr": "latest",
 		"unveil": "latest",
 		"wavesurfer.js": "latest"
+	},
+	"resolutions": {
+		"jquery": "~3"
 	}
 }
