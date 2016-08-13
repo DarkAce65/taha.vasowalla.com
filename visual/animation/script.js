@@ -6,7 +6,8 @@ var current = "random";
 var backgroundTimeline, colorTimeline, animationTimeline;
 
 function resize() { // Resize function
-	height = $("#animationContainer").height();
+	height = window.innerHeight - $("#animationContainer").offset().top;
+	$("#animationContainer").height(height);
 	width = $("#animationContainer").width();
 
 	var cardHeight = Math.min(90, Math.floor(height * 0.15));
@@ -146,8 +147,7 @@ function shuffle(array) { // Fisher–Yates Shuffle
 }
 
 $(function() {
-	height = $("#animationContainer").height();
-	width = $("#animationContainer").width();
+	resize();
 
 	backgroundTimeline = new TimelineMax();
 	backgroundTimeline.to($("#animation"), 20, {rotationY: -360, repeat: -1, ease: Linear.easeNone}); // Infinite spin
