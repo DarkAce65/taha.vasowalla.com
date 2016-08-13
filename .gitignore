@@ -1,5 +1,6 @@
-# batch scripts
+# automation scripts
 *.bat
+*.sh
 
 # bower components
 bower_components/
