@@ -50,9 +50,9 @@ function cylinder(elements, offset) { // Cylinder orientation
 		var radiusOffset = Math.floor((index + offset) / 60);
 		var radius = Math.max(0, width / 4 - radiusOffset * width / 30);
 		var angle = ((index + offset) % 10) / 10 * 2 * Math.PI;
-		var px = Math.cos(angle) * radius;
-		var pz = Math.sin(angle) * radius;
-		var py = Math.floor(((index + offset) - radiusOffset * 60) / 10) * (height - 20) / 6 + 60;
+		var px = radius * Math.cos(angle);
+		var pz = radius * Math.sin(angle);
+		var py = Math.floor((index + offset - radiusOffset * 60) / 10) * height / 6 + height / 12;
 		animationTimeline.to(value, 1, {x: px, y: py, z: pz, rotationX: 0, rotationY: 90 - angle * 180 / Math.PI, rotationZ: 0, delay: index * delay}, animationTimeline.time());
 	});
 }
@@ -60,12 +60,13 @@ function cylinder(elements, offset) { // Cylinder orientation
 function sphere(elements, offset) { // Sphere orientation
 	current = "sphere";
 	offset = (typeof offset === "undefined") ? 0 : offset;
+	var radius = Math.min(width / 4, height / 4);
 	$.each(elements, function(index, value) {
 		var phi = Math.acos(-1 + (2 * (index + offset)) / cardCount);
 		var theta = Math.sqrt(cardCount * Math.PI) * phi;
-		var px = Math.min(width / 6, height / 3) * Math.cos(theta) * Math.sin(phi);
-		var py = Math.min(width / 6, height / 3) * Math.sin(theta) * Math.sin(phi) + height / 2;
-		var pz = Math.min(width / 6, height / 3) * Math.cos(phi);
+		var px = radius * Math.cos(theta) * Math.sin(phi);
+		var py = radius * Math.sin(theta) * Math.sin(phi) + height / 2;
+		var pz = radius * Math.cos(phi);
 		animationTimeline.to(value, 1, {x: px, y: py, z: pz, rotationX: 0, rotationY: 0, rotationZ: 0, delay: index * delay}, animationTimeline.time());
 	});
 }
@@ -76,8 +77,8 @@ function fan(elements, offset) { // Fan orientation
 	var radius = Math.min(width / 4, height / 4);
 	$.each(elements, function(index, value) {
 		var angle = -(index + offset) / cardCount * Math.PI;
-		var px = Math.cos(angle) * radius;
-		var py = Math.sin(angle) * radius + height;
+		var px = radius * Math.cos(angle);
+		var py = radius * Math.sin(angle) + height / 2;
 		var pz = (index + offset) / 5;
 		animationTimeline.to(value, 1, {x: px, y: py, z: pz, rotationX: 0, rotationY: 0, rotationZ: 90 + angle * 180 / Math.PI, delay: index * delay}, animationTimeline.time());
 	});
@@ -184,6 +185,7 @@ $(function() {
 				newCards.push($('<div class="card"></div>'));
 			}
 			$("#animation").append(newCards);
+			resize();
 			animationTimeline.set(newCards, {y: height / 2, rotationX: 90, opacity: cardOpacity}, animationTimeline.time());
 
 			switch(current) {
@@ -326,9 +328,6 @@ $(function() {
 					break;
 				case "fan":
 					fan($(".card:not(.dead)"));
-					break;
-				case "random":
-					randomPosition($(".card:not(.dead)"));
 					break;
 			}
 		}, 500);
