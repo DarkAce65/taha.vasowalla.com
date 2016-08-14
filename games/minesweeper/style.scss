@@ -1,3 +1,5 @@
+$tile-size: 16px;
+
 #board {
 	margin: auto;
 }
@@ -5,51 +7,51 @@
 .cell {
 	background-color: silver;
 	background-image: url(spritesheet.png);
-	background-size: 80px 48px;
+	background-size: 5 * $tile-size 3 * $tile-size;
 	background-position: 0 0;
 	font-weight: bold;
 	text-align: center;
-	width: 16px;
-	height: 16px;
+	width: $tile-size;
+	height: $tile-size;
 
 	&.mine {
-		background-position: -64px 0;
+		background-position: (4 * -$tile-size) 0;
 	}
 	&.redmine {
-		background-position: -64px -16px;
+		background-position: (4 * -$tile-size) (-$tile-size);
 	}
 	&.flag {
-		background-position: -16px 0;
+		background-position: (-$tile-size) 0;
 	}
 	&.mark {
-		background-position: -32px 0;
+		background-position: (2 * -$tile-size) 0;
 	}
 
 	&.open0 {
-		background-position: -48px 0;
+		background-position: (3 * -$tile-size) 0;
 	}
 	&.open1 {
-		background-position: 0 -16px;
+		background-position: 0 (-$tile-size);
 	}
 	&.open2 {
-		background-position: -16px -16px;
+		background-position: (-$tile-size) (-$tile-size);
 	}
 	&.open3 {
-		background-position: -32px -16px;
+		background-position: (2 * -$tile-size) (-$tile-size);
 	}
 	&.open4 {
-		background-position: -48px -16px;
+		background-position: (3 * -$tile-size) (-$tile-size);
 	}
 	&.open5 {
-		background-position: 0 -32px;
+		background-position: 0 (2 * -$tile-size);
 	}
 	&.open6 {
-		background-position: -16px -32px;
+		background-position: (-$tile-size) (2 * -$tile-size);
 	}
 	&.open7 {
-		background-position: -32px -32px;
+		background-position: (2 * -$tile-size) (2 * -$tile-size);
 	}
 	&.open8 {
-		background-position: -48px -32px;
+		background-position: (3 * -$tile-size) (2 * -$tile-size);
 	}
 }
