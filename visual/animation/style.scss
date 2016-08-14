@@ -26,7 +26,10 @@ body {
 }
 
 #animationContainer {
+	overflow: hidden;
+	background-color: #dddddd;
 	height: 400px;
+	margin: 10px 0;
 	text-align: center;
 	@include perspective(2000px);
 
@@ -36,10 +39,10 @@ body {
 		.card {
 			position: absolute;
 			display: inline-block;
-			width: 60px;
+			width: 50px;
 			height: 90px;
 			margin-top: -45px;
-			margin-left: -30px;
+			margin-left: -25px;
 			border-radius: 5px;
 			background-color: red;
 		}

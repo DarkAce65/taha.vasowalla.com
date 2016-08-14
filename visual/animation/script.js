@@ -8,12 +8,12 @@ var current = "random";
 var backgroundTimeline, colorTimeline, animationTimeline;
 
 function resize() { // Resize function
-	height = window.innerHeight - $("#animationContainer").offset().top;
+	height = window.innerHeight - $("#animationContainer").offset().top - 10;
 	$("#animationContainer").height(height);
 	width = $("#animationContainer").width();
 
-	cardHeight = Math.min(90, Math.floor(height * 0.15));
-	cardWidth = Math.min(40, Math.floor(width * 0.05));
+	cardHeight = Math.min(90, Math.floor((height - 20) * 3 / 20));
+	cardWidth = Math.min(50, Math.floor(width / 20));
 
 	$(".card").css({
 		"height": cardHeight,
@@ -29,7 +29,7 @@ function pile(elements, offset) { // Pile orientation
 	animationTimeline.staggerTo(elements, 1, {
 			cycle: {
 				y: function(index) {
-					return height - (index + offset) / 2 + 60;
+					return height - (index + offset) / 2;
 				}
 			},
 			x: width / 4,
@@ -52,7 +52,7 @@ function cylinder(elements, offset) { // Cylinder orientation
 		var angle = ((index + offset) % 10) / 10 * 2 * Math.PI;
 		var px = Math.cos(angle) * radius;
 		var pz = Math.sin(angle) * radius;
-		var py = Math.floor(((index + offset) - radiusOffset * 60) / 10) * cardHeight * 1.1 + 60;
+		var py = Math.floor(((index + offset) - radiusOffset * 60) / 10) * (height - 20) / 6 + 60;
 		animationTimeline.to(value, 1, {x: px, y: py, z: pz, rotationX: 0, rotationY: 90 - angle * 180 / Math.PI, rotationZ: 0, delay: index * delay}, animationTimeline.time());
 	});
 }
@@ -103,7 +103,7 @@ function drop(elements) { // Drop to floor
 					return transform.rotationY + Math.random() * 120 - 60;
 				}
 			},
-			y: height + 60,
+			y: height,
 			rotationZ: 0,
 			ease: Bounce.easeOut
 		},
@@ -125,12 +125,16 @@ function randomPosition(elements) { // Random orientation
 				z: function() {
 					return Math.random() * width / 2 - width / 4;
 				},
+				rotationX: function() {
+					return Math.random() * 720 - 360;
+				},
 				rotationY: function() {
 					return Math.random() * 720 - 360;
+				},
+				rotationZ: function() {
+					return Math.random() * 720 - 360;
 				}
-			},
-			rotationX: 0,
-			rotationZ: 0
+			}
 		},
 		delay,
 		animationTimeline.time()
@@ -149,8 +153,6 @@ function shuffle(array) { // Fisher–Yates Shuffle
 }
 
 $(function() {
-	resize();
-
 	backgroundTimeline = new TimelineMax();
 	backgroundTimeline.to($("#animation"), 20, {rotationY: -360, repeat: -1, ease: Linear.easeNone}); // Infinite spin
 
@@ -161,27 +163,10 @@ $(function() {
 		$("#animation").append('<div class="card" style="background: hsl(' + i * 360 / cardCount + ', 100%, 50%);"></div>');
 	};
 
-	animationTimeline.to(".card", .5, {y: 60}, 0) // Move to random positions
-		.staggerTo(".card", 1, {
-			cycle: {
-				x: function() {
-					return Math.random() * width / 2 - width / 4;
-				},
-				y: function() {
-					return Math.random() * height + 60;
-				},
-				z: function() {
-					return Math.random() * width / 2 - width / 4;
-				},
-				rotationY: function() {
-					return Math.random() * 720 - 360;
-				}
-			}
-		},
-		0.05
-	);
-
 	resize();
+	animationTimeline.set(".card", {y: height / 2, rotationX: 90, opacity: cardOpacity}, animationTimeline.time());
+	delay = 0.02;
+	randomPosition($(".card"));
 
 	$("#cardCountContainer").click(function() { // Change opacity
 		cardOpacity = (cardOpacity == 1) ? 0.5 : 1;
@@ -199,9 +184,8 @@ $(function() {
 				newCards.push($('<div class="card"></div>'));
 			}
 			$("#animation").append(newCards);
-			animationTimeline.set(newCards, {y: 60, opacity: cardOpacity}, animationTimeline.time());
+			animationTimeline.set(newCards, {y: height / 2, rotationX: 90, opacity: cardOpacity}, animationTimeline.time());
 
-			resize();
 			switch(current) {
 				case "pile":
 					pile(newCards, cardCount - 30);
@@ -268,7 +252,6 @@ $(function() {
 				);
 			}}, backgroundTimeline.time());
 
-			resize();
 			switch(current) {
 				case "pile":
 					pile($(".card:not(.dead)"));
@@ -294,39 +277,60 @@ $(function() {
 
 	$("a#pile, button#pile").click(function() { // Pile button click
 		animationTimeline.clear(); // Stop all animations
-		resize(); // Resize cards
 		pile($(".card:not(.dead)")); // Position cards
 	});
 
 	$("a#cylinder, button#cylinder").click(function() { // Cylinder button click
 		animationTimeline.clear();
-		resize();
 		cylinder($(".card:not(.dead)"));
 	});
 
 	$("a#sphere, button#sphere").click(function() { // Sphere button click
 		animationTimeline.clear();
-		resize();
 		sphere($(".card:not(.dead)"));
 	});
 
 	$("a#fan, button#fan").click(function() { // Fan button click
 		animationTimeline.clear();
-		resize();
 		fan($(".card:not(.dead)"));
 	});
 
 	$("a#drop, button#drop").click(function() { // Drop button click
 		if(current !== "drop") {
 			animationTimeline.clear();
-			resize();
 			drop(shuffle($(".card:not(.dead)")));
 		}
 	});
 
 	$("a#random, button#random").click(function() { // Random button click
 		animationTimeline.clear();
-		resize();
 		randomPosition(shuffle($(".card:not(.dead)")));
+	});
+
+	var resizeTimeout;
+	$(window).resize(function() {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function() {
+			resize();
+
+			animationTimeline.clear();
+			switch(current) {
+				case "pile":
+					pile($(".card:not(.dead)"));
+					break;
+				case "cylinder":
+					cylinder($(".card:not(.dead)"));
+					break;
+				case "sphere":
+					sphere($(".card:not(.dead)"));
+					break;
+				case "fan":
+					fan($(".card:not(.dead)"));
+					break;
+				case "random":
+					randomPosition($(".card:not(.dead)"));
+					break;
+			}
+		}, 500);
 	});
 });
