@@ -16,6 +16,19 @@ $(function() {
 		for(var i = 0; i < mineLocations.length; i++) {
 			var l = mineLocations[i];
 			minefield[l.r][l.c].value = -9;
+			updateNeighbors(l.r, l.c);
+		}
+	}
+
+	function updateNeighbors(row, col)  {
+		var rowStart = Math.max(0, row - 1);
+		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var colStart = Math.max(0, col - 1);
+		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		for(var r = rowStart; r <= rowEnd; r++) {
+			for(var c = colStart; c <= colEnd; c++) {
+				minefield[r][c].value += 1;
+			}
 		}
 	}
 
