@@ -1,0 +1,55 @@
+#board {
+	margin: auto;
+}
+
+.cell {
+	background-color: silver;
+	background-image: url(spritesheet.png);
+	background-size: 80px 48px;
+	background-position: 0 0;
+	font-weight: bold;
+	text-align: center;
+	width: 16px;
+	height: 16px;
+
+	&.mine {
+		background-position: -64px 0;
+	}
+	&.redmine {
+		background-position: -64px -16px;
+	}
+	&.flag {
+		background-position: -16px 0;
+	}
+	&.mark {
+		background-position: -32px 0;
+	}
+
+	&.open0 {
+		background-position: -48px 0;
+	}
+	&.open1 {
+		background-position: 0 -16px;
+	}
+	&.open2 {
+		background-position: -16px -16px;
+	}
+	&.open3 {
+		background-position: -32px -16px;
+	}
+	&.open4 {
+		background-position: -48px -16px;
+	}
+	&.open5 {
+		background-position: 0 -32px;
+	}
+	&.open6 {
+		background-position: -16px -32px;
+	}
+	&.open7 {
+		background-position: -32px -32px;
+	}
+	&.open8 {
+		background-position: -48px -32px;
+	}
+}
