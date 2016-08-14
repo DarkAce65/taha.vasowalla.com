@@ -53,12 +53,22 @@ $(function() {
 		for(var r = 0; r < minefield.length; r++) {
 			board += "<tr>";
 			for(var c = 0; c < minefield[r].length; c++) {
-				var l = minefield[r][c].value < 0 ? "mine" : "";
-				board += '<td class="cell ' + l + '"></td>';
+				board += '<td data-row="' + r + '" data-col="' + c + '" class="cell"></td>';
 			}
 			board += "</tr>";
 		}
 		$("#board").html(board);
+
+		$(".cell").click(function(e) {
+			var r = $(e.target).data("row");
+			var c = $(e.target).data("col");
+			if(minefield[r][c].value < 0) {
+				$(e.target).addClass("mine");
+			}
+			else {
+				$(e.target).addClass("open" + minefield[r][c].value);
+			}
+		});
 	}
 
 	var minefield;
