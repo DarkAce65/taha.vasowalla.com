@@ -69,6 +69,22 @@ $(function() {
 				$(e.target).addClass("open" + minefield[r][c].value);
 			}
 		});
+
+		$(".cell").contextmenu(function(e) {
+			e.preventDefault();
+			var r = $(e.target).data("row");
+			var c = $(e.target).data("col");
+			switch(minefield[r][c].state) {
+				case "none":
+					minefield[r][c].state = "flag";
+					$(e.target).addClass("flag");
+					break;
+				case "flag":
+					minefield[r][c].state = "none";
+					$(e.target).removeClass("flag");
+					break;
+			}
+		});
 	}
 
 	var minefield;
