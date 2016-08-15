@@ -8,11 +8,18 @@ $tile-size: 16px;
 	background-color: silver;
 	background-image: url(spritesheet.png);
 	background-size: 5 * $tile-size 3 * $tile-size;
-	background-position: 0 0;
 	font-weight: bold;
 	text-align: center;
 	width: $tile-size;
 	height: $tile-size;
+
+	&.closed {
+		background-position: 0 0;
+
+		&:active {
+			background-position: (3 * -$tile-size) 0;
+		}
+	}
 
 	&.mine {
 		background-position: (4 * -$tile-size) 0;
@@ -20,6 +27,10 @@ $tile-size: 16px;
 	&.redmine {
 		background-position: (4 * -$tile-size) (-$tile-size);
 	}
+	&.xmine {
+		background-position: (4 * -$tile-size) (2 * -$tile-size);
+	}
+
 	&.flag {
 		background-position: (-$tile-size) 0;
 	}
