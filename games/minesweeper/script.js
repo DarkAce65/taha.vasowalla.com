@@ -1,8 +1,27 @@
 "use strict";
 
 $(function() {
+	function removeSurroundingBombs(row, col) {
+		var rowStart = Math.max(0, row - 1);
+		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var colStart = Math.max(0, col - 1);
+		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		for(var r = rowStart; r <= rowEnd; r++) {
+			for(var c = colStart; c <= colEnd; c++) {
+				if(minefield[r][c].value < 0) {
+					minefield[r][c].value += 9;
+					modifyNeighbors(r, c, -1);
+				}
+			}
+		}
+	}
+
 	function openCell(row, col)  {
 		if(minefield[row][col].state === "closed") {
+			if(numClicks === 0) {
+				removeSurroundingBombs(row, col);
+			}
+			numClicks += 1;
 			minefield[row][col].state = "open";
 			var value = minefield[row][col].value;
 			var cell = $(".cell[data-row=" + row + "][data-col=" + col + "]");
@@ -45,7 +64,7 @@ $(function() {
 
 		for(var i = 0; i < mineLocations.length; i++) {
 			var l = mineLocations[i];
-			minefield[l.r][l.c].value = -9;
+			minefield[l.r][l.c].value -= 9;
 			modifyNeighbors(l.r, l.c, 1);
 		}
 	}
@@ -66,6 +85,7 @@ $(function() {
 	}
 
 	function buildMinefield(rows, cols, numMines) {
+		numClicks = 0;
 		minefield = [];
 		for(var r = 0; r < rows; r++) {
 			minefield[r] = [];
@@ -115,6 +135,6 @@ $(function() {
 		});
 	}
 
-	var minefield;
-	buildMinefield(7, 7, 10);
+	var minefield, numClicks;
+	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
 });
