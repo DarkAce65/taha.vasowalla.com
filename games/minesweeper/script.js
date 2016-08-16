@@ -33,7 +33,21 @@ $(function() {
 		addMines(minesRemoved, avoidLocations);
 	}
 
-	function openCell(row, col)  {
+	function openNeighbors(row, col) {
+		var rowStart = Math.max(0, row - 1);
+		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var colStart = Math.max(0, col - 1);
+		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		for(var r = rowStart; r <= rowEnd; r++) {
+			for(var c = colStart; c <= colEnd; c++) {
+				if(!(r === row && c === col) && minefield[r][c].state === "closed") {
+					openCell(r, c);
+				}
+			}
+		}
+	}
+
+	function openCell(row, col) {
 		if(minefield[row][col].state === "closed") {
 			if(numClicks === 0) {
 				removeSurroundingBombs(row, col);
@@ -48,21 +62,34 @@ $(function() {
 			}
 			else {
 				if(value === 0) {
-					var rowStart = Math.max(0, row - 1);
-					var rowEnd = Math.min(minefield.length - 1, row + 1);
-					var colStart = Math.max(0, col - 1);
-					var colEnd = Math.min(minefield[0].length - 1, col + 1);
-					for(var r = rowStart; r <= rowEnd; r++) {
-						for(var c = colStart; c <= colEnd; c++) {
-							if(!(r === row && c === col) && minefield[r][c].state === "closed") {
-								openCell(r, c);
-							}
-						}
-					}
+					openNeighbors(row, col);
 				}
 				cell.removeClass("closed");
 				cell.addClass("open" + value);
 			}
+		}
+	}
+
+	function surroundingMinesFlagged(row, col) {
+		var rowStart = Math.max(0, row - 1);
+		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var colStart = Math.max(0, col - 1);
+		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		var flags = 0;
+		for(var r = rowStart; r <= rowEnd; r++) {
+			for(var c = colStart; c <= colEnd; c++) {
+				if(minefield[r][c].state === "flag") {
+					flags++;
+				}
+			}
+		}
+
+		return minefield[row][col].value === flags;
+	}
+
+	function chord(row, col) {
+		if(minefield[row][col].state === "open" && surroundingMinesFlagged(row, col)) {
+			openNeighbors(row, col);
 		}
 	}
 
@@ -165,6 +192,9 @@ $(function() {
 					minefield[r][c].state = "closed";
 					$(e.target).removeClass("flag");
 					minesLeft++;
+					break;
+				case "open":
+					chord(r, c);
 					break;
 			}
 			$("#minesLeft").html(minesLeft);
