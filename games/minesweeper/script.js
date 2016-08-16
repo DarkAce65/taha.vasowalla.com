@@ -85,13 +85,14 @@ $(function() {
 
 	function buildMinefield(rows, cols, numMines) {
 		numClicks = 0;
+		numMines = Math.min((rows - 1) * (cols - 1), numMines);
 		minesLeft = numMines;
 		minefield = [];
 		for(var r = 0; r < rows; r++) {
 			minefield[r] = [];
 			for(var c = 0; c < cols; c++) {
 				minefield[r][c] = {
-					value: 0, // 0 to 8, negative = mine
+					value: 0, // -9 to 8, negative = mine
 					state: "closed" // open, closed, flag
 				};
 			}
