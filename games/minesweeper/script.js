@@ -85,6 +85,7 @@ $(function() {
 
 	function buildMinefield(rows, cols, numMines) {
 		numClicks = 0;
+		minesLeft = numMines;
 		minefield = [];
 		for(var r = 0; r < rows; r++) {
 			minefield[r] = [];
@@ -110,6 +111,7 @@ $(function() {
 			board += "</tr>";
 		}
 		$("#board").html(board);
+		$("#minesLeft").html(minesLeft);
 
 		$(".cell").click(function(e) {
 			var r = $(e.target).data("row");
@@ -125,15 +127,18 @@ $(function() {
 				case "closed":
 					minefield[r][c].state = "flag";
 					$(e.target).addClass("flag");
+					minesLeft--;
 					break;
 				case "flag":
 					minefield[r][c].state = "closed";
 					$(e.target).removeClass("flag");
+					minesLeft++;
 					break;
 			}
+			$("#minesLeft").html(minesLeft);
 		});
 	}
 
-	var minefield, numClicks;
+	var minefield, numClicks, minesLeft;
 	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
 });
