@@ -48,25 +48,24 @@ $(function() {
 	}
 
 	function openCell(row, col) {
-		if(minefield[row][col].state === "closed") {
-			if(numClicks === 0) {
-				removeSurroundingBombs(row, col);
+		if(numClicks === 0) {
+			removeSurroundingBombs(row, col);
+		}
+		numClicks += 1;
+		minefield[row][col].state = "open";
+		var value = minefield[row][col].value;
+		var cell = $(".cell[data-row=" + row + "][data-col=" + col + "]");
+		if(value < 0) {
+			cell.removeClass("closed");
+			cell.addClass("redmine");
+			endGame();
+		}
+		else {
+			if(value === 0) {
+				openNeighbors(row, col);
 			}
-			numClicks += 1;
-			minefield[row][col].state = "open";
-			var value = minefield[row][col].value;
-			var cell = $(".cell[data-row=" + row + "][data-col=" + col + "]");
-			if(value < 0) {
-				cell.removeClass("closed");
-				cell.addClass("mine");
-			}
-			else {
-				if(value === 0) {
-					openNeighbors(row, col);
-				}
-				cell.removeClass("closed");
-				cell.addClass("open" + value);
-			}
+			cell.removeClass("closed");
+			cell.addClass("open" + value);
 		}
 	}
 
@@ -90,6 +89,24 @@ $(function() {
 	function chord(row, col) {
 		if(minefield[row][col].state === "open" && surroundingMinesFlagged(row, col)) {
 			openNeighbors(row, col);
+		}
+	}
+
+	function endGame() {
+		for(var r = 0; r < minefield.length; r++) {
+			for(var c = 0; c < minefield[0].length; c++) {
+				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
+				if(minefield[r][c].state === "closed" && minefield[r][c].value < 0) {
+					minefield[r][c].state = "open";
+					cell.removeClass("closed");
+					cell.addClass("mine");
+				}
+				else if(minefield[r][c].state === "flag" && minefield[r][c].value >= 0) {
+					minefield[r][c].state = "open";
+					cell.removeClass("flag");
+					cell.addClass("xmine");
+				}
+			}
 		}
 	}
 
@@ -175,7 +192,9 @@ $(function() {
 		$(".cell").click(function(e) {
 			var r = $(e.target).data("row");
 			var c = $(e.target).data("col");
-			openCell(r, c);
+			if(minefield[r][c].state === "closed") {
+				openCell(r, c);
+			}
 		});
 
 		$(".cell").contextmenu(function(e) {
