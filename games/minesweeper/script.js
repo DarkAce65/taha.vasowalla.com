@@ -1,19 +1,36 @@
 "use strict";
 
 $(function() {
+	function shuffle(array) { // Fisher–Yates Shuffle
+		var m = array.length, t, i;
+		while(m) {
+			i = Math.floor(Math.random() * m--);
+			t = array[m];
+			array[m] = array[i];
+			array[i] = t;
+		}
+		return array;
+	}
+
 	function removeSurroundingBombs(row, col) {
+		var minesRemoved = 0;
+		var avoidLocations = [];
 		var rowStart = Math.max(0, row - 1);
 		var rowEnd = Math.min(minefield.length - 1, row + 1);
 		var colStart = Math.max(0, col - 1);
 		var colEnd = Math.min(minefield[0].length - 1, col + 1);
 		for(var r = rowStart; r <= rowEnd; r++) {
 			for(var c = colStart; c <= colEnd; c++) {
+				avoidLocations.push({r: r, c: c});
 				if(minefield[r][c].value < 0) {
 					minefield[r][c].value += 9;
 					modifyNeighbors(r, c, -1);
+					minesRemoved++;
 				}
 			}
 		}
+
+		addMines(minesRemoved, avoidLocations);
 	}
 
 	function openCell(row, col)  {
@@ -49,18 +66,32 @@ $(function() {
 		}
 	}
 
-	function addMines(numMines) {
-		var mineLocations = [];
-		for(var i = 0; i < numMines; i++) { // Reservoir sampling
-			mineLocations[i] = {r: ~~(i / minefield[0].length), c: i % minefield[0].length};
-		}
-		for(var i = numMines; i < minefield.length * minefield[0].length; i++) {
-			var j = ~~(Math.random() * i)
-			if(j < numMines) {
-				mineLocations[j] = {r: ~~(i / minefield[0].length), c: i % minefield[0].length};
+	function addMines(numMines, avoidLocations) {
+		avoidLocations = (typeof avoidLocations === "undefined") ? [] : avoidLocations;
+		var avoid = {};
+		for(var i = 0; i < avoidLocations.length; i++) {
+			var l = avoidLocations[i];
+			if(avoid.hasOwnProperty("row" + l.r)) {
+				avoid["row" + l.r].push(l.c);
+			}
+			else {
+				avoid["row" + l.r] = [l.c];
 			}
 		}
 
+		var possibleLocations = [];
+		for(var r = 0; r < minefield.length; r++) {
+			for(var c = 0; c < minefield[0].length; c++) {
+				if(avoid.hasOwnProperty("row" + r) && avoid["row" + r].indexOf(c) !== -1) {
+					continue;
+				}
+				if(minefield[r][c].value >= 0) {
+					possibleLocations.push({r: r, c: c});
+				}
+			}
+		}
+
+		var mineLocations = shuffle(possibleLocations).slice(0, numMines);
 		for(var i = 0; i < mineLocations.length; i++) {
 			var l = mineLocations[i];
 			minefield[l.r][l.c].value -= 9;
