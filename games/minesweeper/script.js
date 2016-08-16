@@ -18,6 +18,9 @@ $(function() {
 					var colEnd = Math.min(minefield[0].length - 1, col + 1);
 					for(var r = rowStart; r <= rowEnd; r++) {
 						for(var c = colStart; c <= colEnd; c++) {
+							if(r === row && c === col) {
+								continue;
+							}
 							openCell(r, c);
 						}
 					}
@@ -54,6 +57,9 @@ $(function() {
 		var colEnd = Math.min(minefield[0].length - 1, col + 1);
 		for(var r = rowStart; r <= rowEnd; r++) {
 			for(var c = colStart; c <= colEnd; c++) {
+				if(r === row && c === col) {
+					continue;
+				}
 				minefield[r][c].value += delta;
 			}
 		}
