@@ -12,6 +12,21 @@ $(function() {
 		return array;
 	}
 
+	function numToDisplay(n) {
+		var display = [];
+		var dash = n < 0;
+		n = Math.abs(n);
+		for(var i = 0; i < 3; i++) {
+			display[2 - i] = numbers[n % 10];
+			n = ~~(n / 10);
+		}
+		if(dash) {
+			display[0] = numbers[10];
+		}
+
+		return display.join("");
+	}
+
 	function removeSurroundingBombs(row, col) {
 		var minesRemoved = 0;
 		var avoidLocations = [];
@@ -206,7 +221,7 @@ $(function() {
 			}
 			board += "</tr>";
 		}
-		$("#minesLeft").html(minesLeft);
+		$("#minesLeft").html(numToDisplay(minesLeft));
 		$("#face").removeClass("surprise win lose");
 		$("#board").html(board);
 
@@ -246,7 +261,7 @@ $(function() {
 						chord(r, c);
 						break;
 				}
-				$("#minesLeft").html(minesLeft);
+				$("#minesLeft").html(numToDisplay(minesLeft));
 			}
 		});
 	}
