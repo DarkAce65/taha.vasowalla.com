@@ -97,7 +97,7 @@ $(function() {
 
 	function winGame() {
 		$(".cell").off("click contextmenu");
-		$(".face").addClass("win");
+		$("#face").addClass("win");
 		for(var r = 0; r < minefield.length; r++) {
 			for(var c = 0; c < minefield[0].length; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -112,7 +112,7 @@ $(function() {
 
 	function endGame() {
 		$(".cell").off("click contextmenu");
-		$(".face").addClass("lose");
+		$("#face").addClass("lose");
 		for(var r = 0; r < minefield.length; r++) {
 			for(var c = 0; c < minefield[0].length; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -207,15 +207,15 @@ $(function() {
 			board += "</tr>";
 		}
 		$("#minesLeft").html(minesLeft);
-		$(".face").removeClass("surprise win lose");
+		$("#face").removeClass("surprise win lose");
 		$("#board").html(board);
 
 		$("#board").on("mousedown", function(e) {
-			$(".face").addClass("surprise");
+			$("#face").addClass("surprise");
 		});
 
 		$("#board").on("mouseup mouseleave", function(e) {
-			$(".face").removeClass("surprise");
+			$("#face").removeClass("surprise");
 		});
 
 		$(".cell").click(function(e) {
@@ -228,27 +228,34 @@ $(function() {
 
 		$(".cell").contextmenu(function(e) {
 			e.preventDefault();
-			var r = $(e.target).data("row");
-			var c = $(e.target).data("col");
-			switch(minefield[r][c].state) {
-				case "closed":
-					minefield[r][c].state = "flag";
-					$(e.target).addClass("flag");
-					minesLeft--;
-					break;
-				case "flag":
-					minefield[r][c].state = "closed";
-					$(e.target).removeClass("flag");
-					minesLeft++;
-					break;
-				case "open":
-					chord(r, c);
-					break;
+			if(openedCells > 0) {
+				var r = $(e.target).data("row");
+				var c = $(e.target).data("col");
+				switch(minefield[r][c].state) {
+					case "closed":
+						minefield[r][c].state = "flag";
+						$(e.target).addClass("flag");
+						minesLeft--;
+						break;
+					case "flag":
+						minefield[r][c].state = "closed";
+						$(e.target).removeClass("flag");
+						minesLeft++;
+						break;
+					case "open":
+						chord(r, c);
+						break;
+				}
+				$("#minesLeft").html(minesLeft);
 			}
-			$("#minesLeft").html(minesLeft);
 		});
 	}
 
 	var minefield, openedCells, totalMines, minesLeft;
+	var numbers = [];
+	for(var i = 0; i < 10; i++) {
+		numbers[i] = '<i class="number n' + i + '"></i>';
+	}
+	numbers[10] = '<i class="number dash"></i>';
 	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
 });
