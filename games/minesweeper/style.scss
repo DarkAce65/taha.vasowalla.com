@@ -9,9 +9,26 @@ $scale: 1;
 	margin: auto;
 	text-align: center;
 
+	.number {
+		display: inline-block;
+		width: 13px * $scale;
+		height: 23px * $scale;
+		background-color: black;
+		background-image: url(spritesheet.png);
+		background-size: (144px * $scale) (81px * $scale);
+
+		@for $i from 0 through 9 {
+			&.n#{$i} {
+				background-position: ($i * -13px * $scale) (-32px * $scale);
+			}
+		}
+		&.dash {
+			background-position: (10 * -13px * $scale) (-32px * $scale);
+		}
+	}
+
 	#minesLeft {
 		display: inline-block;
-		height: 46px * $scale;
 		float: left;
 	}
 
@@ -40,7 +57,6 @@ $scale: 1;
 
 	#timer {
 		display: inline-block;
-		height: 46px * $scale;
 		float: right;
 	}
 }
