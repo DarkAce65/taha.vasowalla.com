@@ -31,9 +31,9 @@ $(function() {
 		var minesRemoved = 0;
 		var avoidLocations = [];
 		var rowStart = Math.max(0, row - 1);
-		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var rowEnd = Math.min(boardRows - 1, row + 1);
 		var colStart = Math.max(0, col - 1);
-		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		var colEnd = Math.min(boardCols - 1, col + 1);
 		for(var r = rowStart; r <= rowEnd; r++) {
 			for(var c = colStart; c <= colEnd; c++) {
 				avoidLocations.push({r: r, c: c});
@@ -50,9 +50,9 @@ $(function() {
 
 	function openNeighbors(row, col) {
 		var rowStart = Math.max(0, row - 1);
-		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var rowEnd = Math.min(boardRows - 1, row + 1);
 		var colStart = Math.max(0, col - 1);
-		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		var colEnd = Math.min(boardCols - 1, col + 1);
 		for(var r = rowStart; r <= rowEnd; r++) {
 			for(var c = colStart; c <= colEnd; c++) {
 				if(!(r === row && c === col) && minefield[r][c].state === "closed") {
@@ -67,7 +67,7 @@ $(function() {
 			removeSurroundingBombs(row, col);
 		}
 		openedCells += 1;
-		if(openedCells + totalMines === minefield.length * minefield[0].length) {
+		if(openedCells + totalMines === boardRows * boardCols) {
 			winGame();
 		}
 		minefield[row][col].state = "open";
@@ -89,9 +89,9 @@ $(function() {
 
 	function surroundingMinesFlagged(row, col) {
 		var rowStart = Math.max(0, row - 1);
-		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var rowEnd = Math.min(boardRows - 1, row + 1);
 		var colStart = Math.max(0, col - 1);
-		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		var colEnd = Math.min(boardCols - 1, col + 1);
 		var flags = 0;
 		for(var r = rowStart; r <= rowEnd; r++) {
 			for(var c = colStart; c <= colEnd; c++) {
@@ -113,8 +113,8 @@ $(function() {
 	function winGame() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("win");
-		for(var r = 0; r < minefield.length; r++) {
-			for(var c = 0; c < minefield[0].length; c++) {
+		for(var r = 0; r < boardRows; r++) {
+			for(var c = 0; c < boardCols; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
 				if(minefield[r][c].state === "closed" && minefield[r][c].value < 0) {
 					minefield[r][c].state = "flag";
@@ -128,8 +128,8 @@ $(function() {
 	function endGame() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("lose");
-		for(var r = 0; r < minefield.length; r++) {
-			for(var c = 0; c < minefield[0].length; c++) {
+		for(var r = 0; r < boardRows; r++) {
+			for(var c = 0; c < boardCols; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
 				if(minefield[r][c].state === "closed" && minefield[r][c].value < 0) {
 					minefield[r][c].state = "open";
@@ -159,8 +159,8 @@ $(function() {
 		}
 
 		var possibleLocations = [];
-		for(var r = 0; r < minefield.length; r++) {
-			for(var c = 0; c < minefield[0].length; c++) {
+		for(var r = 0; r < boardRows; r++) {
+			for(var c = 0; c < boardCols; c++) {
 				if(avoid.hasOwnProperty("row" + r) && avoid["row" + r].indexOf(c) !== -1) {
 					continue;
 				}
@@ -180,9 +180,9 @@ $(function() {
 
 	function modifyNeighbors(row, col, delta) {
 		var rowStart = Math.max(0, row - 1);
-		var rowEnd = Math.min(minefield.length - 1, row + 1);
+		var rowEnd = Math.min(boardRows - 1, row + 1);
 		var colStart = Math.max(0, col - 1);
-		var colEnd = Math.min(minefield[0].length - 1, col + 1);
+		var colEnd = Math.min(boardCols - 1, col + 1);
 		for(var r = rowStart; r <= rowEnd; r++) {
 			for(var c = colStart; c <= colEnd; c++) {
 				if(r === row && c === col) {
@@ -194,10 +194,12 @@ $(function() {
 	}
 
 	function buildMinefield(rows, cols, numMines) {
-		openedCells = 0;
-		totalMines = Math.min((rows - 1) * (cols - 1), numMines);
-		minesLeft = totalMines;
 		minefield = [];
+		boardRows = rows;
+		boardCols = cols;
+		totalMines = Math.min((rows - 1) * (cols - 1), numMines);
+		openedCells = 0;
+		minesLeft = totalMines;
 		for(var r = 0; r < rows; r++) {
 			minefield[r] = [];
 			for(var c = 0; c < cols; c++) {
@@ -214,9 +216,9 @@ $(function() {
 
 	function minefieldToDOM(minefield) {
 		var board = "";
-		for(var r = 0; r < minefield.length; r++) {
+		for(var r = 0; r < boardRows; r++) {
 			board += "<tr>";
-			for(var c = 0; c < minefield[r].length; c++) {
+			for(var c = 0; c < boardCols; c++) {
 				board += '<td data-row="' + r + '" data-col="' + c + '" class="cell closed"></td>';
 			}
 			board += "</tr>";
@@ -266,7 +268,8 @@ $(function() {
 		});
 	}
 
-	var minefield, openedCells, totalMines, minesLeft;
+	var minefield, boardRows, boardCols, totalMines;
+	var openedCells, minesLeft;
 	var numbers = [];
 	for(var i = 0; i < 10; i++) {
 		numbers[i] = '<i class="number n' + i + '"></i>';
