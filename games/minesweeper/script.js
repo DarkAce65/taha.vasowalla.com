@@ -48,10 +48,10 @@ $(function() {
 	}
 
 	function openCell(row, col) {
-		if(numClicks === 0) {
+		if(openedCells === 0) {
 			removeSurroundingBombs(row, col);
 		}
-		numClicks += 1;
+		openedCells += 1;
 		minefield[row][col].state = "open";
 		var value = minefield[row][col].value;
 		var cell = $(".cell[data-row=" + row + "][data-col=" + col + "]");
@@ -159,7 +159,7 @@ $(function() {
 	}
 
 	function buildMinefield(rows, cols, numMines) {
-		numClicks = 0;
+		openedCells = 0;
 		numMines = Math.min((rows - 1) * (cols - 1), numMines);
 		minesLeft = numMines;
 		minefield = [];
@@ -220,6 +220,6 @@ $(function() {
 		});
 	}
 
-	var minefield, numClicks, minesLeft;
+	var minefield, openedCells, minesLeft;
 	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
 });
