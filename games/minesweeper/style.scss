@@ -1,15 +1,36 @@
 $tile-size: 16px;
+$face-size: 32px;
 
 #board {
 	margin: auto;
 }
 
-.cell {
+.face {
+	margin: auto;
+	width: $face-size;
+	height: $face-size;
 	background-color: silver;
 	background-image: url(spritesheet.png);
-	background-size: 5 * $tile-size 3 * $tile-size;
+	background-size: 5 * $face-size 4 * $face-size;
+	background-position: 0 (3 * -$face-size);
+
+	&.surprise {
+		background-position: (-$face-size) (3 * -$face-size);
+	}
+	&.win {
+		background-position: (2 * -$face-size) (3 * -$face-size);
+	}
+	&.lose {
+		background-position: (3 * -$face-size) (3 * -$face-size);
+	}
+}
+
+.cell {
 	width: $tile-size;
 	height: $tile-size;
+	background-color: silver;
+	background-image: url(spritesheet.png);
+	background-size: 5 * $tile-size 4 * $tile-size;
 
 	&.closed {
 		background-position: 0 0;
