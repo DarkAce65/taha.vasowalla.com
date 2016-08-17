@@ -52,6 +52,9 @@ $(function() {
 			removeSurroundingBombs(row, col);
 		}
 		openedCells += 1;
+		if(openedCells + totalMines === minefield.length * minefield[0].length) {
+			winGame();
+		}
 		minefield[row][col].state = "open";
 		var value = minefield[row][col].value;
 		var cell = $(".cell[data-row=" + row + "][data-col=" + col + "]");
@@ -92,7 +95,22 @@ $(function() {
 		}
 	}
 
+	function winGame() {
+		$(".cell").off("click contextmenu");
+		for(var r = 0; r < minefield.length; r++) {
+			for(var c = 0; c < minefield[0].length; c++) {
+				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
+				if(minefield[r][c].state === "closed" && minefield[r][c].value < 0) {
+					minefield[r][c].state = "flag";
+					cell.removeClass("closed");
+					cell.addClass("flag");
+				}
+			}
+		}
+	}
+
 	function endGame() {
+		$(".cell").off("click contextmenu");
 		for(var r = 0; r < minefield.length; r++) {
 			for(var c = 0; c < minefield[0].length; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
