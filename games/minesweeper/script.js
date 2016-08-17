@@ -97,6 +97,7 @@ $(function() {
 
 	function winGame() {
 		$(".cell").off("click contextmenu");
+		$(".face").addClass("win");
 		for(var r = 0; r < minefield.length; r++) {
 			for(var c = 0; c < minefield[0].length; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -111,6 +112,7 @@ $(function() {
 
 	function endGame() {
 		$(".cell").off("click contextmenu");
+		$(".face").addClass("lose");
 		for(var r = 0; r < minefield.length; r++) {
 			for(var c = 0; c < minefield[0].length; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -204,8 +206,17 @@ $(function() {
 			}
 			board += "</tr>";
 		}
-		$("#board").html(board);
 		$("#minesLeft").html(minesLeft);
+		$(".face").removeClass("surprise win lose");
+		$("#board").html(board);
+
+		$("#board").on("mousedown", function(e) {
+			$(".face").addClass("surprise");
+		});
+
+		$("#board").on("mouseup mouseleave", function(e) {
+			$(".face").removeClass("surprise");
+		});
 
 		$(".cell").click(function(e) {
 			var r = $(e.target).data("row");
