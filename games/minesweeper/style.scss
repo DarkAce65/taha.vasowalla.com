@@ -41,9 +41,6 @@ $scale: 1;
 		background-size: (144px * $scale) (81px * $scale);
 		background-position: (-26px * $scale) (-55px * $scale);
 
-		&:active {
-			background-position: 0 (-55px * $scale);
-		}
 		&.surprise {
 			background-position: (2 * -26px * $scale) (-55px * $scale);
 		}
@@ -52,6 +49,9 @@ $scale: 1;
 		}
 		&.lose {
 			background-position: (3 * -26px * $scale) (-55px * $scale);
+		}
+		&:active {
+			background-position: 0 (-55px * $scale);
 		}
 	}
 

@@ -276,4 +276,8 @@ $(function() {
 	}
 	numbers[10] = '<i class="number dash"></i>';
 	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
+
+	$("#face").click(function(e) {
+		buildMinefield(boardRows, boardCols, totalMines);
+	});
 });
