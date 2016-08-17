@@ -160,8 +160,8 @@ $(function() {
 
 	function buildMinefield(rows, cols, numMines) {
 		openedCells = 0;
-		numMines = Math.min((rows - 1) * (cols - 1), numMines);
-		minesLeft = numMines;
+		totalMines = Math.min((rows - 1) * (cols - 1), numMines);
+		minesLeft = totalMines;
 		minefield = [];
 		for(var r = 0; r < rows; r++) {
 			minefield[r] = [];
@@ -173,7 +173,7 @@ $(function() {
 			}
 		}
 
-		addMines(numMines);
+		addMines(totalMines);
 		minefieldToDOM(minefield);
 	}
 
@@ -220,6 +220,6 @@ $(function() {
 		});
 	}
 
-	var minefield, openedCells, minesLeft;
+	var minefield, openedCells, totalMines, minesLeft;
 	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
 });
