@@ -280,14 +280,14 @@ $(function() {
 		});
 	}
 
-	var minefield, boardRows, boardCols, totalMines;
+	var minefield, boardRows = 16, boardCols = 30, totalMines = 99;
 	var timer = {id: 0, value: 0}, openedCells, minesLeft;
 	var numbers = [];
 	for(var i = 0; i < 10; i++) {
 		numbers[i] = '<i class="number n' + i + '"></i>';
 	}
 	numbers[10] = '<i class="number dash"></i>';
-	buildMinefield(15, 30, 99); // 7x7 + 10, 15x15 + 40, 15x30 + 99
+	buildMinefield(boardRows, boardCols, totalMines);
 
 	$("#face").click(function(e) {
 		buildMinefield(boardRows, boardCols, totalMines);
@@ -296,17 +296,17 @@ $(function() {
 	$("#controls input:radio").on("change", function(e) {
 		switch($("#controls input:radio:checked").val()) {
 			case "beginner":
-				boardRows = 7;
-				boardCols = 7;
+				boardRows = 9;
+				boardCols = 9;
 				totalMines = 10;
 				break;
 			case "intermediate":
-				boardRows = 15;
-				boardCols = 15;
+				boardRows = 16;
+				boardCols = 16;
 				totalMines = 40;
 				break;
 			case "expert":
-				boardRows = 15;
+				boardRows = 16;
 				boardCols = 30;
 				totalMines = 99;
 				break;
