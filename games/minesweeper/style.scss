@@ -1,18 +1,34 @@
 $scale: 1;
 
-#board {
-	margin: auto;
+#game {
+	display: inline-block;
+	padding: 5px;
+	text-align: center;
+	background-color: lightgray;
+
+	.boardContainer {
+		border: 3px solid white;
+		border-color: gray white white gray;
+	}
+
+	#board {
+		width: 0;
+		table-layout: fixed;
+	}
 }
 
-#controls {
-	max-width: 400px;
-	margin: auto;
-	text-align: center;
+#display {
+	min-width: 150px;
+	margin: 0 auto 5px;
+	border: 2px solid white;
+	border-color: gray white white gray;
+	padding: 4px;
 
 	.number {
 		display: inline-block;
 		width: 13px * $scale;
 		height: 23px * $scale;
+		vertical-align: middle;
 		background-color: black;
 		background-image: url(spritesheet.png);
 		background-size: (144px * $scale) (81px * $scale);
@@ -27,15 +43,23 @@ $scale: 1;
 		}
 	}
 
-	#minesLeft {
+	#minesLeft, #timer {
 		display: inline-block;
 		float: left;
+		border: 1px solid white;
+		border-color: gray white white gray;
+		line-height: 1;
+	}
+
+	#timer {
+		float: right;
 	}
 
 	#face {
 		display: inline-block;
 		width: 26px * $scale;
 		height: 26px * $scale;
+		vertical-align: middle;
 		background-color: silver;
 		background-image: url(spritesheet.png);
 		background-size: (144px * $scale) (81px * $scale);
@@ -53,11 +77,6 @@ $scale: 1;
 		&:active {
 			background-position: 0 (-55px * $scale);
 		}
-	}
-
-	#timer {
-		display: inline-block;
-		float: right;
 	}
 }
 
