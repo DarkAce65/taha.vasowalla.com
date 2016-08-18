@@ -292,4 +292,29 @@ $(function() {
 	$("#face").click(function(e) {
 		buildMinefield(boardRows, boardCols, totalMines);
 	});
+
+	$("#controls input:radio").on("change", function(e) {
+		switch($("#controls input:radio:checked").val()) {
+			case "beginner":
+				boardRows = 7;
+				boardCols = 7;
+				totalMines = 10;
+				break;
+			case "intermediate":
+				boardRows = 15;
+				boardCols = 15;
+				totalMines = 40;
+				break;
+			case "expert":
+				boardRows = 15;
+				boardCols = 30;
+				totalMines = 99;
+				break;
+			case "custom":
+				boardRows = parseInt($("#controls #rows").val(), 10);
+				boardCols = parseInt($("#controls #cols").val(), 10);
+				totalMines = parseInt($("#controls #mines").val(), 10);
+				break;
+		}
+	});
 });

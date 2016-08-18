@@ -50,7 +50,34 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12 col-sm-3 col-md-4">
-					<div id="controls"></div>
+					<div id="controls">
+						<div class="radio">
+							<label>
+								<input name="settings" type="radio" value="beginner">
+								<p>Beginner</p>
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input name="settings" type="radio" value="intermediate">
+								<p>Intermediate</p>
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input name="settings" type="radio" value="expert" checked>
+								<p>Expert</p>
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input name="settings" type="radio" value="custom">
+								<p>Custom</p>
+								<p><input id="rows" placeholder="Rows" type="number" class="form-control input-sm"> x <input id="cols" placeholder="Columns" type="number" class="form-control input-sm"></p>
+								<p><input id="mines" placeholder="Mines" type="number" class="form-control input-sm"></p>
+							</label>
+						</div>
+					</div>
 				</div>
 				<div class="col-sm-12 col-sm-9 col-md-8" style="text-align: center; overflow-x: auto;">
 					<div id="game">
