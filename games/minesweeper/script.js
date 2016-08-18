@@ -27,6 +27,11 @@ $(function() {
 		return display.join("");
 	}
 
+	function updateTimer() {
+		timer.value += 1;
+		$("#timer").html(numToDisplay(timer.value));
+	}
+
 	function removeSurroundingBombs(row, col) {
 		var minesRemoved = 0;
 		var avoidLocations = [];
@@ -65,6 +70,8 @@ $(function() {
 	function openCell(row, col) {
 		if(openedCells === 0) {
 			removeSurroundingBombs(row, col);
+			updateTimer();
+			timer.id = setInterval(updateTimer, 1000);
 		}
 		openedCells += 1;
 		if(openedCells + totalMines === boardRows * boardCols) {
@@ -113,6 +120,7 @@ $(function() {
 	function winGame() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("win");
+		clearInterval(timer.id);
 		for(var r = 0; r < boardRows; r++) {
 			for(var c = 0; c < boardCols; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -128,6 +136,7 @@ $(function() {
 	function endGame() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("lose");
+		clearInterval(timer.id);
 		for(var r = 0; r < boardRows; r++) {
 			for(var c = 0; c < boardCols; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -198,6 +207,8 @@ $(function() {
 		boardRows = rows;
 		boardCols = cols;
 		totalMines = Math.min((rows - 1) * (cols - 1), numMines);
+		clearInterval(timer.id);
+		timer.value = -1;
 		openedCells = 0;
 		minesLeft = totalMines;
 		for(var r = 0; r < rows; r++) {
@@ -225,6 +236,7 @@ $(function() {
 		}
 		$("#minesLeft").html(numToDisplay(minesLeft));
 		$("#face").removeClass("surprise win lose");
+		$("#timer").html(numToDisplay(0));
 		$("#board").html(board);
 
 		$("#board").on("mousedown", function(e) {
@@ -269,7 +281,7 @@ $(function() {
 	}
 
 	var minefield, boardRows, boardCols, totalMines;
-	var openedCells, minesLeft;
+	var timer = {id: 0, value: 0}, openedCells, minesLeft;
 	var numbers = [];
 	for(var i = 0; i < 10; i++) {
 		numbers[i] = '<i class="number n' + i + '"></i>';
