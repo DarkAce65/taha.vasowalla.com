@@ -76,6 +76,19 @@
 				<p class="h1">Minesweeper</p>
 			</div>
 			<div class="row">
+				<div class="col-sm-12 col-sm-9 col-md-8" style="text-align: center; overflow-x: auto;">
+					<div id="game">
+						<div id="display">
+							<div id="minesLeft"></div>
+							<div id="face"></div>
+							<div id="timer"></div>
+							<i class="clearfix"></i>
+						</div>
+						<div class="boardContainer">
+							<table id="board"></table>
+						</div>
+					</div>
+				</div>
 				<div class="col-sm-12 col-sm-3 col-md-4">
 					<div id="controls">
 						<div class="btn-group-vertical" data-toggle="buttons">
@@ -91,19 +104,6 @@
 							<label class="btn btn-warning" data-toggle="modal" data-target="#customDialog">
 								<input name="settings" type="radio" value="custom">Custom
 							</label>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12 col-sm-9 col-md-8" style="text-align: center; overflow-x: auto;">
-					<div id="game">
-						<div id="display">
-							<div id="minesLeft"></div>
-							<div id="face"></div>
-							<div id="timer"></div>
-							<i class="clearfix"></i>
-						</div>
-						<div class="boardContainer">
-							<table id="board"></table>
 						</div>
 					</div>
 				</div>
