@@ -342,6 +342,12 @@ $(function() {
 			cc++;
 			if(cc === code.length && shift) {
 				$("body").append('<i id="secret"></i>');
+				$("#board").on("mouseenter", ".cell", function(e) {
+					var r = $(e.target).data("row");
+					var c = $(e.target).data("col");
+					var color = minefield[r][c].value < 0 ? "black" : "white";
+					$("#secret").css("background-color", color);
+				});
 				$(document).off("keyup keypress keydown");
 			}
 		}
