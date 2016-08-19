@@ -1,5 +1,15 @@
 $scale: 1;
 
+#secret {
+	position: fixed;
+	z-index: 99999;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	background-color: white;
+}
+
 #controls {
 	text-align: center;
 	margin-bottom: 10px;

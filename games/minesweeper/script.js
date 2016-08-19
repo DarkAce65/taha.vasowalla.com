@@ -332,4 +332,21 @@ $(function() {
 
 		buildMinefield(rows, cols, mines);
 	});
+
+	var shift = false;
+	var cc = 0;
+	var code = [120, 121, 122, 122, 121, 13];
+	$(document).on("keyup keydown", function(e) {shift = e.shiftKey});
+	$(document).on("keypress", function(e) {
+		if(e.which === code[cc]) {
+			cc++;
+			if(cc === code.length && shift) {
+				$("body").append('<i id="secret"></i>');
+				$(document).off("keyup keypress keydown");
+			}
+		}
+		else {
+			cc = 0;
+		}
+	});
 });
