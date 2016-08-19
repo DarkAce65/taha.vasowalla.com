@@ -142,6 +142,9 @@ $(function() {
 			$("#highscores tbody").html("");
 			if(docCookies.hasItem(difficulty)) {
 				var scores = $.parseJSON(docCookies.getItem(difficulty));
+				scores.sort(function(a, b) {
+					return a.time - b.time;
+				});
 				for(var i = 0; i < scores.length; i++) {
 					$("#highscores tbody").append("<tr><td>" + scores[i].name + "</td><td>" + scores[i].time + "</td></tr>");
 				}
