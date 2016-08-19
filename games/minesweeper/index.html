@@ -93,19 +93,26 @@
 				<div class="col-sm-12 col-sm-3 col-md-4">
 					<div id="controls">
 						<div class="btn-group-vertical" data-toggle="buttons">
-							<label class="btn btn-warning">
+							<label class="btn btn-block btn-warning">
 								<input name="settings" type="radio" value="beginner">Beginner
 							</label>
-							<label class="btn btn-warning">
+							<label class="btn btn-block btn-warning">
 								<input name="settings" type="radio" value="intermediate">Intermediate
 							</label>
-							<label class="btn btn-warning active">
+							<label class="btn btn-block btn-warning active">
 								<input name="settings" type="radio" value="expert" checked>Expert
 							</label>
-							<label class="btn btn-warning" data-toggle="modal" data-target="#customDialog">
+							<label class="btn btn-block btn-warning" data-toggle="modal" data-target="#customDialog">
 								<input name="settings" type="radio" value="custom">Custom
 							</label>
 						</div>
+					</div>
+					<div id="highscores">
+						<table class="table table-condensed table-hover">
+							<caption>Highscores</caption>
+							<thead><tr><th>Name</th><th>Time</th></tr></thead>
+							<tbody></tbody>
+						</table>
 					</div>
 				</div>
 			</div>

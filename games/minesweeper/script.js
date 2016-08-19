@@ -137,12 +137,14 @@ $(function() {
 
 	function getScores(difficulty) {
 		if(difficulty !== "custom") {
+			$("#highscores tbody").html("");
 			if(docCookies.hasItem(difficulty)) {
 				var scores = $.parseJSON(docCookies.getItem(difficulty));
-				return scores;
+				for(var i = 0; i < scores.length; i++) {
+					$("#highscores tbody").append("<tr><td>" + scores[i].name + "</td><td>" + scores[i].time + "</td></tr>");
+				}
 			}
 		}
-		return [];
 	}
 
 	function winGame() {
@@ -343,22 +345,31 @@ $(function() {
 	$("#controls input:radio").on("change", function(e) {
 		switch($("#controls input:radio:checked").val()) {
 			case "beginner":
+				$("#highscores").show();
+				getScores("beginner");
 				boardRows = 9;
 				boardCols = 9;
 				totalMines = 10;
 				buildMinefield(boardRows, boardCols, totalMines);
 				break;
 			case "intermediate":
+				$("#highscores").show();
+				getScores("intermediate");
 				boardRows = 16;
 				boardCols = 16;
 				totalMines = 40;
 				buildMinefield(boardRows, boardCols, totalMines);
 				break;
 			case "expert":
+				$("#highscores").show();
+				getScores("expert");
 				boardRows = 16;
 				boardCols = 30;
 				totalMines = 99;
 				buildMinefield(boardRows, boardCols, totalMines);
+				break;
+			case "custom":
+				$("#highscores").hide();
 				break;
 		}
 	});
