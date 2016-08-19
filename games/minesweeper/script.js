@@ -120,10 +120,52 @@ $(function() {
 		}
 	}
 
+	function addScore(name) {
+		var difficulty = $("#controls input:radio:checked").val();
+		if(difficulty !== "custom") {
+			if(docCookies.hasItem(difficulty)) {
+				var scores = $.parseJSON(docCookies.getItem(difficulty));
+				scores.push({name: name, time: timer.value});
+				docCookies.setItem(difficulty, JSON.stringify(scores));
+			}
+			else {
+				var scores = [{difficulty: difficulty, time: timer.value}];
+				docCookies.setItem(difficulty, JSON.stringify(scores));
+			}
+		}
+	}
+
+	function getScores(difficulty) {
+		if(difficulty !== "custom") {
+			if(docCookies.hasItem(difficulty)) {
+				var scores = $.parseJSON(docCookies.getItem(difficulty));
+				return scores;
+			}
+		}
+		return [];
+	}
+
 	function winGame() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("win");
 		clearInterval(timer.id);
+		swal({
+			title: "You Win!",
+			text: "Enter your name for highscores",
+			type: "input",
+			placeholder: "Name"
+		},
+		function(name) {
+			if(name === false) {
+				return false;
+			}
+			else if(name === "") {
+				swal.showInputError("Please enter your name.");
+				return false;
+			}
+
+			addScore(name);
+		});
 		for(var r = 0; r < boardRows; r++) {
 			for(var c = 0; c < boardCols; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
