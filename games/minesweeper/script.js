@@ -204,16 +204,16 @@ $(function() {
 
 	function buildMinefield(rows, cols, numMines) {
 		minefield = [];
-		boardRows = rows;
-		boardCols = cols;
-		totalMines = Math.min((rows - 1) * (cols - 1), numMines);
+		boardRows = Math.max(9, Math.min(24, rows));
+		boardCols = Math.max(9, Math.min(30, cols));
+		totalMines = Math.max(10, Math.min((boardRows - 1) * (boardCols - 1), numMines));
 		clearInterval(timer.id);
 		timer.value = -1;
 		openedCells = 0;
 		minesLeft = totalMines;
-		for(var r = 0; r < rows; r++) {
+		for(var r = 0; r < boardRows; r++) {
 			minefield[r] = [];
-			for(var c = 0; c < cols; c++) {
+			for(var c = 0; c < boardCols; c++) {
 				minefield[r][c] = {
 					value: 0, // -9 to 8, negative = mine
 					state: "closed" // open, closed, flag
