@@ -77,9 +77,6 @@ $(function() {
 			timer.id = setInterval(updateTimer, 1000);
 		}
 		openedCells += 1;
-		if(openedCells + totalMines === boardRows * boardCols) {
-			winGame();
-		}
 		minefield[row][col].state = "open";
 		var value = minefield[row][col].value;
 		var cell = $(".cell[data-row=" + row + "][data-col=" + col + "]");
@@ -89,6 +86,9 @@ $(function() {
 			endGame();
 		}
 		else {
+			if(openedCells + totalMines === boardRows * boardCols) {
+				winGame();
+			}
 			if(value === 0) {
 				openNeighbors(row, col);
 			}
