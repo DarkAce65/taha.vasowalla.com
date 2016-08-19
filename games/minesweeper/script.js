@@ -129,7 +129,7 @@ $(function() {
 				docCookies.setItem(difficulty, JSON.stringify(scores));
 			}
 			else {
-				var scores = [{difficulty: difficulty, time: timer.value}];
+				var scores = [{name: name, time: timer.value}];
 				docCookies.setItem(difficulty, JSON.stringify(scores));
 			}
 		}
