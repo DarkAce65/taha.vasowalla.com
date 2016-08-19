@@ -46,16 +46,28 @@
 		</nav>
 		<div class="content container">
 			<div id="customDialog" class="modal fade" data-keyboard="false" data-backdrop="static">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button class="close" data-dismiss="modal"><span>&times;</span></button>
 							<h4 class="modal-title">Custom Size</h4>
 						</div>
-						<div class="modal-body" style="text-align: center;">
-							<p><input id="rows" placeholder="Rows" type="number" class="form-control"> x <input id="cols" placeholder="Columns" type="number" class="form-control"></p>
-							<p><input id="mines" placeholder="Mines" type="number" class="form-control"></p>
-							<p><button id="submitWord" class="btn btn-primary">Go!</button></p>
+						<div class="modal-body">
+							<form id="customSize">
+								<div class="form-group">
+									<label for="rows">Rows:</label>
+									<input id="rows" type="number" class="form-control" placeholder="Enter a value between 9 and 24">
+								</div>
+								<div class="form-group">
+									<label for="cols">Columns:</label>
+									<input id="cols" type="number" class="form-control" placeholder="Enter a value between 9 and 30">
+								</div>
+								<hr>
+								<div class="form-group">
+									<label for="mines">Mines:</label>
+									<input id="mines" type="number" class="form-control" placeholder="At least 10">
+								</div>
+								<p style="text-align: right;"><button type="submit" class="btn btn-warning">Go!</button></p>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -67,13 +79,13 @@
 				<div class="col-sm-12 col-sm-3 col-md-4">
 					<div id="controls">
 						<div class="btn-group-vertical" data-toggle="buttons">
-							<label class="btn btn-warning active">
+							<label class="btn btn-warning">
 								<input name="settings" type="radio" value="beginner" checked>Beginner
 							</label>
 							<label class="btn btn-warning">
 								<input name="settings" type="radio" value="intermediate">Intermediate
 							</label>
-							<label class="btn btn-warning">
+							<label class="btn btn-warning active">
 								<input name="settings" type="radio" value="expert">Expert
 							</label>
 							<label class="btn btn-warning" data-toggle="modal" data-target="#customDialog">
