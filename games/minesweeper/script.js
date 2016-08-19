@@ -127,10 +127,12 @@ $(function() {
 				var scores = $.parseJSON(docCookies.getItem(difficulty));
 				scores.push({name: name, time: timer.value});
 				docCookies.setItem(difficulty, JSON.stringify(scores));
+				$("#highscores tbody").append("<tr><td>" + name + "</td><td>" + timer.value + "</td></tr>");
 			}
 			else {
 				var scores = [{name: name, time: timer.value}];
 				docCookies.setItem(difficulty, JSON.stringify(scores));
+				$("#highscores tbody").append("<tr><td>" + name + "</td><td>" + timer.value + "</td></tr>");
 			}
 		}
 	}
@@ -151,23 +153,26 @@ $(function() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("win");
 		clearInterval(timer.id);
-		swal({
-			title: "You Win!",
-			text: "Enter your name for highscores",
-			type: "input",
-			placeholder: "Name"
-		},
-		function(name) {
-			if(name === false) {
-				return false;
-			}
-			else if(name === "") {
-				swal.showInputError("Please enter your name.");
-				return false;
-			}
+		if($("#controls input:radio:checked").val() !== custom) {
+			swal({
+				title: "You Win!",
+				text: "Enter your name for highscores",
+				type: "input",
+				placeholder: "Name",
+				showCancelButton: true
+			},
+			function(name) {
+				if(name === false) {
+					return false;
+				}
+				else if(name === "") {
+					swal.showInputError("Please enter your name.");
+					return false;
+				}
 
-			addScore(name);
-		});
+				addScore(name);
+			});
+		}
 		for(var r = 0; r < boardRows; r++) {
 			for(var c = 0; c < boardCols; c++) {
 				var cell = $(".cell[data-row=" + r + "][data-col=" + c + "]");
@@ -339,6 +344,7 @@ $(function() {
 	}
 	numbers[10] = '<i class="number dash"></i>';
 	buildMinefield(boardRows, boardCols, totalMines);
+	getScores("expert");
 
 	$("#face").click(function(e) {
 		buildMinefield(boardRows, boardCols, totalMines);
