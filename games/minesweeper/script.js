@@ -263,12 +263,14 @@ $(function() {
 				switch(minefield[r][c].state) {
 					case "closed":
 						minefield[r][c].state = "flag";
+						$(e.target).removeClass("closed");
 						$(e.target).addClass("flag");
 						minesLeft--;
 						break;
 					case "flag":
 						minefield[r][c].state = "closed";
 						$(e.target).removeClass("flag");
+						$(e.target).addClass("closed");
 						minesLeft++;
 						break;
 					case "open":
