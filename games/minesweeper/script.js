@@ -127,12 +127,12 @@ $(function() {
 				var scores = $.parseJSON(docCookies.getItem(difficulty));
 				scores.push({name: name, time: timer.value});
 				docCookies.setItem(difficulty, JSON.stringify(scores));
-				$("#highscores tbody").append("<tr><td>" + name + "</td><td>" + timer.value + "</td></tr>");
+				getScores(difficulty);
 			}
 			else {
 				var scores = [{name: name, time: timer.value}];
 				docCookies.setItem(difficulty, JSON.stringify(scores));
-				$("#highscores tbody").append("<tr><td>" + name + "</td><td>" + timer.value + "</td></tr>");
+				getScores(difficulty);
 			}
 		}
 	}
@@ -156,7 +156,7 @@ $(function() {
 		$(".cell").off("click contextmenu");
 		$("#face").addClass("win");
 		clearInterval(timer.id);
-		if($("#controls input:radio:checked").val() !== custom) {
+		if($("#controls input:radio:checked").val() !== "custom") {
 			swal({
 				title: "You Win!",
 				text: "Enter your name for highscores",
