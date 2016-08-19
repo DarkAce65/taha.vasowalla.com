@@ -30,6 +30,9 @@ $(function() {
 	function updateTimer() {
 		timer.value += 1;
 		$("#timer").html(numToDisplay(timer.value));
+		if(timer.value === 999) {
+			clearInterval(timer.id);
+		}
 	}
 
 	function removeSurroundingBombs(row, col) {
