@@ -299,22 +299,37 @@ $(function() {
 				boardRows = 9;
 				boardCols = 9;
 				totalMines = 10;
+				buildMinefield(boardRows, boardCols, totalMines);
 				break;
 			case "intermediate":
 				boardRows = 16;
 				boardCols = 16;
 				totalMines = 40;
+				buildMinefield(boardRows, boardCols, totalMines);
 				break;
 			case "expert":
 				boardRows = 16;
 				boardCols = 30;
 				totalMines = 99;
-				break;
-			case "custom":
-				boardRows = parseInt($("#controls #rows").val(), 10);
-				boardCols = parseInt($("#controls #cols").val(), 10);
-				totalMines = parseInt($("#controls #mines").val(), 10);
+				buildMinefield(boardRows, boardCols, totalMines);
 				break;
 		}
+	});
+
+	$("#customSize").submit(function(e) {
+		e.preventDefault();
+		var rows = parseInt($("#customSize #rows").val(), 10);
+		$("#customSize #rows").val("");
+		rows = isNaN(rows) ? 0 : rows;
+		var cols = parseInt($("#customSize #cols").val(), 10);
+		$("#customSize #cols").val("");
+		cols = isNaN(cols) ? 0 : cols;
+		var mines = parseInt($("#customSize #mines").val(), 10);
+		$("#customSize #mines").val("");
+		mines = isNaN(mines) ? 0 : mines;
+
+		$("#customDialog").modal("hide");
+
+		buildMinefield(rows, cols, mines);
 	});
 });
