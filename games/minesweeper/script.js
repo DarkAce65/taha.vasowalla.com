@@ -297,8 +297,13 @@ $(function() {
 		$(".cell").click(function(e) {
 			var r = $(e.target).data("row");
 			var c = $(e.target).data("col");
-			if(minefield[r][c].state === "closed") {
-				openCell(r, c);
+			switch(minefield[r][c].state) {
+				case "closed":
+					openCell(r, c);
+					break;
+				case "open":
+					chord(r, c);
+					break;
 			}
 		});
 
@@ -319,9 +324,6 @@ $(function() {
 						$(e.target).removeClass("flag");
 						$(e.target).addClass("closed");
 						minesLeft++;
-						break;
-					case "open":
-						chord(r, c);
 						break;
 				}
 				$("#minesLeft").html(numToDisplay(minesLeft));
