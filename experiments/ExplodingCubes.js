@@ -35,11 +35,11 @@ for(var i = 0; i < 100; i++) {
 	var cube = new THREE.Mesh(geometry, material);
 	cubes.push(cube);
 	scene.add(cube);
-	cube.radius = chance.integer({min: 500, max: 750});
-	cube.angle = chance.floating({min: 0, max: 2 * Math.PI});
-	cube.nx = chance.floating({min: -1, max: 1});
-	cube.ny = chance.floating({min: -1, max: 1});
-	cube.nz = chance.floating({min: -1, max: 1});
+	cube.radius = ~~(Math.random() * 250 + 500);
+	cube.angle = Math.random() * 2 * Math.PI;
+	cube.nx = Math.random() * 2 - 1;
+	cube.ny = Math.random() * 2 - 1;
+	cube.nz = Math.random() * 2 - 1;
 	cube.rx = cube.nx;
 	cube.ry = cube.ny;
 	cube.rz = cube.nz;
@@ -52,7 +52,7 @@ for(var i = 0; i < 100; i++) {
 	cube.ny *= cube.radius;
 	cube.nz *= cube.radius;
 	TweenLite.to(cubes[i].position, .8, {x: cube.nx, y: cube.ny, z: cube.nz, ease: Back.easeOut.config(3)});
-	var scale = chance.floating({min: 0.25, max: 2});
+	var scale = Math.random() * 1.75 + 0.25;
 	TweenLite.to(cubes[i].scale, .8, {x: scale, y: scale, z: scale, ease: Back.easeOut.config(3)});
 }
 
@@ -73,7 +73,7 @@ for(var i = 0; i < cubes.length; i++) {
 	TweenLite.to(cubes[i].rotation, 0.7, {x: rx, y: ry, z: rz, ease: Power3.easeOut, delay: 11.8});
 }
 for(var i = 0; i < 236; i++) {
-	var rand = chance.floating({min: -1, max: 1});
+	var rand = Math.random() * 2 - 1;
 	var tween = Math.pow(Math.E, 0.025 * i - 2);
 	TweenLite.to(scene.position, 0.05, {x: scene.position.x + rand * tween, y: scene.position.y + rand * tween, z: scene.position.z + rand * tween, delay: 0.05 * i});
 }
