@@ -45,18 +45,15 @@
 		</nav>
 		<div class="container">
 			<div class="btn-group" style="z-index: 5;">
-				<div class="btn-group visible-xs-block">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						Positions <span class="caret"></span>
-					</button>
+				<button id="random" class="btn btn-default"><i class="visible-xs-inline fa fa-fw fa-random"></i><span class="hidden-xs">Random</span></button>
+				<div class="btn-group visible-xs-inline">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li><a id="pile">Pile</a></li>
 						<li><a id="cylinder">Cylinder</a></li>
 						<li><a id="sphere">Sphere</a></li>
 						<li><a id="fan">Fan</a></li>
 						<li><a id="drop">Drop</a></li>
-						<li><a id="add">Add Cards</a></li>
-						<li class="disabled"><a id="remove">Remove Cards</a></li>
 					</ul>
 				</div>
 				<button id="pile" class="hidden-xs btn btn-default">Pile</button>
@@ -64,11 +61,10 @@
 				<button id="sphere" class="hidden-xs btn btn-default">Sphere</button>
 				<button id="fan" class="hidden-xs btn btn-default">Fan</button>
 				<button id="drop" class="hidden-xs btn btn-default">Drop</button>
-				<button id="add" class="hidden-xs btn btn-default">Add Cards</button>
-				<button id="remove" class="hidden-xs btn btn-default disabled">Remove Cards</button>
-				<button id="random" class="btn btn-default"><i class="fa fa-fw fa-random"></i></button>
+				<button id="add" class="btn btn-default"><i class="visible-xs-inline fa fa-fw fa-plus"></i><span class="hidden-xs">Add Cards</span></button>
+				<button id="remove" class="btn btn-default disabled"><i class="visible-xs-inline fa fa-fw fa-minus"></i><span class="hidden-xs">Remove Cards</span></button>
 			</div>
-			<div id="cardCountContainer">Card Count: <span id="cardCount">60</span></div>
+			<div id="cardCountContainer" class="btn btn-default">Card Count: <span id="cardCount">60</span></div>
 			<div id="animationContainer">
 				<div id="animation"></div>
 			</div>
