@@ -172,7 +172,7 @@ $(function() {
 	};
 
 	resize();
-	animationTimeline.set(".card", {y: height / 2, rotationX: 90, opacity: cardOpacity}, animationTimeline.time());
+	animationTimeline.set(".card", {y: height / 2, rotationZ: 90, opacity: cardOpacity}, animationTimeline.time());
 	delay = 0.02;
 	randomPosition($(".card"));
 	delay = 5 / cardCount;
