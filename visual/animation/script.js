@@ -1,8 +1,7 @@
-var height, width, cardHeight, cardWidth;
+var height, width, cardHeight, cardWidth, delay;
 
 var cardOpacity = 1;
 var cardCount = 60;
-var delay = 5 / cardCount;
 var current = "random";
 
 var backgroundTimeline, colorTimeline, animationTimeline;
@@ -176,6 +175,7 @@ $(function() {
 	animationTimeline.set(".card", {y: height / 2, rotationX: 90, opacity: cardOpacity}, animationTimeline.time());
 	delay = 0.02;
 	randomPosition($(".card"));
+	delay = 5 / cardCount;
 
 	$("#cardCountContainer").click(function() { // Change opacity
 		cardOpacity = (cardOpacity == 1) ? 0.5 : 1;
