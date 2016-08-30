@@ -46,6 +46,7 @@ html, body {
 			margin-left: -25px;
 			border-radius: 5px;
 			background-color: red;
+			@include transition(width 1s, height 1s);
 		}
 	}
 }
