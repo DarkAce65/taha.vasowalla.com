@@ -125,13 +125,13 @@ function randomPosition(elements) { // Random orientation
 	animationTimeline.staggerTo(elements, 1, {
 			cycle: {
 				x: function() {
-					return Math.random() * width / 2 - width / 4;
+					return (Math.random() - 0.5) * (width - cardHeight * 2);
 				},
 				y: function() {
-					return Math.random() * height + 60;
+					return Math.random() * height;
 				},
 				z: function() {
-					return Math.random() * width / 2 - width / 4;
+					return (Math.random() - 0.5) * (width - cardHeight * 2);
 				},
 				rotationX: function() {
 					return Math.random() * 720 - 360;
