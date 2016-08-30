@@ -103,7 +103,9 @@ function drop(elements) { // Drop to floor
 					return transform.z + Math.random() * 50 - 25;
 				},
 				rotationX: function() {
-					return (Math.random() < 0.5) ? 90 : -90;
+					var transform = this._gsTransform || {rotationX: 0};
+					transform.rotationX += Math.random() - 0.5;
+					return (transform.rotationX % 90 < 0) ? -90 : 90;
 				},
 				rotationY: function() {
 					var transform = this._gsTransform || {rotationY: 0};
@@ -114,7 +116,7 @@ function drop(elements) { // Drop to floor
 			rotationZ: 0,
 			ease: Bounce.easeOut
 		},
-		0.3 / cardCount,
+		delay / 1.5,
 		animationTimeline.time()
 	);
 }
