@@ -80,11 +80,11 @@ function sphere(elements, offset) { // Sphere orientation
 function fan(elements, offset) { // Fan orientation
 	current = "fan";
 	offset = (typeof offset === "undefined") ? 0 : offset;
-	var radius = Math.min(width / 4, height / 4);
+	var radius = Math.min(width / 2.2 - cardHeight / 2, height / 2.2 - cardHeight / 2);
 	$.each(elements, function(index, value) {
 		var angle = -(index + offset) / cardCount * Math.PI;
 		var px = radius * Math.cos(angle);
-		var py = radius * Math.sin(angle) + height / 2;
+		var py = radius * Math.sin(angle) + height / 1.5;
 		var pz = (index + offset) / 5;
 		animationTimeline.to(value, 1, {x: px, y: py, z: pz, rotationX: 0, rotationY: 0, rotationZ: 90 + angle * 180 / Math.PI, delay: index * delay}, animationTimeline.time());
 	});
