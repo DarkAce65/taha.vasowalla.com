@@ -60,14 +60,20 @@ function cylinder(elements, offset) { // Cylinder orientation
 function sphere(elements, offset) { // Sphere orientation
 	current = "sphere";
 	offset = (typeof offset === "undefined") ? 0 : offset;
-	var radius = Math.min(width / 4, height / 4);
+	var radius = Math.min(width / 2.2, height / 2.2);
 	$.each(elements, function(index, value) {
 		var phi = Math.acos(-1 + (2 * (index + offset)) / cardCount);
 		var theta = Math.sqrt(cardCount * Math.PI) * phi;
 		var px = radius * Math.cos(theta) * Math.sin(phi);
-		var py = radius * Math.sin(theta) * Math.sin(phi) + height / 2;
+		var py = radius * Math.sin(theta) * Math.sin(phi);
 		var pz = radius * Math.cos(phi);
-		animationTimeline.to(value, 1, {x: px, y: py, z: pz, rotationX: 0, rotationY: 0, rotationZ: 0, delay: index * delay}, animationTimeline.time());
+		var rx = 180 / Math.PI * Math.acos((px*px + pz*pz) / Math.sqrt(px*px + py*py + pz*pz) / Math.sqrt(px*px + pz*pz));
+		if(Math.sign(py) === Math.sign(pz)) {
+			rx *= -1;
+		}
+		var ry = 180 / Math.PI * Math.atan(px / pz);
+		var rz = 0;
+		animationTimeline.to(value, 1, {x: px, y: py + height / 2, z: pz, rotationX: rx, rotationY: ry, rotationZ: rz, delay: index * delay}, animationTimeline.time());
 	});
 }
 
