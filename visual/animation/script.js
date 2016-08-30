@@ -183,7 +183,7 @@ $(function() {
 	});
 
 	$("a#add, button#add").click(function() { // Add 30 cards
-		if(window.innerWidth > 767 || (window.innerWidth < 768 && cardCount < 240)) {
+		if(window.innerWidth >= 768 || (window.innerWidth < 768 && cardCount < 240)) {
 			cardCount += 30;
 			$("#cardCount").html(cardCount);
 			delay = 5 / cardCount;
@@ -194,7 +194,7 @@ $(function() {
 			}
 			$("#animation").append(newCards);
 			resize();
-			animationTimeline.set(newCards, {y: height / 2, rotationX: 90, opacity: cardOpacity}, animationTimeline.time());
+			animationTimeline.set(newCards, {y: height / 2, rotationZ: 90, opacity: cardOpacity}, animationTimeline.time());
 
 			switch(current) {
 				case "pile":
