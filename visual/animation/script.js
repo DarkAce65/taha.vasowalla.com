@@ -246,7 +246,7 @@ $(function() {
 
 			var killedElements = $(shuffle($(".card:not(.dead)")).slice(0, 30));
 			killedElements.addClass("dead");
-			backgroundTimeline.to(killedElements, 0.1, {rotationX: 0}, backgroundTimeline.time());
+			backgroundTimeline.to(killedElements, 0.6, {rotationX: 0, rotationY: 0, rotationZ: 0}, backgroundTimeline.time());
 			backgroundTimeline.to(killedElements, 1, {y: 0, opacity: 0, ease: Power1.easeIn, onComplete: function() {
 				this.target.remove();
 				$("#cardCount").html(cardCount);
