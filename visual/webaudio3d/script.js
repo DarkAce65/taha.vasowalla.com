@@ -161,7 +161,7 @@ $(function() {
 				toastr.options.timeOut = 5000;
 				toastr.options.extendedTimeOut = 1000;
 				audioCtx.decodeAudioData(e.target.result, function(buffer) {
-					fileName = files[0].name;
+					filename = files[0].name;
 					arrayBuffer = buffer;
 					reset();
 					emptySource = false;
@@ -186,7 +186,7 @@ $(function() {
 			gainNode.disconnect();
 			analyser.disconnect();
 			source.stop();
-			document.getElementById("fileName").innerHTML = "";
+			document.getElementById("filename").innerHTML = "";
 			currentTime.innerHTML = "-:--";
 			document.getElementById("duration").innerHTML = "-:--";
 			source = undefined;
@@ -225,7 +225,7 @@ $(function() {
 			playing = true;
 			$("#playPause, #upload, .btn-file").attr("disabled", false);
 			document.getElementById("duration").innerHTML = toHHMMSS(arrayBuffer.duration);
-			document.getElementById("filename").innerHTML = fileName + " - ";
+			document.getElementById("filename").innerHTML = filename + " - ";
 			$("#playPause i").removeClass("fa-play");
 			$("#playPause i").addClass("fa-pause");
 		}
@@ -382,11 +382,11 @@ $(function() {
 	$("#side").click(function() {
 		setCamera("Side");
 	});
-	
+
 	$("#resCheckbox").on("change", function(e) {
 		toggleQuality();
 	});
-	
+
 	$("#rotationCheckbox").on("change", function(e) {
 		toggleRotation();
 	});
