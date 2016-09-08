@@ -83,4 +83,8 @@ $(function() {
 		camera.updateProjectionMatrix();
 		factor = window.innerWidth < 768 ? 1.5 : 1;
 	});
+
+	$("#reset").click(function() {
+		setCamera("Reset");
+	});
 });
