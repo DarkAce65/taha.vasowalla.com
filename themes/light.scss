@@ -16,6 +16,13 @@ body {
 	}
 }
 
+.list-group-item.list-group-item-divider {
+	font-weight: bold;
+	color: white;
+	background-color: $light-accent-color;
+	border-color: $light-accent-color;
+}
+
 .footer {
 	display: none;
 	position: absolute;

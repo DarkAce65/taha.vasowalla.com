@@ -187,12 +187,6 @@ code {
 }
 
 .linkList {
-	.list-group-item-divider {
-		font-weight: bold;
-		color: white;
-		background-color: $light-alt-accent-color;
-	}
-
 	a.list-group-item, button.list-group-item {
 		box-shadow: inset 2px 0px 0px 0px transparent;
 
