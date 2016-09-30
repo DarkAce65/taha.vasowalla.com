@@ -220,8 +220,8 @@ $(function() {
 		scrollParent: true,
 		hideScrollbar: true,
 		height: 100,
-		waveColor: "#EF5350",
-		progressColor: "#D73532",
+		progressColor: "#ef5350",
+		waveColor: "#632828",
 		cursorColor: "#fff"
 	});
 	wavesurfer.toggleMute();
