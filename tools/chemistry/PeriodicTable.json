@@ -3,10 +3,10 @@
 		{
 			"group": "",
 			"position": 0,
-			"number": 1,
 			"name": "Hydrogen",
-			"molar": 1.00794,
+			"number": 1,
 			"small": "H",
+			"molar": 1.00794,
 			"electrons": [
 				1
 			]
@@ -14,10 +14,10 @@
 		{
 			"group": "Element Noble p",
 			"position": 17,
-			"number": 2,
 			"name": "Helium",
-			"molar": 4.002602,
+			"number": 2,
 			"small": "He",
+			"molar": 4.002602,
 			"electrons": [
 				2
 			]
@@ -1016,261 +1016,6 @@
 			]
 		},
 		{
-			"group": "Element Actinoid f",
-			"position": 2,
-			"name": "Actinium",
-			"number": 89,
-			"small": "Ac",
-			"molar": 227,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				18,
-				9,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 3,
-			"name": "Thorium",
-			"number": 90,
-			"small": "Th",
-			"molar": 232.03806,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				18,
-				10,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 4,
-			"name": "Protactinium",
-			"number": 91,
-			"small": "Pa",
-			"molar": 231.03587,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				20,
-				9,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 5,
-			"name": "Uranium",
-			"number": 92,
-			"small": "U",
-			"molar": 238.02892,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				21,
-				9,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 6,
-			"name": "Neptunium",
-			"number": 93,
-			"small": "Np",
-			"molar": 237,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				22,
-				9,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 7,
-			"name": "Plutonium",
-			"number": 94,
-			"small": "Pu",
-			"molar": 244,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				24,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 8,
-			"name": "Americium",
-			"number": 95,
-			"small": "Am",
-			"molar": 243,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				25,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 9,
-			"name": "Curium",
-			"number": 96,
-			"small": "Cm",
-			"molar": 247,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				25,
-				9,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 10,
-			"name": "Berkelium",
-			"number": 97,
-			"small": "Bk",
-			"molar": 247,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				27,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 11,
-			"name": "Californium",
-			"number": 98,
-			"small": "Cf",
-			"molar": 251,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				28,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 12,
-			"name": "Einsteinium",
-			"number": 99,
-			"small": "Es",
-			"molar": 252,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				29,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 13,
-			"name": "Fermium",
-			"number": 100,
-			"small": "Fm",
-			"molar": 257,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				30,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 14,
-			"name": "Mendelevium",
-			"number": 101,
-			"small": "Md",
-			"molar": 258,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				31,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid f",
-			"position": 15,
-			"name": "Nobelium",
-			"number": 102,
-			"small": "No",
-			"molar": 259,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				32,
-				8,
-				2
-			]
-		},
-		{
-			"group": "Element Actinoid d",
-			"position": 16,
-			"name": "Lawrencium",
-			"number": 103,
-			"small": "Lr",
-			"molar": 262,
-			"electrons": [
-				2,
-				8,
-				18,
-				32,
-				32,
-				8,
-				3
-			]
-		},
-		{
 			"group": "Element Transition d",
 			"position": 3,
 			"name": "Hafnium",
@@ -1542,6 +1287,261 @@
 				18,
 				8,
 				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 2,
+			"name": "Actinium",
+			"number": 89,
+			"small": "Ac",
+			"molar": 227,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				18,
+				9,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 3,
+			"name": "Thorium",
+			"number": 90,
+			"small": "Th",
+			"molar": 232.03806,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				18,
+				10,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 4,
+			"name": "Protactinium",
+			"number": 91,
+			"small": "Pa",
+			"molar": 231.03587,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				20,
+				9,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 5,
+			"name": "Uranium",
+			"number": 92,
+			"small": "U",
+			"molar": 238.02892,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				21,
+				9,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 6,
+			"name": "Neptunium",
+			"number": 93,
+			"small": "Np",
+			"molar": 237,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				22,
+				9,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 7,
+			"name": "Plutonium",
+			"number": 94,
+			"small": "Pu",
+			"molar": 244,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				24,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 8,
+			"name": "Americium",
+			"number": 95,
+			"small": "Am",
+			"molar": 243,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				25,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 9,
+			"name": "Curium",
+			"number": 96,
+			"small": "Cm",
+			"molar": 247,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				25,
+				9,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 10,
+			"name": "Berkelium",
+			"number": 97,
+			"small": "Bk",
+			"molar": 247,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				27,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 11,
+			"name": "Californium",
+			"number": 98,
+			"small": "Cf",
+			"molar": 251,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				28,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 12,
+			"name": "Einsteinium",
+			"number": 99,
+			"small": "Es",
+			"molar": 252,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				29,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 13,
+			"name": "Fermium",
+			"number": 100,
+			"small": "Fm",
+			"molar": 257,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				30,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 14,
+			"name": "Mendelevium",
+			"number": 101,
+			"small": "Md",
+			"molar": 258,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				31,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid f",
+			"position": 15,
+			"name": "Nobelium",
+			"number": 102,
+			"small": "No",
+			"molar": 259,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				32,
+				8,
+				2
+			]
+		},
+		{
+			"group": "Element Actinoid d",
+			"position": 16,
+			"name": "Lawrencium",
+			"number": 103,
+			"small": "Lr",
+			"molar": 262,
+			"electrons": [
+				2,
+				8,
+				18,
+				32,
+				32,
+				8,
+				3
 			]
 		},
 		{
