@@ -471,20 +471,23 @@ $(document).ready(function() {
 	});
 
 	$("#molarMass .calculate").click(function() {
-		formulaData = [];
 		$("#formula").val($("#formula").val().replace(/[^a-zA-Z0-9\(\)]/g, ""));
-		if(checkFormula($("#formula").val())) { // Check for valid formula
-			molarMass($("#formula").val());
-		}
-		else {
-			$(".alert").alert("close");
-			swal({
-				title: "Error!",
-				text: errorMessage,
-				type: "error",
-				confirmButtonClass: "btn-danger",
-				confirmButtonText: "OK"
-			});
+		var formulaInput = $("#formula").val();
+		if(formulaInput) {
+			formulaData = [];
+			if(checkFormula(formulaInput)) { // Check for valid formula
+				molarMass(formulaInput);
+			}
+			else {
+				$(".alert").alert("close");
+				swal({
+					title: "Error!",
+					text: errorMessage,
+					type: "error",
+					confirmButtonClass: "btn-danger",
+					confirmButtonText: "OK"
+				});
+			}
 		}
 	});
 
