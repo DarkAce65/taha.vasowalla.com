@@ -2,7 +2,6 @@ var errorMessage;
 var solveFor;
 var validInputs = 0;
 var periodicTable;
-var elementInfo = {};
 var formulaData = [];
 var invalidElements = [];
 var deltat = true;
@@ -26,15 +25,15 @@ function tToggle() { // Temperature toggle switch
 }
 
 function getElementInfo(symbol) {
-	elementInfo = {};
+	var elementInfo = {};
 	for(var i = 0; i < periodicTable.length; i++) { // Search periodic table for element by symbol
 		if(periodicTable[i].small == symbol) {
 			elementInfo = periodicTable[i];
-			return;
+			return elementInfo;
 		}
 	}
-	elementInfo.name = "Invalid";
-	return;
+
+	return false;
 }
 
 function checkFormula(formula) { // Formula validation
@@ -53,8 +52,8 @@ function checkFormula(formula) { // Formula validation
 	}
 
 	$.each(formula.match(/([A-Z][a-z]*)/g), function(index, value) { // Find invalid Element symbols
-		getElementInfo(value);
-		if(elementInfo.name == "Invalid") {
+		var element = getElementInfo(value);
+		if(!element) {
 			invalidElements.push(value);
 		}
 	});
@@ -114,23 +113,29 @@ function molarMass(formula) {
 
 	/* Output to table */
 	$("#molarMassOutput").html("");
+	var output = [];
+	var totalAtoms = 0;
 	var totalMass = 0;
 	for(var i = 0; i < formulaData.length; i = i + 2) { // Calculate total molar mass
-		getElementInfo(formulaData[i]);
-		var atoms = formulaData[i + 1];
-		var atomicWeight = elementInfo.molar.toFixed(4);
-		totalMass = totalMass + elementInfo.molar.toFixed(4) * formulaData[i + 1];
+		var e = getElementInfo(formulaData[i]);
+		var formulaEl = {
+			name: e.name,
+			atoms: formulaData[i + 1],
+			molar: e.molar
+		};
+		output.push(formulaEl);
+		totalAtoms += formulaEl.atoms;
+		totalMass += formulaData[i + 1] * e.molar;
 	}
 
-	for(var i = 0; i < formulaData.length; i = i + 2) { // Output element information
+	for(var i = 0; i < output.length; i++) { // Output element information
 		getElementInfo(formulaData[i]);
-		var elementName = elementInfo.name;
-		var atoms = formulaData[i + 1];
-		var atomicWeight = elementInfo.molar.toFixed(4);
-		var percent = 100 * atomicWeight * atoms / totalMass;
-		$("#molarMassOutput").append("<tr><td>" + elementName + "</td><td>" + atoms + "</td><td>" + percent.toFixed(4) + "%</td><td>" + atomicWeight + "</td></tr>");
+		var e = output[i];
+		var percent = 100 * e.molar * e.atoms / totalMass;
+		$("#molarMassOutput").append("<tr><td>" + e.name + "</td><td>" + e.atoms + "</td><td>" + e.molar.toFixed(4) + "</td><td>" + (e.atoms * e.molar).toFixed(4) + "</td><td>" + percent.toFixed(4) + "%</td></tr>");
 	}
 
+	$("#totalAtoms").html(totalAtoms);
 	$("#totalMolarMass").html(totalMass.toFixed(4));
 }
 
@@ -484,6 +489,7 @@ $(document).ready(function() {
 
 	$("#molarMass .clearInputs").click(function() { // Reset all values
 		$("#molarMassOutput").html("");
+		$("#totalAtoms").html("0");
 		$("#totalMolarMass").html("0.0000");
 		$("#formula").val("");
 		$(".alert").alert("close");
