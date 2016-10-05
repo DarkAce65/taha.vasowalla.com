@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="../../bower_components/sweetalert/dist/sweetalert.css"/>
 		<link rel="stylesheet" type="text/css" href="../../global.css"/>
 		<link rel="stylesheet" type="text/css" href="../../themes/light.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 		<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="../../bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
@@ -63,7 +64,7 @@
 				<div id="molarMass" class="tab-pane tabpanel active">
 					<p class="h3">Molar Mass Calculator</p>
 					<p>In chemistry, the <a target="_blank" href="http://en.wikipedia.org/wiki/Molar_mass">Molar Mass</a> is a physical property that is defined as the mass of a substance divided by the amount of the substance. This calculator solves for the molar mass of a chemical formula and the mass percent of each element in the formula.</p>
-					<p><span style="font-size: 12px; font-weight: bold; color: #999; letter-spacing: 1px;">EXAMPLE</span><br>The chemical formula for magnesium stearate, a compound found in some medical tablets, is <span class="tex" data-expr="\displaystyle Mg \left(CH_3 \left(CH_2 \right)_{16}CO_2 \right)_2"></span> and would be entered below as Mg(CH3(CH2)16CO2)2.</p>
+					<p><span class="example">Example</span><br>The chemical formula for magnesium stearate, a compound found in some medical tablets, is <span class="tex" data-expr="\displaystyle Mg \left(CH_3 \left(CH_2 \right)_{16}CO_2 \right)_2"></span> and would be entered below as Mg(CH3(CH2)16CO2)2.</p>
 					<div class="inputs">
 						<div class="input-group">
 							<input id="formula" type="text" class="form-control" placeholder="Chemical Formula">
@@ -75,23 +76,21 @@
 						<p id="formulaTex" class="h4" style="text-align: center;"></p>
 					</div>
 					<div class="table-responsive">
-						<table class="table">
+						<table id="molarMassTable" class="table">
 							<thead>
 								<tr>
-									<th style="text-align: center;">Element</th>
-									<th style="text-align: center;">Atoms</th>
-									<th style="text-align: center;">Molar Mass</th>
-									<th style="text-align: center;">Mass In Compound</th>
-									<th style="text-align: center;">Mass Percent</th>
+									<th>Element</th>
+									<th>Atoms</th>
+									<th style="line-height: 1;">Mass In Compound<br>(g / mol)</th>
+									<th>Mass Percent</th>
 								</tr>
 							</thead>
-							<tbody id="molarMassOutput" align="center"><tr></tr></tbody>
+							<tbody id="molarMassOutput"></tbody>
 							<tfooter>
 								<tr>
-									<td style="text-align: center; font-weight: bold;">Total:</td>
-									<td id="totalAtoms" style="text-align: center;">0</td>
-									<td></td>
-									<td id="totalMolarMass" style="text-align: center;">0.0000</td>
+									<td style="font-weight: bold;">Total:</td>
+									<td id="totalAtoms">0</td>
+									<td id="totalMolarMass">0.0000</td>
 									<td></td>
 								</tr>
 							</tfooter>
@@ -215,10 +214,10 @@
 						<div class="input-group">
 							<input id="Cp" type="number" class="form-control" placeholder="Specific Heat (Cp)">
 							<select id="Cpunits">
-								<option value="JgK">J/g&#8226;K</option>
-								<option value="JkgK">J/kg&#8226;K</option>
-								<option value="JgC">J/g&#8226;C&deg;</option>
-								<option value="JkgC">J/kg&#8226;C&deg;</option>
+								<option value="JgK">J/g&#8901;K</option>
+								<option value="JkgK">J/kg&#8901;K</option>
+								<option value="JgC">J/g&#8901;C&deg;</option>
+								<option value="JkgC">J/kg&#8901;C&deg;</option>
 							</select>
 						</div>
 						<div class="input-group tToggle">
