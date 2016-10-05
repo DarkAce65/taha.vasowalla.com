@@ -18,10 +18,10 @@ function tToggle() { // Temperature toggle switch
 	$("#Ti").val("");
 	deltat = !deltat;
 	if(deltat) {
-		katex.render("\\displaystyle Q = mC_p\\Delta T", document.querySelector("#Cequation"));
+		katex.render("\\displaystyle Q = mC_p\\Delta T", document.querySelector("#shEquation"));
 	}
 	else {
-		katex.render("\\displaystyle Q = mC_p\\left(T_f - T_i\\right)", document.querySelector("#Cequation"));
+		katex.render("\\displaystyle Q = mC_p\\left(T_f - T_i\\right)", document.querySelector("#shEquation"));
 	}
 }
 
@@ -113,7 +113,7 @@ function molarMass(formula) {
 	}
 
 	/* Output to table */
-	$("#MolarMassOutput").html("");
+	$("#molarMassOutput").html("");
 	var totalMass = 0;
 	for(var i = 0; i < formulaData.length; i = i + 2) { // Calculate total molar mass
 		getElementInfo(formulaData[i]);
@@ -128,10 +128,10 @@ function molarMass(formula) {
 		var atoms = formulaData[i + 1];
 		var atomicWeight = elementInfo.molar.toFixed(4);
 		var percent = 100 * atomicWeight * atoms / totalMass;
-		$("#MolarMassOutput").append("<tr><td>" + elementName + "</td><td>" + atoms + "</td><td>" + percent.toFixed(4) + "%</td><td>" + atomicWeight + "</td></tr>");
+		$("#molarMassOutput").append("<tr><td>" + elementName + "</td><td>" + atoms + "</td><td>" + percent.toFixed(4) + "%</td><td>" + atomicWeight + "</td></tr>");
 	}
 
-	$("#TotalMolarMass").html(totalMass.toFixed(4));
+	$("#totalMolarMass").html(totalMass.toFixed(4));
 }
 
 var toSIUnits = {
@@ -286,12 +286,12 @@ var fromSIUnits = {
 
 $(document).ready(function() {
 	/* Specific Heat */
-	$("#HCCalculate").click(function() {
+	$("#specificHeat .calculate").click(function() {
 		errorMessage = "Error.";
 		solveFor = "";
 		validInputs = 0;
 		HCValues = [];
-		$.each($("#SpecificHeat #inputs div:not(.hidden) input"), function(index, value) { // Get valid inputs and store them in HCValues
+		$.each($("#specificHeat .inputs div:not(.hidden) input"), function(index, value) { // Get valid inputs and store them in HCValues
 			var units = $("#" + $(value).attr("id") + "units").val();
 			if($(value).val()) {
 				validInputs++;
@@ -351,7 +351,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#HCClear").click(function() { // Reset all values
+	$("#specificHeat .clearInputs").click(function() { // Reset all values
 		$("#Q").val("");
 		$("#m").val("");
 		$("#Cp").val("");
@@ -362,12 +362,12 @@ $(document).ready(function() {
 	});
 
 	/* Ideal Gas Law */
-	$("#IGLCalculate").click(function() {
+	$("#idealGasLaw .calculate").click(function() {
 		errorMessage = "Error.";
 		solveFor = "";
 		validInputs = 0;
 		var IGLValues = [[], []];
-		$.each($("#IdealGasLaw #inputs input"), function(index, value) { // Get valid inputs and store them in IGLValues
+		$.each($("#idealGasLaw .inputs input"), function(index, value) { // Get valid inputs and store them in IGLValues
 			if($(value).val()) {
 				validInputs++;
 				IGLValues[Math.floor(index / 2)].push(toSIUnits[$("#" + $(value).attr("id") + "units").val()]($(value).val()));
@@ -401,7 +401,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#IGLClear").click(function() { // Reset all values
+	$("#idealGasLaw .clearInputs").click(function() { // Reset all values
 		$("#P").val("");
 		$("#V").val("");
 		$("#n").val("");
@@ -410,12 +410,12 @@ $(document).ready(function() {
 	});
 
 	/* Dilution */
-	$("#DCalculate").click(function() {
+	$("#dilution .calculate").click(function() {
 		errorMessage = "Error.";
 		solveFor = "";
 		validInputs = 0;
 		var dilutionValues = [[], []];
-		$.each($("#Dilution #inputs input"), function(index, value) {
+		$.each($("#dilution .inputs input"), function(index, value) {
 			if($(value).val()) {
 				validInputs++;
 				dilutionValues[Math.floor(index / 2)].push(toSIUnits[$("#" + $(value).attr("id") + "units").val()]($(value).val()));
@@ -449,7 +449,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#DClear").click(function() { // Reset all values
+	$("#dilution .clearInputs").click(function() { // Reset all values
 		$("#M1").val("");
 		$("#V1").val("");
 		$("#M2").val("");
@@ -458,17 +458,17 @@ $(document).ready(function() {
 	});
 
 	/* Molar Mass */
-	$("#Formula").keypress(function(e) {
+	$("#formula").keypress(function(e) {
 		if(e.charCode == 13) {
-			$("#MMCalculate").click();
+			$("#molarMass .calculate").click();
 		}
 	});
 
-	$("#MMCalculate").click(function() {
+	$("#molarMass .calculate").click(function() {
 		formulaData = [];
-		$("#Formula").val($("#Formula").val().replace(/[^a-zA-Z0-9\(\)]/g, ""));
-		if(checkFormula($("#Formula").val())) { // Check for valid formula
-			molarMass($("#Formula").val());
+		$("#formula").val($("#formula").val().replace(/[^a-zA-Z0-9\(\)]/g, ""));
+		if(checkFormula($("#formula").val())) { // Check for valid formula
+			molarMass($("#formula").val());
 		}
 		else {
 			$(".alert").alert("close");
@@ -482,10 +482,10 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#MMClear").click(function() { // Reset all values
-		$("#MolarMassOutput").html("");
-		$("#TotalMolarMass").html("0.0000");
-		$("#Formula").val("");
+	$("#molarMass .clearInputs").click(function() { // Reset all values
+		$("#molarMassOutput").html("");
+		$("#totalMolarMass").html("0.0000");
+		$("#formula").val("");
 		$(".alert").alert("close");
 	});
 });
