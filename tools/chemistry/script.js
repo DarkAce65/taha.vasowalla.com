@@ -84,6 +84,7 @@ function molarMass(formula) {
 		}
 		$.merge(formulaData, output);
 	});
+	katex.render("\\displaystyle " + formula.replace(/\(/g, " \\left(").replace(/\)/g, " \\right)").replace(/(\d+)/g, "_{$1}"), document.querySelector("#formulaTex"));
 
 	/* Evaluate parenthesis */
 	var lastIndex = 0;
@@ -132,7 +133,7 @@ function molarMass(formula) {
 		getElementInfo(formulaData[i]);
 		var e = output[i];
 		var percent = 100 * e.molar * e.atoms / totalMass;
-		$("#molarMassOutput").append("<tr><td>" + e.name + "</td><td>" + e.atoms + "</td><td>" + e.molar.toFixed(4) + "</td><td>" + (e.atoms * e.molar).toFixed(4) + "</td><td>" + percent.toFixed(4) + "%</td></tr>");
+		$("#molarMassOutput").append("<tr><td>" + e.name + "<br><small>" + e.molar.toFixed(4) + "</small></td><td>" + e.atoms + "</td><td>" + (e.atoms * e.molar).toFixed(4) + "</td><td>" + percent.toFixed(4) + "%</td></tr>");
 	}
 
 	$("#totalAtoms").html(totalAtoms);
@@ -492,6 +493,7 @@ $(document).ready(function() {
 		$("#totalAtoms").html("0");
 		$("#totalMolarMass").html("0.0000");
 		$("#formula").val("");
+		$("#formulaTex").html("");
 		$(".alert").alert("close");
 	});
 });
