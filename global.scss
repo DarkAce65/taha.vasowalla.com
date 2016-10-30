@@ -145,9 +145,30 @@ code {
 
 .menuContainer {
 	position: relative;
+	@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
 
 	.linkList {
 		width: 100%;
+		z-index: 0;
+		position: absolute;
+		top: 0;
+		pointer-events: none;
+		opacity: 0;
+		@include transform(translateX(50px));
+		@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
+
+		&.active {
+			z-index: 1;
+			pointer-events: all;
+			opacity: 1;
+			@include transform(none);
+		}
+
+		.icon {
+			line-height: 24px;
+			width: 24px;
+			border-radius: 3px;
+		}
 
 		.fa-angle-left, .fa-angle-right {
 			color: $light-alt-accent-color;
@@ -162,56 +183,24 @@ code {
 		.fa-angle-right {
 			text-align: right;
 		}
-	}
-}
 
-.menuContainer {
-	@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
-}
-
-.menuContainer .linkList {
-	z-index: 0;
-	position: absolute;
-	top: 0;
-	pointer-events: none;
-	opacity: 0;
-	@include transform(translateX(50px));
-	@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
-}
-
-.menuContainer .linkList.active {
-	z-index: 1;
-	pointer-events: all;
-	opacity: 1;
-	@include transform(none);
-}
-
-.linkList {
-	a.list-group-item, button.list-group-item {
-		box-shadow: inset 2px 0px 0px 0px transparent;
-
-		&:hover {
-			box-shadow: inset 2px 0px 0px 0px $light-alt-accent-color;
-
-			.fa-angle-left {
-				margin-left: -3px;
-				margin-right: 3px;
-			}
-
-			.fa-angle-right {
-				margin-right: -3px;
-			}
-		}
-
-		div {
+		a.list-group-item, button.list-group-item {
 			line-height: 24px;
-		}
-	}
+			box-shadow: inset 2px 0px 0px 0px transparent;
 
-	.icon {
-		line-height: 24px;
-		width: 24px;
-		border-radius: 3px;
+			&:hover {
+				box-shadow: inset 2px 0px 0px 0px $light-alt-accent-color;
+
+				.fa-angle-left {
+					margin-left: -3px;
+					margin-right: 3px;
+				}
+
+				.fa-angle-right {
+					margin-right: -3px;
+				}
+			}
+		}
 	}
 }
 
