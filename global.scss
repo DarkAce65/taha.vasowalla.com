@@ -58,6 +58,26 @@ code {
 	@include transition(0.2s);
 }
 
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	cursor: inherit;
+	font-size: 100px;
+	text-align: right;
+	opacity: 0;
+	outline: none;
+	background-color: white;
+}
+
 .content {
 	padding-bottom: 10px;
 }
