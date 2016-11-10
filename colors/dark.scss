@@ -1,26 +1,30 @@
 @import "../bourbon/bourbon";
-@import "../colors";
+@import "colors";
 
 body {
+	color: white;
+	background: url("../img/tiles.png") #222222;
+	background-size: 150px;
+
 	@include selection {
-		background-color: $dark-color;
-		color: $light-color;
+		background-color: $light-color;
+		color: $dark-color;
 	}
 
 	a {
-		color: $light-accent-color;
+		color: $dark-accent-color;
 	}
 
 	a:hover, a:focus {
-		color: $light-secondary-color;
+		color: $dark-secondary-color;
 	}
 }
 
 .list-group-item.list-group-item-divider {
 	font-weight: bold;
 	color: white;
-	background-color: $light-accent-color;
-	border-color: $light-accent-color;
+	background-color: $dark-accent-color;
+	border-color: $dark-accent-color;
 }
 
 .footer {
@@ -30,10 +34,10 @@ body {
 	left: 0;
 	bottom: 0;
 	padding: 20px 0;
-	background-color: $light-color;
+	background-color: $dark-color;
 	text-align: center;
 	font-variant: small-caps;
-	border-top: 3px solid $light-accent-color;
+	border-top: 3px solid $dark-accent-color;
 
 	.nav p, .nav a {
 		color: lighten($dark-color, 26);
@@ -42,7 +46,7 @@ body {
 	}
 
 	.nav a:hover {
-		color: #5E5E5E;
+		color: white;
 	}
 }
 

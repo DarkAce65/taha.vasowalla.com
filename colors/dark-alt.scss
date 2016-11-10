@@ -1,14 +1,13 @@
 @import "../bourbon/bourbon";
-@import "../colors";
+@import "colors";
 
 body {
-	color: white;
 	background: url("../img/tiles.png") #222222;
 	background-size: 150px;
 
 	@include selection {
-		background-color: $light-color;
-		color: $dark-color;
+		background-color: $dark-color;
+		color: $light-color;
 	}
 
 	a {
