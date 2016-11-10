@@ -18,7 +18,7 @@
 <html>
 	<head>
 		<title>Login</title>
-		<link id="icon" rel="shortcut icon" href="../../img/TV.png"/>
+		<link id="icon" rel="shortcut icon" href="../../img/icons/TV.png"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
@@ -54,13 +54,13 @@
 </html>
 <?php
 	}
-else{
+else {
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Logged In</title>
-		<link id="icon" rel="shortcut icon" href="../../img/TV.png"/>
+		<link id="icon" rel="shortcut icon" href="../../img/icons/TV.png"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
