@@ -121,6 +121,10 @@ $(function() {
 		timeline.to($("#man path, #xEyes path"), 0.2, {drawSVG: "0%"}); // Clear the gallows
 	});
 
+	$("#wordDialog").on("shown.bs.modal", function() {
+		$("#wordInput").focus();
+	});
+
 	$("#submitWord").click(function() { // Submit button press
 		var word = $("#wordInput").val();
 		if(word !== "" && !/[^A-Za-z]/.test(word)) { // Check if the word exists and contains valid characters
@@ -129,6 +133,7 @@ $(function() {
 			$("#wordDialog").one("hidden.bs.modal", function() { // When the modal is closed, clear the gallows
 				timeline.clear();
 				timeline.to($("#man path, #xEyes path"), 0.2, {drawSVG: "0%"});
+				$("#guess").focus();
 			});
 		}
 		else if(word === "") {
