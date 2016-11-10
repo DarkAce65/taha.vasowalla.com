@@ -7,7 +7,6 @@ $(function() {
 		$("#wordInput").val("");
 		$("#wordDisplay").html("");
 		$("#guessedLetters").html("");
-		$(".fancyInput").removeClass("hasText");
 		$(".guess-xs").removeClass("correct incorrect");
 		$("#error").hide();
 		for(var i = 0; i < word.length; i++) {
@@ -89,16 +88,6 @@ $(function() {
 	var hangmanWord = "", guessedLetters = "", guessesLeft = 6;
 	var randomWords = [];
 	var timeline = new TimelineMax();
-	
-	$(".fancyInput input").on("focus", function() {
-		$(this.parentNode).addClass("hasText"); // Fancy input is focused
-	});
-
-	$(".fancyInput input").on("blur", function() {
-		if(this.value === "") {
-			$(this.parentNode).removeClass("hasText"); // Fancy input does not contain text
-		}
-	});
 
 	$(window).on("keypress", function(e) {
 		if(e.which == 82 && e.shiftKey) { // Shift + R sets random word

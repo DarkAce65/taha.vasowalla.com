@@ -38,22 +38,8 @@
 						<?php echo $_SESSION["error"];?>
 						<p>The username is "admin" and the password is "adminpass".</p>
 						<form method="post" class="form-horizontal">
-							<div class="form-group">
-								<span class="fancyInput">
-									<input id="username" name="username" type="text">
-									<label for="username" class="floatingLabel">
-										<span class="labelContent">Username</span>
-									</label>
-								</span>
-							</div>
-							<div class="form-group">
-								<span class="fancyInput">
-									<input id="password" name="password" type="password">
-									<label for="password" class="floatingLabel">
-										<span class="labelContent">Password</span>
-									</label>
-								</span>
-							</div>
+							<p><input id="username" name="username" type="text" placeholder="Username" class="form-control"></p>
+							<p><input id="password" name="password" type="password" placeholder="Password" class="form-control"></p>
 							<div class="form-group" style="margin: 0; text-align: right;">
 								<a class="btn btn-default" href="../../"><span class="fa fa-home"></span> Homepage</a>
 								<button type="submit" class="btn btn-primary">Login</button>
@@ -64,17 +50,6 @@
 			</div>
 		</div>
 		<div class="modal-backdrop in"></div>
-		<script type="text/javascript">
-			$(".fancyInput input").on("focus", function() {
-				$(this.parentNode).addClass("hasText");
-			});
-
-			$(".fancyInput input").on("blur", function() {
-				if(this.value.trim() == "") {
-					$(this.parentNode).removeClass("hasText");
-				}
-			});
-		</script>
 	</body>
 </html>
 <?php
