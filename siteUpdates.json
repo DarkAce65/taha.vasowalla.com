@@ -1,5 +1,11 @@
 [
 	{
+		"date": "11-11-16",
+		"status": "In Progress",
+		"title": "Building a fancy new home page",
+		"descriptions": ["It currently looks like <a href=\"index.new.html\">this</a>"]
+	},
+	{
 		"date": "8-12-16",
 		"status": "Completed",
 		"title": "Restructured entire website for easier development",
@@ -7,14 +13,14 @@
 	},
 	{
 		"date": "8-2-16",
-		"status": "In Production",
+		"status": "In Progress",
 		"title": "Ventures<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"ventures/eagle/\">Eagle Project</a><br>Ventures<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"ventures/sarndbox/\">SARndbox</a>",
 		"descriptions": ["Creating description pages for various real-world projects I've worked on"]
 	},
 	{
 		"date": "7-24-16",
 		"status": "Completed",
-		"title": "Homepage Menu Rework",
+		"title": "Main menu rework",
 		"descriptions": ["Rebuilt the main menu to eliminate lag and greatly reduce data usage"]
 	},
 	{
@@ -44,7 +50,7 @@
 	{
 		"date": "12-30-15",
 		"status": "Completed",
-		"title": "Reorganization of Website Files",
+		"title": "Reorganization of website files",
 		"descriptions": ["Organized all file dependencies and external libraries", "Standardized headers and footers across the site"]
 	},
 	{
