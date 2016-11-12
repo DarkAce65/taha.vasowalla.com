@@ -20,12 +20,12 @@ $(function() {
 
 	var animation = {planetRotation: 1, satelliteOrbit: 1};
 
-	var clock = new THREE.Clock();
+	var clock = new THREE.Clock(false);
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer({antialias: true});
 	$("#rendererContainer").append(renderer.domElement);
-	var width = Math.max(window.innerWidth, 100);
-	var height = Math.max(window.innerHeight, 100);
+	var width = Math.min(window.innerWidth, 200);
+	var height = Math.min(window.innerHeight, 200);
 	renderer.setSize(width, height);
 	renderer.setClearColor(0x131d29);
 	renderer.setPixelRatio(window.devicePixelRatio);
@@ -39,40 +39,51 @@ $(function() {
 	var ambient = new THREE.AmbientLight({color: 0xcccccc});
 	scene.add(ambient);
 
-	var objectsLeft = 1;
+	var objectsLeft = 2;
 
 	var material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide, morphTargets: true});
-	var geometry;
+	var geometry, model;
 	var loader = new THREE.OBJLoader();
-	loader.load("img/objects/crane.obj", function(object) {
-		console.log(object);
+	loader.load("img/objects/cube.obj", function(object) {
+		objectsLeft--;
 		geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
+
+		loader.load("img/objects/crane.obj", function(object) {
+			objectsLeft--;
+			var craneVertices = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry).vertices;
+			for (var i = 0; i < craneVertices.length; i++) {
+				craneVertices[i] = craneVertices[i].multiplyScalar(1.75);
+			}
+			geometry.morphTargets.push({"name": "crane", "vertices": craneVertices});
+			loadedObject();
+		});
 	});
 
-	loader.load("img/objects/cube.obj", function(object) {
-		var cubeVertices = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry).vertices;
-		geometry.morphTargets.push({"name": "cube", "vertices": cubeVertices});
-		window.model = new THREE.Mesh(geometry, material);
-		scene.add(window.model);
-		loaded = true;
-	});
+	function loadedObject() {
+		if(objectsLeft <= 0) {
+			model = new THREE.Mesh(geometry, material);
+			model.scale.multiplyScalar(20);
+			scene.add(model);
+		}
+
+		clock.start();
+		render();
+	}
 
 	function render() {
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
 		controls.update();
 
-		if(loaded) {
-			var delta = clock.getDelta();
-			window.model.rotation.y += delta;
-		}
+		var delta = clock.getDelta();
+		model.rotation.y += delta / 4;
+		var elapsed = clock.getElapsedTime() / 2;
+		model.morphTargetInfluences[0] = 0.5 - Math.min(0.5, Math.max(-0.5, Math.cos(elapsed)));
 	}
 
-	render();
-
 	$(window).resize(function() {
-		width = Math.min(window.innerWidth, 100);
-		height = Math.min(window.innerHeight, 100);
+		width = Math.min(window.innerWidth, 200);
+		height = Math.min(window.innerHeight, 200);
 		renderer.setSize(width, height);
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
