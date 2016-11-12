@@ -51,9 +51,6 @@ $(function() {
 		loader.load("img/objects/crane.obj", function(object) {
 			objectsLeft--;
 			var craneVertices = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry).vertices;
-			for (var i = 0; i < craneVertices.length; i++) {
-				craneVertices[i] = craneVertices[i].multiplyScalar(1.75);
-			}
 			geometry.morphTargets.push({"name": "crane", "vertices": craneVertices});
 			loadedObject();
 		});
