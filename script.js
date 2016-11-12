@@ -60,6 +60,7 @@ $(function() {
 		if(objectsLeft <= 0) {
 			model = new THREE.Mesh(geometry, material);
 			model.scale.multiplyScalar(20);
+			model.rotation.y = -Math.PI;
 			scene.add(model);
 		}
 
