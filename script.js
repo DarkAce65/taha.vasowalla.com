@@ -31,17 +31,21 @@ $(function() {
 	renderer.setPixelRatio(window.devicePixelRatio);
 
 	var camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
-	camera.position.set(0, 0, 100);
+	camera.position.set(0, 25, 100);
 	scene.add(camera);
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
-	var ambient = new THREE.AmbientLight({color: 0xcccccc});
+	var ambient = new THREE.AmbientLight(0x274466);
 	scene.add(ambient);
+
+	var pointlight = new THREE.PointLight(0x5E85B4);
+	pointlight.position.set(0, 50, 0);
+	scene.add(pointlight);
 
 	var objectsLeft = 2;
 
-	var material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide, morphTargets: true});
+	var material = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, morphTargets: true, shading: THREE.FlatShading});
 	var geometry, model;
 	var loader = new THREE.OBJLoader();
 	loader.load("img/objects/cube.obj", function(object) {
