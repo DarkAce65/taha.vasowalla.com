@@ -1330,7 +1330,6 @@ almshouse
 almshouses
 aloes
 aloft
-aloha
 alone
 aloneness
 along
@@ -1479,7 +1478,6 @@ amends
 amenities
 amenity
 amenorrhoea
-amens
 america
 american
 americans
@@ -1497,7 +1495,6 @@ amicably
 amide
 amidships
 amidst
-amigo
 amine
 amines
 amino
@@ -42213,7 +42210,6 @@ schizophrenia
 schizophrenic
 schizophrenically
 schizophrenics
-schmalz
 schnapps
 scholar
 scholarly
@@ -42252,7 +42248,6 @@ scientific
 scientifically
 scientist
 scientists
-scifi
 scimitar
 scimitars
 scintigraphy
@@ -42320,7 +42315,6 @@ scotched
 scotches
 scotfree
 scotland
-scots
 scotsman
 scottish
 scoundrel
