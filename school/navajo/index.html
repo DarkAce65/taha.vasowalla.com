@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Presentation</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans"/>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../../bower_components/threejs/build/three.min.js"></script>
+</head>
+<body class="impress-not-supported">
+	<div class="fallback-message">
+		<p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+		<p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+	</div>
+	<div id="impress">
+		<div class="step">
+			<h1>The Navajo People</h1>
+		</div>
+		<div class="step" data-x="500" data-z="-1000">
+			<h2>History</h2>
+		</div>
+		<div class="step" data-x="-500" data-z="-2000">
+			<h2>Values</h2>
+			<p>- All living things deserve respect</p>
+			<p>- 4 is a sacred number</p>
+		</div>
+		<div id="worldStart" class="step" data-z="-3000" data-rotate-x="90">
+			<h2>Creation Myth</h2>
+			<p>A progression of the Navajo through four worlds becoming more civilized as they go</p>
+		</div>
+
+		<!-- First World -->
+		<div id="firstHeader" class="step first" data-y="22000" data-z="-3000" data-rotate-x="90">
+			<h1>Black World</h1>
+		</div>
+		<div id="firstQuote" class="step first aside" data-y="21500" data-z="-4000">
+			<blockquote>"Most of the inhabitants were wingless insects and crawling creatures accustomed to living in holes in the ground."</blockquote>
+		</div>
+		<div id="firstImage1" class="step first aside" data-y="21500" data-z="-2000" data-rotate-y="-180">
+			<img src="img/first.jpg">
+		</div>
+		<div id="firstOverview" class="step overview" data-y="22000" data-z="-3000" data-rotate-x="90" data-scale="4"></div>
+
+		<!-- Second World -->
+		<div id="secondHeader" class="step second" data-y="17000" data-z="-3000" data-rotate-x="90">
+			<h1>Blue World</h1>
+		</div>
+		<div id="secondQuote" class="step second aside" data-y="16500" data-z="-4000">
+			<blockquote>"They had not gone far before four great birds, White Crane, Blue Heron, Yellow Loon and Black Loon, flew from the four corners of the world and swooped down upon them."</blockquote>
+		</div>
+		<div id="secondImage1" class="step second aside" data-x="860" data-y="16500" data-z="-2660" data-rotate-y="-120">
+			<img src="img/second.jpg">
+		</div>
+		<div id="secondImage2" class="step second aside" data-x="-860" data-y="16500" data-z="-2660" data-rotate-y="-240">
+			<img src="img/bird.png">
+		</div>
+		<div id="secondOverview" class="step overview" data-y="17000" data-z="-3000" data-rotate-x="90" data-scale="4"></div>
+
+		<!-- Third World -->
+		<div id="thirdHeader" class="step third" data-y="12000" data-z="-3000" data-rotate-x="90">
+			<h1>Yellow World</h1>
+		</div>
+		<div id="thirdQuote" class="step third aside" data-y="11500" data-z="-4000">
+			<blockquote>"This world was larger and brighter than the Blue world, and it was populated with animals and human beings."</blockquote>
+		</div>
+		<div id="thirdImage1" class="step third aside" data-x="860" data-y="11500" data-z="-2660" data-rotate-y="-120">
+			<img src="img/third.jpg">
+		</div>
+		<div id="thirdImage2" class="step third aside" data-x="-860" data-y="11500" data-z="-2660" data-rotate-y="-240">
+			<img src="img/gods.jpg">
+		</div>
+		<div id="thirdOverview" class="step overview" data-y="12000" data-z="-3000" data-rotate-x="90" data-scale="4"></div>
+
+		<!-- Fourth World -->
+		<div id="fourthHeader" class="step fourth" data-y="7000" data-z="-3000" data-rotate-x="90">
+			<h1>Black and White World</h1>
+		</div>
+		<div id="fourthQuote" class="step fourth aside" data-y="6500" data-z="-4000">
+			<blockquote>"Where the days were white and the nights were black."</blockquote>
+		</div>
+		<div id="fourthImage1" class="step fourth aside" data-x="860" data-y="6500" data-z="-2660" data-rotate-y="-120">
+			<img src="img/fourth.jpg">
+		</div>
+		<div id="fourthImage2" class="step fourth aside" data-x="-860" data-y="6500" data-z="-2660" data-rotate-y="-240">
+			<img src="img/flood.jpg">
+		</div>
+		<div id="fourthOverview" class="step overview" data-y="7000" data-z="-3000" data-rotate-x="90" data-scale="4"></div>
+
+		<div id="earth" class="step webgl" data-z="1000">
+			<div id="rendererContainer"></div>
+		</div>
+	</div>
+	<script src="impress.js"></script>
+	<script type="text/javascript">
+		impress().init();
+
+		window.requestAnimFrame =
+			window.requestAnimationFrame ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame ||
+			window.oRequestAnimationFrame ||
+			window.msRequestAnimationFrame ||
+			function(callback) {
+				window.setTimeout(callback, 1000 / 60);
+			};
+
+		function render() {
+			renderer.render(scene, camera);
+			var delta = clock.getDelta();
+			planet.rotation.y += delta / 5;
+			sunPos += delta / 4;
+			sun.position.set(200 * Math.cos(sunPos), 100, 200 * Math.sin(sunPos));
+
+			requestAnimFrame(render);
+		}
+
+		$("#earth").width(window.innerWidth);
+		$("#rendererContainer").width(window.innerWidth);
+		$("#rendererContainer").height(window.innerHeight);
+		var camera = new THREE.PerspectiveCamera(70, $("#rendererContainer").width() / $("#rendererContainer").height(), 1, 1000);
+		camera.position.z = 200;
+
+		var clock = new THREE.Clock();
+		var scene = new THREE.Scene();
+
+		var ambientLight = new THREE.AmbientLight(0x2f2f2f);
+		scene.add(ambientLight);
+
+		var sunPos = 5;
+		var sun = new THREE.PointLight(0x4c4c4c, 4);
+		sun.position.set(200 * Math.cos(sunPos), 100, 200 * Math.sin(sunPos));
+		sun.add(new THREE.Mesh(new THREE.IcosahedronGeometry(20, 2), new THREE.MeshBasicMaterial({color: 0xffe624})));
+		scene.add(sun);
+
+		var geometry = new THREE.IcosahedronGeometry(50, 2);
+		var material = new THREE.MeshPhongMaterial({shading: THREE.FlatShading, morphTargets: true, vertexColors: THREE.FaceColors});
+		for(var i = 0; i < geometry.vertices.length; i++) {
+			var vertices = [];
+
+			for(var v = 0; v < geometry.vertices.length; v++) {
+				vertices.push(geometry.vertices[v].clone());
+				if(Math.random() > 0.93) {
+					vertices[vertices.length - 1].x *= 1.05;
+					vertices[vertices.length - 1].y *= 1.05;
+					vertices[vertices.length - 1].z *= 1.05;
+				}
+			}
+
+			geometry.morphTargets.push({name: "target" + i, vertices: vertices});
+		}
+		for(var i = 0; i < geometry.faces.length; i++) {
+			if(Math.random() > 0.7) {
+				geometry.faces[i].color.setHex(0x334cb2);
+			}
+			else {
+				geometry.faces[i].color.setHex(0x33b24c);
+			}
+		}
+		var planet = new THREE.Mesh(geometry, material);
+		planet.rotation.x = 0.6;
+		scene.add(planet);
+		planet.morphTargetInfluences[0] = 1;
+		planet.morphTargetInfluences[1] = 3;
+
+		renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		$("#rendererContainer").append(renderer.domElement);
+
+		$(document).on("impress:stepleave", function(e) {
+			if($("#earth").hasClass("active")) {
+				render();
+				$(document).off("impress:stepleave");
+			}
+		});
+
+		$(window).on("resize", function(e) {
+			$("#earth").width(window.innerWidth);
+			$("#rendererContainer").width(window.innerWidth);
+			$("#rendererContainer").height(window.innerHeight);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+		});
+	</script>
+	</body>
+</html>

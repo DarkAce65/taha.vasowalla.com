@@ -1,0 +1,170 @@
+@import "../../bourbon/bourbon";
+
+body {
+	font-family: "PT Sans", sans-serif;
+	color: #333;
+	background: navajowhite;
+	@include transition(background 1s);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	margin: 0;
+}
+
+.fallback-message {
+	font-family: sans-serif;
+	line-height: 1.3;
+	width: 780px;
+	padding: 10px 10px 0;
+	margin: 20px auto;
+	border: 1px solid #E4C652;
+	border-radius: 10px;
+	background: #EEDC94;
+
+	p {
+		margin-bottom: 10px;
+	}
+}
+
+.impress-supported .fallback-message {
+	display: none;
+}
+
+.step {
+	text-align: center;
+	position: relative;
+	width: 900px;
+	padding: 40px;
+	margin: 20px auto;
+	box-sizing: border-box;
+	font-size: 48px;
+	line-height: 1.5;
+}
+
+.overview {
+	display: none;
+}
+
+.impress-enabled {
+	pointer-events: none;
+
+	#impress {
+		pointer-events: auto;
+	}
+
+	.step {
+		margin: 0;
+		opacity: 0;
+		@include transition(opacity 1s);
+
+		&.active {
+			opacity: 1;
+		}
+
+		&.aside > * {
+			@include transition(transform 1s);
+		}
+
+		blockquote {
+			padding: 10px 20px;
+			margin: 0 0 20px;
+			border-left: 5px solid #333;
+		}
+
+		img {
+			width: 75%;
+		}
+
+		&.first blockquote {
+			border-color: #eee;
+		}
+	}
+}
+
+#firstImage1, #secondImage1, #thirdImage1, #fourthImage1 {
+	img {
+		border-radius: 100%;
+	}
+}
+
+.impress-on-firstHeader, .impress-on-firstQuote, .impress-on-firstImage1, .impress-on-firstImage2, .impress-on-firstOverview {
+	color: white;
+	background: rgb(25, 25, 25);
+}
+
+.impress-on-secondHeader, .impress-on-secondQuote, .impress-on-secondImage1, .impress-on-secondImage2, .impress-on-secondOverview {
+	color: #333;
+	background: rgb(114, 137, 191);
+}
+
+.impress-on-thirdHeader, .impress-on-thirdQuote, .impress-on-thirdImage1, .impress-on-thirdImage2, .impress-on-thirdOverview {
+	color: #333;
+	background: rgb(255, 255, 100);
+}
+
+.impress-on-fourthHeader, .impress-on-fourthQuote, .impress-on-fourthImage1, .impress-on-fourthImage2, .impress-on-fourthOverview {
+	color: black;
+	background: white;
+}
+
+.impress-on-firstOverview {
+	.step.first {
+		opacity: 1 !important;
+		cursor: pointer;
+
+		&.aside > * {
+			@include transform(rotateX(90deg));
+		}
+	}
+}
+
+.impress-on-secondOverview {
+	#secondImage2 img {
+		@include transform(rotateX(90deg) rotateZ(120deg));
+	}
+
+	.step.second {
+		opacity: 1 !important;
+		cursor: pointer;
+
+		&.aside > * {
+			@include transform(rotateX(90deg));
+		}
+	}
+}
+
+.impress-on-thirdOverview {
+	.step.third {
+		opacity: 1 !important;
+		cursor: pointer;
+
+		&.aside > * {
+			@include transform(rotateX(90deg));
+		}
+	}
+}
+
+.impress-on-fourthOverview {
+	#fourthImage2 img {
+		@include transform(rotateX(90deg) rotateZ(120deg));
+	}
+
+	.step.fourth {
+		opacity: 1 !important;
+		cursor: pointer;
+
+		&.aside > * {
+			@include transform(rotateX(90deg));
+		}
+	}
+}
+
+.webgl #rendererContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.impress-on-earth {
+	background: black;
+}
