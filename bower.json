@@ -13,6 +13,7 @@
 		"bootstrap": "~3",
 		"bootstrap-select": "latest",
 		"chroma-js": "latest",
+		"d3": "latest",
 		"fontawesome": "latest",
 		"jplayer": "latest",
 		"jquery": "~3",
