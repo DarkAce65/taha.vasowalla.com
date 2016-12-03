@@ -2,14 +2,15 @@ $(function() {
 	var bounds = {top: 20, right: 90, bottom: 30, left: 90, sidebar: 250};
 	var width = window.innerWidth - bounds.left - bounds.right - bounds.sidebar;
 	var height = window.innerHeight - bounds.top - bounds.bottom;
-	var i = 0, depthMultiplier = 180, duration = 750, root;
+
+	var root, i = 0, duration = 750, depthMultiplier = width / 4.5;
 	var treemap = d3.tree().size([height, width]);
 
 	var svg = d3.select("body").append("svg")
 		.attr("id", "tree")
 		.attr("width", width + bounds.right + bounds.left)
-		.attr("height", height + bounds.top + bounds.bottom)
-		.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
+		.attr("height", height + bounds.top + bounds.bottom);
+	var boundary = svg.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
 
 	var sidebar = d3.select("body").append("div")
 		.attr("id", "sidebar")
@@ -46,7 +47,7 @@ $(function() {
 			d.y = d.depth * depthMultiplier;
 		});
 
-		var node = svg.selectAll("g.node")
+		var node = boundary.selectAll("g.node")
 			.data(nodes, function(d) {
 				return d.id || (d.id = ++i);
 			});
@@ -106,7 +107,7 @@ $(function() {
 		nodeExit.select("circle").attr("r", 1e-6);
 		nodeExit.select("text").style("fill-opacity", 1e-6);
 
-		var link = svg.selectAll("path.link")
+		var link = boundary.selectAll("path.link")
 			.data(links, function(d) {
 				return d.id;
 			});
@@ -160,5 +161,23 @@ $(function() {
 
 		root.children.forEach(collapse);
 		update(root);
+	});
+
+	var resizeTimeout;
+	$(window).resize(function() {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function() {
+			width = window.innerWidth - bounds.left - bounds.right - bounds.sidebar;
+			height = window.innerHeight - bounds.top - bounds.bottom;
+
+			depthMultiplier = width / 4.5;
+			treemap = d3.tree().size([height, width]);
+			svg.attr("width", width + bounds.right + bounds.left)
+				.attr("height", height + bounds.top + bounds.bottom);
+			sidebar.style("width", bounds.sidebar + "px")
+				.style("height", height + bounds.top + bounds.bottom + "px");
+
+			update(root);
+		}, 500);
 	});
 });
