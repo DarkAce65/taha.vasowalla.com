@@ -1,23 +1,23 @@
 $(function() {
-	var bounds = {top: 20, right: 90, bottom: 30, left: 90, sidebar: 250};
-	var width = window.innerWidth - bounds.left - bounds.right - bounds.sidebar;
+	var bounds = {top: 20, right: 60, bottom: 20, left: 60};
+	var width = window.innerWidth - bounds.left - bounds.right;
 	var height = window.innerHeight - bounds.top - bounds.bottom;
 
-	var root, i = 0, duration = 750, depthMultiplier = width / 4.5;
-	var treemap = d3.tree().size([height, width]);
+	var depthMultiplier = width / 4;
+	var treemap;
 
 	var svg = d3.select("body").append("svg")
-		.attr("id", "tree")
-		.attr("width", width + bounds.right + bounds.left)
-		.attr("height", height + bounds.top + bounds.bottom);
+		.attr("id", "tree");
 	var boundary = svg.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
 
 	var sidebar = d3.select("body").append("div")
 		.attr("id", "sidebar")
 		.style("display", "inline-block")
-		.style("width", bounds.sidebar + "px")
-		.style("height", height + bounds.top + bounds.bottom + "px")
 		.style("background", "red");
+
+	resize();
+
+	var root, i = 0, duration = 750;
 
 	function update(source) {
 		function diagonal(s, d) { // Creates a curved (diagonal) path from parent to the child nodes
@@ -163,20 +163,35 @@ $(function() {
 		update(root);
 	});
 
+	function resize() {
+		var sidebarWidth, sidebarHeight;
+		if(window.innerWidth <= 600) {
+			sidebarWidth = window.innerWidth;
+			sidebarHeight = Math.min(window.innerHeight / 2, 300);
+			width = window.innerWidth - bounds.left - bounds.right;
+			height = window.innerHeight - sidebarHeight - bounds.top - bounds.bottom;
+		}
+		else {
+			sidebarWidth = 250;
+			sidebarHeight = window.innerHeight;
+			width = window.innerWidth - bounds.left - bounds.right - sidebarWidth;
+			height = window.innerHeight - bounds.top - bounds.bottom;
+		}
+
+		svg.attr("width", width + bounds.right + bounds.left)
+			.attr("height", height + bounds.top + bounds.bottom);
+		sidebar.style("width", sidebarWidth + "px")
+			.style("height", sidebarHeight + "px");
+
+		depthMultiplier = width / 4.5;
+		treemap = d3.tree().size([height, width]);
+	}
+
 	var resizeTimeout;
 	$(window).resize(function() {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(function() {
-			width = window.innerWidth - bounds.left - bounds.right - bounds.sidebar;
-			height = window.innerHeight - bounds.top - bounds.bottom;
-
-			depthMultiplier = width / 4.5;
-			treemap = d3.tree().size([height, width]);
-			svg.attr("width", width + bounds.right + bounds.left)
-				.attr("height", height + bounds.top + bounds.bottom);
-			sidebar.style("width", bounds.sidebar + "px")
-				.style("height", height + bounds.top + bounds.bottom + "px");
-
+			resize();
 			update(root);
 		}, 500);
 	});
