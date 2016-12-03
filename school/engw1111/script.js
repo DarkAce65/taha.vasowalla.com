@@ -11,9 +11,7 @@ $(function() {
 	var boundary = svg.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
 
 	var sidebar = d3.select("body").append("div")
-		.attr("id", "sidebar")
-		.style("display", "inline-block")
-		.style("background", "red");
+		.attr("id", "sidebar");
 
 	resize();
 
@@ -58,15 +56,14 @@ $(function() {
 			.attr("transform", function(d) {
 				return "translate(" + source.y0 + "," + source.x0 + ")";
 			})
-			.on("click", click);
+			.on("click", click)
+			.classed("haschildren", function(d) {
+				return d._children ? true : false;
+			});
 
 		// Add circle for the nodes
 		nodeEnter.append("circle")
-			.attr("class", "node")
-			.attr("r", 1e-6)
-			.style("fill", function(d) {
-				return d._children ? "lightsteelblue" : "#fff";
-			});
+			.attr("r", 1e-6);
 
 		// Add labels for the nodes
 		nodeEnter.append("text")
@@ -90,11 +87,10 @@ $(function() {
 			});
 
 		// Update the node attributes and style
-		nodeUpdate.select("circle.node")
-			.attr("r", 10)
-			.style("fill", function(d) {
-				return d._children ? "lightsteelblue" : "#fff";
-			});
+		nodeUpdate.classed("haschildren", function(d) {
+			return d._children ? true : false;
+		});
+		nodeUpdate.select("circle").attr("r", 10);
 
 		// Remove any exiting nodes
 		var nodeExit = node.exit().transition()

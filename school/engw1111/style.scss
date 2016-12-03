@@ -2,17 +2,37 @@ html, body {
 	overflow: hidden;
 }
 
+body {
+	background: #121212;
+}
+
+#sidebar {
+	display: inline-block;
+	background: #333;
+}
+
+#tree, #sidebar {
+	transition: 0.75s;
+}
+
 .node {
 	cursor: pointer;
 
 	circle {
-		fill: #fff;
+		fill: white;
 		stroke: steelblue;
 		stroke-width: 2px;
 	}
 
 	text {
+		fill: white;
 		font-family: sans-serif;
+	}
+
+	&.haschildren {
+		circle {
+			fill: lightsteelblue;
+		}
 	}
 }
 
