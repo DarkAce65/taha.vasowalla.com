@@ -57,7 +57,7 @@ $(function() {
 				return "translate(" + source.y0 + "," + source.x0 + ")";
 			})
 			.on("click", click)
-			.classed("haschildren", function(d) {
+			.classed("collapsed", function(d) {
 				return d._children ? true : false;
 			});
 
@@ -87,7 +87,7 @@ $(function() {
 			});
 
 		// Update the node attributes and style
-		nodeUpdate.classed("haschildren", function(d) {
+		nodeUpdate.classed("collapsed", function(d) {
 			return d._children ? true : false;
 		});
 		nodeUpdate.select("circle").attr("r", 10);
