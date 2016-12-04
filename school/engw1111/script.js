@@ -167,6 +167,9 @@ $(function() {
 		}
 
 		root.children.forEach(collapse);
+		var content = root.data.content ? root.data.content : "";
+		var title = root.data.title ? root.data.title : root.data.name;
+		sidebar.html('<p class="h3 title">' + title + '</p><hr><div class="content">' + content + '</div>');
 		update(root);
 	});
 
