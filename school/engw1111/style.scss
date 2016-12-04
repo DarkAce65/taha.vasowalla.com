@@ -59,6 +59,6 @@ body {
 
 .link {
 	fill: none;
-	stroke: lighten($primary, 25);
+	stroke: shade(desaturate($primary, 40), 60);
 	stroke-width: 1px;
 }
