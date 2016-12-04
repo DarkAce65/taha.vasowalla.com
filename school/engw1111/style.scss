@@ -41,7 +41,7 @@ body {
 	cursor: pointer;
 
 	circle {
-		fill: white;
+		fill: #121212;
 		stroke: $primary;
 		stroke-width: 2px;
 	}
@@ -52,7 +52,7 @@ body {
 
 	&.collapsed {
 		circle {
-			fill: lighten($primary, 20);
+			fill: $primary;
 		}
 	}
 }
