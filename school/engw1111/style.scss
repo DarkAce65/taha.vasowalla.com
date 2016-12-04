@@ -18,13 +18,18 @@ body {
 
 #sidebar {
 	position: absolute;
-	background: #333;
+	background: lighten($primary, 20);
+	color: #333;
 	bottom: 0;
 	right: 0;
 	padding: 15px;
 
 	.title {
 		text-align: center;
+	}
+
+	hr {
+		border-color: #aaa;
 	}
 }
 
