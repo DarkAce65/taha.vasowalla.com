@@ -2,7 +2,6 @@
 @import "colors/colors";
 
 /* Fonts */
-
 @import url("http://fonts.googleapis.com/css?family=Lato:300,400,700|Quicksand|Raleway:500,700");
 
 * {
@@ -42,7 +41,7 @@ code {
 }
 
 .page-header p, .Quicksand {
-	font-family: "Quicksand", cursive;
+	font-family: "Quicksand", sans-serif;
 }
 
 .page-header, .page-header .h1 {
@@ -132,7 +131,7 @@ code {
 
 .listCollapse {
 	@include display(flex);
-	font-family: "Quicksand";
+	font-family: "Quicksand", sans-serif;
 	color: white;
 	background-color: $dark-accent-color;
 	padding: 20px 15px;
@@ -244,7 +243,7 @@ code {
 		right: 0;
 		text-align: right;
 		font-size: 24px;
-		font-family: Quicksand;
+		font-family: "Quicksand", sans-serif;
 		@include linear-gradient(transparent, black);
 	}
 
@@ -257,7 +256,7 @@ code {
 		right: 0;
 		text-align: right;
 		font-size: 14px;
-		font-family: Quicksand;
+		font-family: "Quicksand", sans-serif;
 		@include linear-gradient(black, transparent);
 		background-color: transparent;
 	}
@@ -284,7 +283,7 @@ code {
 			color: $light-accent-color;
 			padding: 5px 0;
 			font-size: 20px;
-			font-family: Raleway;
+			font-family: "Raleway", sans-serif;;
 		}
 	}
 }
