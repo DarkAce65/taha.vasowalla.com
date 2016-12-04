@@ -55,7 +55,7 @@ $(function() {
 				return d.id || (d.id = ++i);
 			});
 
-		// Enter any new modes at the parent's previous position.
+		// Enter any new nodes at the parent's previous position.
 		var nodeEnter = node.enter().append("g")
 			.attr("class", "node")
 			.attr("transform", function(d) {
@@ -68,8 +68,7 @@ $(function() {
 			});
 
 		// Add circle for the nodes
-		nodeEnter.append("circle")
-			.attr("r", 1e-6);
+		nodeEnter.append("circle").attr("r", 1e-6);
 
 		// Add labels for the nodes
 		nodeEnter.append("text")
@@ -168,16 +167,16 @@ $(function() {
 	function resize() {
 		var sidebarWidth, sidebarHeight;
 		if(window.innerWidth <= 600) {
-			var w = Math.min(window.innerHeight / 2, 300);
+			var h = Math.min(window.innerHeight / 2, 300);
 			width = window.innerWidth - bounds.left - bounds.right;
-			height = window.innerHeight - w - bounds.top - bounds.bottom;
+			height = window.innerHeight - h - bounds.top - bounds.bottom;
 			sidebarWidth = "100%";
-			sidebarHeight = w + "px";
+			sidebarHeight = h + "px";
 		}
 		else {
-			width = window.innerWidth - bounds.left - bounds.right - 250;
+			width = window.innerWidth - bounds.left - bounds.right - 300;
 			height = window.innerHeight - bounds.top - bounds.bottom;
-			sidebarWidth = "250px";
+			sidebarWidth = "300px";
 			sidebarHeight = "100%";
 		}
 
