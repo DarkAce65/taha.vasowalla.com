@@ -162,22 +162,23 @@ $(function() {
 	function resize() {
 		var sidebarWidth, sidebarHeight;
 		if(window.innerWidth <= 600) {
-			sidebarWidth = window.innerWidth;
-			sidebarHeight = Math.min(window.innerHeight / 2, 300);
+			var w = Math.min(window.innerHeight / 2, 300);
 			width = window.innerWidth - bounds.left - bounds.right;
-			height = window.innerHeight - sidebarHeight - bounds.top - bounds.bottom;
+			height = window.innerHeight - w - bounds.top - bounds.bottom;
+			sidebarWidth = "100%";
+			sidebarHeight = w + "px";
 		}
 		else {
-			sidebarWidth = 250;
-			sidebarHeight = window.innerHeight;
-			width = window.innerWidth - bounds.left - bounds.right - sidebarWidth;
+			width = window.innerWidth - bounds.left - bounds.right - 250;
 			height = window.innerHeight - bounds.top - bounds.bottom;
+			sidebarWidth = "250px";
+			sidebarHeight = "100%";
 		}
 
 		svg.attr("width", width + bounds.right + bounds.left)
 			.attr("height", height + bounds.top + bounds.bottom);
-		sidebar.style("width", sidebarWidth + "px")
-			.style("height", sidebarHeight + "px");
+		sidebar.style("width", sidebarWidth)
+			.style("height", sidebarHeight);
 
 		depthMultiplier = width / 4.5;
 		treemap = d3.tree().size([height, width]);
