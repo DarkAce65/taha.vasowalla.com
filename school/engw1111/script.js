@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	var bounds = {top: 20, right: 20, bottom: 20, left: 90};
 	var width = window.innerWidth - bounds.left - bounds.right;
-	var height = window.innerHeight - bounds.top - bounds.bottom;
+	var height = window.innerHeight - bounds.top - bounds.bottom
 
+	var root, i = 0, duration = 750;
+	var wait = false;
 	var levels = 1, depthMultiplier = width / levels;
 	var treemap;
 
@@ -11,11 +13,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	var sidebar = d3.select("#sidebar");
 	var sidebarContainer = sidebar.select("#content");
+	var expandButton = sidebar.select("#expand").on("click", function() {expand(root); update(root);});
 
 	resize();
-
-	var root, i = 0, duration = 750;
-	var wait = false;
 
 	function update(source) {
 		function diagonal(s, d) { // Creates a curved (diagonal) path from parent to the child nodes
@@ -144,6 +144,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			d.x0 = d.x;
 			d.y0 = d.y;
 		});
+	}
+
+	function expand(d) {
+		if(d._children) {
+			d.children = d._children;
+			d.children.forEach(expand);
+			d._children = null;
+		}
+		else if(d.children) {
+			d.children.forEach(expand);
+		}
 	}
 
 	d3.json("data.json", function(error, data) {
