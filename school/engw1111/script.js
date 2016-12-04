@@ -41,7 +41,7 @@ $(function() {
 
 		function hover(d) {
 			var content = d.data.content ? d.data.content : "";
-			sidebar.html('<div class="title">' + d.data.name + '</div><div class="content">' + content + '</div>');
+			sidebar.html('<p class="h3 title">' + d.data.name + '</p><hr><div class="content">' + content + '</div>');
 		}
 
 		var treeData = treemap(root);
