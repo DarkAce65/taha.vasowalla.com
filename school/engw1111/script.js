@@ -1,4 +1,4 @@
-$(function() {
+document.addEventListener("DOMContentLoaded", function(event) {
 	var bounds = {top: 20, right: 60, bottom: 20, left: 60};
 	var width = window.innerWidth - bounds.left - bounds.right;
 	var height = window.innerHeight - bounds.top - bounds.bottom;
@@ -199,11 +199,11 @@ $(function() {
 	}
 
 	var resizeTimeout;
-	window.onresize = function() {
+	window.addEventListener("resize", function() {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(function() {
 			resize();
 			update(root);
 		}, 500);
-	};
+	});
 });
