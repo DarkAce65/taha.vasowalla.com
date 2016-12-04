@@ -39,6 +39,11 @@ $(function() {
 			update(d);
 		}
 
+		function hover(d) {
+			var content = d.data.content ? d.data.content : "";
+			sidebar.html('<div class="title">' + d.data.name + '</div><div class="content">' + content + '</div>');
+		}
+
 		var treeData = treemap(root);
 		var nodes = treeData.descendants(), links = treeData.descendants().slice(1);
 		nodes.forEach(function(d) {
@@ -57,6 +62,7 @@ $(function() {
 				return "translate(" + source.y0 + "," + source.x0 + ")";
 			})
 			.on("click", click)
+			.on("mouseenter", hover)
 			.classed("collapsed", function(d) {
 				return d._children ? true : false;
 			});
@@ -185,11 +191,11 @@ $(function() {
 	}
 
 	var resizeTimeout;
-	$(window).resize(function() {
+	window.onresize = function() {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(function() {
 			resize();
 			update(root);
 		}, 500);
-	});
+	};
 });
