@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var width = window.innerWidth - bounds.left - bounds.right;
 	var height = window.innerHeight - bounds.top - bounds.bottom;
 
-	var depthMultiplier = width / 4;
+	var levels = 1, depthMultiplier = width / levels;
 	var treemap;
 
 	var svg = d3.select("body").append("svg")
@@ -157,6 +157,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		root = d3.hierarchy(data, function(d) {return d.children;});
 		root.x0 = height / 2;
 		root.y0 = 0;
+		levels = root.height;
+		depthMultiplier = width / levels;
 
 		function collapse(d) {
 			if(d.children) {
@@ -194,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		sidebar.style("width", sidebarWidth)
 			.style("height", sidebarHeight);
 
-		depthMultiplier = width / 4.5;
+		depthMultiplier = width / levels;
 		treemap = d3.tree().size([height, width]);
 	}
 
