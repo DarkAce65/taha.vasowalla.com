@@ -16,6 +16,7 @@ $(function() {
 	resize();
 
 	var root, i = 0, duration = 750;
+	var wait = false;
 
 	function update(source) {
 		function diagonal(s, d) { // Creates a curved (diagonal) path from parent to the child nodes
@@ -28,6 +29,8 @@ $(function() {
 		}
 
 		function click(d) {
+			wait = true;
+			setTimeout(function() {wait = false;}, duration / 2);
 			if(d.children) {
 				d._children = d.children;
 				d.children = null;
@@ -40,8 +43,10 @@ $(function() {
 		}
 
 		function hover(d) {
-			var content = d.data.content ? d.data.content : "";
-			sidebar.html('<p class="h3 title">' + d.data.name + '</p><hr><div class="content">' + content + '</div>');
+			if(!wait) {
+				var content = d.data.content ? d.data.content : "";
+				sidebar.html('<p class="h3 title">' + d.data.name + '</p><hr><div class="content">' + content + '</div>');
+			}
 		}
 
 		var treeData = treemap(root);
@@ -95,7 +100,7 @@ $(function() {
 		nodeUpdate.classed("collapsed", function(d) {
 			return d._children ? true : false;
 		});
-		nodeUpdate.select("circle").attr("r", 10);
+		nodeUpdate.select("circle").attr("r", 4);
 
 		// Remove any exiting nodes
 		var nodeExit = node.exit().transition()
