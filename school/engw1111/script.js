@@ -1,17 +1,16 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-	var bounds = {top: 20, right: 60, bottom: 20, left: 60};
+	var bounds = {top: 20, right: 20, bottom: 20, left: 90};
 	var width = window.innerWidth - bounds.left - bounds.right;
 	var height = window.innerHeight - bounds.top - bounds.bottom;
 
 	var levels = 1, depthMultiplier = width / levels;
 	var treemap;
 
-	var svg = d3.select("body").append("svg")
-		.attr("id", "tree");
+	var svg = d3.select("#tree");
 	var boundary = svg.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
 
-	var sidebar = d3.select("body").append("div")
-		.attr("id", "sidebar");
+	var sidebar = d3.select("#sidebar");
+	var sidebarContainer = sidebar.select("#content");
 
 	resize();
 
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			if(!wait) {
 				var content = d.data.content ? d.data.content : "";
 				var title = d.data.title ? d.data.title : d.data.name;
-				sidebar.html('<p class="h3 title">' + title + '</p><hr><div class="content">' + content + '</div>');
+				sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="content">' + content + '</div>');
 			}
 		}
 
@@ -79,12 +78,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		// Add labels for the nodes
 		nodeEnter.append("text")
 			.attr("dy", ".35em")
-			.attr("x", function(d) {
-				return d.children || d._children ? -12 : 12;
-			})
-			.attr("text-anchor", function(d) {
-				return d.children || d._children ? "end" : "start";
-			})
+			.attr("x", -12)
+			.attr("text-anchor", "end")
 			.text(function(d) {
 				return d.data.name;
 			});
@@ -171,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		root.children.forEach(collapse);
 		var content = root.data.content ? root.data.content : "";
 		var title = root.data.title ? root.data.title : root.data.name;
-		sidebar.html('<p class="h3 title">' + title + '</p><hr><div class="content">' + content + '</div>');
+		sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="content">' + content + '</div>');
 		update(root);
 	});
 
