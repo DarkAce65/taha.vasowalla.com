@@ -21,8 +21,14 @@ body {
 	}
 }
 
-#tree {
+#treeContainer {
 	font-family: "Quicksand", sans-serif;
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	#tree {
+		height: 100%;
+	}
 }
 
 #sidebar {

@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	var bounds = {top: 20, right: 20, bottom: 20, left: 90};
-	var width = window.innerWidth - bounds.left - bounds.right;
-	var height = window.innerHeight - bounds.top - bounds.bottom
+	var width, height;
 
 	var root, i = 0, duration = 750;
 	var wait = false;
-	var levels = 1, depthMultiplier = width / levels;
+	var levels = 1, depthMultiplier;
 	var treemap;
 
+	var treeContainer = d3.select("#treeContainer");
 	var svg = d3.select("#tree");
 	var boundary = svg.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
 
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		root.x0 = height / 2;
 		root.y0 = 0;
 		levels = root.height;
-		depthMultiplier = width / levels;
+		resize();
 
 		function collapse(d) {
 			if(d.children) {
@@ -183,26 +183,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	function resize() {
 		var sidebarWidth, sidebarHeight;
+		var minWidth = levels * 170;
+		width = window.innerWidth - bounds.left - bounds.right;
+		height = window.innerHeight - bounds.top - bounds.bottom;
+
 		if(window.innerWidth <= 600) {
 			var h = Math.min(window.innerHeight / 2, 300);
-			width = window.innerWidth - bounds.left - bounds.right;
-			height = window.innerHeight - h - bounds.top - bounds.bottom;
+			height -= h;
 			sidebarWidth = "100%";
 			sidebarHeight = h + "px";
 		}
 		else {
-			width = window.innerWidth - bounds.left - bounds.right - 300;
-			height = window.innerHeight - bounds.top - bounds.bottom;
+			width -= 300;
 			sidebarWidth = "300px";
 			sidebarHeight = "100%";
 		}
 
-		svg.attr("width", width + bounds.right + bounds.left)
-			.attr("height", height + bounds.top + bounds.bottom);
+		treeContainer.style("width", width + bounds.right + bounds.left + "px")
+			.style("height", height + bounds.top + bounds.bottom + "px");
 		sidebar.style("width", sidebarWidth)
 			.style("height", sidebarHeight);
 
+		if(width < minWidth) {
+			width = minWidth;
+		}
 		depthMultiplier = width / levels;
+		svg.attr("width", width + bounds.right + bounds.left);
+
 		treemap = d3.tree().size([height, width]);
 	}
 
