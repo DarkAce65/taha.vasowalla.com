@@ -13,11 +13,15 @@ body {
 	color: white;
 
 	a {
-		color: $primary;
+		border-bottom: 0.1em solid shade($primary, 10);
+		box-shadow: inset 0 -0.1em 0 shade($primary, 10);
+		text-decoration: none;
+		transition: background 0.2s;
 	}
 
 	a:hover, a:focus {
-		color: darken($primary, 15);
+		background-color: shade($primary, 10);
+		text-decoration: none;
 	}
 }
 
