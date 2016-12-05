@@ -1,5 +1,6 @@
 @import "../../bourbon/bourbon";
 
+$dark: #121212;
 $primary: #5fef52;
 
 html, body {
@@ -8,8 +9,16 @@ html, body {
 }
 
 body {
-	background: #121212;
+	background: $dark;
 	color: white;
+
+	a {
+		color: $primary;
+	}
+
+	a:hover, a:focus {
+		color: darken($primary, 15);
+	}
 }
 
 #tree {
@@ -24,6 +33,14 @@ body {
 	right: 0;
 	padding: 0 15px;
 
+	a {
+		color: $dark;
+	}
+
+	a:hover, a:focus {
+		color: darken($dark, 15);
+	}
+
 	.title {
 		text-align: center;
 	}
@@ -31,17 +48,23 @@ body {
 	hr {
 		border-color: #aaa;
 	}
+
+	#footer {
+		position: absolute;
+		bottom: 15px;
+		font-size: 80%;
+	}
 }
 
 #tree, #sidebar {
-	@include transition(width 0.75s, width 0.75s);
+	@include transition(width 0.75s, height 0.75s);
 }
 
 .node {
 	cursor: pointer;
 
 	circle {
-		fill: #121212;
+		fill: $dark;
 		stroke: $primary;
 		stroke-width: 2px;
 	}
