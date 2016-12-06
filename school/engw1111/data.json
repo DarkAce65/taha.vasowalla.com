@@ -1,25 +1,31 @@
 {
 	"name": "ENGW 1111",
 	"title": "First Year Writing<br><small>ENGW 1111</small>",
-	"content": "<p></p>",
+	"content": "<p>Ah, reflections. I could never stand writing them and I most of the time I didn't even want to read them. So I decided to do something a little different for this one.</p><p>This is a tree layout of the projects I did over the course of the semester including the topics and various research paths that stemmed from them.</p><p>Items with a <svg width=\"10\" height=\"10\" class=\"node collapsed\"><circle cx=\"5\" cy=\"5\" r=\"4\"></circle></svg> are clickable and expand the tree to show the next level of items<br>Items with a <svg width=\"10\" height=\"10\" class=\"node\"><circle cx=\"5\" cy=\"5\" r=\"4\"></circle></svg> are the end of a branch and don't expand</p>",
 	"children": [
 		{
 			"name": "P1: The Writing We Do",
 			"title": "The Writing We Do<br><small>Project 1</small>",
-			"content": "<p>We read and write a surprising amount throughout our daily lives, often without even noticing. This project was an attempt to recognize and log instances of reading and writing as well as to reflect on any patterns or surprising trends that appeared.</p>",
+			"content": "<p>We read and write a surprising amount throughout our daily lives, often without even noticing. This project was an attempt to recognize and log instances of reading and writing as well as to reflect on any patterns or surprising trends that appeared.</p><p>What I found during this project, was a little surprising to me. I don't consider myself a writer, but the hours I spent writing far outnumbered the time I spent doing anything else. The reason for that however was because I was programming.</p>",
 			"children": [
-				{"name": "Programming"},
-				{"name": "Reading"}
+				{
+					"name": "Programming",
+					"content": "<p>I spent the majority of my time programming and although it seems like a bit of a stretch to call it writing, the thought processes are very similar. Both programming and writing have some kind of end goal and require multiple stages of editing to reach a well-polished final product. Both of them can also involve research to begin and editing by peers to ensure that no errors exist. The only real difference between them is the language you write in.</p>"
+				},
+				{
+					"name": "Reading",
+					"content": "<p>The reading I logged over the tracking period was, for the most part, reading for pleasure. One in particular was a book called <i>Cracking the Coding Interview</i> which explains how someone could prepare for a coding interview and some sample problems that could appear.</p>"
+				}
 			]
 		},
 		{
 			"name": "P2: Community Profile",
 			"title": "Community Profile<br><small>Project 2</small>",
-			"content": "<p>Different communities can be found everywhere and are greatly varied in every aspect. This project identified and described a community with a specific interest, in my case, it was the community of deception-based board game players. I collected information by interviewing players and drawing on my own knowledge of the games.</p>",
+			"content": "<p>Different communities can be found everywhere and are greatly varied in every aspect. This project described a community with a specific interest and identified some defining characteristics of the group. In my case, it was the community of deception-based board game players. I collected information from interviews with players of these games and by drawing on my own knowledge and experience.</p>",
 			"children": [
 				{
 					"name": "Computer Scientists",
-					"content": "<p>Initially, I thought about showcasing the computer science community. I was planning on defining some key characteristics of the different fields that people go into in CS.</p>",
+					"content": "<p>Initially, I thought about showcasing the computer science community. I was planning on defining some key characteristics of the different computer related fields that people go into.</p>",
 					"children": [
 						{
 							"name": "Databases",
@@ -27,15 +33,15 @@
 						},
 						{
 							"name": "Programming",
-							"content": "<p>Programming is a core area of computer science and there is a wide range of subfields underneath it.</p>",
+							"content": "<p>Programming is a core area of computer science of which there is a wide variety of things it can be extended to.</p>",
 							"children": [
 								{
 									"name": "Low-level",
-									"content": "<p>Low-level programming deals with instructions that are sent directly to the computer.</p><pre>section    .text\n    global _start   ;must be declared for linker (ld)\n_start:                ;tells linker entry point\n    mov    edx,len     ;message length\n    mov    ecx,msg     ;message to write\n    mov    ebx,1       ;file descriptor (stdout)\n    mov    eax,4       ;system call number (sys_write)\n    int    0x80        ;call kernel\n\n    mov    eax,1       ;system call number (sys_exit)\n    int    0x80        ;call kernel\n\nsection    .data\nmsg db 'Hello, world!', 0xa  ;string to be printed\nlen equ $ - msg     ;length of the string</pre><p>The code above will print out \"Hello, world!\"</p>"
+									"content": "<pre>section    .text\n    global _start   ;must be declared for linker (ld)\n_start:                ;tells linker entry point\n    mov    edx,len     ;message length\n    mov    ecx,msg     ;message to write\n    mov    ebx,1       ;file descriptor (stdout)\n    mov    eax,4       ;system call number (sys_write)\n    int    0x80        ;call kernel\n\n    mov    eax,1       ;system call number (sys_exit)\n    int    0x80        ;call kernel\n\nsection    .data\nmsg db 'Hello, world!', 0xa  ;string to be printed\nlen equ $ - msg     ;length of the string</pre><p style=\"text-align: center;\"><small>Assembly code that will print out \"Hello, world!\"</small></p><p>Low-level programming deals with instructions that are sent directly to the computer.</p>"
 								},
 								{
 									"name": "High-level",
-									"content": "High-level programming deals with programming algorithms and handling data. Code written in a high-level langauge is much more human readable than that of a low-level language and is often where people start learning to program. A common field in high-level programming is web development because, for the most part, websites don't have to access the core parts of a computer in order to serve their purpose."
+									"content": "<pre>print(\"Hello, world!\")</pre><p style=\"text-align: center;\"><small>Python code will print out \"Hello, world!\"</small></p><p>High-level programming deals with programming algorithms and handling data. Code written in a high-level langauge is much more human readable than that of a low-level language and is often where people start learning to program. A common field in high-level programming is web development because, for the most part, websites don't have to access the core parts of a computer in order to serve their purpose.</p>"
 								}
 							]
 						}
@@ -43,10 +49,15 @@
 				},
 				{
 					"name": "Board Game Players",
+					"content": "<p>The community of board game players is exceedingly large so I decided to break it up even further to target a more specific group of people without restricting it to a certain field.</p>",
 					"children": [
 						{
 							"name": "Strategy",
-							"content": "Risk, Settlers of Catan"
+							"content": "<p>Strategy games </p>"
+						},
+						{
+							"name": "Interaction",
+							"content": "Hex Hex, Avalon"
 						},
 						{
 							"name": "Deception",
@@ -54,10 +65,6 @@
 							"children": [
 								{"name": "Types of players"}
 							]
-						},
-						{
-							"name": "Interaction",
-							"content": "Hex Hex, Avalon"
 						}
 					]
 				}

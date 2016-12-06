@@ -174,10 +174,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			}
 		}
 
-		root.children.forEach(collapse);
 		var content = root.data.content ? root.data.content : "";
 		var title = root.data.title ? root.data.title : root.data.name;
 		sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="nodeContent">' + content + '</div>');
+		collapse(root);
 		update(root);
 	});
 
