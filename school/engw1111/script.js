@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var boundary = svg.append("g").attr("transform", "translate(" + bounds.left + "," + bounds.top + ")");
 
 	var sidebar = d3.select("#sidebar");
-	var sidebarContainer = sidebar.select("#content");
+	var sidebarContainer = sidebar.select("#main");
 	var expandButton = sidebar.select("#expand").on("click", function() {expand(root); update(root);});
 
 	resize();
