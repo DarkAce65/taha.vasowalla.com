@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		width = window.innerWidth - bounds.left - bounds.right;
 		height = window.innerHeight - bounds.top - bounds.bottom;
 
-		if(window.innerWidth <= 600) {
+		if(window.innerWidth < 768) {
 			var h = Math.min(window.innerHeight / 2, 300);
 			height -= h;
 			sidebarWidth = "100%";
