@@ -37,7 +37,7 @@ body {
 
 #sidebar {
 	position: absolute;
-	background: lighten($primary, 20);
+	background: lighten($primary, 15);
 	color: #333;
 	bottom: 0;
 	right: 0;
@@ -91,6 +91,6 @@ body {
 
 .link {
 	fill: none;
-	stroke: shade(desaturate($primary, 40), 60);
+	stroke: shade(desaturate($primary, 50), 50);
 	stroke-width: 1px;
 }
