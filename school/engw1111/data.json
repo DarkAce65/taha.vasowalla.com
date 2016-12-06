@@ -95,19 +95,19 @@
 		},
 		{
 			"name": "Me",
-			"content": "<p>Being the cynical logician that I am, editing essays was much easier than generating content for them. In this way, I usually ended up with very short, direct essays. However, I never fully enjoyed writing in an English class before college. When I had topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline for each essay I wrote (as you can no doubt see by this tree), but I felt that I could better expand on each point I thought of.</p>",
+			"content": "<p>Being the cynical logician that I am, editing essays is much easier than generating content for them. In this way, I usually ended up with very short, direct essays. However, I never fully enjoyed writing in an English class before college. When I had topics I actually cared to write about, I was able to elaborate more than I normally did.</p>",
 			"children": [
 				{
 					"name": "Strengths/Weaknesses",
-					"content": "<p>When writing about topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline for each essay I wrote, but I felt like I could expand more on each bullet I added. I think my strengths and weaknesses are mostly the same as before, but I feel like I know that I have the potential to write more completely when I'm vested in the topic.</p>"
+					"content": "<p>When writing about topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline before each essay I wrote (as you can no doubt see by this tree) and I feel now that I can better expand on each point I thought of. I think my strengths and weaknesses are mostly the same as before, but I feel like I know that I have the potential to write more completely when I'm vested in the topic.</p>"
 				},
 				{
 					"name": "Procrastination",
-					"content": "<p>Procrastinating on essays was something I always did before (and still do), but I don't leave everything until the night before anymore because I know that there's so much I want to get on the paper.</p>"
+					"content": "<p>Procrastinating on essays was something I always did before (and still do in fact), but for essays I have an interest in, I don't leave everything until the night before anymore because I know that there's so much I want to get on the paper. Having things to write about was a new feeling for me as I hadn't ever had the chance to write essays about topics I wanted</p>"
 				},
 				{
 					"name": "Digication",
-					"content": "<p>Having a platform like Digication to post works on helped me in some ways to set a specific tone of voice for a defined audience (as well themes to mess around with), but the web developer in me made it near impossible not to criticize the way the website was built. I was already used to creating content suitable for the web so structuring my content wasn't too difficult, but it was occasionally distracting to see some style on the page that didn't fit with the rest of the site and to edit the code to hide its effects.</p>"
+					"content": "<p>Having a platform like Digication to post works on helped me in some ways to set a specific tone of voice for a defined audience (as well themes to mess around with), but the web developer in me made it near impossible not to criticize the way the website was built. I was already used to creating content suitable for the web so structuring my content wasn't too difficult, but it was occasionally distracting to see some style on the page that didn't fit with the rest of the site and to edit the code to hide its effects.</p><p>I spend a lot of time tweaking the way my own website looks so I know how much effort it takes to create something that people will enjoy looking at. However, with Digication they appear to provide support for changing styles on your portfolio, but it's not truly available. In web development, styles are added to pages via files written in CSS. Digication does allow you to add in your own CSS stylesheet, but it doesn't evaluate what you type in correctly. It does not recognize any of the symbols which make CSS truly effective and locks out some basic styles such as fonts.</p>"
 				},
 				{
 					"name": "Future Plans",
