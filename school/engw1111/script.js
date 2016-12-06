@@ -214,11 +214,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	var resizeTimeout;
-	window.addEventListener("resize", function() {
+	window.addEventListener("resize", function(e) {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(function() {
 			resize();
 			update(root);
 		}, 500);
+	});
+
+	document.querySelector("#treeContainer").addEventListener("wheel", function(e) {
+		document.querySelector("#treeContainer").scrollLeft -= e.wheelDeltaY;
 	});
 });
