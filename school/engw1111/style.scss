@@ -37,19 +37,10 @@ body {
 
 #sidebar {
 	position: absolute;
-	background: lighten($primary, 15);
-	color: #333;
+	background: #333;
 	bottom: 0;
 	right: 0;
 	padding: 0 15px;
-
-	a {
-		color: $dark;
-	}
-
-	a:hover, a:focus {
-		color: darken($dark, 15);
-	}
 
 	.title {
 		text-align: center;
