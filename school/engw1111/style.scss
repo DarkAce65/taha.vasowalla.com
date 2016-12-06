@@ -60,6 +60,10 @@ body {
 		overflow-y: auto;
 		max-height: 100%;
 		padding: 0 15px 37px;
+
+		.nodeContent {
+			font-weight: 300;
+		}
 	}
 
 	#footer {
@@ -98,6 +102,6 @@ body {
 
 .link {
 	fill: none;
-	stroke: shade(desaturate($primary, 50), 50);
+	stroke: #555;
 	stroke-width: 1px;
 }
