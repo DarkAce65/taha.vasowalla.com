@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-	var bounds = {top: 20, right: 20, bottom: 20, left: 90};
+	var bounds = {top: 20, right: 20, bottom: 20, left: 96};
 	var width, height;
 
 	var root, i = 0, duration = 750;
