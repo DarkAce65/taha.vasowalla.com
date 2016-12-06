@@ -1,7 +1,7 @@
 {
 	"name": "ENGW 1111",
 	"title": "First Year Writing<br><small>ENGW 1111</small>",
-	"content": "<p>Ah, reflections. I could never stand writing them and I most of the time I didn't even want to read them. So I decided to do something a little different for this one.</p><p>This is a tree layout of the projects I did over the course of the semester including the topics and various research paths that stemmed from them.</p><p>Items with a <svg width=\"10\" height=\"10\" class=\"node collapsed\"><circle cx=\"5\" cy=\"5\" r=\"4\"></circle></svg> are clickable and expand the tree to show the next level of items<br>Items with a <svg width=\"10\" height=\"10\" class=\"node\"><circle cx=\"5\" cy=\"5\" r=\"4\"></circle></svg> are the end of a branch and don't expand</p>",
+	"content": "<p>Ah, reflections. I could never stand writing them and I most of the time I didn't even want to read them. So I decided to do something a little different for this one.</p><p>This is a tree layout of the projects I did over the course of the semester including the topics and various research paths that stemmed from them. The projects are available on my <a href=\"https://myneufolio.digication.com/taha_vasowalla_first_year_writing/Home/\" target=\"_blank\">portfolio</a> on Digication.</p><p>Items with a <svg width=\"10\" height=\"10\" class=\"node collapsed\"><circle cx=\"5\" cy=\"5\" r=\"4\"></circle></svg> are clickable and expand the tree to show the next level of items<br>Items with a <svg width=\"10\" height=\"10\" class=\"node\"><circle cx=\"5\" cy=\"5\" r=\"4\"></circle></svg> are the end of a branch and don't expand</p>",
 	"children": [
 		{
 			"name": "P1: The Writing We Do",
@@ -33,14 +33,16 @@
 						},
 						{
 							"name": "Programming",
-							"content": "<p>Programming is a core area of computer science of which there is a wide variety of things it can be extended to.</p>",
+							"content": "<p>Programming is a core area of computer science of which there is a wide variety of things it can be extended to. If you're in CS, it's pretty much expected that you'll know two programming langauges at a minimum.</p>",
 							"children": [
 								{
 									"name": "Low-level",
+									"title": "Low-level Programming",
 									"content": "<pre>section    .text\n    global _start   ;must be declared for linker (ld)\n_start:                ;tells linker entry point\n    mov    edx,len     ;message length\n    mov    ecx,msg     ;message to write\n    mov    ebx,1       ;file descriptor (stdout)\n    mov    eax,4       ;system call number (sys_write)\n    int    0x80        ;call kernel\n\n    mov    eax,1       ;system call number (sys_exit)\n    int    0x80        ;call kernel\n\nsection    .data\nmsg db 'Hello, world!', 0xa  ;string to be printed\nlen equ $ - msg     ;length of the string</pre><p style=\"text-align: center;\"><small>Assembly code that will print out \"Hello, world!\"</small></p><p>Low-level programming deals with instructions that are sent directly to the computer.</p>"
 								},
 								{
 									"name": "High-level",
+									"title": "High-level Programming",
 									"content": "<pre>print(\"Hello, world!\")</pre><p style=\"text-align: center;\"><small>Python code will print out \"Hello, world!\"</small></p><p>High-level programming deals with programming algorithms and handling data. Code written in a high-level langauge is much more human readable than that of a low-level language and is often where people start learning to program. A common field in high-level programming is web development because, for the most part, websites don't have to access the core parts of a computer in order to serve their purpose.</p>"
 								}
 							]
@@ -53,17 +55,46 @@
 					"children": [
 						{
 							"name": "Strategy",
-							"content": "<p>Strategy games </p>"
+							"content": "<p>The first genre of games I thought of was of strategy games. Games like <i>Risk</i> or <i>Chess</i>. However, I felt that I may only find a very specific type of people who played these types of games. Those who are thinkers, planners, and tacticians. I didn't think I would see very much diversity in this genre as opposed to some others.</p>"
 						},
 						{
-							"name": "Interaction",
-							"content": "Hex Hex, Avalon"
+							"name": "Classics",
+							"content": "<p>I considered interviewing players of what I called the classics genre of games. These would be games like <i>Monopoly</i>, <i>Sorry</i>, <i>The Game of Life</i>, <i>Pictionary</i>, etc. This was a viable choice but I didn't really feel much of an interest in doing it.</p>"
 						},
 						{
 							"name": "Deception",
-							"content": "Coup, Avalon",
+							"content": "<p>Deception-based games. Now this was a topic that I was very interested in, even more so because I had found a set of people on my floor who were also very into playing this type of game. It was a fairly clear choice to pick this genre because I love the concept of trying to convince people of something that is not always true.</p>",
 							"children": [
-								{"name": "Types of players"}
+								{
+									"name": "Types of players",
+									"content": "<p>After interviewing some players, I compiled a list of the types of personalities that appear during the games.</p>",
+									"children": [
+										{
+											"name": "Statistician",
+											"content": "<p>Decisions are based on probabilities</p>"
+										},
+										{
+											"name": "Logician",
+											"content": "<p>Decisions are made by logical elimination</p>"
+										},
+										{
+											"name": "Psychologist",
+											"content": "<p>Decisions are based on behaviors of others</p>"
+										},
+										{
+											"name": "Trickster",
+											"content": "<p>Makes claims that throw off the general consensus of the group</p>"
+										},
+										{
+											"name": "Random",
+											"content": "<p>Randomly says things to throw people off</p>"
+										},
+										{
+											"name": "Common Traits",
+											"content": "<ul class=\"list-unstyled\"><li>Poker face - ability to control facial expressions to give suggestive hints to others</li><li>Adaptability - ability to recover from an upset by a trickster</li><li>Levels - how far the actions of others are predicted</li></ul>"
+										}
+									]
+								}
 							]
 						}
 					]
@@ -102,6 +133,7 @@
 		},
 		{
 			"name": "Me",
+			"title": "Me<br><small>As a writer</small>",
 			"content": "<p>Being the cynical logician that I am, editing essays is much easier than generating content for them. In this way, I usually ended up with very short, direct essays. However, I never fully enjoyed writing in an English class before college. When I had topics I actually cared to write about, I was able to elaborate more than I normally did.</p>",
 			"children": [
 				{
