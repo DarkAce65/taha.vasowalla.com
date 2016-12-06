@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			if(!wait) {
 				var content = d.data.content ? d.data.content : "";
 				var title = d.data.title ? d.data.title : d.data.name;
-				sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="content">' + content + '</div>');
+				sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="nodeContent">' + content + '</div>');
 			}
 		}
 
