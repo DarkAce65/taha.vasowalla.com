@@ -188,14 +188,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		height = window.innerHeight - bounds.top - bounds.bottom;
 
 		if(window.innerWidth < 768) {
-			var h = Math.min(window.innerHeight / 2, 300);
+			var h = Math.min(window.innerHeight / 2, 350);
 			height -= h;
 			sidebarWidth = "100%";
 			sidebarHeight = h + "px";
 		}
 		else {
-			width -= 300;
-			sidebarWidth = "300px";
+			width -= 350;
+			sidebarWidth = "350px";
 			sidebarHeight = "100%";
 		}
 
