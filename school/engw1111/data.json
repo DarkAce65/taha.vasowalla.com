@@ -1,30 +1,33 @@
 {
 	"name": "ENGW 1111",
 	"title": "First Year Writing<br><small>ENGW 1111</small>",
-	"content": "",
+	"content": "<p></p>",
 	"children": [
 		{
-			"name": "The Writing We Do",
-			"content": "[project description]",
+			"name": "P1: The Writing We Do",
+			"title": "The Writing We Do<br><small>Project 1</small>",
+			"content": "<p>We read and write a surprising amount throughout our daily lives, often without even noticing. This project was an attempt to recognize and log instances of reading and writing as well as to reflect on any patterns or surprising trends that appeared.</p>",
 			"children": [
 				{"name": "Programming"},
 				{"name": "Reading"}
 			]
 		},
 		{
-			"name": "Community Profile",
-			"content": "[project description]",
+			"name": "P2: Community Profile",
+			"title": "Community Profile<br><small>Project 2</small>",
+			"content": "<p>Different communities can be found everywhere and are greatly varied in every aspect. This project identified and described a community with a specific interest, in my case, it was the community of deception-based board game players. I collected information by interviewing players and drawing on my own knowledge of the games.</p>",
 			"children": [
 				{
-					"name": "Computer Science",
+					"name": "Computer Scientists",
+					"content": "<p>Initially, I thought about showcasing the computer science community. I was planning on defining some key characteristics of the different fields that people go into in CS.</p>",
 					"children": [
 						{
-							"name": "Hardware",
-							"content": "CPU, GPU, chips - Raspberry Pi, Arduino, Edison"
+							"name": "Databases",
+							"content": "<p>People who work with data structures and databases of any kind. Whether it be lists, arrays, binary trees, dictionaries, or graphs, Database Engineers need to know them all and utilize them in the correct situations. As for the configuration of the database, they would need to know either SQL or a noSQL schema.</p><p>esg</p>"
 						},
 						{
-							"name": "Software",
-							"content": "Programming",
+							"name": "Programming",
+							"content": "",
 							"children": [
 								{
 									"name": "Low-level",
@@ -39,7 +42,7 @@
 					]
 				},
 				{
-					"name": "Board Games",
+					"name": "Board Game Players",
 					"children": [
 						{
 							"name": "Strategy",
@@ -61,8 +64,9 @@
 			]
 		},
 		{
-			"name": "Globe-style Article",
-			"content": "[project description]",
+			"name": "P3: Globe-style Article",
+			"title": "Globe-style Article<br><small>Project 3</small>",
+			"content": "<p>This essay was to be written in the style of a Globe magazine article to expose discussion on an argument. The topic I chose was on artificial intelligence and its applications in the real world. The article bounces around between multiple different topics like philosophy and computer science from many different sources and references.</p>",
 			"children": [
 				{
 					"name": "Self-driving Cars",
@@ -79,13 +83,31 @@
 						},
 						{
 							"name": "Artificial Intelligence",
-							"content": "self-aware, Skynet, The Matrix, "
+							"content": "self-aware, Skynet, The Matrix"
 						},
 						{
 							"name": "Philosophy",
 							"content": "Trolley problem"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Me",
+			"content": "<p>Being the cynical logistician that I am, writing extensively never came easily for me. I mentioned that in my essay about my past history and it showed in the essay I wrote afterward. However, I never enjoyed an English class before college. When writing about topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline for each essay I wrote, but I felt like I could expand more on each bullet I added. Procrastinating on essays was something I always did before (and still do), but I don’t leave it until the night before anymore because there’s so much to revise and rewrite. Having a platform like Digication helped in some ways like setting a specific tone of voice or a defined audience (or themes to mess around with), but I don’t know if it is as effective as another platform like WordPress might be.</p>",
+			"children": [
+				{
+					"name": "Strengths/Weaknesses",
+					"content": "<p>When writing about topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline for each essay I wrote, but I felt like I could expand more on each bullet I added. I think my strengths and weaknesses are mostly the same as before, but I feel like I know that I have the potential to write more completely when I’m vested in the topic.</p>"
+				},
+				{
+					"name": "Procrastination",
+					"content": "<p>Procrastinating on essays was something I always did before (and still do), but I don’t leave it until the night before anymore because there’s so much to revise and rewrite.</p>"
+				},
+				{
+					"name": "Future Plans",
+					"content": ""
 				}
 			]
 		}
