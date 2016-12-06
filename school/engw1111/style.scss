@@ -19,7 +19,7 @@ body {
 		transition: background 0.2s;
 	}
 
-	a:hover, a:focus {
+	a:hover {
 		background-color: shade($primary, 10);
 		text-decoration: none;
 	}
