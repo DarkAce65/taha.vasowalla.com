@@ -28,12 +28,8 @@
 					"content": "<p>Initially, I thought about showcasing the computer science community. I was planning on defining some key characteristics of the different computer related fields that people go into.</p>",
 					"children": [
 						{
-							"name": "Databases",
-							"content": "<p>People who work with data structures and databases of any kind. Whether it be lists, arrays, binary trees, dictionaries, or graphs, Database Engineers need to know them all and utilize them in the correct situations. As for the configuration of the database, they would need to know either SQL or a noSQL schema.</p>"
-						},
-						{
 							"name": "Programming",
-							"content": "<p>Programming is a core area of computer science of which there is a wide variety of things it can be extended to. If you're in CS, it's pretty much expected that you'll know two programming langauges at a minimum.</p>",
+							"content": "<p>Programming is a core area of computer science of which there is a wide variety of things it can be extended to. If you're in CS, it's pretty much expected that you'll know two programming languages at a minimum.</p>",
 							"children": [
 								{
 									"name": "Low-level",
@@ -46,6 +42,10 @@
 									"content": "<pre>print(\"Hello, world!\")</pre><p style=\"text-align: center;\"><small>Python code will print out \"Hello, world!\"</small></p><p>High-level programming deals with programming algorithms and handling data. Code written in a high-level langauge is much more human readable than that of a low-level language and is often where people start learning to program. A common field in high-level programming is web development because, for the most part, websites don't have to access the core parts of a computer in order to serve their purpose.</p>"
 								}
 							]
+						},
+						{
+							"name": "Databases",
+							"content": "<p>People who work with data structures and databases of any kind would fall under this category. Whether it be lists, arrays, binary trees, dictionaries, or graphs, these people would need to know them well and utilize them in the correct situations. They would need skill sets that are strong in memory, efficiency, and mathematics.</p><p>Unfortunately, I don't have very much experience working with databases so I didn't think I would be able to clearly present this to a non-technical audience in an essay.</p>"
 						}
 					]
 				},
@@ -55,43 +55,51 @@
 					"children": [
 						{
 							"name": "Strategy",
-							"content": "<p>The first genre of games I thought of was of strategy games. Games like <i>Risk</i> or <i>Chess</i>. However, I felt that I may only find a very specific type of people who played these types of games. Those who are thinkers, planners, and tacticians. I didn't think I would see very much diversity in this genre as opposed to some others.</p>"
+							"title": "Strategy Games",
+							"content": "<p>The first genre of games I thought of was of strategy games. Games like <i>Risk</i> or <i>Chess</i> or <a href=\"../../games/ultimatettt/\" target=\"_blank\"><i>Ultimate Tic Tac Toe</i></a>. However, I felt that I may only find a very specific type of people who played these types of games. Those who are thinkers, planners, and tacticians. I didn't think I would see very much diversity in this genre as opposed to some others.</p>"
 						},
 						{
 							"name": "Classics",
+							"title": "Classic Games",
 							"content": "<p>I considered interviewing players of what I called the classics genre of games. These would be games like <i>Monopoly</i>, <i>Sorry</i>, <i>The Game of Life</i>, <i>Pictionary</i>, etc. This was a viable choice but I didn't really feel much of an interest in doing it.</p>"
 						},
 						{
 							"name": "Deception",
-							"content": "<p>Deception-based games. Now this was a topic that I was very interested in, even more so because I had found a set of people on my floor who were also very into playing this type of game. It was a fairly clear choice to pick this genre because I love the concept of trying to convince people of something that is not always true.</p>",
+							"title": "Deception Games",
+							"content": "<p>Deception-based games. Now this was a topic that I was very interested in, even more so because I had found a set of people on my floor who were also very into playing this type of game. It was a fairly clear choice to pick this genre because I love the concept of trying to convince people of something that is not always true. Some of my favorites are <i>Coup</i>, <i>Avalon</i>, and <i>One Night Ultimate Werewolf</i></p>",
 							"children": [
 								{
 									"name": "Types of players",
 									"content": "<p>After interviewing some players, I compiled a list of the types of personalities that appear during the games.</p>",
 									"children": [
 										{
+											"name": "Common Traits",
+											"content": "<dl><dt>Poker face</dt><dd>Ability to control facial expressions to give suggestive hints to others</dd><dt>Adaptability</dt><dd>Ability to recover from an upset by a trickster</dd><dt>Levels</dt><dd>How far the actions of others are predicted</dd></dl>"
+										},
+										{
 											"name": "Statistician",
+											"title": "Personality: Statistician",
 											"content": "<p>Decisions are based on probabilities</p>"
 										},
 										{
 											"name": "Logician",
+											"title": "Personality: Logician",
 											"content": "<p>Decisions are made by logical elimination</p>"
 										},
 										{
 											"name": "Psychologist",
+											"title": "Personality: Psychologist",
 											"content": "<p>Decisions are based on behaviors of others</p>"
 										},
 										{
 											"name": "Trickster",
+											"title": "Personality: Trickster",
 											"content": "<p>Makes claims that throw off the general consensus of the group</p>"
 										},
 										{
 											"name": "Random",
+											"title": "Personality: Random",
 											"content": "<p>Randomly says things to throw people off</p>"
-										},
-										{
-											"name": "Common Traits",
-											"content": "<ul class=\"list-unstyled\"><li>Poker face - ability to control facial expressions to give suggestive hints to others</li><li>Adaptability - ability to recover from an upset by a trickster</li><li>Levels - how far the actions of others are predicted</li></ul>"
 										}
 									]
 								}
@@ -104,28 +112,26 @@
 		{
 			"name": "P3: Globe-style Article",
 			"title": "Globe-style Article<br><small>Project 3</small>",
-			"content": "<p>This essay was to be written in the style of a Globe magazine article to expose discussion on an argument. The topic I chose was on artificial intelligence and its applications in the real world. The article bounces around between multiple different topics like philosophy and computer science from many different sources and references.</p>",
+			"content": "<p>This essay was to be written in the style of a Globe magazine article to expose discussion on an argument. The topic I chose was on artificial intelligence and its applications in the real world. The flow of the article bounces around between a few different topics from many different sources and references to convey a fuller sense of the discussion around artificial intelligence. Artificial intelligence itself is a highly interdisciplinary subject and the article I wrote reflects that by highlighting the philosophical, the ethical, and the technical aspects.</p>",
 			"children": [
 				{
 					"name": "Self-driving Cars",
+					"title": "Self-driving Cars and Artificial Intelligence",
+					"content": "<p>I didn't actually intend to write my article about artificial intelligence. At the beginning, I was planning on writing about the ethical challenges of self-driving cars. However, as I continued researching, I eventually hit the point where I was learning about how the cars actually work and how they are programmed which spawned progressively deeper levels of searching to find out how thinking could work in a computer.</p>",
 					"children": [
 						{
 							"name": "Machine Learning",
-							"content": "Neural networks, self-driving cars, machine vision",
+							"content": "<p>Machine learning and neural networks are concepts which form the basis of how to teach a computer to learn.</p><a href=\"img/neuralnetwork.jpg\" target=\"_blank\"><img src=\"img/neuralnetwork.jpg\"></a><p style=\"text-align: center;\"><small>The picture above is a representation of a neural network. Click to see full size image.</small></p><p>There are a number of cool examples of where this is useful though I discovered it via a YouTube video where a neural network learns to play Super Mario Bros.</p><p><a href=\"https://youtu.be/qv6UVOQ0F44\" target=\"_blank\" class=\"video\"><img src=\"img/mario.png\"></a></p>",
 							"children": [
 								{
 									"name": "Neuroscience",
-									"content": "<i>The Tale of The Dueling Neurosurgeons</i> by Sam Kean, <a href='https://ncase.itch.io/wbwwb' target='_blank'>We Become What We Behold</a>, <a href='http://ncase.me/neurons/' target='_blank'>Neurotic Neurons</a>"
+									"content": "<p>While I was picking apart the inner workings of neural networks, I strayed into the field of neuroscience. Neuroscience is something I've been interested in for a while and after reading <i>The Tale of The Dueling Neurosurgeons</i> by Sam Kean, I considered doing it as a major. I eventually went with computer science instead, but it's very cool that the two fields overlap so much.</p><p>Even when I was distracted from researching I somehow managed to get drawn back to the inner workings of the brain. I started playing a game I found online called <a href='https://ncase.itch.io/wbwwb' target='_blank'>We Become What We Behold</a> and I really enjoyed the gameplay to the point where I looked up the developer. I found that he had made an <a href='http://ncase.me/neurons/' target='_blank'>interactive visualization</a> of how neurons behave which was very useful to my article.</p>"
 								}
 							]
 						},
 						{
-							"name": "Artificial Intelligence",
-							"content": "self-aware, Skynet, The Matrix"
-						},
-						{
 							"name": "Philosophy",
-							"content": "Trolley problem"
+							"content": "<p>Believe it or not, my research on artificial intelligence overlapped into philosophy as well. Specifically, it connected to the trolley problem.</p><p>The trolley problem is a famous thought experiment in which a trolley with no brakes is speeding toward five people tied down on the track. You have the option to divert the runaway trolley to a side track where only one person is tied down. Do you pull the lever and kill one person? Or let the trolley kill five people?</p><p>It's a very interesting thought experiment which led to a simple <a href=\"http://www.philosophyexperiments.com/fatman/Default.aspx\" target=\"_blank\">online survey</a> to see how people make decisions with relation to what they morally believe.</p>"
 						}
 					]
 				}
@@ -138,11 +144,11 @@
 			"children": [
 				{
 					"name": "Strengths/Weaknesses",
-					"content": "<p>When writing about topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline before each essay I wrote (as you can no doubt see by this tree) and I feel now that I can better expand on each point I thought of. I think my strengths and weaknesses are mostly the same as before, but I feel like I know that I have the potential to write more completely when I'm vested in the topic.</p>"
+					"content": "<p>When writing about topics I actually cared to write about, I was able to elaborate more than I normally did. I still kept to my habit of creating a multilevel, list outline before each essay I wrote (as you can no doubt see by this tree) and I feel that after this course, I can better expand on each point I thought of. I think my strengths and weaknesses are mostly the same as before, but I know that I have the potential to write more completely when I'm vested in the topic.</p><p>However, with essays I don't care too much about, I still need some sort of format to fill information into otherwise I fall short.</p>"
 				},
 				{
 					"name": "Procrastination",
-					"content": "<p>Procrastinating on essays was something I always did before (and still do in fact), but for essays I have an interest in, I don't leave everything until the night before anymore because I know that there's so much I want to get on the paper. Having things to write about was a new feeling for me as I hadn't ever had the chance to write essays about topics I wanted</p>"
+					"content": "<p>Procrastinating on essays was something I always did before (and still do in fact), but for essays I have an interest in, I don't leave everything until the night before anymore because I know that there's so much I want to get on the paper. Being able to write extensively without getting stuck was a new feeling for me as I hadn't ever been able to write in a stream of consciousness format or in a conversational tone for a graded paper.</p>"
 				},
 				{
 					"name": "Digication",

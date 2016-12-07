@@ -63,6 +63,31 @@ body {
 
 		.nodeContent {
 			font-weight: 300;
+
+			img {
+				width: 100%;
+			}
+
+			a.video {
+				position: relative;
+				display: inline-block;
+				border: 0 !important;
+				box-shadow: none !important;
+
+				img {
+					opacity: 0.4;
+				}
+
+				&::after {
+					content: "\25B6";
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					color: $dark;
+					font-size: 100px;
+					@include transform(translate(-50%, -50%));
+				}
+			}
 		}
 	}
 
