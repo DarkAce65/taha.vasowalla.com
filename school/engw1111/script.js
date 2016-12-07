@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	var bounds = {top: 20, right: 20, bottom: 20, left: 96};
-	var width, height;
+	var width, height, minWidth = 170;
 
-	var root, i = 0, duration = 750;
+	var root, current, i = 0, duration = 750;
 	var wait = false;
 	var levels = 1, depthMultiplier;
 	var treemap;
@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	var sidebar = d3.select("#sidebar");
 	var sidebarContainer = sidebar.select("#main");
-	var expandButton = sidebar.select("#expand").on("click", function() {expand(root); update(root);});
+	var expandAllButton = sidebar.select("#expandAll").on("click", function() {expandAll(root); update(root);});
+	var expandButton = sidebar.select("#expand").on("click", function() {expand(current); update(current);});
+	var collapseButton = sidebar.select("#collapse").on("click", function() {collapse(current); update(current);});
 
 	resize();
 
@@ -28,24 +30,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 
 		function click(d) {
-			wait = true;
-			setTimeout(function() {wait = false;}, duration / 2);
-			if(d.children) {
-				d._children = d.children;
-				d.children = null;
-			}
-			else {
-				d.children = d._children;
-				d._children = null;
-			}
-			update(d);
-		}
-
-		function hover(d) {
-			if(!wait) {
+			if(window.innerWidth < 768) {
 				var content = d.data.content ? d.data.content : "";
 				var title = d.data.title ? d.data.title : d.data.name;
 				sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="nodeContent">' + content + '</div>');
+				current = d;
+			}
+			else {
+				wait = true;
+				setTimeout(function() {wait = false;}, duration / 2);
+				expand(d);
+				update(d);
+			}
+		}
+
+		function hover(d) {
+			if(!wait && window.innerWidth >= 768) {
+				var content = d.data.content ? d.data.content : "";
+				var title = d.data.title ? d.data.title : d.data.name;
+				sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="nodeContent">' + content + '</div>');
+				current = d;
 			}
 		}
 
@@ -149,11 +153,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	function expand(d) {
 		if(d._children) {
 			d.children = d._children;
-			d.children.forEach(expand);
+			d._children = null;
+		}
+	}
+
+	function expandAll(d) {
+		if(d._children) {
+			d.children = d._children;
+			d.children.forEach(expandAll);
 			d._children = null;
 		}
 		else if(d.children) {
-			d.children.forEach(expand);
+			d.children.forEach(expandAll);
+		}
+	}
+
+	function collapse(d) {
+		if(d.children) {
+			d._children = d.children;
+			d._children.forEach(collapse);
+			d.children = null;
 		}
 	}
 
@@ -164,26 +183,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		root.x0 = height / 2;
 		root.y0 = 0;
 		levels = root.height;
+		minWidth = levels * 170;
 		resize();
-
-		function collapse(d) {
-			if(d.children) {
-				d._children = d.children;
-				d._children.forEach(collapse);
-				d.children = null;
-			}
-		}
 
 		var content = root.data.content ? root.data.content : "";
 		var title = root.data.title ? root.data.title : root.data.name;
 		sidebarContainer.html('<p class="h3 title Quicksand">' + title + '</p><hr><div class="nodeContent">' + content + '</div>');
+		current = root;
 		collapse(root);
 		update(root);
 	});
 
 	function resize() {
 		var sidebarWidth, sidebarHeight;
-		var minWidth = levels * 170;
 		width = window.innerWidth - bounds.left - bounds.right;
 		height = window.innerHeight - bounds.top - bounds.bottom;
 
