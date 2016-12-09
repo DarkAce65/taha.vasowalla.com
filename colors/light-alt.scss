@@ -9,7 +9,10 @@ body {
 
 	a {
 		color: $light-alt-accent-color;
-		font-weight: 400;
+	}
+
+	a:hover, a:focus {
+		color: $light-alt-secondary-color;
 	}
 }
 

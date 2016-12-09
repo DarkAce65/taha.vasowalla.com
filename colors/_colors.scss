@@ -5,6 +5,7 @@ $light-accent-color: #ff892e;
 $light-secondary-color: darken($light-accent-color, 13);
 
 $light-alt-accent-color: #13949f;
+$light-alt-secondary-color: darken($light-alt-accent-color, 10);
 
-$dark-accent-color: #EF5350;
-$dark-secondary-color: darken($dark-accent-color, 13);
+$dark-accent-color: #ef5350;
+$dark-secondary-color: desaturate(darken($dark-accent-color, 14), 20);
