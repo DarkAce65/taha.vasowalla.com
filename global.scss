@@ -129,35 +129,6 @@ img#hero {
 	}
 }
 
-.listCollapse {
-	@include display(flex);
-	font-family: "Quicksand", sans-serif;
-	color: white;
-	background-color: $dark-accent-color;
-	padding: 20px 15px;
-	border-radius: 4px;
-
-	.listHeader {
-		@include flex(1 1 auto);
-	}
-
-	.fa-chevron-up {
-		@include flex(0 1 auto);
-		@include transition(0.5s);
-		color: white;
-	}
-}
-
-.collapsed .fa-chevron-up {
-	@include transform(rotate(-180deg));
-}
-
-#skills, #clubs, #workexp, #achievements {
-	b {
-		font-family: "Raleway", sans-serif;
-	}
-}
-
 .sidebar-offcanvas {
 	overflow: hidden;
 }
@@ -367,10 +338,6 @@ img#hero {
 		}
 	}
 
-	#workexp .list-group-item .date {
-		display: block;
-	}
-
 	.tabpanel {
 		margin-bottom: 20px;
 		background-color: white;
@@ -395,15 +362,6 @@ img#hero {
 }
 
 @media screen and (min-width: 768px) {
-	#skills, #clubs, #workexp, #achievements {
-		display: block !important;
-		height: auto !important;
-	}
-
-	#workexp .list-group-item .date {
-		float: right;
-	}
-
 	.menuContainer .linkList {
 		.fa-angle-left, .fa-angle-right {
 			font-weight: bold;
