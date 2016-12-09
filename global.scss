@@ -42,6 +42,14 @@ code {
 	font-family: "Quicksand", sans-serif;
 }
 
+.fixedNav {
+	padding-top: 70px;
+}
+
+.mobileFooter {
+	padding-bottom: 15px;
+}
+
 img#hero {
 	width: 100%;
 	border-radius: 6px;
@@ -75,14 +83,6 @@ img#hero {
 		outline: none;
 		background-color: white;
 	}
-}
-
-.content {
-	padding-bottom: 10px;
-}
-
-.fixedNav {
-	padding-top: 70px;
 }
 
 #toast-container > div, #toast-container > div:hover {
@@ -296,8 +296,8 @@ img#hero {
 }
 
 @media screen and (max-width: 767px) {
-	.content {
-		padding-bottom: 88px;
+	.mobileFooter {
+		padding-bottom: 98px;
 	}
 
 	.container .jumbotron {
