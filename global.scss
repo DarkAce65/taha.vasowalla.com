@@ -26,22 +26,22 @@ code {
 	color: $dark-accent-color;
 }
 
-.h1, .h2, .h3, .h4, .h5, .h6, .Raleway {
-	font-family: "Raleway", sans-serif;
-}
-
 .Lato {
 	font-family: "Lato", sans-serif;
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6, .Raleway {
+	font-family: "Raleway", sans-serif;
+}
+
+.page-header, .page-header .h1 {
+	margin-top: 0;
 }
 
 .page-header p, .Quicksand {
 	font-family: "Quicksand", sans-serif;
 }
 
-.page-header, .page-header .h1 {
-	margin-top: 0;
 img#hero {
 	width: 100%;
 	border-radius: 6px;
@@ -60,21 +60,21 @@ img#hero {
 .btn-file {
 	position: relative;
 	overflow: hidden;
-}
 
-.btn-file input[type=file] {
-	display: block;
-	position: absolute;
-	top: 0;
-	right: 0;
-	min-width: 100%;
-	min-height: 100%;
-	cursor: inherit;
-	font-size: 100px;
-	text-align: right;
-	opacity: 0;
-	outline: none;
-	background-color: white;
+	input[type=file] {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		cursor: inherit;
+		font-size: 100px;
+		text-align: right;
+		opacity: 0;
+		outline: none;
+		background-color: white;
+	}
 }
 
 .content {
@@ -89,11 +89,11 @@ img#hero {
 	box-shadow: none;
 }
 
-#history.panel-body {
-	padding: 5px 40px;
-}
-
 #history {
+	&.panel-body {
+		padding: 5px 40px;
+	}
+
 	blockquote, hr {
 		border-color: #ccc;
 	}
@@ -281,8 +281,12 @@ img#hero {
 	}
 }
 
-.thumbnail:hover {
-	text-decoration: none;
+@media screen and (min-width: 768px) {
+	.menuContainer .linkList {
+		.fa-angle-left, .fa-angle-right {
+			font-weight: bold;
+		}
+	}
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
@@ -291,9 +295,12 @@ img#hero {
 	}
 }
 
-
 @media screen and (max-width: 767px) {
-	.jumbotron {
+	.content {
+		padding-bottom: 88px;
+	}
+
+	.container .jumbotron {
 		padding-right: 30px;
 		padding-left: 30px;
 	}
@@ -306,23 +313,19 @@ img#hero {
 		}
 	}
 
-	.content {
-		padding-bottom: 88px;
-	}
-
 	.row-offcanvas {
 		position: relative;
 		right: 0;
 		@include transition(0.75s cubic-bezier(0.3, 0, 0, 1));
 
+		.linkList .text-muted {
+			display: none;
+			visibility: hidden;
+		}
+
 		&.active {
 			@include transform(translateX(-75%));
 		}
-	}
-
-	.row-offcanvas .linkList .text-muted {
-		display: none;
-		visibility: hidden;
 	}
 
 	.sidebar-offcanvas {
@@ -358,13 +361,5 @@ img#hero {
 
 	.btn-sm {
 		padding: 5px 8px;
-	}
-}
-
-@media screen and (min-width: 768px) {
-	.menuContainer .linkList {
-		.fa-angle-left, .fa-angle-right {
-			font-weight: bold;
-		}
 	}
 }
