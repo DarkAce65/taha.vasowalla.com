@@ -323,13 +323,13 @@ $(function() {
 
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 
-	var hemisphereLight = new THREE.HemisphereLight(0xccbbbb, 0xffbbee);
-	scene.add(hemisphereLight);
+	var ambient = new THREE.AmbientLight(0xffffff);
+	scene.add(ambient);
 
 	var volumeObject = new THREE.Object3D();
 	var geometry = new THREE.IcosahedronGeometry(80);
 	var material = new THREE.MeshPhongMaterial({color: 0xd9534f, side: THREE.DoubleSide, shading: THREE.FlatShading});
-	var lineMaterial =  new THREE.LineBasicMaterial({color: 0xe3807d});
+	var lineMaterial = new THREE.LineBasicMaterial({color: 0xe3807d});
 	volumeObject.add(new THREE.Mesh(geometry, material));
 	volumeObject.add(new THREE.LineSegments(new THREE.WireframeGeometry(geometry), lineMaterial));
 	scene.add(volumeObject);
