@@ -6,87 +6,83 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="theme-color" content="#6588D3">
-		<meta name="msapplication-navbutton-color" content="#6588D3">
+		<meta name="theme-color" content="#151515">
+		<meta name="msapplication-navbutton-color" content="#151515">
 		<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/bower_components/fontawesome/css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/global.css"/>
-		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="/bower_components/sine-waves/sine-waves.min.js"></script>
 		<style type="text/css">
 			body {
 				height: 100%;
-				padding-bottom: 10px;
-				color: white;
+				color: #444444;
+				font-family: "Raleway", sans-serif;
+				background-color: #151515;
+			}
+
+			a {
+				color: #888888;
+			}
+
+			a:focus, a:hover {
+				color: #dddddd;
+			}
+
+			.btn-dark {
+				color: #555555;
+			}
+
+			.main {
+				max-width: 500px;
+				margin: 0 auto;
+				padding: 0 10px 10px;
 				text-align: center;
-				font-family: "Raleway";
-				background-color: #4ac1ff;
-				background-image: -webkit-linear-gradient(-310deg, #4ac1ff, #795bb0);
-				background-image:         linear-gradient(40deg, #4ac1ff, #795bb0);
+			}
+
+			.files {
+				position: relative;
+				font-size: 4em;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+
+			.files span {
+				position: relative;
+				display: inline-block;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			.files::before, .files::after {
+				content: "";
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 30%;
+				background: linear-gradient(to left, rgba(21, 21, 21, 0), rgba(21, 21, 21,  1));
+			}
+
+			.files::after {
+				left: 70%;
+				background: linear-gradient(to right, rgba(21, 21, 21, 0), rgba(21, 21, 21,  1));
+			}
+
+			@media screen and (min-width: 768px) {
+				.main {
+					padding-top: 80px;
+				}
 			}
 		</style>
 	</head>
 	<body>
-		<div class="hidden-xs" style="height: 100px;"></div>
-		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-			<p style="font-size: 5.5em; margin: 0.2em 0 0.1em;">404</p>
-			<div class="row">
-				<div id="waveContainer" class="col-lg-6 col-lg-offset-3">
-					<canvas id="waves"></canvas>
-				</div>
+		<div class="main">
+			<p style="font-size: 5.5em;">404</p>
+			<div class="files">
+				<span><i class="fa fa-folder-open-o"></i>&ensp;<i class="fa fa-file-code-o"></i>&ensp;<i class="fa fa-file-image-o"></i>&ensp;<i class="fa fa-file"></i>&ensp;<i class="fa fa-file-code-o"></i>&ensp;<i class="fa fa-folder-open-o"></i>&ensp;<i class="fa fa-file-text-o"></i></span>
 			</div>
-			<br/>
-			<p style="font-size: 1.5em;">Oops, you encountered an error.<br/>The page you are looking for cannot be found.</p>
-			<button class="btn btn-default" onclick="window.history.back();"><i class="fa fa-reply"></i> Go back</button>
-			<a href="/" class="btn btn-default">Back to Main Page</a>
+			<p style="font-size: 1.5em;">Oh no!<br>The file you are looking for doesn't seem to be here.</p>
+			<p><a href="javascript:window.history.back();">Bring me back</a>&ensp;|&ensp;<a href="/">Home page</a></p>
 		</div>
-		<script type="text/javascript">
-			var waves = new SineWaves({
-				el: document.getElementById("waves"),
-				speed: 1,
-				width: function() {
-					return $("#waveContainer").width();
-				},
-				height: 100,
-				ease: "SineInOut",
-				wavesWidth: "150%",
-				waves: [
-					{
-						timeModifier: 0.5,
-						lineWidth: 3,
-						amplitude: 50,
-						wavelength: 250
-					},
-					{
-						timeModifier: 1,
-						lineWidth: 2,
-						amplitude: -30,
-						wavelength: 200
-					},
-					{
-						timeModifier: 2,
-						lineWidth: 2,
-						amplitude: 40,
-						wavelength: 200
-					},
-					{
-						timeModifier: 3,
-						lineWidth: 2,
-						amplitude: -45,
-						wavelength: 150
-					}
-				],
-				resizeEvent: function() {
-					var gradient = this.ctx.createLinearGradient(0, 0, this.width, 0);
-					gradient.addColorStop(0, "rgba(114, 187, 191, 0)");
-					gradient.addColorStop(0.5, "rgba(114, 187, 191, 1)");
-					gradient.addColorStop(1, "rgba(114, 187, 191, 0)");
-
-					for(var i = 0; i < this.waves.length; i++) {
-						this.waves[i].strokeStyle = gradient;
-					}
-				}
-			});
-		</script>
 	</body>
 </html>
