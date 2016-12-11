@@ -21,17 +21,18 @@
 .listCollapse {
 	@include display(flex);
 	font-family: "Quicksand", sans-serif;
+	font-size: 1.25em;
 	color: white;
 	background-color: $dark-accent-color;
+	margin-bottom: 10px;
 	padding: 20px 15px;
 	border-radius: 4px;
 
 	.listHeader {
-		@include flex(1 1 auto);
+		@include flex-grow(1);
 	}
 
 	.fa-chevron-up {
-		@include flex(0 1 auto);
 		@include transition(0.5s);
 		color: white;
 	}
