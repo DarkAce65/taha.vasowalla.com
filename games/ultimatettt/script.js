@@ -1,3 +1,5 @@
+"use strict";
+
 var turn = true; // true: Red, false: Blue
 var grid = [
 	[

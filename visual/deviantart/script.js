@@ -1,3 +1,5 @@
+"use strict";
+
 var baseURL = "http://backend.deviantart.com/rss.xml?q=sort:time favby:DarkAce65&offset=0";
 var next = null;
 var retrieving = $('<div class="cardWrapper col-xs-12 col-sm-8 col-sm-offset-2" style="position: absolute; bottom: 0;"><div class="card"><div class="retrieving"><span class="h4">Retrieving more...</span></div></div></div>');

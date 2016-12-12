@@ -1,3 +1,5 @@
+"use strict";
+
 var bubblesCanvas, bubblesCtx;
 var rainCanvas, rainCtx;
 

@@ -1,3 +1,5 @@
+"use strict";
+
 $(function() {
 	var clipText = Snap("#clipText");
 	var ftext = clipText.text(10, 75, "Fire").attr({"font-size": "75px", "fill": "white"});

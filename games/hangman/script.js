@@ -1,3 +1,5 @@
+"use strict";
+
 $(function() {
 	function submitWord(word) {
 		hangmanWord = word.toUpperCase(); // Convert word to uppercase

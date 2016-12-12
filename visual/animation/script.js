@@ -1,3 +1,5 @@
+"use strict";
+
 var height, width, cardHeight, cardWidth, delay;
 
 var cardOpacity = 1;

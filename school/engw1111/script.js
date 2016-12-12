@@ -1,3 +1,5 @@
+"use strict";
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var bounds = {top: 20, right: 20, bottom: 20, left: 96};
 	var width, height, minWidth = 170;

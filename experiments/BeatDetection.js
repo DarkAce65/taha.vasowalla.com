@@ -1,3 +1,5 @@
+"use strict";
+
 // Beat detection algorithm from https://github.com/JMPerez/beats-audio-api
 
 function getPeaksAtThreshold(data, threshold) {

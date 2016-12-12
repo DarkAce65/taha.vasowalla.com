@@ -1,3 +1,5 @@
+"use strict";
+
 var mobile = false, fileName = "";
 var c, ctx, cWidth = 2049, cHeight = 1245, audioCtx, arrayBuffer, source, gainNode, analyser, lastToast;
 var targetVolume = 0, currentVolume = 0, volDecay = 0.1, startOffset = 0, startTime = 0;

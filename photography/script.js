@@ -1,3 +1,5 @@
+"use strict";
+
 function openPhotoSwipe(thumbnail) {
 	psThumb = thumbnail;
 	photoswipeOptions.index = parseInt($(psThumb).data("index"), 10);

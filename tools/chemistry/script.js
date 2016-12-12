@@ -1,3 +1,5 @@
+"use strict";
+
 var errorMessage;
 var solveFor;
 var validInputs = 0;
@@ -296,7 +298,7 @@ $(document).ready(function() {
 		errorMessage = "Error.";
 		solveFor = "";
 		validInputs = 0;
-		HCValues = [];
+		var HCValues = [];
 		$.each($("#specificHeat .inputs div:not(.hidden) input"), function(index, value) { // Get valid inputs and store them in HCValues
 			var units = $("#" + $(value).attr("id") + "units").val();
 			if($(value).val()) {

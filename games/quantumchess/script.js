@@ -1,3 +1,5 @@
+"use strict";
+
 var resizeTimeout, board, primary, secondary, state, turn, piecesKnown, locked; // state: primary, secondary, unknown
 
 var PRIMARY = "p";

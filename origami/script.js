@@ -1,3 +1,5 @@
+"use strict";
+
 function openPhotoSwipe(targetIndex) {
 	targetIndex = (typeof targetIndex === 'undefined') ? 0 : targetIndex;
 	photoswipeOptions.index = targetIndex;

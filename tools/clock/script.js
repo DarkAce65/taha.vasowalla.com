@@ -1,10 +1,12 @@
-var s, bg, masked, mask;
+"use strict";
+
+var s, bg, bgScale, fgScale, masked, mask;
 
 function update() {
 	var time = new Date();
 	var percent = (time.getHours() * 60 + time.getMinutes()) / 1440;
-	bg.attr({fill: bgColor(percent)});
-	masked.attr({fill: fgColor(percent)});
+	bg.attr({fill: bgScale(percent)});
+	masked.attr({fill: fgScale(percent)});
 	$("#time").html(to12Hour(time));
 	$("#date").html(time.toDateString());
 }
@@ -28,8 +30,8 @@ function weatherLocation(position) {
 			var sunriseP = (new Date(weatherData.sys.sunrise * 1000).getHours() * 60 + new Date(weatherData.sys.sunrise * 1000).getMinutes()) / 1440;
 			var sunsetP = (new Date(weatherData.sys.sunset * 1000).getHours() * 60 + new Date(weatherData.sys.sunset * 1000).getMinutes()) / 1440;
 			var stops = [0, sunriseP - 0.05, sunriseP, sunriseP + 0.05, 0.5, sunsetP - 0.05, sunsetP, sunsetP + 0.05, 1];
-			bgColor = chroma.scale(["#00041D", "#00041D", "#242766", "#018594", "#018594", "#018594", "#F47E6A", "#00041D", "#00041D"], stops);
-			fgColor = chroma.scale(["#00BECE", "#00BECE", "#D26C56", "#FFD4AD", "#FFD4AD", "#FFD4AD", "#FCB57F", "#00BECE", "#00BECE"], stops);
+			bgScale = chroma.scale(["#00041D", "#00041D", "#242766", "#018594", "#018594", "#018594", "#F47E6A", "#00041D", "#00041D"], stops);
+			fgScale = chroma.scale(["#00BECE", "#00BECE", "#D26C56", "#FFD4AD", "#FFD4AD", "#FFD4AD", "#FCB57F", "#00BECE", "#00BECE"], stops);
 			$("#solar .fluid-container").removeClass("hidden");
 			update();
 		},
@@ -81,12 +83,12 @@ function toTitleCase(str) {
 }
 
 $(function() {
-	bgColor = chroma.scale(["#00041D", "#00041D", "#242766", "#018594", "#018594", "#018594", "#F47E6A", "#00041D", "#00041D"], [0, .2, .25, .3, .5, .78, .83, .88, 1]);
-	fgColor = chroma.scale(["#00BECE", "#00BECE", "#D26C56", "#FFD4AD", "#FFD4AD", "#FFD4AD", "#FCB57F", "#00BECE", "#00BECE"], [0, .2, .25, .3, .5, .78, .83, .88, 1]);
+	bgScale = chroma.scale(["#00041D", "#00041D", "#242766", "#018594", "#018594", "#018594", "#F47E6A", "#00041D", "#00041D"], [0, .2, .25, .3, .5, .78, .83, .88, 1]);
+	fgScale = chroma.scale(["#00BECE", "#00BECE", "#D26C56", "#FFD4AD", "#FFD4AD", "#FFD4AD", "#FCB57F", "#00BECE", "#00BECE"], [0, .2, .25, .3, .5, .78, .83, .88, 1]);
 	var ypercent = 0;
 	s = Snap("#clock");
-	bg = s.rect(0, 0, "100%", "100%").attr({fill: bgColor(ypercent)});
-	masked = s.rect(0, 0, "100%", "100%").attr({fill: fgColor(ypercent)});
+	bg = s.rect(0, 0, "100%", "100%").attr({fill: bgScale(ypercent)});
+	masked = s.rect(0, 0, "100%", "100%").attr({fill: fgScale(ypercent)});
 	mask = s.circle("50%", "100%", "100%");
 	mask.attr({
 		fill: "r()#fff-#000"

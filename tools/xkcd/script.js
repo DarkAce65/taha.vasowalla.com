@@ -1,3 +1,5 @@
+"use strict";
+
 var lazyload;
 var id = [], titles = [], url = [], alt = [], transcript = [];
 var txtData = [];

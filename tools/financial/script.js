@@ -1,3 +1,5 @@
+"use strict";
+
 var exchangeRates = [];
 var oneWeek = 604800000;
 
