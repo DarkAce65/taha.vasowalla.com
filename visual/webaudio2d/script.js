@@ -1,6 +1,6 @@
 "use strict";
 
-var mobile = false, fileName = "";
+var mobile = false, filename = "";
 var c, ctx, cWidth = 2049, cHeight = 1245, audioCtx, arrayBuffer, source, gainNode, analyser, lastToast;
 var targetVolume = 0, currentVolume = 0, volDecay = 0.1, startOffset = 0, startTime = 0;
 var bufferLength, volumeData, frequencyData;
@@ -41,13 +41,12 @@ function toHHMMSS(number) {
 
 function fileUpload(files) {
 	if(files.length !== 0) {
-		audioFile = files[0];
 		$("#playPause, #upload, .btn-file").attr("disabled", true);
-		reader = new FileReader();
+		var reader = new FileReader();
 		reader.onload = function(e) {
 			toastr.options.timeOut = 5000;
 			toastr.options.extendedTimeOut = 1000;
-			toastr.success(audioFile.name + " uploaded!");
+			toastr.success(files[0].name + " uploaded!");
 			toastr.options.timeOut = 0;
 			toastr.options.extendedTimeOut = 0;
 			lastToast = toastr.info("Decoding audio data...");
@@ -56,11 +55,11 @@ function fileUpload(files) {
 			canvasReady = false;
 			wavesurferReady = false;
 			if(!mobile) {
-				wavesurfer.loadBlob(audioFile);
+				wavesurfer.loadBlob(files[0]);
 				$("#wave").hide(250);
 			}
 			audioCtx.decodeAudioData(e.target.result, function(buffer) {
-				fileName = audioFile.name;
+				filename = files[0].name;
 				arrayBuffer = buffer;
 				if(mobile) {
 					reset();
@@ -142,7 +141,7 @@ function play() {
 		draw();
 		$("#playPause, #upload, .btn-file").attr("disabled", false);
 		document.getElementById("duration").innerHTML = toHHMMSS(arrayBuffer.duration);
-		document.getElementById("fileName").innerHTML = fileName + " - ";
+		document.getElementById("fileName").innerHTML = filename + " - ";
 		$("#playPause i").removeClass("fa-play");
 		$("#playPause i").addClass("fa-pause");
 	}

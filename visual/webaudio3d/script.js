@@ -336,6 +336,7 @@ $(function() {
 	volumeObject.add(new THREE.LineSegments(new THREE.WireframeGeometry(geometry), lineMaterial));
 	scene.add(volumeObject);
 
+	var filename;
 	var audioCtx, arrayBuffer, source, gainNode, analyser;
 	var startTime = 0, startOffset = 0, emptySource = true;
 	var AudioContext = window.AudioContext || window.webkitAudioContext;
