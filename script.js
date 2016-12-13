@@ -11,81 +11,94 @@ window.requestAnimFrame =
 	};
 
 $(function() {
-	function displaceSatelliteGeometry(satelliteGeometry) {
-		for(var i = 0; i < satelliteGeometry.vertices.length; i++) {
-			var v = satelliteGeometry.vertices[i].clone().setLength(0.4);
-			satelliteGeometry.vertices[i].setLength(3 + Math.abs(Math.random()) * 2);
-		}
-	}
-
-	var animation = {planetRotation: 1, satelliteOrbit: 1};
-
-	var clock = new THREE.Clock(false);
-	var scene = new THREE.Scene();
+	var clock = new THREE.Clock();
+	window.scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer({antialias: true});
 	$("#rendererContainer").append(renderer.domElement);
-	var width = Math.min(window.innerWidth, 200);
-	var height = Math.min(window.innerHeight, 200);
+	var width = $("#rendererContainer").width();
+	var height = $("#rendererContainer").height();
 	renderer.setSize(width, height);
 	renderer.setClearColor(0x131d29);
 	renderer.setPixelRatio(window.devicePixelRatio);
 
-	var camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
-	camera.position.set(0, 25, 100);
-	scene.add(camera);
+	window.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
+	camera.position.set(60, 40, 160);
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
 	var ambient = new THREE.AmbientLight(0x274466);
-	scene.add(ambient);
+	camera.add(ambient);
 
 	var pointlight = new THREE.PointLight(0x5E85B4);
 	pointlight.position.set(0, 50, 0);
-	scene.add(pointlight);
+	camera.add(pointlight);
 
-	var objectsLeft = 2;
+	scene.add(camera);
 
-	var material = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, morphTargets: true, shading: THREE.FlatShading});
-	var geometry, model;
+	var cubeGeometry = new THREE.BoxGeometry(30, 30, 30);
+	var cubeMaterial = new THREE.MultiMaterial([
+		new THREE.MeshPhongMaterial({
+			side: THREE.DoubleSide,
+			shading: THREE.FlatShading
+		}),
+		new THREE.MeshPhongMaterial({
+			transparent: true,
+			opacity: 0,
+			side: THREE.DoubleSide,
+			shading: THREE.FlatShading
+		})
+	]);
+
+	for(var i = 0; i < cubeGeometry.faces.length; i++) {
+		cubeGeometry.faces[i].materialIndex = (i > 7 && i < 10) ? 1 : 0;
+	}
+	window.cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+	scene.add(cube);
+
+	window.lines = new THREE.Object3D();
+	var linesGeometry = new THREE.BoxGeometry(0.2, 0.2, 30.2);
+	for(var i = 0; i < 4; i++) {
+		var angle = Math.PI / 2 * (1 - i);
+		var lMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
+		var l = new THREE.Mesh(linesGeometry, lMaterial);
+		l.position.set(15 * Math.cos(angle), 15 * Math.sin(angle), 0);
+		l.rotation.set(Math.PI / 2, angle, 0);
+		lines.add(l);
+	}
+	lines.position.z = 15;
+	scene.add(lines);
+
+	var planeGeometry = new THREE.PlaneGeometry(30, 30);
+	window.plane = new THREE.Mesh(planeGeometry, new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading}));
+	plane.position.z = 15;
+	scene.add(plane);
+
 	var loader = new THREE.OBJLoader();
-	loader.load("img/objects/cube.obj", function(object) {
-		objectsLeft--;
-		geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
-
-		loader.load("img/objects/crane.obj", function(object) {
-			objectsLeft--;
-			var craneVertices = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry).vertices;
-			geometry.morphTargets.push({"name": "crane", "vertices": craneVertices});
-			loadedObject();
-		});
+	loader.load("img/objects/crane.obj", function(object) {
+		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry).scale(8, 8, 8);
+		window.crane = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading}));
+		crane.rotation.y = -Math.PI / 2;
+		scene.add(crane);
 	});
 
-	function loadedObject() {
-		if(objectsLeft <= 0) {
-			model = new THREE.Mesh(geometry, material);
-			model.scale.multiplyScalar(20);
-			model.rotation.y = -Math.PI;
-			scene.add(model);
-		}
-
-		clock.start();
-		render();
+	TweenMax.to(plane.position, 1, {z: 100, delay: 2, ease: Power4.easeInOut});
+	TweenMax.to(plane.rotation, 1, {x: Math.PI, delay: 2, ease: Power4.easeInOut});
+	for(var i = 0; i < lines.children.length; i++) {
+		TweenMax.to(lines.children[i].material.color, 1, {r: 0.3, g: 0.3, b: 0.3, delay: 1 + i * 0.25});
+		TweenMax.to(lines.children[i].material.emissive, 1, {r: 239 / 255, g: 83 / 255, b: 80 / 255, delay: 1 + i * 0.25});
 	}
+
+	render();
 
 	function render() {
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
 		controls.update();
-
-		var delta = clock.getDelta();
-		model.rotation.y += delta / 4;
-		var elapsed = clock.getElapsedTime() / 2;
-		model.morphTargetInfluences[0] = 0.5 - Math.min(0.5, Math.max(-0.5, Math.cos(elapsed)));
 	}
 
 	$(window).resize(function() {
-		width = Math.min(window.innerWidth, 200);
-		height = Math.min(window.innerHeight, 200);
+		width = $("#rendererContainer").width();
+		height = $("#rendererContainer").height();
 		renderer.setSize(width, height);
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
