@@ -24,7 +24,6 @@ $(function() {
 
 	var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
 	camera.position.set(0, 0, 100 * factor);
-	scene.add(camera);
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
