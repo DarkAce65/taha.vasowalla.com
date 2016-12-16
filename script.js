@@ -11,7 +11,7 @@ window.requestAnimFrame =
 	};
 
 $(function() {
-	var timeline = new TimelineLite();
+	window.timeline = new TimelineLite();
 	timeline.addLabel("lines0", 0);
 	timeline.addLabel("rotate", 1);
 	timeline.addLabel("lines1", 2.5);
@@ -39,7 +39,7 @@ $(function() {
 
 	window.pointlight = new THREE.PointLight(0x5e85b4);
 	pointlight.position.set(30, 60, 10);
-	pointlight.add(new THREE.Mesh(new THREE.SphereGeometry(2), new THREE.MeshBasicMaterial({color: 0x5e85b4, wireframe: true})));
+	pointlight.add(new THREE.Mesh(new THREE.SphereBufferGeometry(2), new THREE.MeshBasicMaterial({color: 0x5e85b4, wireframe: true})));
 	scene.add(pointlight);
 
 	window.boxMaterial = new THREE.MeshPhongMaterial({
@@ -51,7 +51,7 @@ $(function() {
 
 	window.box = new THREE.Object3D();
 	for(var i = 0; i < 5; i++) {
-		var f = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), boxMaterial);
+		var f = new THREE.Mesh(new THREE.PlaneBufferGeometry(30, 30), boxMaterial);
 		f.position.z = -15;
 		if(i < 4) {
 			var angle = i * Math.PI / 2;
@@ -75,7 +75,7 @@ $(function() {
 	for(var i = 0; i < 3; i++) {
 		var sqrt2 = Math.sqrt(2);
 		for(var j = 0; j < 4; j++) {
-			var lGeometry = new THREE.BoxGeometry(0.2, 0.2, 30.2);
+			var lGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 30.2);
 			var l = new THREE.Mesh(lGeometry, lineMaterials[i]);
 
 			var angle = j * Math.PI / 2;
@@ -105,7 +105,7 @@ $(function() {
 		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
 		window.crane = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading}));
 		crane.rotation.y = -Math.PI / 2;
-		crane.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxGeometry(2, 2, 2))));
+		crane.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxBufferGeometry(2, 2, 2))));
 		scene.add(crane);
 	});
 
