@@ -100,13 +100,25 @@ $(function() {
 		}
 	}
 
-	var loader = new THREE.OBJLoader();
-	loader.load("img/objects/crane.obj", function(object) {
+	var objLoader = new THREE.OBJLoader();
+	objLoader.load("img/objects/crane.obj", function(object) {
 		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
 		window.crane = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading}));
 		crane.rotation.y = -Math.PI / 2;
 		crane.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxBufferGeometry(2, 2, 2))));
 		scene.add(crane);
+	});
+
+	var loader = new THREE.ObjectLoader();
+	loader.load("img/objects/controller.json", function(object) {
+		window.controller = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading});
+		for(var i = 0; i < object.children.length; i++) {
+			object.children[i].material = material;
+			controller.add(object.children[i]);
+		}
+		controller.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxBufferGeometry(1, 1, 1))));
+		scene.add(controller);
 	});
 
 	timeline.to(scene.rotation, 1.5, {x: 0, ease: Power2.easeInOut}, "rotate");
