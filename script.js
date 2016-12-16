@@ -54,8 +54,8 @@ $(function() {
 		var f = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), boxMaterial);
 		f.position.z = -15;
 		if(i < 4) {
+			var angle = i * Math.PI / 2;
 			f.rotation.x = Math.PI / 2;
-			var angle = Math.PI / 2 * i;
 			f.rotation.y = angle + Math.PI / 2;
 			f.position.set(15 * Math.cos(angle), 15 * Math.sin(angle), 0);
 		}
@@ -79,17 +79,18 @@ $(function() {
 			var lGeometry = new THREE.BoxGeometry(0.2, 0.2, 30.2);
 			var l = new THREE.Mesh(lGeometry, lineMaterials[i]);
 
-			var angle = Math.PI / 2 * j + Math.PI / 4;
+			var angle = j * Math.PI / 2;
+			var c = 15 * sqrt2 * Math.cos(angle + Math.PI / 4);
+			var s = 15 * sqrt2 * Math.sin(angle + Math.PI / 4);
 			switch(i) {
 				case 0:
 				case 2:
-					l.position.set(15 * sqrt2 * Math.cos(angle), 0, 15 * sqrt2 * Math.sin(angle));
-					angle -= Math.PI / 4;
+					l.position.set(c, 0, s);
 					l.rotation.set(0, angle, 0);
 					timeline.to(l.position, 1, {x: 15 * Math.cos(angle), z: 15 * Math.sin(angle), ease: Expo.easeInOut}, "lines" + i);
 					break;
 				case 1:
-					l.position.set(15 * sqrt2 * Math.cos(angle), -15, 15 * sqrt2 * Math.sin(angle));
+					l.position.set(c, -15, s);
 					l.rotation.set(Math.PI / 2, 0, 0);
 					timeline.to(l.position, 1, {y: 0, ease: Expo.easeInOut}, "lines" + i);
 					break;
