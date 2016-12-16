@@ -105,6 +105,7 @@ $(function() {
 		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
 		window.crane = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading}));
 		crane.rotation.y = -Math.PI / 2;
+		crane.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxGeometry(2, 2, 2))));
 		scene.add(crane);
 	});
 
@@ -112,8 +113,8 @@ $(function() {
 	timeline.to(lines[0].position, 1.5, {y: -15, ease: Power2.easeInOut}, "rotate");
 	timeline.to(boxMaterial, 1, {opacity: 1, onStart: function() {scene.add(box);}, onComplete: function() {boxMaterial.transparent = false;}, ease: Power2.easeIn}, "box");
 
-	var axisHelper = new THREE.AxisHelper( 100 );
-	scene.add( axisHelper );
+	var axisHelper = new THREE.AxisHelper(100);
+	scene.add(axisHelper);
 
 	render();
 
