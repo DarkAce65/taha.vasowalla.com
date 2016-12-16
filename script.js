@@ -11,6 +11,13 @@ window.requestAnimFrame =
 	};
 
 $(function() {
+	var timeline = new TimelineLite();
+	timeline.addLabel("lines0", 0);
+	timeline.addLabel("rotate", 1);
+	timeline.addLabel("lines1", 2.5);
+	timeline.addLabel("lines2", 3.5);
+	timeline.addLabel("box", 4.5);
+
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer({antialias: true});
@@ -57,12 +64,15 @@ $(function() {
 	scene.add(box);
 
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
+	lines[0].position.y = -15;
+	lines[2].position.y = 15;
 	var lineMaterials = [
-		new THREE.MeshPhongMaterial({opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
-		new THREE.MeshPhongMaterial({opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
-		new THREE.MeshPhongMaterial({opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading})
+		new THREE.MeshPhongMaterial({transparent: true, opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
+		new THREE.MeshPhongMaterial({transparent: true, opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
+		new THREE.MeshPhongMaterial({transparent: true, opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading})
 	];
 	for(var i = 0; i < 3; i++) {
+		var sqrt2 = Math.sqrt(2);
 		for(var j = 0; j < 4; j++) {
 			var lGeometry = new THREE.BoxGeometry(0.2, 0.2, 30.2);
 			var l = new THREE.Mesh(lGeometry, lineMaterials[i]);
@@ -70,23 +80,23 @@ $(function() {
 			var angle = Math.PI / 2 * j;
 			var ax = 0, ay = angle;
 			var x = 15 * Math.cos(angle), y = 0, z = 15 * Math.sin(angle);
-			if(i == 0) {
-				y = -15;
-			}
-			else if(i == 1) {
+			if(i == 1) {
 				ax = Math.PI / 2;
 				ay = 0;
+				l.position.set(15 * sqrt2 * Math.cos(angle), 0, 15 * sqrt2 * Math.sin(angle));
 				x = Math.sqrt(2) * 15 * Math.cos(angle + Math.PI / 4);
 				z = Math.sqrt(2) * 15 * Math.sin(angle + Math.PI / 4);
 			}
 			else {
-				y = 15;
+				l.position.set(15 * Math.cos(angle), 0, 15 * Math.sin(angle));
 			}
 			l.position.set(x, y, z);
 			l.rotation.set(ax, ay, 0);
-			// l.scale.z = 0.00001;
+			l.scale.z = 0.00001;
 			lines[i].add(l);
+			timeline.to(l.scale, 1, {z: 1, ease: Power4.easeInOut}, "lines" + i);
 		}
+		timeline.set(lineMaterials[i], {transparent: false, opacity: 1}, "lines" + i);
 		scene.add(lines[i]);
 	}
 
@@ -98,8 +108,8 @@ $(function() {
 		scene.add(crane);
 	});
 
-	TweenMax.to(boxMaterial, 2, {opacity: 1, onComplete: function() {boxMaterial.transparent = false;}, ease: Power4.easeInOut});
-	TweenMax.to(scene.rotation, 2, {x: 0, ease: Power4.easeInOut});
+	timeline.to(scene.rotation, 1.5, {x: 0, ease: Expo.easeInOut}, "rotate");
+	timeline.to(boxMaterial, 1, {opacity: 1, onComplete: function() {boxMaterial.transparent = false;}, ease: Power4.easeIn}, "box");
 
 	var axisHelper = new THREE.AxisHelper( 100 );
 	scene.add( axisHelper );
