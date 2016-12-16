@@ -63,7 +63,6 @@ $(function() {
 	}
 
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
-	lines[0].position.y = -15;
 	lines[2].position.y = 15;
 	timeline.add(function() {scene.add(lines[0])}, "lines0");
 	timeline.add(function() {scene.add(lines[1])}, "lines1");
@@ -109,8 +108,9 @@ $(function() {
 		scene.add(crane);
 	});
 
-	timeline.to(scene.rotation, 1.5, {x: 0, ease: Expo.easeInOut}, "rotate");
-	timeline.to(boxMaterial, 1, {opacity: 1, onStart: function() {scene.add(box);}, onComplete: function() {boxMaterial.transparent = false;}, ease: Power4.easeIn}, "box");
+	timeline.to(scene.rotation, 1.5, {x: 0, ease: Power2.easeInOut}, "rotate");
+	timeline.to(lines[0].position, 1.5, {y: -15, ease: Power2.easeInOut}, "rotate");
+	timeline.to(boxMaterial, 1, {opacity: 1, onStart: function() {scene.add(box);}, onComplete: function() {boxMaterial.transparent = false;}, ease: Power2.easeIn}, "box");
 
 	var axisHelper = new THREE.AxisHelper( 100 );
 	scene.add( axisHelper );
