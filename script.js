@@ -78,23 +78,21 @@ $(function() {
 			var l = new THREE.Mesh(lGeometry, lineMaterials[i]);
 
 			var angle = Math.PI / 2 * j;
-			var ax = 0, ay = angle;
-			var x = 15 * Math.cos(angle), y = 0, z = 15 * Math.sin(angle);
-			if(i == 1) {
-				ax = Math.PI / 2;
-				ay = 0;
-				l.position.set(15 * sqrt2 * Math.cos(angle), 0, 15 * sqrt2 * Math.sin(angle));
-				x = Math.sqrt(2) * 15 * Math.cos(angle + Math.PI / 4);
-				z = Math.sqrt(2) * 15 * Math.sin(angle + Math.PI / 4);
+			switch(i) {
+				case 0:
+				case 2:
+					l.position.set(15 * Math.cos(angle), 0, 15 * Math.sin(angle));
+					l.rotation.set(0, angle, 0);
+					break;
+				case 1:
+					angle += Math.PI / 4;
+					l.position.set(15 * sqrt2 * Math.cos(angle), 0, 15 * sqrt2 * Math.sin(angle));
+					l.rotation.set(Math.PI / 2, 0, 0);
+					break;
 			}
-			else {
-				l.position.set(15 * Math.cos(angle), 0, 15 * Math.sin(angle));
-			}
-			l.position.set(x, y, z);
-			l.rotation.set(ax, ay, 0);
 			l.scale.z = 0.00001;
 			lines[i].add(l);
-			timeline.to(l.scale, 1, {z: 1, ease: Power4.easeInOut}, "lines" + i);
+			timeline.to(l.scale, 1, {z: 1, ease: Expo.easeInOut}, "lines" + i);
 		}
 		timeline.set(lineMaterials[i], {transparent: false, opacity: 1}, "lines" + i);
 		scene.add(lines[i]);
