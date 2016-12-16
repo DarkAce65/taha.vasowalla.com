@@ -65,10 +65,13 @@ $(function() {
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
 	lines[0].position.y = -15;
 	lines[2].position.y = 15;
+	timeline.add(function() {scene.add(lines[0])}, "lines0");
+	timeline.add(function() {scene.add(lines[1])}, "lines1");
+	timeline.add(function() {scene.add(lines[2])}, "lines2");
 	var lineMaterials = [
-		new THREE.MeshPhongMaterial({transparent: true, opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
-		new THREE.MeshPhongMaterial({transparent: true, opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
-		new THREE.MeshPhongMaterial({transparent: true, opacity: 0, color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading})
+		new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
+		new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
+		new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading})
 	];
 	for(var i = 0; i < 3; i++) {
 		var sqrt2 = Math.sqrt(2);
@@ -95,8 +98,6 @@ $(function() {
 			lines[i].add(l);
 			timeline.to(l.scale, 1, {z: 1, ease: Expo.easeInOut}, "lines" + i);
 		}
-		timeline.set(lineMaterials[i], {transparent: false, opacity: 1}, "lines" + i);
-		scene.add(lines[i]);
 	}
 
 	var loader = new THREE.OBJLoader();
