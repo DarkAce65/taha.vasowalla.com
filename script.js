@@ -61,7 +61,6 @@ $(function() {
 		}
 		box.add(f);
 	}
-	scene.add(box);
 
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
 	lines[0].position.y = -15;
@@ -77,17 +76,19 @@ $(function() {
 			var lGeometry = new THREE.BoxGeometry(0.2, 0.2, 30.2);
 			var l = new THREE.Mesh(lGeometry, lineMaterials[i]);
 
-			var angle = Math.PI / 2 * j;
+			var angle = Math.PI / 2 * j + Math.PI / 4;
 			switch(i) {
 				case 0:
 				case 2:
-					l.position.set(15 * Math.cos(angle), 0, 15 * Math.sin(angle));
+					l.position.set(15 * sqrt2 * Math.cos(angle), 0, 15 * sqrt2 * Math.sin(angle));
+					angle -= Math.PI / 4;
 					l.rotation.set(0, angle, 0);
+					timeline.to(l.position, 1, {x: 15 * Math.cos(angle), z: 15 * Math.sin(angle), ease: Expo.easeInOut}, "lines" + i);
 					break;
 				case 1:
-					angle += Math.PI / 4;
-					l.position.set(15 * sqrt2 * Math.cos(angle), 0, 15 * sqrt2 * Math.sin(angle));
+					l.position.set(15 * sqrt2 * Math.cos(angle), -15, 15 * sqrt2 * Math.sin(angle));
 					l.rotation.set(Math.PI / 2, 0, 0);
+					timeline.to(l.position, 1, {y: 0, ease: Expo.easeInOut}, "lines" + i);
 					break;
 			}
 			l.scale.z = 0.00001;
@@ -107,7 +108,7 @@ $(function() {
 	});
 
 	timeline.to(scene.rotation, 1.5, {x: 0, ease: Expo.easeInOut}, "rotate");
-	timeline.to(boxMaterial, 1, {opacity: 1, onComplete: function() {boxMaterial.transparent = false;}, ease: Power4.easeIn}, "box");
+	timeline.to(boxMaterial, 1, {opacity: 1, onStart: function() {scene.add(box);}, onComplete: function() {boxMaterial.transparent = false;}, ease: Power4.easeIn}, "box");
 
 	var axisHelper = new THREE.AxisHelper( 100 );
 	scene.add( axisHelper );
