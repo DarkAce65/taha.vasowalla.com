@@ -102,7 +102,7 @@ $(function() {
 
 	var loader = new THREE.OBJLoader();
 	loader.load("img/objects/crane.obj", function(object) {
-		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry).scale(8, 8, 8);
+		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
 		window.crane = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading}));
 		crane.rotation.y = -Math.PI / 2;
 		scene.add(crane);
