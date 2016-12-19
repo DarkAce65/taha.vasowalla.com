@@ -17,6 +17,8 @@ $(function() {
 	timeline.addLabel("lines1", "rotate+=1.5");
 	timeline.addLabel("lines2", "lines1+=1");
 	timeline.addLabel("box", "lines2+=1");
+	timeline.addLabel("menu", "box+=1");
+	timeline.add(function() {$(".menu").addClass("in");}, "menu");
 
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
@@ -44,9 +46,9 @@ $(function() {
 
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
 	lines[2].position.y = 15;
-	timeline.add(function() {scene.add(lines[0])}, "lines0");
-	timeline.add(function() {scene.add(lines[1])}, "lines1");
-	timeline.add(function() {scene.add(lines[2])}, "lines2");
+	timeline.add(function() {scene.add(lines[0]);}, "lines0");
+	timeline.add(function() {scene.add(lines[1]);}, "lines1");
+	timeline.add(function() {scene.add(lines[2]);}, "lines2");
 	var lineMaterial = new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading});
 	var lineGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 30.2);
 
@@ -84,7 +86,7 @@ $(function() {
 	window.boxMaterial = new THREE.MeshPhongMaterial({transparent: true, opacity: 0, side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
-	timeline.add(function() {scene.add(box)}, "box");
+	timeline.add(function() {scene.add(box);}, "box");
 	timeline.to(boxMaterial, 2, {opacity: 1}, "box");
 	timeline.to(lineMaterial.color, 2, {r: 1, g: 1, b: 1}, "box");
 	timeline.to(lineMaterial.emissive, 2, {r: 0.5, g: 0.5, b: 0.5}, "box");
