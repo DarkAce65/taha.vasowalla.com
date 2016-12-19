@@ -18,7 +18,7 @@ $(function() {
 	timeline.addLabel("lines2", "lines1+=1");
 	timeline.addLabel("box", "lines2+=1");
 	timeline.addLabel("menu", "box+=1");
-	timeline.add(function() {$(".menu").addClass("in");}, "menu");
+	timeline.to(".menu", 1, {opacity: 1}, "menu");
 
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
@@ -126,6 +126,12 @@ $(function() {
 	var axisHelper = new THREE.AxisHelper(100);
 	scene.add(axisHelper);
 
+	if(Cookies.hasItem("animated")) {
+		timeline.seek("menu+=1", false);
+	}
+	else {
+		timeline.add(function() {Cookies.setItem("animated", true, 600);}, "menu");
+	}
 	render();
 
 	function render() {

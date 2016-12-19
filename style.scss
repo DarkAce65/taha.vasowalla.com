@@ -48,11 +48,6 @@ body {
 	padding: 0 20px;
 	font-family: "Quicksand", sans-serif;
 	@include transform(translateY(-50%));
-	@include transition(opacity 1s);
-
-	&.in {
-		opacity: 1;
-	}
 
 	&.left {
 		left: 20px;
