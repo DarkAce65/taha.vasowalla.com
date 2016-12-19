@@ -116,12 +116,7 @@ $(function() {
 
 	var loader = new THREE.ObjectLoader();
 	loader.load("img/objects/controller.json", function(object) {
-		window.controller = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading});
-		for(var i = 0; i < object.children.length; i++) {
-			object.children[i].material = material;
-			controller.add(object.children[i]);
-		}
+		window.controller = object;
 		controller.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxBufferGeometry(1, 1, 1))));
 		scene.add(controller);
 	});
