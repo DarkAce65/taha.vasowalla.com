@@ -43,35 +43,24 @@ $(function() {
 	scene.add(pointlight);
 
 	var faceGeometry = new THREE.PlaneBufferGeometry(30, 30);
-	window.boxMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
+	window.boxMaterial = new THREE.MeshPhongMaterial({transparent: true, opacity: 0, side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
 	timeline.add(function() {scene.add(box)}, "box");
+	timeline.to(boxMaterial, 2, {opacity: 1}, "box");
+	timeline.add(function() {boxMaterial.transparent = false;}, "box+=2");
 	for(var i = 0; i < 5; i++) {
 		var f = new THREE.Mesh(faceGeometry, boxMaterial);
-		f.scale.y = 0.00001;
-		switch(i) {
-			case 0:
-				f.position.y = -15;
-				f.rotation.x = Math.PI / 2;
-				f.scale.x = 0.00001;
-				timeline.to(f.scale, 2, {x: 1, y: 1, ease: Power2.easeInOut}, "box");
-				break;
-			case 1:
-				f.position.y = 15;
-				f.rotation.x = Math.PI / 2;
-				f.scale.x = 0.00001;
-				timeline.to(f.scale, 2, {x: 1, y: 1, ease: Power2.easeInOut}, "box");
-				break;
-			case 2:
-			case 3:
-			case 4:
-				var angle = i * Math.PI / 2;
-				f.position.set(15 * Math.cos(angle), -15, 15 * Math.sin(angle));
-				f.rotation.y = angle + Math.PI / 2;
-				timeline.to(f.position, 2, {y: 0, ease: Power2.easeInOut}, "box");
-				timeline.to(f.scale, 2, {x: 1, y: 1, ease: Power2.easeInOut}, "box");
-				break;
+		if(i < 2) {
+			f.position.y = (i == 0 ? -30 : 30);
+			f.rotation.x = Math.PI / 2;
+			timeline.to(f.position, 2, {y: (i == 0 ? -15 : 15), ease: Power4.easeOut}, "box");
+		}
+		else {
+			var angle = i * Math.PI / 2;
+			f.position.set(30 * Math.cos(angle), 0, 30 * Math.sin(angle));
+			f.rotation.y = angle + Math.PI / 2;
+			timeline.to(f.position, 2, {x: 15 * Math.cos(angle), z: 15 * Math.sin(angle), ease: Power4.easeOut}, "box");
 		}
 		box.add(f);
 	}
