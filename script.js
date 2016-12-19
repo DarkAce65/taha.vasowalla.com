@@ -42,12 +42,13 @@ $(function() {
 	pointlight.add(new THREE.Mesh(new THREE.SphereBufferGeometry(2), new THREE.MeshBasicMaterial({color: 0x5e85b4, wireframe: true})));
 	scene.add(pointlight);
 
+	var faceGeometry = new THREE.PlaneBufferGeometry(30, 30);
 	window.boxMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
 	timeline.add(function() {scene.add(box)}, "box");
 	for(var i = 0; i < 5; i++) {
-		var f = new THREE.Mesh(new THREE.PlaneBufferGeometry(30, 30), boxMaterial);
+		var f = new THREE.Mesh(faceGeometry, boxMaterial);
 		f.scale.y = 0.00001;
 		switch(i) {
 			case 0:
@@ -80,16 +81,13 @@ $(function() {
 	timeline.add(function() {scene.add(lines[0])}, "lines0");
 	timeline.add(function() {scene.add(lines[1])}, "lines1");
 	timeline.add(function() {scene.add(lines[2])}, "lines2");
-	var lineMaterials = [
-		new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
-		new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading}),
-		new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading})
-	];
+	var lineMaterial = new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading});
+	var lineGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 30.2);
+
 	for(var i = 0; i < 3; i++) {
 		var sqrt2 = Math.sqrt(2);
 		for(var j = 0; j < 4; j++) {
-			var lGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 30.2);
-			var l = new THREE.Mesh(lGeometry, lineMaterials[i]);
+			var l = new THREE.Mesh(lineGeometry, lineMaterial);
 
 			var angle = j * Math.PI / 2;
 			var c = 15 * sqrt2 * Math.cos(angle + Math.PI / 4);
