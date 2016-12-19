@@ -86,7 +86,7 @@ function getDeviantArtFeed(queryURL) {
 		success: function(response) {
 			var newCards = [];
 			var xmlDocument = $.parseXML(response.responseData.xmlString);
-			entries = xmlDocument.querySelectorAll("item");
+			var entries = xmlDocument.querySelectorAll("item");
 			retrieving.remove();
 			$.each(entries, function(index, value) {
 				if(value.querySelectorAll("content").length != 0) {
