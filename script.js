@@ -126,11 +126,11 @@ $(function() {
 	var axisHelper = new THREE.AxisHelper(100);
 	scene.add(axisHelper);
 
-	if(Cookies.hasItem("animated")) {
+	if(Cookies.get("animated")) {
 		timeline.seek("menu+=1", false);
 	}
 	else {
-		timeline.add(function() {Cookies.setItem("animated", true, 600);}, "menu");
+		timeline.add(function() {Cookies.set("animated", true, {path: "", expires: 1 / 144});}, "menu");
 	}
 	render();
 

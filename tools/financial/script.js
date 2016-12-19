@@ -100,7 +100,7 @@ function toggleCIEquation(element) { // Toggle compound interest/continuous inte
 function clearValues() { // Reset inputs
 	$("#Ticker").val("");
 	$("#tickerOutput").html("");
-	Cookies.removeItem("ticker");
+	Cookies.remove("ticker", {path: ""});
 }
 
 function displayStocks(stockData) { // Output stock data to table
@@ -156,7 +156,7 @@ function searchTicker(ticker) { // Ticker lookup
 					}
 				}
 				tickers = tickers.slice(2);
-				Cookies.setItem("ticker", tickers, Date.now() + oneWeek); // Set cookie with current data in table
+				Cookies.set("ticker", tickers, {path: "", expires: 7}); // Set cookie with current data in table
 			}
 		})
 		.always(function() {
@@ -174,12 +174,12 @@ function removeTicker(r) { // Remove ticker from table
 		tickers += ", " + $(v).attr("id");
 	});
 	tickers = tickers.slice(2);
-	Cookies.setItem("ticker", tickers, Infinity); // Update cookie
+	Cookies.set("ticker", tickers, {path: "", expires: 7}); // Update cookie
 }
 
 $(document).ready(function() {
-	if(Cookies.getItem("ticker")) {
-		searchTicker(Cookies.getItem("ticker")); // Load stored tickers
+	if(Cookies.get("ticker")) {
+		searchTicker(Cookies.get("ticker")); // Load stored tickers
 	}
 
 	$.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Ffinance.yahoo.com%2Fwebservice%2Fv1%2Fsymbols%2Fallcurrencies%2Fquote%3Fformat%3Djson%22&format=json&callback=", function(json) { // Get exchange rates

@@ -123,15 +123,15 @@ $(function() {
 	function addScore(name) {
 		var difficulty = $("#controls input:radio:checked").val();
 		if(difficulty !== "custom") {
-			if(Cookies.hasItem(difficulty)) {
-				var scores = $.parseJSON(Cookies.getItem(difficulty));
+			if(Cookies.get(difficulty, {path: ""})) {
+				var scores = Cookies.getJSON(difficulty);
 				scores.push({name: name, time: timer.value});
-				Cookies.setItem(difficulty, JSON.stringify(scores));
+				Cookies.set(difficulty, scores, {path: ""});
 				getScores(difficulty);
 			}
 			else {
 				var scores = [{name: name, time: timer.value}];
-				Cookies.setItem(difficulty, JSON.stringify(scores));
+				Cookies.set(difficulty, scores, {path: ""});
 				getScores(difficulty);
 			}
 		}
@@ -140,8 +140,8 @@ $(function() {
 	function getScores(difficulty) {
 		if(difficulty !== "custom") {
 			$("#highscores tbody").html("");
-			if(Cookies.hasItem(difficulty)) {
-				var scores = $.parseJSON(Cookies.getItem(difficulty));
+			if(Cookies.get(difficulty)) {
+				var scores = Cookies.getJSON(difficulty);
 				scores.sort(function(a, b) {
 					return a.time - b.time;
 				});

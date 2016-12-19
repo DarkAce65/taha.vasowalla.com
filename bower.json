@@ -17,6 +17,7 @@
 		"fontawesome": "latest",
 		"jplayer": "latest",
 		"jquery": "~3",
+		"js-cookie": "latest",
 		"katex": "latest",
 		"packery": "latest",
 		"photoswipe": "latest",
