@@ -39,7 +39,7 @@ $(function() {
 
 	window.pointlight = new THREE.PointLight(0x5e85b4);
 	pointlight.position.set(30, 60, 10);
-	pointlight.add(new THREE.Mesh(new THREE.SphereBufferGeometry(2), new THREE.MeshBasicMaterial({color: 0x5e85b4, wireframe: true})));
+	pointlight.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.SphereBufferGeometry(2)), new THREE.LineBasicMaterial({color: 0x5e85b4})));
 	scene.add(pointlight);
 
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
@@ -132,7 +132,7 @@ $(function() {
 		controls.update();
 	}
 
-	$(window).resize(function() {
+	$(window).resize(function(e) {
 		width = $("#rendererContainer").width();
 		height = $("#rendererContainer").height();
 		renderer.setSize(width, height);
