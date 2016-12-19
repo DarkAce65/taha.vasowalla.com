@@ -42,29 +42,6 @@ $(function() {
 	pointlight.add(new THREE.Mesh(new THREE.SphereBufferGeometry(2), new THREE.MeshBasicMaterial({color: 0x5e85b4, wireframe: true})));
 	scene.add(pointlight);
 
-	var faceGeometry = new THREE.PlaneBufferGeometry(30, 30);
-	window.boxMaterial = new THREE.MeshPhongMaterial({transparent: true, opacity: 0, side: THREE.DoubleSide, shading: THREE.FlatShading});
-
-	window.box = new THREE.Object3D();
-	timeline.add(function() {scene.add(box)}, "box");
-	timeline.to(boxMaterial, 2, {opacity: 1}, "box");
-	timeline.add(function() {boxMaterial.transparent = false;}, "box+=2");
-	for(var i = 0; i < 5; i++) {
-		var f = new THREE.Mesh(faceGeometry, boxMaterial);
-		if(i < 2) {
-			f.position.y = (i == 0 ? -30 : 30);
-			f.rotation.x = Math.PI / 2;
-			timeline.to(f.position, 2, {y: (i == 0 ? -15 : 15), ease: Power4.easeOut}, "box");
-		}
-		else {
-			var angle = i * Math.PI / 2;
-			f.position.set(30 * Math.cos(angle), 0, 30 * Math.sin(angle));
-			f.rotation.y = angle + Math.PI / 2;
-			timeline.to(f.position, 2, {x: 15 * Math.cos(angle), z: 15 * Math.sin(angle), ease: Power4.easeOut}, "box");
-		}
-		box.add(f);
-	}
-
 	window.lines = [new THREE.Object3D(), new THREE.Object3D(), new THREE.Object3D()];
 	lines[2].position.y = 15;
 	timeline.add(function() {scene.add(lines[0])}, "lines0");
@@ -100,6 +77,34 @@ $(function() {
 		}
 	}
 
+	timeline.to(scene.rotation, 1.5, {x: 0, ease: Power2.easeInOut}, "rotate");
+	timeline.to(lines[0].position, 1.5, {y: -15, ease: Power2.easeInOut}, "rotate");
+
+	var faceGeometry = new THREE.PlaneBufferGeometry(30, 30);
+	window.boxMaterial = new THREE.MeshPhongMaterial({transparent: true, opacity: 0, side: THREE.DoubleSide, shading: THREE.FlatShading});
+
+	window.box = new THREE.Object3D();
+	timeline.add(function() {scene.add(box)}, "box");
+	timeline.to(boxMaterial, 2, {opacity: 1}, "box");
+	timeline.to(lineMaterial.color, 2, {r: 1, g: 1, b: 1}, "box");
+	timeline.to(lineMaterial.emissive, 2, {r: 0.5, g: 0.5, b: 0.5}, "box");
+	timeline.add(function() {boxMaterial.transparent = false;}, "box+=2");
+	for(var i = 0; i < 5; i++) {
+		var f = new THREE.Mesh(faceGeometry, boxMaterial);
+		if(i < 2) {
+			f.position.y = (i == 0 ? -30 : 30);
+			f.rotation.x = Math.PI / 2;
+			timeline.to(f.position, 2, {y: (i == 0 ? -15 : 15), ease: Power4.easeOut}, "box");
+		}
+		else {
+			var angle = i * Math.PI / 2;
+			f.position.set(30 * Math.cos(angle), 0, 30 * Math.sin(angle));
+			f.rotation.y = angle + Math.PI / 2;
+			timeline.to(f.position, 2, {x: 15 * Math.cos(angle), z: 15 * Math.sin(angle), ease: Power4.easeOut}, "box");
+		}
+		box.add(f);
+	}
+
 	var objLoader = new THREE.OBJLoader();
 	objLoader.load("img/objects/crane.obj", function(object) {
 		var geometry = new THREE.Geometry().fromBufferGeometry(object.children[0].geometry);
@@ -120,9 +125,6 @@ $(function() {
 		controller.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxBufferGeometry(1, 1, 1))));
 		scene.add(controller);
 	});
-
-	timeline.to(scene.rotation, 1.5, {x: 0, ease: Power2.easeInOut}, "rotate");
-	timeline.to(lines[0].position, 1.5, {y: -15, ease: Power2.easeInOut}, "rotate");
 
 	var axisHelper = new THREE.AxisHelper(100);
 	scene.add(axisHelper);
