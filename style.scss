@@ -2,6 +2,7 @@
 @import "colors/colors";
 
 .construction {
+	z-index: 99999999;
 	position: absolute;
 	top: 40px;
 	left: -60px;
@@ -42,24 +43,32 @@ body {
 
 .menu {
 	position: absolute;
-	top: 50%;
+	left: 50%;
 	opacity: 0;
-	background-color: rgba(white, 0.1);
-	padding: 0 20px;
+	background-color: tint(#131d29, 10);
+	padding: 10px;
 	font-family: "Quicksand", sans-serif;
-	@include transform(translateY(-50%));
+	@include transform(translateX(-50%));
 
-	&.left {
-		left: 20px;
+	&.top {
+		top: 20px;
 	}
 
-	&.right {
-		right: 20px;
+	&.bottom {
+		bottom: 20px;
+	}
+
+	.group {
+		@include display(flex);
+
+		.submenu, .item {
+			@include flex-grow(1);
+		}
 	}
 
 	.divider, .submenu, .item {
 		display: block;
-		margin: 20px 0;
+		margin: 0 20px;
 
 		.icon {
 			width: 24px;
