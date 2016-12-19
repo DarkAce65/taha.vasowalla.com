@@ -13,10 +13,10 @@ window.requestAnimFrame =
 $(function() {
 	window.timeline = new TimelineLite();
 	timeline.addLabel("lines0", 0);
-	timeline.addLabel("rotate", 1);
-	timeline.addLabel("lines1", 2.5);
-	timeline.addLabel("lines2", 3.5);
-	timeline.addLabel("box", 4.5);
+	timeline.addLabel("rotate", "lines0+=1");
+	timeline.addLabel("lines1", "rotate+=1.5");
+	timeline.addLabel("lines2", "lines1+=1");
+	timeline.addLabel("box", "lines2+=1");
 
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
@@ -42,22 +42,35 @@ $(function() {
 	pointlight.add(new THREE.Mesh(new THREE.SphereBufferGeometry(2), new THREE.MeshBasicMaterial({color: 0x5e85b4, wireframe: true})));
 	scene.add(pointlight);
 
-	window.boxMaterial = new THREE.MeshPhongMaterial({
-		transparent: true,
-		opacity: 0,
-		side: THREE.DoubleSide,
-		shading: THREE.FlatShading
-	});
+	window.boxMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
+	timeline.add(function() {scene.add(box)}, "box");
 	for(var i = 0; i < 5; i++) {
 		var f = new THREE.Mesh(new THREE.PlaneBufferGeometry(30, 30), boxMaterial);
-		f.position.z = -15;
-		if(i < 4) {
-			var angle = i * Math.PI / 2;
-			f.rotation.x = Math.PI / 2;
-			f.rotation.y = angle + Math.PI / 2;
-			f.position.set(15 * Math.cos(angle), 15 * Math.sin(angle), 0);
+		f.scale.y = 0.00001;
+		switch(i) {
+			case 0:
+				f.position.y = -15;
+				f.rotation.x = Math.PI / 2;
+				f.scale.x = 0.00001;
+				timeline.to(f.scale, 2, {x: 1, y: 1, ease: Power2.easeInOut}, "box");
+				break;
+			case 1:
+				f.position.y = 15;
+				f.rotation.x = Math.PI / 2;
+				f.scale.x = 0.00001;
+				timeline.to(f.scale, 2, {x: 1, y: 1, ease: Power2.easeInOut}, "box");
+				break;
+			case 2:
+			case 3:
+			case 4:
+				var angle = i * Math.PI / 2;
+				f.position.set(15 * Math.cos(angle), -15, 15 * Math.sin(angle));
+				f.rotation.y = angle + Math.PI / 2;
+				timeline.to(f.position, 2, {y: 0, ease: Power2.easeInOut}, "box");
+				timeline.to(f.scale, 2, {x: 1, y: 1, ease: Power2.easeInOut}, "box");
+				break;
 		}
 		box.add(f);
 	}
@@ -123,7 +136,6 @@ $(function() {
 
 	timeline.to(scene.rotation, 1.5, {x: 0, ease: Power2.easeInOut}, "rotate");
 	timeline.to(lines[0].position, 1.5, {y: -15, ease: Power2.easeInOut}, "rotate");
-	timeline.to(boxMaterial, 1, {opacity: 1, onStart: function() {scene.add(box);}, onComplete: function() {boxMaterial.transparent = false;}, ease: Power2.easeIn}, "box");
 
 	var axisHelper = new THREE.AxisHelper(100);
 	scene.add(axisHelper);
