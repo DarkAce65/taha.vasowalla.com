@@ -94,7 +94,7 @@ function reset() {
 		gainNode.disconnect();
 		analyser.disconnect();
 		source.stop();
-		document.getElementById("fileName").innerHTML = "";
+		document.getElementById("filename").innerHTML = "";
 		document.getElementById("currentTime").innerHTML = "-:--";
 		document.getElementById("duration").innerHTML = "-:--";
 		source = undefined;
@@ -141,7 +141,7 @@ function play() {
 		draw();
 		$("#playPause, #upload, .btn-file").attr("disabled", false);
 		document.getElementById("duration").innerHTML = toHHMMSS(arrayBuffer.duration);
-		document.getElementById("fileName").innerHTML = filename + " - ";
+		document.getElementById("filename").innerHTML = filename + " - ";
 		$("#playPause i").removeClass("fa-play");
 		$("#playPause i").addClass("fa-pause");
 	}
