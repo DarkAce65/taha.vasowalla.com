@@ -22,7 +22,7 @@ $(function() {
 
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
-	var renderer = new THREE.WebGLRenderer({antialias: true});
+	var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 	$("#rendererContainer").append(renderer.domElement);
 	var width = $("#rendererContainer").width();
 	var height = $("#rendererContainer").height();
@@ -121,6 +121,30 @@ $(function() {
 		window.controller = object;
 		controller.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.BoxBufferGeometry(1, 1, 1))));
 		scene.add(controller);
+	});
+
+	var loader = new THREE.TextureLoader();
+	loader.load("img/icons/tv.png", function(texture) {
+		texture.magFilter = THREE.NearestFilter;
+		texture.offset.set(0.5, 0.5);
+		texture.repeat.set(1.2, 1.2);
+		var shape = new THREE.Shape();
+		shape.moveTo(-0.5, -0.375);
+		shape.arc(0.125, 0, 0.125, Math.PI, 1.5 * Math.PI);
+		shape.lineTo(0.375, -0.5);
+		shape.arc(0, 0.125, 0.125, 1.5 * Math.PI, 0);
+		shape.lineTo(0.5, 0.375);
+		shape.arc(-0.125, 0, 0.125, 0, Math.PI / 2);
+		shape.lineTo(-0.375, 0.5);
+		shape.arc(0, -0.125, 0.125, Math.PI / 2, Math.PI);
+
+		var geometry = new THREE.ExtrudeGeometry(shape, {steps: 1, amount: 0.25, bevelEnabled: false});
+		window.material = new THREE.MultiMaterial([
+			new THREE.MeshBasicMaterial({map: texture, color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading}),
+			new THREE.MeshPhongMaterial({color: 0xff4444, side: THREE.DoubleSide, shading: THREE.FlatShading})
+		]);
+		var mesh = new THREE.Mesh(geometry, material);
+		scene.add(mesh);
 	});
 
 	var axisHelper = new THREE.AxisHelper(100);
