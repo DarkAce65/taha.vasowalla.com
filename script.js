@@ -35,8 +35,12 @@ $(function() {
 	scene.add(pointlight);
 
 	var faceMaterial = new THREE.MeshPhongMaterial({color: 0x333333, emissive: 0xe91916, side: THREE.DoubleSide, shading: THREE.FlatShading});
-	var uniforms = {u_time: {type: "f", value: 0}};
+	window.uniforms = THREE.UniformsUtils.merge([
+		THREE.UniformsLib["lights"],
+		{u_time: {type: "f", value: 0}}
+	]);
 	var shaderMaterial = new THREE.ShaderMaterial({
+		lights: true,
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
 		fragmentShader: document.getElementById("fragmentShader").textContent,
