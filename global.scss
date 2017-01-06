@@ -50,7 +50,7 @@ code {
 	padding-bottom: 5px;
 }
 
-.align-middle {
+.valign-middle {
 	@include display(flex);
 	@include flex-direction(column);
 
