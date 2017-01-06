@@ -18,18 +18,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.photoicon-exposure:before {
+.photoicon-exposure::before {
 	content: "\e000";
 }
 
-.photoicon-focal-length:before {
+.photoicon-focal-length::before {
 	content: "\e001";
 }
 
-.photoicon-iso:before {
+.photoicon-iso::before {
 	content: "\e002";
 }
 
-.photoicon-aperture:before {
+.photoicon-aperture::before {
 	content: "\e003";
 }

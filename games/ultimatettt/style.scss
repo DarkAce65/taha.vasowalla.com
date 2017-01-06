@@ -18,7 +18,7 @@ table {
 			width: 50px;
 			text-align: center;
 
-			&:after {
+			&::after {
 				content: "";
 				display: inline-block;
 				position: relative;
@@ -37,7 +37,7 @@ table {
 .possible {
 	cursor: pointer;
 
-	&:after {
+	&::after {
 		background-color: #FFF98C;
 		width: 45px;
 		height: 45px;
@@ -51,13 +51,13 @@ table {
 	100% {opacity: 1;}
 }
 
-.Red:after {
+.Red::after {
 	background-color: $red-color;
 	width: 45px;
 	height: 45px;
 }
 
-.Blue:after {
+.Blue::after {
 	background-color: $blue-color;
 	width: 45px;
 	height: 45px;
@@ -103,17 +103,17 @@ table.Blue {
 		}
 	}
 
-	.possible:after {
+	.possible::after {
 		width: 20px;
 		height: 20px;
 	}
 
-	.Red:after {
+	.Red::after {
 		width: 20px;
 		height: 20px;
 	}
 
-	.Blue:after {
+	.Blue::after {
 		width: 20px;
 		height: 20px;
 	}
