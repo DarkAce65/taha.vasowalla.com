@@ -53,7 +53,7 @@ body {
 	background-color: rgba(#131d29, 0.75);
 	font-family: "Quicksand", sans-serif;
 	@include transform(scale(2));
-	@include transition(0.75s);
+	@include transition(opacity 0.75s, scale 0.75s);
 
 	&.in {
 		z-index: auto;
