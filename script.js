@@ -18,7 +18,7 @@ $(function() {
 	$("#rendererContainer").append(renderer.domElement);
 	$("#rendererContainer").append("<div></div>");
 	var width = $("#rendererContainer").width();
-	var height = $("#rendererContainer").height();
+	var height = Math.min(width, $("#rendererContainer").height());
 	renderer.setSize(width, height);
 	renderer.setPixelRatio(window.devicePixelRatio);
 
