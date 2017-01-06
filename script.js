@@ -66,23 +66,27 @@ $(function() {
 		f.rotation.y = angle;
 		box.add(f);
 	}
-
-	box.scale.set(0.01, 1, 0.01);
-	box.position.x = -50;
 	scene.add(box);
-	TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
-	TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
-	TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
-	TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
-	TweenLite.to(box.scale, 1, {z: 1, delay: 3});
-	setTimeout(function() {$("#overlay").addClass("in");}, 5000);
 
-	// if(Cookies.get("animated")) {
-	// 	timeline.seek("menu+=1", false);
-	// }
-	// else {
-	// 	timeline.add(function() {Cookies.set("animated", true, {path: "", expires: 1 / 144});}, "menu");
-	// }
+	if(Cookies.get("animated")) {
+		uniforms.u_multiplier.value = 1;
+		$("#overlay").addClass("in");
+		camera.position.set(170, 70, 170);
+		camera.lookAt(scene.position);
+	}
+	else {
+		box.scale.set(0.01, 1, 0.01);
+		box.position.x = -50;
+		TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
+		TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
+		TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
+		TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
+		TweenLite.to(box.scale, 1, {z: 1, delay: 3});
+		setTimeout(function() {
+			$("#overlay").addClass("in");
+			Cookies.set("animated", true, {path: "", expires: 1 / 144});
+		}, 5000);
+	}
 	render();
 
 	function render() {
