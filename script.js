@@ -22,7 +22,6 @@ $(function() {
 
 	window.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
 	camera.position.set(0, 0, 250);
-	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
 	var ambient = new THREE.AmbientLight(0xaaaaaa);
@@ -74,9 +73,7 @@ $(function() {
 	TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
 	TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
 	TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
-	TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(controls.target);}, delay: 3});
-	TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
-	TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
+	TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
 	TweenLite.to(box.scale, 1, {z: 1, delay: 3});
 	setTimeout(function() {$("#overlay").addClass("in");}, 5000);
 
@@ -91,7 +88,6 @@ $(function() {
 	function render() {
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
-		controls.update();
 
 		uniforms.u_time.value += clock.getDelta();
 	}
