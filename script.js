@@ -14,7 +14,9 @@ $(function() {
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+	$("#rendererContainer").append("<div></div>");
 	$("#rendererContainer").append(renderer.domElement);
+	$("#rendererContainer").append("<div></div>");
 	var width = $("#rendererContainer").width();
 	var height = $("#rendererContainer").height();
 	renderer.setSize(width, height);
