@@ -37,7 +37,7 @@ $(function() {
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.UniformsLib["lights"],
 		{
-			u_noiseColor: {type: "f", value: 0},
+			u_noiseColor: {type: "f", value: 1},
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0}
 		}
@@ -75,7 +75,6 @@ $(function() {
 	scene.add(box);
 	TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
 	TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
-	TweenLite.to(uniforms.u_noiseColor, 2, {value: 1, delay: 2});
 	TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
 	TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(controls.target);}, delay: 3});
 	TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
