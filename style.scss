@@ -41,13 +41,7 @@ body {
 	}
 }
 
-.vdiv {
-	@include flex-grow(1);
-}
-
-#menuContainer {
-	@include display(flex);
-	@include flex-direction(column);
+#overlay {
 	z-index: -1;
 	position: absolute;
 	top: 0;
@@ -98,8 +92,6 @@ body {
 }
 
 #rendererContainer {
-	@include display(flex);
-	@include flex-direction(column);
 	width: 100%;
 	height: 100%;
 }

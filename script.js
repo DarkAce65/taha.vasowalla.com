@@ -14,9 +14,7 @@ $(function() {
 	var clock = new THREE.Clock();
 	window.scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-	$("#rendererContainer").append('<div class="vdiv"></div>');
 	$("#rendererContainer").append(renderer.domElement);
-	$("#rendererContainer").append('<div class="vdiv"></div>');
 	var width = $("#rendererContainer").width();
 	var height = Math.min(width, $("#rendererContainer").height());
 	renderer.setSize(width, height);
@@ -80,7 +78,7 @@ $(function() {
 	TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
 	TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
 	TweenLite.to(box.scale, 1, {z: 1, delay: 3});
-	setTimeout(function() {$("#menuContainer").addClass("in");}, 5000);
+	setTimeout(function() {$("#overlay").addClass("in");}, 5000);
 
 	// if(Cookies.get("animated")) {
 	// 	timeline.seek("menu+=1", false);
