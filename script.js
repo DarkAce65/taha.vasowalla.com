@@ -20,7 +20,6 @@ $(function() {
 	var width = $("#rendererContainer").width();
 	var height = $("#rendererContainer").height();
 	renderer.setSize(width, height);
-	renderer.setClearColor(0x131d29);
 	renderer.setPixelRatio(window.devicePixelRatio);
 
 	window.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
