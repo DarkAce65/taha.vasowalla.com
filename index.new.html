@@ -78,12 +78,11 @@
 			</div>
 		</div>
 		<script id="vertexShader" type="x-shader/x-vertex">
+			uniform float u_multiplier;
 			uniform float u_time;
 
 			varying vec2 vUv;
 			varying vec3 noise;
-			varying vec3 vPos;
-			varying vec3 vNormal;
 
 			// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
 
@@ -178,7 +177,6 @@
 
 			void main() {
 				vUv = uv;
-				vNormal = normalMatrix * normal;
 
 				noise.r = snoise(vec3(uv * 5.0, u_time / 8.0));
 				noise.g = snoise(vec3(uv * 2.5, u_time / 6.0));
@@ -186,38 +184,27 @@
 
 				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
 				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
-				float multiplier = -15.0 * bl.x * bl.y * tr.x * tr.y;
-				vec3 displacement = multiplier * length(noise) * normal;
-				noise = noise * multiplier / -15.0;
+				float multiplier = u_multiplier * bl.x * bl.y * tr.x * tr.y;
 
-				vPos = (modelViewMatrix * vec4(position, 1.0)).xyz;
+				vec3 displacement = -15.0 * multiplier * length(noise) * normal;
+				noise *= multiplier;
+
 				vec4 mvPosition = modelViewMatrix * vec4(position + displacement, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
+			uniform float u_multiplier;
 			uniform float u_time;
-			struct PointLight {
-				vec3 position;
-				vec3 color;
-			};
-			uniform PointLight pointLights[NUM_POINT_LIGHTS];
+			uniform float u_noiseColor;
 
 			varying vec2 vUv;
 			varying vec3 noise;
-			varying vec3 vPos;
-			varying vec3 vNormal;
 
 			void main() {
-				vec3 color = vec3(noise.r, noise.g, noise.b);
-
-				vec4 addedLights = vec4(0.1, 0.1, 0.1, 1.0);
-				for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-					vec3 adjustedLight = pointLights[l].position + cameraPosition;
-					vec3 lightDirection = normalize(vPos - adjustedLight);
-					addedLights.rgb += clamp(dot(-lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
-				}
-				gl_FragColor = addedLights * vec4(color, 1.0);
+				vec3 color = vec3(0.0);
+				color += u_noiseColor * noise;
+				gl_FragColor = vec4(color, length(noise) + 0.3);
 			}
 		</script>
 	</body>
