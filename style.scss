@@ -25,7 +25,7 @@ html, body {
 
 body {
 	color: white;
-	background-color: #131d29;
+	background-color: tint(#131d29, 10);
 
 	@include selection {
 		background-color: $light-color;
@@ -50,7 +50,7 @@ body {
 	left: 0;
 	padding: 20px;
 	opacity: 0;
-	background-color: rgba(tint(#131d29, 10), 0.75);
+	background-color: rgba(#131d29, 0.75);
 	font-family: "Quicksand", sans-serif;
 	@include transform(scale(2));
 	@include transition(0.75s);
