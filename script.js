@@ -81,13 +81,6 @@ $(function() {
 	TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
 	TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
 	TweenLite.to(box.scale, 1, {z: 1, delay: 3});
-	TweenLite.to("#rendererContainer", 2, {width: "50%", onUpdate: function() {
-		width = $("#rendererContainer").width();
-		height = Math.min(width, $("#rendererContainer").height());
-		renderer.setSize(width, height);
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
-	}, delay: 5});
 
 	// if(Cookies.get("animated")) {
 	// 	timeline.seek("menu+=1", false);
