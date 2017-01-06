@@ -58,11 +58,13 @@ body {
 	opacity: 0;
 	background-color: rgba(tint(#131d29, 10), 0.75);
 	font-family: "Quicksand", sans-serif;
-	@include transition(2s);
+	@include transform(scale(2));
+	@include transition(0.75s);
 
 	&.in {
 		z-index: auto;
 		opacity: 1;
+		@include transform(scale(1));
 	}
 
 	.menu {
