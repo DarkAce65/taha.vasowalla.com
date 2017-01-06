@@ -42,20 +42,21 @@ body {
 }
 
 .menu {
+	z-index: -1;
 	position: absolute;
-	left: 50%;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding: 20px;
 	opacity: 0;
-	background-color: tint(#131d29, 10);
-	padding: 10px;
+	background-color: rgba(tint(#131d29, 10), 0.75);
 	font-family: "Quicksand", sans-serif;
-	@include transform(translateX(-50%));
+	@include transition(1s);
 
-	&.top {
-		top: 20px;
-	}
-
-	&.bottom {
-		bottom: 20px;
+	&.in {
+		z-index: auto;
+		opacity: 1;
 	}
 
 	.group {
