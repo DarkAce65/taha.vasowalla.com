@@ -33,7 +33,6 @@ $(function() {
 
 	window.pointlight = new THREE.PointLight(0xffffff);
 	pointlight.position.set(100, 100, 250);
-	pointlight.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.SphereBufferGeometry(2)), new THREE.LineBasicMaterial({color: 0x5e85b4})));
 	scene.add(pointlight);
 
 	window.uniforms = THREE.UniformsUtils.merge([
