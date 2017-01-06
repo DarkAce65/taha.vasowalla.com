@@ -50,6 +50,16 @@ code {
 	padding-bottom: 5px;
 }
 
+.align-middle {
+	@include display(flex);
+	@include flex-direction(column);
+
+	&::before, &::after {
+		content: "";
+		@include flex-grow(1);
+	}
+}
+
 img#hero {
 	width: 100%;
 	border-radius: 6px;
