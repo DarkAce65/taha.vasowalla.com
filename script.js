@@ -22,6 +22,7 @@ $(function() {
 
 	window.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
 	camera.position.set(0, 0, 250);
+	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
 	var ambient = new THREE.AmbientLight(0xaaaaaa);
@@ -92,6 +93,7 @@ $(function() {
 	function render() {
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
+		controls.update();
 
 		uniforms.u_time.value += clock.getDelta();
 	}
