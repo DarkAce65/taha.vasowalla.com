@@ -168,9 +168,9 @@
 				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
 				noise *= u_multiplier * bl.x * bl.y * tr.x * tr.y;
 
-				vec3 displacement = -15.0 * length(noise) * normal;
+				float displacement = -15.0 * length(noise);
 
-				vec4 mvPosition = modelViewMatrix * vec4(position + displacement, 1.0);
+				vec4 mvPosition = modelViewMatrix * vec4(position.xy, position.z + displacement, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
