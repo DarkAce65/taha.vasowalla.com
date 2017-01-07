@@ -186,7 +186,11 @@
 				noise.g = snoise(vec3(uv * 2.5, u_time / 6.0));
 				noise.b = snoise(vec3(uv * 1.25, u_time / 4.0));
 
-				vec4 mvPosition = modelViewMatrix * vec4(position + normal * (length(noise) - length(vec3(0.5))) * 3.0, 1.0);
+				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
+				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
+				noise *= bl.x * bl.y * tr.x * tr.y;
+
+				vec4 mvPosition = modelViewMatrix * vec4(position + normal * length(noise) * 3.0, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
