@@ -37,7 +37,8 @@ $(function() {
 		{
 			u_noiseColor: {type: "f", value: 1},
 			u_time: {type: "f", value: 0},
-			u_multiplier: {type: "f", value: 0}
+			u_multiplier: {type: "f", value: 0},
+			u_uvscale: {type: "v2", value: new THREE.Vector2(100, 100)}
 		}
 	]);
 	var shaderMaterial = new THREE.ShaderMaterial({
@@ -48,10 +49,10 @@ $(function() {
 		fragmentShader: document.getElementById("fragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
-	var faceMaterial = new THREE.MeshPhongMaterial({color: 0xf72f35, side: THREE.DoubleSide, shading: THREE.FlatShading});
+	var faceMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
-	var top = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 100, 100), shaderMaterial);
+	var top = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), shaderMaterial);
 	top.position.y = 1;
 	top.rotation.x = Math.PI / 2;
 	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100), faceMaterial);

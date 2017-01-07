@@ -62,6 +62,7 @@
 		<script id="vertexShader" type="x-shader/x-vertex">
 			uniform float u_multiplier;
 			uniform float u_time;
+			uniform vec2 u_uvscale;
 
 			varying vec2 vUv;
 			varying vec3 vNormal;
@@ -158,26 +159,44 @@
 				return 42.0 * dot(m * m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
 			}
 
+			vec3 f(float u, float v) {
+				vec3 y = vec3(0.0);
+				y.x = snoise(vec3(u * 5.0, v * 5.0, u_time / 8.0));
+				y.y = snoise(vec3(u * 2.5, v * 2.5, u_time / 6.0));
+				y.z = snoise(vec3(u * 1.25, v * 1.25, u_time / 4.0));
+
+				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), vec2(u, v));
+				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - vec2(u, v));
+				y *= u_multiplier * bl.x * bl.y * tr.x * tr.y;
+
+				return y;
+			}
+
+			vec3 displacePosition(vec3 noise, vec3 pos) {
+				float displacement = -15.0 * length(noise);
+				vec3 newpos = vec3(pos.xy, pos.z + displacement);
+
+				return newpos;
+			}
+
+			vec3 recalculateNormal(vec3 newpos) {
+				vec3 tangent = displacePosition(f(uv.x + 1.0 / u_uvscale.x, uv.y), vec3(position.x + 1.0, position.y, position.z)) - newpos;
+				vec3 bitangent = displacePosition(f(uv.x, uv.y + 1.0 / u_uvscale.y), vec3(position.x, position.y + 1.0, position.z)) - newpos;
+				return normalize(cross(tangent, bitangent));
+			}
+
 			void main() {
 				vUv = uv;
-				vNormal = normal;
 
-				noise.r = snoise(vec3(uv * 5.0, u_time / 8.0));
-				noise.g = snoise(vec3(uv * 2.5, u_time / 6.0));
-				noise.b = snoise(vec3(uv * 1.25, u_time / 4.0));
+				noise = f(uv.x, uv.y);
+				vec3 newpos = displacePosition(noise, position);
+				vNormal = recalculateNormal(newpos);
 
-				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
-				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
-				noise *= u_multiplier * bl.x * bl.y * tr.x * tr.y;
-
-				float displacement = -15.0 * length(noise);
-
-				vec4 mvPosition = modelViewMatrix * vec4(position.xy, position.z + displacement, 1.0);
+				vec4 mvPosition = modelViewMatrix * vec4(newpos, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
-			uniform float u_multiplier;
 			uniform float u_time;
 			uniform float u_noiseColor;
 
@@ -189,7 +208,7 @@
 				vec3 color = vec3(0.0);
 				color += u_noiseColor * noise;
 				color = vNormal / 2.0 + 0.5;
-				gl_FragColor = vec4(color, length(noise) + 0.3);
+				gl_FragColor = vec4(color, 1.0);//, length(noise) + 0.3);
 			}
 		</script>
 	</body>
