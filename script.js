@@ -35,7 +35,6 @@ $(function() {
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.UniformsLib["lights"],
 		{
-			u_noiseColor: {type: "f", value: 1},
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
 			u_uvscale: {type: "v2", value: new THREE.Vector2(15, 15)}
