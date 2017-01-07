@@ -174,7 +174,7 @@
 
 			vec3 displacePosition(vec3 noise, vec3 pos) {
 				float displacement = -15.0 * length(noise);
-				vec3 newpos = vec3(pos.xy, pos.z + displacement);
+				vec3 newpos = vec3(pos.x + noise.x * 50.0 / u_uvscale.x, pos.y + noise.y * 50.0 / u_uvscale.y, pos.z + displacement);
 
 				return newpos;
 			}

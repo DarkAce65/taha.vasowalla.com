@@ -25,10 +25,10 @@ $(function() {
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
-	var ambient = new THREE.AmbientLight(0xaaaaaa);
+	var ambient = new THREE.AmbientLight(0x274466);
 	scene.add(ambient);
 
-	window.pointlight = new THREE.PointLight(0xffffff);
+	window.pointlight = new THREE.PointLight(0x5e85b4);
 	pointlight.position.set(100, 100, 250);
 	scene.add(pointlight);
 
@@ -38,11 +38,10 @@ $(function() {
 			u_noiseColor: {type: "f", value: 1},
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
-			u_uvscale: {type: "v2", value: new THREE.Vector2(100, 100)}
+			u_uvscale: {type: "v2", value: new THREE.Vector2(15, 15)}
 		}
 	]);
-	var shaderMaterial = new THREE.ShaderMaterial({
-		transparent: true,
+	var waveShaderMaterial = new THREE.ShaderMaterial({
 		lights: true,
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
@@ -52,7 +51,7 @@ $(function() {
 	var faceMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
-	var top = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), shaderMaterial);
+	var top = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), waveShaderMaterial);
 	top.position.y = 1;
 	top.rotation.x = Math.PI / 2;
 	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100), faceMaterial);
@@ -83,6 +82,8 @@ $(function() {
 		TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
 		TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
 		TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
+		TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
+		TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
 		TweenLite.to(box.scale, 1, {z: 1, delay: 3});
 		setTimeout(function() {
 			$("#overlay").addClass("in");
