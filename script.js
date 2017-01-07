@@ -44,9 +44,11 @@ $(function() {
 	var waveShaderMaterial = new THREE.ShaderMaterial({
 		transparent: true,
 		lights: true,
+		defines: {"FLAT_SHADED": 1},
+		extensions: {derivatives: true},
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
-		fragmentShader: "#extension GL_OES_standard_derivatives : enable\n#define FLAT_SHADED\n" + THREE.ShaderLib["phong"].fragmentShader,
+		fragmentShader: THREE.ShaderLib["phong"].fragmentShader,
 		side: THREE.DoubleSide
 	});
 	var wireShaderMaterial = new THREE.ShaderMaterial({
