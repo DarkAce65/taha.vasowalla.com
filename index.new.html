@@ -64,6 +64,7 @@
 			uniform float u_time;
 
 			varying vec2 vUv;
+			varying vec3 vNormal;
 			varying vec3 noise;
 
 			// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
@@ -159,6 +160,7 @@
 
 			void main() {
 				vUv = uv;
+				vNormal = normal;
 
 				noise.r = snoise(vec3(uv * 5.0, u_time / 8.0));
 				noise.g = snoise(vec3(uv * 2.5, u_time / 6.0));
@@ -180,11 +182,13 @@
 			uniform float u_noiseColor;
 
 			varying vec2 vUv;
+			varying vec3 vNormal;
 			varying vec3 noise;
 
 			void main() {
 				vec3 color = vec3(0.0);
 				color += u_noiseColor * noise;
+				color = vNormal / 2.0 + 0.5;
 				gl_FragColor = vec4(color, length(noise) + 0.3);
 			}
 		</script>
