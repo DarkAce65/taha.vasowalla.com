@@ -38,7 +38,7 @@ $(function() {
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
-			u_uvscale: {type: "v2", value: new THREE.Vector2(15, 15)}
+			u_uvscale: {type: "v2", value: new THREE.Vector2(25, 25)}
 		}
 	]);
 	var waveShaderMaterial = new THREE.ShaderMaterial({
