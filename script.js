@@ -33,7 +33,7 @@ $(function() {
 	scene.add(pointlight);
 
 	window.uniforms = THREE.UniformsUtils.merge([
-		THREE.UniformsLib["lights"],
+		THREE.ShaderLib["phong"].uniforms,
 		{
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
@@ -44,7 +44,7 @@ $(function() {
 		lights: true,
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
-		fragmentShader: document.getElementById("fragmentShader").textContent,
+		fragmentShader: THREE.ShaderLib["phong"].fragmentShader,
 		side: THREE.DoubleSide
 	});
 	var wireShaderMaterial = new THREE.ShaderMaterial({

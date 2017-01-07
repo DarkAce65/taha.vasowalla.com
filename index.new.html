@@ -65,6 +65,7 @@
 			uniform vec2 u_uvscale;
 
 			varying vec2 vUv;
+			varying vec3 vViewPosition;
 			varying vec3 vNormal;
 			varying vec3 noise;
 
@@ -189,24 +190,12 @@
 				vUv = uv;
 
 				noise = f(uv.x, uv.y);
-				vec3 newpos = displacePosition(noise, position);
-				vNormal = recalculateNormal(newpos);
+				vec3 transformed = displacePosition(noise, position);
+				vNormal = normalMatrix * recalculateNormal(transformed);
 
-				vec4 mvPosition = modelViewMatrix * vec4(newpos, 1.0);
+				vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
+				vViewPosition = -mvPosition.xyz;
 				gl_Position = projectionMatrix * mvPosition;
-			}
-		</script>
-		<script id="fragmentShader" type="x-shader/x-fragment">
-			uniform float u_time;
-
-			varying vec2 vUv;
-			varying vec3 vNormal;
-			varying vec3 noise;
-
-			void main() {
-				vec3 color = vec3(0.0);
-				color = vNormal / 2.0 + 0.5;
-				gl_FragColor = vec4(color, 1.0);
 			}
 		</script>
 		<script id="wireFragmentShader" type="x-shader/x-fragment">
