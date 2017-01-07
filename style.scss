@@ -42,6 +42,7 @@ body {
 }
 
 #overlay {
+	@include display(flex);
 	z-index: -1;
 	position: absolute;
 	top: 0;
@@ -53,7 +54,7 @@ body {
 	background-color: rgba(#131d29, 0.75);
 	font-family: "Quicksand", sans-serif;
 	@include transform(scale(2));
-	@include transition(opacity 0.75s, scale 0.75s);
+	@include transition(opacity 0.75s, transform 0.75s);
 
 	&.in {
 		z-index: auto;
@@ -61,28 +62,41 @@ body {
 		@include transform(scale(1));
 	}
 
-	.menu {
+	#wrapper {
+		overflow: auto;
+		max-height: 100%;
+	}
+
+	#banner {
+		max-width: 350px;
+		margin: 0 auto 10px;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	#menuContainer {
 		.group {
-			@include display(flex);
+			font-size: 150%;
 
 			.submenu, .item {
-				@include flex-grow(1);
+				// @include flex-grow(1);
 			}
 		}
 
 		.divider, .submenu, .item {
 			display: block;
-			margin: 0 20px;
 
 			.icon {
+				float: left;
 				width: 24px;
+				padding: 2px;
+				margin-right: 0.3em;
+				background-color: rgba(white, 0.6);
 				line-height: 24px;
 				border-radius: 3px;
 			}
-		}
-
-		.divider {
-			font-size: 150%;
 		}
 
 		.item {
