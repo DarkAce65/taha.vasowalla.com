@@ -35,16 +35,18 @@ $(function() {
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.ShaderLib["phong"].uniforms,
 		{
+			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
 			u_uvscale: {type: "v2", value: new THREE.Vector2(15, 15)}
 		}
 	]);
 	var waveShaderMaterial = new THREE.ShaderMaterial({
+		transparent: true,
 		lights: true,
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
-		fragmentShader: THREE.ShaderLib["phong"].fragmentShader,
+		fragmentShader: "#extension GL_OES_standard_derivatives : enable\n#define FLAT_SHADED\n" + THREE.ShaderLib["phong"].fragmentShader,
 		side: THREE.DoubleSide
 	});
 	var wireShaderMaterial = new THREE.ShaderMaterial({
@@ -79,7 +81,7 @@ $(function() {
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
 		$("#overlay").addClass("in");
-		camera.position.set(170, 70, 170);
+		camera.position.set(70, 60, 190);
 		camera.lookAt(scene.position);
 	}
 	else {
@@ -88,7 +90,7 @@ $(function() {
 		TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
 		TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
 		TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
-		TweenLite.to(camera.position, 2, {x: 170, y: 70, z: 170, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
+		TweenLite.to(camera.position, 2, {x: 70, y: 60, z: 190, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
 		TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
 		TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
 		TweenLite.to(box.scale, 1, {z: 1, delay: 3});
