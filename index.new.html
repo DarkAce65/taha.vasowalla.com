@@ -198,7 +198,6 @@
 		</script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
 			uniform float u_time;
-			uniform float u_noiseColor;
 
 			varying vec2 vUv;
 			varying vec3 vNormal;
@@ -206,9 +205,21 @@
 
 			void main() {
 				vec3 color = vec3(0.0);
-				color += u_noiseColor * noise;
 				color = vNormal / 2.0 + 0.5;
-				gl_FragColor = vec4(color, 1.0);//, length(noise) + 0.3);
+				gl_FragColor = vec4(color, 1.0);
+			}
+		</script>
+		<script id="wireFragmentShader" type="x-shader/x-fragment">
+			uniform float u_time;
+			uniform float u_noiseColor;
+
+			varying vec2 vUv;
+			varying vec3 vNormal;
+			varying vec3 noise;
+
+			void main() {
+				vec3 color = vec3(0.7);
+				gl_FragColor = vec4(color, 1.0);
 			}
 		</script>
 	</body>

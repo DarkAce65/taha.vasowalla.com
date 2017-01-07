@@ -48,10 +48,18 @@ $(function() {
 		fragmentShader: document.getElementById("fragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
+	var wireShaderMaterial = new THREE.ShaderMaterial({
+		wireframe: true,
+		uniforms: uniforms,
+		vertexShader: document.getElementById("vertexShader").textContent,
+		fragmentShader: document.getElementById("wireFragmentShader").textContent,
+		side: THREE.DoubleSide
+	});
 	var faceMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
 	var top = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), waveShaderMaterial);
+	top.add(new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), wireShaderMaterial));
 	top.position.y = 1;
 	top.rotation.x = Math.PI / 2;
 	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100), faceMaterial);
