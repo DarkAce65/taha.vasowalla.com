@@ -123,6 +123,20 @@ $(function() {
 	lighthouse[3].add(lhRoofBall);
 	lighthouse[3].add(lhSpire);
 
+	var lhLight = new THREE.SpotLight(0xffff88, 1, 0, 1, 0.5);
+	lhLight.position.y = 37;
+	lhLight.target = new THREE.Object3D();
+	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
+	for(var i = 0; i < lhLightFixture.geometry.faces.length; i++) {
+		lhLightFixture.geometry.faces[i].materialIndex = i < 8 ? 0 : 1;
+	}
+	lhLightFixture.position.z = -1;
+	lhLightFixture.rotation.x = -Math.PI / 2;
+	lhLight.target.add(lhLightFixture);
+	lhLight.target.position.set(15, 37, -5);
+	scene.add(lhLight.target);
+	lighthouse[4] = lhLight;
+
 	for(var i = 0; i < lighthouse.length; i++) {
 		lighthouse[i].position.x = 15;
 		lighthouse[i].position.z = -5;
@@ -159,6 +173,9 @@ $(function() {
 		controls.update();
 
 		uniforms.u_time.value += clock.getDelta();
+		lhLight.target.position.x = Math.sin(clock.elapsedTime) + 15;
+		lhLight.target.position.z = Math.cos(clock.elapsedTime) - 5;
+		lhLight.target.rotation.y = clock.elapsedTime;
 	}
 
 	$(window).resize(function(e) {
