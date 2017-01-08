@@ -90,8 +90,33 @@ $(function() {
 		rockGeometry.vertices[i].z += Math.random() * 3 - 1.5;
 	}
 	window.rock = new THREE.Mesh(rockGeometry, rockMaterial);
-	rock.position.set(15, -1, -5);
+	rock.position.set(15, 0, -7);
 	scene.add(rock);
+
+	var lighthouse = [];
+	var lhWhite = new THREE.MeshPhongMaterial({color: 0xddddaa, shininess: 10, shading: THREE.FlatShading});
+	var lhRed = new THREE.MeshPhongMaterial({color: 0xef5350, shininess: 10, shading: THREE.FlatShading});
+	var lhBlack = new THREE.MeshPhongMaterial({color: 0x222222, shininess: 10, shading: THREE.FlatShading});
+	lighthouse[0] = new THREE.Mesh(new THREE.CylinderBufferGeometry(5, 6, 6), lhRed);
+	lighthouse[0].position.y = 20;
+	lighthouse[1] = new THREE.Mesh(new THREE.CylinderBufferGeometry(4, 5, 6), lhWhite);
+	lighthouse[1].position.y = 26;
+	lighthouse[2] = new THREE.Mesh(new THREE.CylinderBufferGeometry(3, 4, 6), lhRed);
+	lighthouse[2].position.y = 32;
+	lighthouse[3] = new THREE.Mesh(new THREE.CylinderBufferGeometry(4, 4, 1), lhBlack);
+	lighthouse[3].position.y = 35;
+	lighthouse[4] = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 4, 2), lhBlack);
+	lighthouse[4].position.y = 40;
+	lighthouse[5] = new THREE.Mesh(new THREE.IcosahedronGeometry(0.7, 1), lhBlack);
+	lighthouse[5].position.y = 41.3;
+	lighthouse[6] = new THREE.Mesh(new THREE.BoxGeometry(0.25, 2, 0.25), lhBlack);
+	lighthouse[6].position.y = 42.7;
+
+	for(var i = 0; i < lighthouse.length; i++) {
+		lighthouse[i].position.x = 15;
+		lighthouse[i].position.z = -5;
+		scene.add(lighthouse[i]);
+	}
 
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
