@@ -28,7 +28,7 @@ $(function() {
 	var ambient = new THREE.AmbientLight(0x666666);
 	scene.add(ambient);
 
-	window.pointlight = new THREE.PointLight(0xffffff);
+	window.pointlight = new THREE.PointLight(0xffffdd);
 	pointlight.position.set(100, 100, 250);
 	scene.add(pointlight);
 
