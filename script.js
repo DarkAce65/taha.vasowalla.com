@@ -88,7 +88,8 @@ $(function() {
 		camera.lookAt(scene.position);
 	}
 	else {
-		box.scale.set(0.01, 1, 0.01);
+		scene.scale.z = 0.01;
+		box.scale.x = 0.01;
 		box.position.x = -50;
 		TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
 		TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
@@ -96,7 +97,7 @@ $(function() {
 		TweenLite.to(camera.position, 2, {x: 70, y: 60, z: 190, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
 		TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
 		TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
-		TweenLite.to(box.scale, 1, {z: 1, delay: 3});
+		TweenLite.to(scene.scale, 1, {z: 1, delay: 3});
 		setTimeout(function() {
 			$("#overlay").addClass("in");
 			Cookies.set("animated", true, {path: "", expires: 1 / 144});
