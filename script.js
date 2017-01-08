@@ -81,6 +81,18 @@ $(function() {
 	}
 	scene.add(box);
 
+	var rockGeometry = new THREE.SphereGeometry(20, 8, 10, 0, Math.PI);
+	var rockMaterial = new THREE.MeshPhongMaterial({color: 0x666666, shading: THREE.FlatShading});
+	for(var i = 0; i < rockGeometry.vertices.length; i++) {
+		rockGeometry.vertices[i].x += Math.random() * 3 - 1.5;
+		rockGeometry.vertices[i].y += Math.random() * 3 - 1.5;
+		rockGeometry.vertices[i].z = Math.max(Math.min(rockGeometry.vertices[i].z + Math.random() * 3 - 1.5, 18), 0);
+	}
+	window.rock = new THREE.Mesh(rockGeometry, rockMaterial);
+	rock.position.set(15, -1, -5);
+	rock.rotation.x = -Math.PI / 2;
+	scene.add(rock);
+
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
 		$("#overlay").addClass("in");
