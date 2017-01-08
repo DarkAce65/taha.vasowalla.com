@@ -25,20 +25,21 @@ $(function() {
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
-	var ambient = new THREE.AmbientLight(0x274466);
+	var ambient = new THREE.AmbientLight(0x666666);
 	scene.add(ambient);
 
-	window.pointlight = new THREE.PointLight(0x5e85b4);
+	window.pointlight = new THREE.PointLight(0xffffff);
 	pointlight.position.set(100, 100, 250);
 	scene.add(pointlight);
 
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.ShaderLib["phong"].uniforms,
 		{
+			diffuse: {type: "v3", value: new THREE.Color(0x5e85b4)},
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
-			u_uvscale: {type: "v2", value: new THREE.Vector2(25, 25)}
+			u_uvscale: {type: "v2", value: new THREE.Vector2(20, 20)}
 		}
 	]);
 	var waveShaderMaterial = new THREE.ShaderMaterial({
@@ -58,7 +59,7 @@ $(function() {
 		fragmentShader: document.getElementById("wireFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
-	var faceMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, shading: THREE.FlatShading});
+	var faceMaterial = new THREE.MeshPhongMaterial({color: 0x5e85b4, side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
 	var top = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), waveShaderMaterial);
