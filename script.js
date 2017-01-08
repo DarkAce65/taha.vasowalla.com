@@ -53,6 +53,7 @@ $(function() {
 		side: THREE.DoubleSide
 	});
 	var wireShaderMaterial = new THREE.ShaderMaterial({
+		transparent: true,
 		wireframe: true,
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
