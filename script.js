@@ -123,7 +123,7 @@ $(function() {
 	lighthouse[3].add(lhRoofBall);
 	lighthouse[3].add(lhSpire);
 
-	var lhLight = new THREE.SpotLight(0xffff88, 1, 0, 1, 0.25);
+	var lhLight = new THREE.SpotLight(0xffffaa, 1, 0, 1, 0.25);
 	lhLight.position.y = 37;
 	lhLight.target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
@@ -139,7 +139,7 @@ $(function() {
 		fragmentShader: document.getElementById("beamFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
-	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60), lightShaderMaterial);
+	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60, 8, 1, true), lightShaderMaterial);
 	lhLightBeam.position.z = 29.5;
 	lhLightBeam.rotation.x = -Math.PI / 2;
 	lhLight.target.add(lhLightFixture);
