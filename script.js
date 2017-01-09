@@ -29,7 +29,7 @@ $(function() {
 	scene.add(ambient);
 
 	window.pointlight = new THREE.PointLight(0xffffdd);
-	pointlight.position.set(100, 100, 250);
+	pointlight.position.set(250, 100, -100);
 	scene.add(pointlight);
 
 	window.uniforms = THREE.UniformsUtils.merge([
@@ -123,7 +123,7 @@ $(function() {
 	lighthouse[3].add(lhRoofBall);
 	lighthouse[3].add(lhSpire);
 
-	var lhLight = new THREE.SpotLight(0xffff88, 1, 0, 1, 0.5);
+	var lhLight = new THREE.SpotLight(0xffff88, 1, 0, 1, 0.25);
 	lhLight.position.y = 37;
 	lhLight.target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
