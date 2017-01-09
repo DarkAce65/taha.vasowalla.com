@@ -210,5 +210,30 @@
 				gl_FragColor = vec4(color, 0.2);
 			}
 		</script>
+		<script id="beamVertexShader" type="x-shader/x-fragment">
+			uniform float u_time;
+
+			varying vec3 vNormal;
+			varying vec3 vViewPosition;
+
+			void main() {
+				vNormal = normalize(normalMatrix * normal);
+
+				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+				vViewPosition = -mvPosition.xyz;
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script id="beamFragmentShader" type="x-shader/x-fragment">
+			uniform float u_time;
+
+			varying vec3 vNormal;
+			varying vec3 vViewPosition;
+
+			void main() {
+				vec3 color = vec3(0.7, 0.9, 1.0);
+				gl_FragColor = vec4(color, abs(dot(normalize(vViewPosition), vNormal)));
+			}
+		</script>
 	</body>
 </html>

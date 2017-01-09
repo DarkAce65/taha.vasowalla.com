@@ -132,7 +132,18 @@ $(function() {
 	}
 	lhLightFixture.position.z = -1;
 	lhLightFixture.rotation.x = -Math.PI / 2;
+	var lightShaderMaterial = new THREE.ShaderMaterial({
+		transparent: true,
+		uniforms: uniforms,
+		vertexShader: document.getElementById("beamVertexShader").textContent,
+		fragmentShader: document.getElementById("beamFragmentShader").textContent,
+		side: THREE.DoubleSide
+	});
+	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60), lightShaderMaterial);
+	lhLightBeam.position.z = 29.5;
+	lhLightBeam.rotation.x = -Math.PI / 2;
 	lhLight.target.add(lhLightFixture);
+	lhLight.target.add(lhLightBeam);
 	lhLight.target.position.set(15, 37, -5);
 	scene.add(lhLight.target);
 	lighthouse[4] = lhLight;
