@@ -145,7 +145,7 @@ $(function() {
 	lhLightBeam.rotation.x = -Math.PI / 2;
 	lighthouse[4].target.add(lhLightFixture);
 	lighthouse[4].target.add(lhLightBeam);
-	lighthouse[4].target.position.set(15, 37, -5);
+	lighthouse[4].target.position.set(15, 37, -4);
 	scene.add(lighthouse[4].target);
 
 	for(var i = 0; i < lighthouse.length; i++) {
