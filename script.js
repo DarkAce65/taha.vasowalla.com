@@ -98,16 +98,16 @@ $(function() {
 	var lhRed = new THREE.MeshPhongMaterial({color: 0xef5350, shininess: 10, shading: THREE.FlatShading});
 	var lhBlack = new THREE.MeshPhongMaterial({color: 0x444444, shininess: 10, shading: THREE.FlatShading});
 	window.lighthouseOn = false;
-	window.lighthouse = [];
-	lighthouse[0] = new THREE.Mesh(new THREE.CylinderBufferGeometry(5, 6, 6), lhRed);
-	lighthouse[0].position.y = 20;
-	lighthouse[1] = new THREE.Mesh(new THREE.CylinderBufferGeometry(4, 5, 6), lhWhite);
-	lighthouse[1].position.y = 26;
-	lighthouse[2] = new THREE.Mesh(new THREE.CylinderBufferGeometry(3, 4, 6), lhRed);
-	lighthouse[2].position.y = 32;
+	window.lighthouse = new THREE.Object3D();
+	lighthouse.add(new THREE.Mesh(new THREE.CylinderBufferGeometry(5, 6, 6), lhRed));
+	lighthouse.children[0].position.y = 20;
+	lighthouse.add(new THREE.Mesh(new THREE.CylinderBufferGeometry(4, 5, 6), lhWhite));
+	lighthouse.children[1].position.y = 26;
+	lighthouse.add(new THREE.Mesh(new THREE.CylinderBufferGeometry(3, 4, 6), lhRed));
+	lighthouse.children[2].position.y = 32;
 
-	lighthouse[3] = new THREE.Object3D();
-	lighthouse[3].position.y = 40;
+	lighthouse.add(new THREE.Object3D());
+	lighthouse.children[3].position.y = 40;
 	var lhBase = new THREE.Mesh(new THREE.CylinderBufferGeometry(4, 4, 1), lhBlack);
 	lhBase.position.y = -5;
 	var lhGlass = new THREE.Mesh(new THREE.CylinderBufferGeometry(3, 3, 3.5, 8, 1, true), new THREE.MeshPhongMaterial({transparent: true, opacity: 0.1, color: 0x000000, shininess: 1000, shading: THREE.FlatShading, side: THREE.DoubleSide}));
@@ -119,16 +119,16 @@ $(function() {
 	var lhSpire = new THREE.Mesh(new THREE.BoxBufferGeometry(0.25, 2, 0.25), lhBlack);
 	lhSpire.position.y = 2.7;
 
-	lighthouse[3].add(lhBase);
-	lighthouse[3].add(lhGlass);
-	lighthouse[3].add(lhRoof);
-	lighthouse[3].add(lhRoofBall);
-	lighthouse[3].add(lhSpire);
+	lighthouse.children[3].add(lhBase);
+	lighthouse.children[3].add(lhGlass);
+	lighthouse.children[3].add(lhRoof);
+	lighthouse.children[3].add(lhRoofBall);
+	lighthouse.children[3].add(lhSpire);
 
-	lighthouse[4] = new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25);
-	lighthouse[4].rotationCounter = 0;
-	lighthouse[4].position.y = 37;
-	lighthouse[4].target = new THREE.Object3D();
+	lighthouse.add(new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25));
+	lighthouse.rotationCounter = 0;
+	lighthouse.children[4].position.y = 37;
+	lighthouse.children[4].target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
 	for(var i = 0; i < lhLightFixture.geometry.faces.length; i++) {
 		lhLightFixture.geometry.faces[i].materialIndex = i < 8 ? 0 : 1;
@@ -145,16 +145,14 @@ $(function() {
 	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60, 8, 1, true), lightShaderMaterial);
 	lhLightBeam.position.z = 29.5;
 	lhLightBeam.rotation.x = -Math.PI / 2;
-	lighthouse[4].target.add(lhLightFixture);
-	lighthouse[4].target.add(lhLightBeam);
-	lighthouse[4].target.position.set(15, 37, -4);
-	scene.add(lighthouse[4].target);
+	lighthouse.children[4].target.add(lhLightFixture);
+	lighthouse.children[4].target.add(lhLightBeam);
+	lighthouse.children[4].target.position.set(15, 37, -4);
+	scene.add(lighthouse.children[4].target);
 
-	for(var i = 0; i < lighthouse.length; i++) {
-		lighthouse[i].position.x = 15;
-		lighthouse[i].position.z = -5;
-		scene.add(lighthouse[i]);
-	}
+	lighthouse.position.x = 15;
+	lighthouse.position.z = -5;
+	scene.add(lighthouse);
 
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
@@ -163,11 +161,8 @@ $(function() {
 		camera.lookAt(scene.position);
 	}
 	else {
-		scene.scale.z = 0.01;
-		box.scale.x = 0.01;
-		box.position.x = -50;
-		TweenLite.to(box.position, 2, {x: 0, ease: Expo.easeInOut});
-		TweenLite.to(box.scale, 2, {x: 1, ease: Expo.easeInOut});
+		scene.scale.set(0.01, 1, 0.01);
+		TweenLite.to(scene.scale, 2, {x: 1, ease: Expo.easeInOut});
 		TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
 		TweenLite.to(camera.position, 2, {x: 70, y: 60, z: 190, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
 		TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
@@ -175,18 +170,18 @@ $(function() {
 		TweenLite.to(scene.scale, 1, {z: 1, delay: 3});
 		setTimeout(function() {
 			$("#overlay").addClass("in");
-			Cookies.set("animated", true, {path: "", expires: 1 / 144});
+			// Cookies.set("animated", true, {path: "", expires: 1 / 144});
 		}, 5000);
 	}
 	render();
 
 	window.toggleLight = function() {
 		if(lighthouseOn) {
-			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
+			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lighthouse.children[4].intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
 		}
 		else {
 			lighthouseOn = true;
-			TweenLite.to(uniforms.u_intensity, 2, {value: 1, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}});
+			TweenLite.to(uniforms.u_intensity, 2, {value: 1, onUpdate: function() {lighthouse.children[4].intensity = uniforms.u_intensity.value;}});
 		}
 	}
 
@@ -198,11 +193,11 @@ $(function() {
 		var delta = clock.getDelta();
 		uniforms.u_time.value += delta;
 		if(lighthouseOn) {
-			lighthouse[4].rotationCounter += delta;
-			var c = lighthouse[4].rotationCounter;
-			lighthouse[4].target.position.x = Math.sin(c) + 15;
-			lighthouse[4].target.position.z = Math.cos(c) - 5;
-			lighthouse[4].target.rotation.y = c;
+			lighthouse.rotationCounter += delta;
+			var c = lighthouse.rotationCounter;
+			lighthouse.children[4].target.position.x = Math.sin(c) + 15;
+			lighthouse.children[4].target.position.z = Math.cos(c) - 5;
+			lighthouse.children[4].target.rotation.y = c;
 		}
 	}
 
