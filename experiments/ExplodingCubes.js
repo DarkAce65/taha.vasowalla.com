@@ -11,10 +11,10 @@ window.requestAnimFrame =
 	};
 
 var scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
 var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 $("#threeContainer").append(renderer.domElement);
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 

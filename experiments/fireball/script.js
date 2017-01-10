@@ -16,10 +16,10 @@ $(function() {
 	var loader = new THREE.TextureLoader();
 	var clock = new THREE.Clock();
 	var scene = new THREE.Scene();
+	scene.background = new THREE.Color(0x3d3d3d);
 	var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 	$("#rendererContainer").append(renderer.domElement);
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.setClearColor(0x3d3d3d);
 	renderer.setPixelRatio(window.devicePixelRatio);
 
 	var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);

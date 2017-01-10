@@ -141,6 +141,7 @@
 			}
 
 			var scene = new THREE.Scene();
+			scene.background = new THREE.Color(0x000000);
 			var camera = new THREE.OrthographicCamera(-$(".content").width() / 2, $(".content").width() / 2, 300 / 2, -300 / 2, 0.1, 1000);
 			var monitor = document.getElementById("monitor");
 			var video = document.getElementById("videoCanvas");
@@ -192,7 +193,6 @@
 			renderer.setSize($(".content").width(), 300);
 			renderer.setPixelRatio(window.devicePixelRatio);
 			$("#rendererContainer").append(renderer.domElement);
-			renderer.setClearColor(0x000000);
 			camera.position.z = 200;
 			camera.rotation.x = Math.PI / 12;
 			videoContext.fillStyle = "black";

@@ -67,10 +67,10 @@ $(function() {
 
 	var clock = new THREE.Clock();
 	var scene = new THREE.Scene();
+	scene.background = new THREE.Color(0x000000); // 0xD5DDFF - Gray
 	var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 	$("#rendererContainer").append(renderer.domElement);
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.setClearColor(0x000000); // 0xD5DDFF - Gray
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.shadowMap.enabled = true;
 

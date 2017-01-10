@@ -56,10 +56,10 @@
 
 			var timeline = new TimelineLite();
 			var scene = new THREE.Scene();
+			scene.background = new THREE.Color(0xd5ddff);
 			var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 			$("#rendererContainer").append(renderer.domElement);
 			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0xD5DDFF);
 			renderer.setPixelRatio(window.devicePixelRatio);
 			renderer.shadowMap.enabled = true;
 
