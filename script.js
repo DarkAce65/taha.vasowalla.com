@@ -38,7 +38,7 @@ $(function() {
 			diffuse: {type: "v3", value: new THREE.Color(0x5e85b4)},
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
-			u_intensity: {type: "f", value: 1},
+			u_intensity: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
 			u_uvscale: {type: "v2", value: new THREE.Vector2(20, 20)}
 		}
@@ -126,6 +126,7 @@ $(function() {
 	lighthouse[3].add(lhSpire);
 
 	lighthouse[4] = new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25);
+	lighthouse[4].rotationCounter = 0;
 	lighthouse[4].position.y = 37;
 	lighthouse[4].target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
@@ -182,7 +183,7 @@ $(function() {
 	window.toggleLight = function() {
 		lighthouseOn = !lighthouseOn;
 		var intensity = lighthouseOn ? 1 : 0;
-		TweenLite.to(uniforms.u_intensity, 1, {value: intensity, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}});
+		TweenLite.to(uniforms.u_intensity, 2, {value: intensity, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}});
 	}
 
 	function render() {
@@ -190,11 +191,14 @@ $(function() {
 		renderer.render(scene, camera);
 		controls.update();
 
-		uniforms.u_time.value += clock.getDelta();
+		var delta = clock.getDelta();
+		uniforms.u_time.value += delta;
 		if(lighthouseOn) {
-			lighthouse[4].target.position.x = Math.sin(clock.elapsedTime) + 15;
-			lighthouse[4].target.position.z = Math.cos(clock.elapsedTime) - 5;
-			lighthouse[4].target.rotation.y = clock.elapsedTime;
+			lighthouse[4].rotationCounter += delta;
+			var c = lighthouse[4].rotationCounter;
+			lighthouse[4].target.position.x = Math.sin(c) + 15;
+			lighthouse[4].target.position.z = Math.cos(c) - 5;
+			lighthouse[4].target.rotation.y = c;
 		}
 	}
 
