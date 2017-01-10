@@ -96,6 +96,7 @@ $(function() {
 	var lhWhite = new THREE.MeshPhongMaterial({color: 0xddddaa, shininess: 10, shading: THREE.FlatShading});
 	var lhRed = new THREE.MeshPhongMaterial({color: 0xef5350, shininess: 10, shading: THREE.FlatShading});
 	var lhBlack = new THREE.MeshPhongMaterial({color: 0x444444, shininess: 10, shading: THREE.FlatShading});
+	window.lighthouseOn = false;
 	window.lighthouse = [];
 	lighthouse[0] = new THREE.Mesh(new THREE.CylinderBufferGeometry(5, 6, 6), lhRed);
 	lighthouse[0].position.y = 20;
@@ -123,9 +124,9 @@ $(function() {
 	lighthouse[3].add(lhRoofBall);
 	lighthouse[3].add(lhSpire);
 
-	var lhLight = new THREE.SpotLight(0xffffaa, 1, 0, 1, 0.25);
-	lhLight.position.y = 37;
-	lhLight.target = new THREE.Object3D();
+	lighthouse[4] = new THREE.SpotLight(0xffffaa, 1, 0, 1, 0.25);
+	lighthouse[4].position.y = 37;
+	lighthouse[4].target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
 	for(var i = 0; i < lhLightFixture.geometry.faces.length; i++) {
 		lhLightFixture.geometry.faces[i].materialIndex = i < 8 ? 0 : 1;
@@ -142,11 +143,10 @@ $(function() {
 	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60, 8, 1, true), lightShaderMaterial);
 	lhLightBeam.position.z = 29.5;
 	lhLightBeam.rotation.x = -Math.PI / 2;
-	lhLight.target.add(lhLightFixture);
-	lhLight.target.add(lhLightBeam);
-	lhLight.target.position.set(15, 37, -5);
-	scene.add(lhLight.target);
-	lighthouse[4] = lhLight;
+	lighthouse[4].target.add(lhLightFixture);
+	lighthouse[4].target.add(lhLightBeam);
+	lighthouse[4].target.position.set(15, 37, -5);
+	scene.add(lighthouse[4].target);
 
 	for(var i = 0; i < lighthouse.length; i++) {
 		lighthouse[i].position.x = 15;
@@ -184,9 +184,11 @@ $(function() {
 		controls.update();
 
 		uniforms.u_time.value += clock.getDelta();
-		lhLight.target.position.x = Math.sin(clock.elapsedTime) + 15;
-		lhLight.target.position.z = Math.cos(clock.elapsedTime) - 5;
-		lhLight.target.rotation.y = clock.elapsedTime;
+		if(lighthouseOn) {
+			lighthouse[4].target.position.x = Math.sin(clock.elapsedTime) + 15;
+			lighthouse[4].target.position.z = Math.cos(clock.elapsedTime) - 5;
+			lighthouse[4].target.rotation.y = clock.elapsedTime;
+		}
 	}
 
 	$(window).resize(function(e) {
