@@ -181,9 +181,13 @@ $(function() {
 	render();
 
 	window.toggleLight = function() {
-		lighthouseOn = !lighthouseOn;
-		var intensity = lighthouseOn ? 1 : 0;
-		TweenLite.to(uniforms.u_intensity, 2, {value: intensity, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}});
+		if(lighthouseOn) {
+			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
+		}
+		else {
+			lighthouseOn = true;
+			TweenLite.to(uniforms.u_intensity, 2, {value: 1, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}});
+		}
 	}
 
 	function render() {
