@@ -125,10 +125,9 @@ $(function() {
 	lighthouse.children[3].add(lhRoofBall);
 	lighthouse.children[3].add(lhSpire);
 
-	lighthouse.add(new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25));
+	lighthouse.add(new THREE.Object3D());
 	lighthouse.rotationCounter = 0;
 	lighthouse.children[4].position.y = 37;
-	lighthouse.children[4].target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
 	for(var i = 0; i < lhLightFixture.geometry.faces.length; i++) {
 		lhLightFixture.geometry.faces[i].materialIndex = i < 8 ? 0 : 1;
@@ -145,14 +144,18 @@ $(function() {
 	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60, 8, 1, true), lightShaderMaterial);
 	lhLightBeam.position.z = 29.5;
 	lhLightBeam.rotation.x = -Math.PI / 2;
-	lighthouse.children[4].target.add(lhLightFixture);
-	lighthouse.children[4].target.add(lhLightBeam);
-	lighthouse.children[4].target.position.set(15, 37, -4);
-	scene.add(lighthouse.children[4].target);
+	lighthouse.children[4].add(lhLightFixture);
+	lighthouse.children[4].add(lhLightBeam);
+	lighthouse.children[4].position.z = 1;
 
 	lighthouse.position.x = 15;
 	lighthouse.position.z = -5;
 	scene.add(lighthouse);
+
+	var lhSpotLight = new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25);
+	lhSpotLight.position.set(15, 37, -5);
+	lhSpotLight.target = lighthouse.children[4];
+	scene.add(lhSpotLight);
 
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
@@ -170,18 +173,18 @@ $(function() {
 		TweenLite.to(scene.scale, 1, {z: 1, delay: 3});
 		setTimeout(function() {
 			$("#overlay").addClass("in");
-			// Cookies.set("animated", true, {path: "", expires: 1 / 144});
+			Cookies.set("animated", true, {path: "", expires: 1 / 144});
 		}, 5000);
 	}
 	render();
 
 	window.toggleLight = function() {
 		if(lighthouseOn) {
-			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lighthouse.children[4].intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
+			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lhSpotLight.intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
 		}
 		else {
 			lighthouseOn = true;
-			TweenLite.to(uniforms.u_intensity, 2, {value: 1, onUpdate: function() {lighthouse.children[4].intensity = uniforms.u_intensity.value;}});
+			TweenLite.to(uniforms.u_intensity, 2, {value: 1, onUpdate: function() {lhSpotLight.intensity = uniforms.u_intensity.value;}});
 		}
 	}
 
@@ -195,9 +198,9 @@ $(function() {
 		if(lighthouseOn) {
 			lighthouse.rotationCounter += delta;
 			var c = lighthouse.rotationCounter;
-			lighthouse.children[4].target.position.x = Math.sin(c) + 15;
-			lighthouse.children[4].target.position.z = Math.cos(c) - 5;
-			lighthouse.children[4].target.rotation.y = c;
+			lighthouse.children[4].position.x = Math.sin(c);
+			lighthouse.children[4].position.z = Math.cos(c);
+			lighthouse.children[4].rotation.y = c;
 		}
 	}
 
