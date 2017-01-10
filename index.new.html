@@ -228,6 +228,7 @@
 		</script>
 		<script id="beamFragmentShader" type="x-shader/x-fragment">
 			uniform float u_time;
+			uniform float u_intensity;
 
 			varying vec2 vUv;
 			varying vec3 vNormal;
@@ -237,7 +238,7 @@
 				vec3 color = vec3(1.0, 1.0, 0.7);
 				float opacity = pow(dot(normalize(vViewPosition), vNormal), 2.0);
 				opacity = mix(opacity, 0.0, 1.0 - vUv.y);
-				gl_FragColor = vec4(color, opacity);
+				gl_FragColor = vec4(color, opacity * u_intensity);
 			}
 		</script>
 	</body>

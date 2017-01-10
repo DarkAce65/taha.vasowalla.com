@@ -38,6 +38,7 @@ $(function() {
 			diffuse: {type: "v3", value: new THREE.Color(0x5e85b4)},
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
+			u_intensity: {type: "f", value: 1},
 			u_multiplier: {type: "f", value: 0},
 			u_uvscale: {type: "v2", value: new THREE.Vector2(20, 20)}
 		}
@@ -124,7 +125,7 @@ $(function() {
 	lighthouse[3].add(lhRoofBall);
 	lighthouse[3].add(lhSpire);
 
-	lighthouse[4] = new THREE.SpotLight(0xffffaa, 1, 0, 1, 0.25);
+	lighthouse[4] = new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25);
 	lighthouse[4].position.y = 37;
 	lighthouse[4].target = new THREE.Object3D();
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
@@ -177,6 +178,12 @@ $(function() {
 		}, 5000);
 	}
 	render();
+
+	window.toggleLight = function() {
+		lighthouseOn = !lighthouseOn;
+		var intensity = lighthouseOn ? 1 : 0;
+		TweenLite.to(uniforms.u_intensity, 1, {value: intensity, onUpdate: function() {lighthouse[4].intensity = uniforms.u_intensity.value;}});
+	}
 
 	function render() {
 		requestAnimFrame(render);
