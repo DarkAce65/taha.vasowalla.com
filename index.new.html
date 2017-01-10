@@ -235,7 +235,9 @@
 
 			void main() {
 				vec3 color = vec3(1.0, 1.0, 0.7);
-				gl_FragColor = vec4(color, mix(abs(dot(normalize(vViewPosition), vNormal)), 0.0, 1.0 - vUv.y));
+				float opacity = pow(dot(normalize(vViewPosition), vNormal), 2.0);
+				opacity = mix(opacity, 0.0, 1.0 - vUv.y);
+				gl_FragColor = vec4(color, opacity);
 			}
 		</script>
 	</body>
