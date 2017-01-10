@@ -95,7 +95,7 @@ $(function() {
 
 	var lhWhite = new THREE.MeshPhongMaterial({color: 0xddddaa, shininess: 10, shading: THREE.FlatShading});
 	var lhRed = new THREE.MeshPhongMaterial({color: 0xef5350, shininess: 10, shading: THREE.FlatShading});
-	var lhBlack = new THREE.MeshPhongMaterial({color: 0x222222, shininess: 10, shading: THREE.FlatShading});
+	var lhBlack = new THREE.MeshPhongMaterial({color: 0x444444, shininess: 10, shading: THREE.FlatShading});
 	window.lighthouse = [];
 	lighthouse[0] = new THREE.Mesh(new THREE.CylinderBufferGeometry(5, 6, 6), lhRed);
 	lighthouse[0].position.y = 20;
@@ -109,7 +109,7 @@ $(function() {
 	var lhBase = new THREE.Mesh(new THREE.CylinderBufferGeometry(4, 4, 1), lhBlack);
 	lhBase.position.y = -5;
 	var lhGlass = new THREE.Mesh(new THREE.CylinderBufferGeometry(3, 3, 3.5, 8, 1, true), new THREE.MeshPhongMaterial({transparent: true, opacity: 0.1, color: 0x000000, shininess: 1000, shading: THREE.FlatShading, side: THREE.DoubleSide}));
-	lhGlass.add(new THREE.LineSegments(new THREE.EdgesGeometry(lhGlass.geometry), new THREE.LineBasicMaterial({color: 0x222222})));
+	lhGlass.add(new THREE.LineSegments(new THREE.EdgesGeometry(lhGlass.geometry), new THREE.LineBasicMaterial({color: 0x444444})));
 	lhGlass.position.y = -2.75;
 	var lhRoof = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 4, 2), lhBlack);
 	var lhRoofBall = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(0.7, 1), lhBlack);
