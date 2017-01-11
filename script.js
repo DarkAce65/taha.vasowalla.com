@@ -40,7 +40,8 @@ $(function() {
 			u_time: {type: "f", value: 0},
 			u_intensity: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
-			u_uvscale: {type: "v2", value: new THREE.Vector2(20, 20)}
+			u_wavesize: {type: "v2", value: new THREE.Vector2(100, 100)},
+			u_wavesegments: {type: "v2", value: new THREE.Vector2(20, 20)}
 		}
 	]);
 	var waveShaderMaterial = new THREE.ShaderMaterial({
@@ -64,20 +65,22 @@ $(function() {
 	var faceMaterial = new THREE.MeshPhongMaterial({color: 0x5e85b4, side: THREE.DoubleSide, shading: THREE.FlatShading});
 
 	window.box = new THREE.Object3D();
-	var top = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), waveShaderMaterial);
-	top.add(new THREE.Mesh(new THREE.PlaneGeometry(100, 100, uniforms.u_uvscale.value.x, uniforms.u_uvscale.value.y), wireShaderMaterial));
+	var wsize = uniforms.u_wavesize.value;
+	var wseg = uniforms.u_wavesegments.value;
+	var top = new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial);
+	top.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
 	top.position.y = 1;
 	top.rotation.x = Math.PI / 2;
-	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100), faceMaterial);
+	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial);
 	base.position.y = -1;
 	base.rotation.x = Math.PI / 2;
 	box.add(top);
 	box.add(base);
-	var sideGeometry = new THREE.PlaneBufferGeometry(100, 2);
 	for(var i = 0; i < 4; i++) {
+		var sideGeometry = new THREE.PlaneBufferGeometry(i % 2 ? wsize.y : wsize.x, 2);
 		var f = new THREE.Mesh(sideGeometry, faceMaterial);
 		var angle = i * Math.PI / 2;
-		f.position.set(50 * Math.sin(angle), 0, 50 * Math.cos(angle));
+		f.position.set(wsize.x / 2 * Math.sin(angle), 0, wsize.y / 2 * Math.cos(angle));
 		f.rotation.y = angle;
 		box.add(f);
 	}

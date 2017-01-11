@@ -62,7 +62,8 @@
 		<script id="vertexShader" type="x-shader/x-vertex">
 			uniform float u_multiplier;
 			uniform float u_time;
-			uniform vec2 u_uvscale;
+			uniform vec2 u_wavesize;
+			uniform vec2 u_wavesegments;
 
 			varying vec2 vUv;
 			varying vec3 vViewPosition;
@@ -175,21 +176,22 @@
 
 			vec3 displacePosition(vec3 noise, vec3 pos) {
 				float displacement = -6.0 * length(noise);
-				vec3 newpos = vec3(pos.x + noise.x * 75.0 / u_uvscale.x, pos.y + noise.y * 75.0 / u_uvscale.y, pos.z + displacement);
+				vec3 newpos = vec3(pos.xy + noise.xy * u_wavesize.xy / u_wavesegments.xy, pos.z + displacement);
 
 				return newpos;
 			}
 
 			vec3 recalculateNormal(vec3 newpos) {
-				vec3 tangent = displacePosition(f(uv.x + 1.0 / u_uvscale.x, uv.y), vec3(position.x + 1.0, position.y, position.z)) - newpos;
-				vec3 bitangent = displacePosition(f(uv.x, uv.y + 1.0 / u_uvscale.y), vec3(position.x, position.y + 1.0, position.z)) - newpos;
+				vec3 tangent = displacePosition(f(uv.x + 1.0 / u_wavesegments.x, uv.y), vec3(position.x + 1.0, position.y, position.z)) - newpos;
+				vec3 bitangent = displacePosition(f(uv.x, uv.y + 1.0 / u_wavesegments.y), vec3(position.x, position.y + 1.0, position.z)) - newpos;
 				return normalize(cross(tangent, bitangent));
 			}
 
 			void main() {
 				vUv = uv;
 
-				noise = f(uv.x, uv.y);
+				vec2 st = uv * u_wavesize / 100.0;
+				noise = f(st.x, st.y);
 				vec3 transformed = displacePosition(noise, position);
 				vNormal = normalMatrix * recalculateNormal(transformed);
 
