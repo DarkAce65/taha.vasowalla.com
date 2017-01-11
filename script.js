@@ -72,7 +72,7 @@ $(function() {
 	top.position.y = 1;
 	top.rotation.x = Math.PI / 2;
 	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial);
-	base.position.y = -1;
+	base.position.y = 0.1;
 	base.rotation.x = Math.PI / 2;
 	box.add(top);
 	box.add(base);
@@ -172,8 +172,8 @@ $(function() {
 	}
 	else {
 		scene.scale.set(0.01, 1, 0.01);
-		lighthouse.scale.y = 0.01;
-		rock.scale.y = 0.01;
+		lighthouse.scale.y = -0.01;
+		rock.scale.y = -0.01;
 		TweenLite.to(scene.scale, 0.75, {x: 1});
 		TweenLite.to(camera.position, 1, {x: 70, y: 60, z: 190, onUpdate: function() {camera.lookAt(scene.position);}, delay: 1});
 		TweenLite.to(controls.target, 1, {x: 0, y: 0, z: 0, delay: 1});
