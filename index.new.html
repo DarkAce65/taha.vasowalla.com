@@ -169,16 +169,14 @@
 
 				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
 				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
-				y *= u_multiplier * bl.x * bl.y * tr.x * tr.y;
+				y *= 2.0 * u_multiplier * bl.x * bl.y * tr.x * tr.y;
 
 				return y;
 			}
 
 			vec3 displacePosition(vec3 noise, vec3 pos) {
-				float displacement = -2.0 * length(noise);
-				vec3 newpos = vec3(pos.xy + noise.xy * u_wavesize.xy / u_wavesegments.xy, pos.z + displacement);
-
-				return newpos;
+				vec2 drift = 0.1 * noise.xy * u_wavesize.xy / u_wavesegments.xy;
+				return vec3(pos.xy + drift, pos.z - length(noise));
 			}
 
 			vec3 recalculateNormal(vec3 newpos) {
