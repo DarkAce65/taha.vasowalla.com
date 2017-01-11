@@ -67,15 +67,11 @@ $(function() {
 	window.water = new THREE.Object3D();
 	var wsize = uniforms.u_wavesize.value;
 	var wseg = uniforms.u_wavesegments.value;
-	var waves = new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial);
-	waves.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
-	waves.position.y = 1;
-	waves.rotation.x = Math.PI / 2;
-	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial);
-	base.position.y = 1;
-	base.rotation.x = Math.PI / 2;
-	water.add(waves);
-	water.add(base);
+	water.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial));
+	water.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
+	water.add(new THREE.Mesh(new THREE.PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial));
+	water.position.y = 1;
+	water.rotation.x = Math.PI / 2;
 	scene.add(water);
 
 	var rockGeometry = new THREE.IcosahedronGeometry(20, 2);
