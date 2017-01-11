@@ -25,7 +25,7 @@ $(function() {
 	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
-	var ambient = new THREE.AmbientLight(0x666666);
+	window.ambient = new THREE.AmbientLight(0x666666);
 	scene.add(ambient);
 
 	window.pointlight = new THREE.PointLight(0xffffdd);
@@ -64,27 +64,19 @@ $(function() {
 	});
 	var faceMaterial = new THREE.MeshPhongMaterial({color: 0x5e85b4, side: THREE.DoubleSide, shading: THREE.FlatShading});
 
-	window.box = new THREE.Object3D();
+	window.water = new THREE.Object3D();
 	var wsize = uniforms.u_wavesize.value;
 	var wseg = uniforms.u_wavesegments.value;
-	var top = new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial);
-	top.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
-	top.position.y = 1;
-	top.rotation.x = Math.PI / 2;
+	var waves = new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial);
+	waves.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
+	waves.position.y = 1;
+	waves.rotation.x = Math.PI / 2;
 	var base = new THREE.Mesh(new THREE.PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial);
-	base.position.y = 0.1;
+	base.position.y = 1;
 	base.rotation.x = Math.PI / 2;
-	box.add(top);
-	box.add(base);
-	for(var i = 0; i < 4; i++) {
-		var sideGeometry = new THREE.PlaneBufferGeometry(i % 2 ? wsize.y : wsize.x, 2);
-		var f = new THREE.Mesh(sideGeometry, faceMaterial);
-		var angle = i * Math.PI / 2;
-		f.position.set(wsize.x / 2 * Math.sin(angle), 0, wsize.y / 2 * Math.cos(angle));
-		f.rotation.y = angle;
-		box.add(f);
-	}
-	scene.add(box);
+	water.add(waves);
+	water.add(base);
+	scene.add(water);
 
 	var rockGeometry = new THREE.IcosahedronGeometry(20, 2);
 	var rockMaterial = new THREE.MeshPhongMaterial({color: 0x666666, shininess: 0, shading: THREE.FlatShading});
