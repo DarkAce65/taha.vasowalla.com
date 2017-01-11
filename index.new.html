@@ -166,8 +166,8 @@
 				y.y = snoise(vec3(u * 2.5, v * 2.5, u_time / 6.0));
 				y.z = snoise(vec3(u * 1.25, v * 1.25, u_time / 4.0));
 
-				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), vec2(u, v));
-				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - vec2(u, v));
+				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
+				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
 				y *= u_multiplier * bl.x * bl.y * tr.x * tr.y;
 
 				return y;
