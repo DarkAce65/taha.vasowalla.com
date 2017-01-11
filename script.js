@@ -126,7 +126,7 @@ $(function() {
 	lighthouse.children[3].add(lhSpire);
 
 	lighthouse.add(new THREE.Object3D());
-	lighthouse.rotationCounter = 0;
+	lighthouse.rotationCounter = -2;
 	lighthouse.children[4].position.y = 37;
 	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
 	for(var i = 0; i < lhLightFixture.geometry.faces.length; i++) {
@@ -146,7 +146,9 @@ $(function() {
 	lhLightBeam.rotation.x = -Math.PI / 2;
 	lighthouse.children[4].add(lhLightFixture);
 	lighthouse.children[4].add(lhLightBeam);
-	lighthouse.children[4].position.z = 1;
+	lighthouse.children[4].position.x = Math.sin(lighthouse.rotationCounter);
+	lighthouse.children[4].position.z = Math.cos(lighthouse.rotationCounter);
+	lighthouse.children[4].rotation.y = lighthouse.rotationCounter;
 
 	lighthouse.position.x = 15;
 	lighthouse.position.z = -5;
@@ -157,28 +159,34 @@ $(function() {
 	lhSpotLight.target = lighthouse.children[4];
 	scene.add(lhSpotLight);
 
+	render();
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
 		$("#overlay").addClass("in");
 		camera.position.set(70, 60, 190);
 		camera.lookAt(scene.position);
+		toggleLight();
 	}
 	else {
 		scene.scale.set(0.01, 1, 0.01);
-		TweenLite.to(scene.scale, 2, {x: 1, ease: Expo.easeInOut});
-		TweenLite.to(uniforms.u_multiplier, 2, {value: 1, delay: 2});
-		TweenLite.to(camera.position, 2, {x: 70, y: 60, z: 190, onUpdate: function() {camera.lookAt(scene.position);}, delay: 3});
-		TweenLite.to(controls.target, 2, {x: 0, y: 0, z: 0, delay: 3});
-		TweenLite.to(camera.up, 1.75, {x: 0, y: 1, z: 0, delay: 3});
-		TweenLite.to(scene.scale, 1, {z: 1, delay: 3});
+		lighthouse.scale.y = 0.01;
+		rock.scale.y = 0.01;
+		TweenLite.to(scene.scale, 0.75, {x: 1});
+		TweenLite.to(camera.position, 1, {x: 70, y: 60, z: 190, onUpdate: function() {camera.lookAt(scene.position);}, delay: 1});
+		TweenLite.to(controls.target, 1, {x: 0, y: 0, z: 0, delay: 1});
+		TweenLite.to(camera.up, 0.75, {x: 0, y: 1, z: 0, delay: 1});
+		TweenLite.to(scene.scale, 0.75, {z: 1, delay: 1});
+		TweenLite.to(uniforms.u_multiplier, 2, {value: 1, ease: Expo.easeOut, delay: 2});
+		TweenLite.to(lighthouse.scale, 1.5, {y: 1, ease: Expo.easeOut, delay: 2});
+		TweenLite.to(rock.scale, 1.5, {y: 1, ease: Expo.easeOut, delay: 2});
 		setTimeout(function() {
 			$("#overlay").addClass("in");
 			Cookies.set("animated", true, {path: "", expires: 1 / 144});
-		}, 5000);
+			toggleLight();
+		}, 3500);
 	}
-	render();
 
-	window.toggleLight = function() {
+	function toggleLight() {
 		if(lighthouseOn) {
 			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lhSpotLight.intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
 		}
