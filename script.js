@@ -40,8 +40,8 @@ $(function() {
 			u_time: {type: "f", value: 0},
 			u_intensity: {type: "f", value: 0},
 			u_multiplier: {type: "f", value: 0},
-			u_wavesize: {type: "v2", value: new THREE.Vector2(100, 100)},
-			u_wavesegments: {type: "v2", value: new THREE.Vector2(20, 20)}
+			u_wavesize: {type: "v2", value: new THREE.Vector2(200, 200)},
+			u_wavesegments: {type: "v2", value: new THREE.Vector2(40, 40)}
 		}
 	]);
 	var waveShaderMaterial = new THREE.ShaderMaterial({
