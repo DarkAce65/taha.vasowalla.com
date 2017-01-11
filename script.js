@@ -70,7 +70,6 @@ $(function() {
 	water.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial));
 	water.add(new THREE.Mesh(new THREE.PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
 	water.add(new THREE.Mesh(new THREE.PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial));
-	water.position.y = 1;
 	water.rotation.x = Math.PI / 2;
 	scene.add(water);
 
