@@ -132,8 +132,8 @@ $(function() {
 		fragmentShader: document.getElementById("beamFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
-	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, 60, 8, 1, true), lightShaderMaterial);
-	lhLightBeam.position.z = 29.5;
+	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, wsize.x / 1.8, 8, 1, true), lightShaderMaterial);
+	lhLightBeam.position.z = wsize.x / 3.6 - 0.5;
 	lhLightBeam.rotation.x = -Math.PI / 2;
 	lighthouse.children[4].add(lhLightFixture);
 	lighthouse.children[4].add(lhLightBeam);
@@ -145,8 +145,8 @@ $(function() {
 	lighthouse.position.z = -5;
 	scene.add(lighthouse);
 
-	var lhSpotLight = new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 1, 0.25);
-	lhSpotLight.position.set(15, 37, -5);
+	window.lhSpotLight = new THREE.SpotLight(0xffffaa, uniforms.u_intensity.value, 0, 0.5, 1);
+	lhSpotLight.position.set(15, 37.4, -5);
 	lhSpotLight.target = lighthouse.children[4];
 	scene.add(lhSpotLight);
 
