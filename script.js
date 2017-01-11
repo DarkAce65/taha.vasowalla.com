@@ -132,7 +132,7 @@ $(function() {
 		fragmentShader: document.getElementById("beamFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
-	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 4, wsize.x / 1.8, 8, 1, true), lightShaderMaterial);
+	var lhLightBeam = new THREE.Mesh(new THREE.CylinderGeometry(1, 15, wsize.x / 1.8, 16, 1, true), lightShaderMaterial);
 	lhLightBeam.position.z = wsize.x / 3.6 - 0.5;
 	lhLightBeam.rotation.x = -Math.PI / 2;
 	lighthouse.children[4].add(lhLightFixture);
