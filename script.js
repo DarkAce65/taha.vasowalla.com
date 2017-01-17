@@ -176,6 +176,12 @@ $(function() {
 		}, 3500);
 	}
 
+	function toggleNight() {
+		TweenLite.to(uniforms.u_multiplier, 5, {value: 3});
+		TweenLite.to(pointlight, 5, {intensity: 0.6});
+		TweenLite.to(ambient.color, 5, {r: 0.2, g: 0.13, b: 0.1});
+	}
+
 	function toggleLight() {
 		if(lighthouseOn) {
 			TweenLite.to(uniforms.u_intensity, 2, {value: 0, onUpdate: function() {lhSpotLight.intensity = uniforms.u_intensity.value;}, onComplete: function() {lighthouseOn = false;}});
