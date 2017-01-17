@@ -35,7 +35,7 @@ $(function() {
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.ShaderLib["phong"].uniforms,
 		{
-			diffuse: {type: "v3", value: new THREE.Color(0x5e85b4)},
+			diffuse: {type: "v3", value: new THREE.Color(0x5f93d3)},
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
 			u_intensity: {type: "f", value: 0},
