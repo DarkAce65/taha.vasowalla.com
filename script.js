@@ -149,6 +149,26 @@ $(function() {
 	lhSpotLight.target = lighthouse.children[4];
 	scene.add(lhSpotLight);
 
+	window.ship = new THREE.Object3D();
+	var sMetal = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 50, side: THREE.DoubleSide, shading: THREE.FlatShading});
+	var hullRadius = 10;
+	var hullLength = 10;
+	var points = [];
+	for(var i = 0; i < 10; i++) {
+		points.push(new THREE.Vector2(hullRadius * Math.sin(i * Math.PI / 20), i));
+	}
+	points.push(new THREE.Vector2(hullRadius, hullLength + 10));
+	for(var i = 0; i < 10; i++) {
+		points.push(new THREE.Vector2(hullRadius * Math.cos(i * Math.PI / 20), i / 2 + hullLength + 10));
+	}
+	points.push(new THREE.Vector2(0, hullLength + 14.5));
+	var hullGeometry = new THREE.LatheGeometry(points, 12, 0, Math.PI);
+	var sHull = new THREE.Mesh(hullGeometry, sMetal);
+	ship.add(sHull);
+	ship.position.set(-30, 20, 10);
+	ship.rotation.z = -Math.PI / 2;
+	scene.add(ship);
+
 	render();
 	if(Cookies.get("animated")) {
 		uniforms.u_multiplier.value = 1;
