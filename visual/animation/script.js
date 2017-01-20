@@ -190,7 +190,7 @@ $(function() {
 			$("#cardCount").html(cardCount);
 			delay = 5 / cardCount;
 
-			newCards = [];
+			var newCards = [];
 			for(var i = 0; i < 30; i++) {
 				newCards.push($('<div class="card"></div>'));
 			}
