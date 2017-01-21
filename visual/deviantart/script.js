@@ -81,11 +81,11 @@ function loadMore() {
 function getDeviantArtFeed(queryURL) {
 	$.ajax({
 		type: "GET",
-		url: "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&output=xml&num=100&q=" + encodeURIComponent(queryURL),
-		dataType: "jsonp",
+		url: queryURL,
+		dataType: "xml",
 		success: function(response) {
 			var newCards = [];
-			var xmlDocument = $.parseXML(response.responseData.xmlString);
+			var xmlDocument = response;
 			var entries = xmlDocument.querySelectorAll("item");
 			retrieving.remove();
 			$.each(entries, function(index, value) {
