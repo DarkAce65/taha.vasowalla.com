@@ -110,6 +110,10 @@ function updateRain() {
 			rain.update();
 			rainCtx.moveTo(rain.prev.x, rain.prev.y);
 			rainCtx.lineTo(rain.position.x, rain.position.y);
+			if(rain.position.x > rainCanvas.width) {
+				rain.prev.x -= rainCanvas.width;
+				rain.position.x -= rainCanvas.width;
+			}
 			if(rain.position.y > rainCanvas.height) {
 				var n = Math.round(Math.random() * 4 + 2);
 				while(n--) {
