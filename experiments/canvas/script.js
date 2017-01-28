@@ -32,8 +32,8 @@ Vector.prototype.copy = function() {
 };
 
 var Bubble = function(x, y) {
-	this.radius = Math.random() * 7 + 3;
-	this.position = new Vector(x, y);
+	this.radius = Math.random() * 14 + 6;
+	this.position = new Vector(x, y + this.radius);
 	this.velocity = new Vector(0, -Math.random() / 2);
 	this.opacity = Math.random() * 0.7 + 0.1;
 };
@@ -45,7 +45,7 @@ Bubble.prototype.update = function() {
 
 Bubble.prototype.draw = function() {
 	bubblesCtx.beginPath();
-	bubblesCtx.arc(this.position.x, this.position.y, this.radius * 2, 0, Math.PI * 2, false);
+	bubblesCtx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
 	bubblesCtx.closePath();
 	bubblesCtx.fillStyle = "rgba(185, 211, 238," + this.opacity + ")";
 	bubblesCtx.fill();
@@ -55,7 +55,7 @@ function updateBubbles() {
 	if(animateBubbles) {
 		bubblesCtx.clearRect(0, 0, bubblesCanvas.width, bubblesCanvas.height);
 		for(var i = 0; i < bubbles.length; i++) {
-			if(bubbles[i].position.y < 0 || bubbles[i].opacity < 0.01) {
+			if(bubbles[i].position.y + bubbles[i].radius < 0 || bubbles[i].opacity < 0.01) {
 				bubbles[i] = new Bubble(Math.random() * bubblesCanvas.width, Math.random() * 150 + 10 + bubblesCanvas.height);
 			}
 			else {
