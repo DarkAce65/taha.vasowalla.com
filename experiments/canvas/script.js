@@ -110,7 +110,11 @@ function updateRain() {
 			rain.update();
 			rainCtx.moveTo(rain.prev.x, rain.prev.y);
 			rainCtx.lineTo(rain.position.x, rain.position.y);
-			if(rain.position.x > rainCanvas.width) {
+			if(rain.position.x < 0) {
+				rain.prev.x += rainCanvas.width;
+				rain.position.x += rainCanvas.width;
+			}
+			else if(rain.position.x > rainCanvas.width) {
 				rain.prev.x -= rainCanvas.width;
 				rain.position.x -= rainCanvas.width;
 			}
