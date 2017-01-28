@@ -155,13 +155,13 @@ $(function() {
 
 	rainCanvas = document.querySelector("#rain");
 	rainCtx = rainCanvas.getContext("2d");
-	rainCanvas.height = $("#rain").height() * 2;
-	rainCanvas.width = $("#rain").width() * 2;
+	rainCanvas.height = $("#rain").height();
+	rainCanvas.width = $("#rain").width();
 
 	bubblesCanvas = document.querySelector("#bubbles");
 	bubblesCtx = bubblesCanvas.getContext("2d");
-	bubblesCanvas.height = $("#bubbles").height() * 2;
-	bubblesCanvas.width = $("#bubbles").width() * 2;
+	bubblesCanvas.height = $("#bubbles").height();
+	bubblesCanvas.width = $("#bubbles").width();
 	for(var i = 0; i < $("#bubbles").width() / 3; i++) {
 		bubbles[i] = new Bubble(Math.random() * bubblesCanvas.width, Math.random() * 190 + 10 + bubblesCanvas.height);
 	}
@@ -175,15 +175,15 @@ $(function() {
 
 	$("#bubbleToggle").click(function() {
 		animateRain = false;
-		$('#rainToggle').removeClass('active');
+		$("#rainToggle").removeClass("active");
 		animateBubbles = !animateBubbles;
 		updateBubbles();
 	});
 
 	$(window).resize(function() {
-		rainCanvas.height = $("#rain").height() * 2;
-		rainCanvas.width = $("#rain").width() * 2;
-		bubblesCanvas.height = $("#bubbles").height() * 2;
-		bubblesCanvas.width = $("#bubbles").width() * 2;
+		rainCanvas.height = $("#rain").height();
+		rainCanvas.width = $("#rain").width();
+		bubblesCanvas.height = $("#bubbles").height();
+		bubblesCanvas.width = $("#bubbles").width();
 	});
 });
