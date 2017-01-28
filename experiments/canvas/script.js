@@ -171,15 +171,11 @@ $(function() {
 	}
 
 	$("#rainToggle").click(function() {
-		animateBubbles = false;
-		$("#bubbleToggle").removeClass("active");
 		animateRain = !animateRain;
 		updateRain();
 	});
 
 	$("#bubbleToggle").click(function() {
-		animateRain = false;
-		$("#rainToggle").removeClass("active");
 		animateBubbles = !animateBubbles;
 		updateBubbles();
 	});
