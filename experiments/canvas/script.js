@@ -124,6 +124,7 @@ function updateRain() {
 					drops.push(new Drop(rain.position.x, rainCanvas.height));
 				}
 				raindrops.splice(i, 1);
+				i--;
 			}
 		}
 		rainCtx.fillStyle = "rgb(60, 135, 235)";
@@ -137,6 +138,7 @@ function updateRain() {
 			rainCtx.fill();
 			if(drop.position.y > rainCanvas.height) {
 				drops.splice(i, 1);
+				i--;
 			}
 		}
 		if(Math.random() < rain_chance) {
