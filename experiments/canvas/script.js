@@ -94,7 +94,6 @@ var Drop = function(x, y) {
 Drop.prototype.update = function() {
 	this.velocity.y += gravity;
 	this.velocity.x *= 0.95;
-	this.velocity.y *= 0.95;
 	this.position.x = this.position.x + this.velocity.x;
 	this.position.y = this.position.y + this.velocity.y;
 };
