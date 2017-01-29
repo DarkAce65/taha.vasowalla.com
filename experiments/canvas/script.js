@@ -71,6 +71,7 @@ var Raindrop = function() {
 	this.position = new Vector(Math.random() * rainCanvas.width, -50);
 	this.prev = this.position;
 	this.velocity = new Vector();
+	this.drops = Math.round(Math.random() * 4 + 2);
 };
 
 Raindrop.prototype.update = function() {
@@ -82,7 +83,7 @@ Raindrop.prototype.update = function() {
 };
 
 var Drop = function(x, y) {
-	var dist = Math.random() * 7;
+	var dist = Math.random() * 5;
 	var angle = Math.PI + Math.random() * Math.PI;
 	this.position = new Vector(x, y);
 	this.velocity = new Vector(
@@ -118,15 +119,15 @@ function updateRain() {
 				rain.position.x -= rainCanvas.width;
 			}
 			if(rain.position.y > rainCanvas.height) {
-				var n = Math.round(Math.random() * 4 + 2);
+				var n = rain.drops;
 				while(n--) {
 					drops.push(new Drop(rain.position.x, rainCanvas.height));
 				}
 				raindrops.splice(i, 1);
 			}
 		}
-		rainCtx.stroke();
 		rainCtx.fillStyle = "rgb(60, 135, 235)";
+		rainCtx.stroke();
 		for(var i = 0; i < drops.length; i++) {
 			var drop = drops[i];
 			drop.update();
