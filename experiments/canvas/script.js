@@ -68,9 +68,9 @@ function updateBubbles() {
 }
 
 var Raindrop = function() {
-	this.position = new Vector(Math.random() * rainCanvas.width, -50);
+	this.position = new Vector(Math.random() * rainCanvas.width, 0);
 	this.prev = this.position;
-	this.velocity = new Vector();
+	this.velocity = new Vector(0, -Math.random() * 12);
 	this.drops = Math.round(Math.random() * 4 + 2);
 };
 
