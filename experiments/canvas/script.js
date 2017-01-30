@@ -103,7 +103,7 @@ function updateRain() {
 	if(animateRain) {
 		rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
 		rainCtx.strokeStyle = "rgb(60, 135, 235)";
-		rainCtx.lineWidth = 3;
+		rainCtx.lineWidth = 2;
 		rainCtx.beginPath();
 		for(var i = 0; i < raindrops.length; i++) {
 			var rain = raindrops[i];
@@ -133,7 +133,7 @@ function updateRain() {
 			var drop = drops[i];
 			drop.update();
 			rainCtx.beginPath();
-			rainCtx.arc(drop.position.x, drop.position.y, 2, 0, Math.PI * 2, false);
+			rainCtx.arc(drop.position.x, drop.position.y, 1, 0, Math.PI * 2, false);
 			rainCtx.closePath();
 			rainCtx.fill();
 			if(drop.position.y > rainCanvas.height) {
