@@ -32,10 +32,13 @@ $(function() {
 	pointlight.position.set(250, 100, -100);
 	scene.add(pointlight);
 
+	window.waterCamera = new THREE.CubeCamera(0.01, 1000, 16);
+	waterCamera.lookAt(new THREE.Vector3(0, 1, 0));
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.ShaderLib["phong"].uniforms,
 		{
-			diffuse: {type: "v3", value: new THREE.Color(0x5f93d3)},
+			diffuse: {type: "c", value: new THREE.Color(0x5f93d3)},
+			envMap: {type: "t", value: waterCamera.renderTarget},
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
 			u_intensity: {type: "f", value: 0},
@@ -47,7 +50,13 @@ $(function() {
 	var waveShaderMaterial = new THREE.ShaderMaterial({
 		transparent: true,
 		lights: true,
-		defines: {"FLAT_SHADED": 1},
+		defines: {
+			"FLAT_SHADED": "",
+			"USE_ENVMAP": "",
+			"ENVMAP_MODE_REFLECTION": "",
+			"ENVMAP_TYPE_CUBE": "",
+			"ENVMAP_BLENDING_ADD": ""
+		},
 		extensions: {derivatives: true},
 		uniforms: uniforms,
 		vertexShader: document.getElementById("vertexShader").textContent,
@@ -213,6 +222,9 @@ $(function() {
 	}
 
 	function render() {
+		water.visible = false;
+		waterCamera.updateCubeMap(renderer, scene);
+		water.visible = true;
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
 		controls.update();
