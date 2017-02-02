@@ -38,7 +38,7 @@ $(function() {
 		THREE.ShaderLib["phong"].uniforms,
 		{
 			diffuse: {type: "c", value: new THREE.Color(0x5f93d3)},
-			envMap: {type: "t", value: waterCamera.renderTarget},
+			envMap: {type: "t", value: waterCamera.renderTarget.texture},
 			opacity: {type: "f", value: 0.75},
 			u_time: {type: "f", value: 0},
 			u_intensity: {type: "f", value: 0},
@@ -224,6 +224,7 @@ $(function() {
 	function render() {
 		water.visible = false;
 		waterCamera.updateCubeMap(renderer, scene);
+		uniforms.envMap.value = waterCamera.renderTarget.texture;
 		water.visible = true;
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
