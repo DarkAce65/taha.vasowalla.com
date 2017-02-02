@@ -155,12 +155,12 @@ $(function() {
 	var sHull = new THREE.Object3D();
 	for(var i = 0; i < 2; i++) {
 		var hullParametric = function(u, v) {
-			var x = v * u + (1 - v) / hullPeak;
+			var x = v * u + (1 - v) / hullPeak - 0.5;
 			var f = 0.2 * v * Math.atan(3 * u) * Math.pow(1 - u, 0.25);
 			if(i === 0) {
 				f = -f;
 			}
-			return new THREE.Vector3(x, 0.15 * Math.pow(v, 5), f);
+			return new THREE.Vector3(x, 0.15 * Math.pow(v, 5) - 0.075, f);
 		};
 		sHull.add(new THREE.Mesh(new THREE.ParametricBufferGeometry(hullParametric, 25, 10), sMetal));
 	}
