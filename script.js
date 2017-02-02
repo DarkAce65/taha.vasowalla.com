@@ -160,7 +160,7 @@ $(function() {
 			if(i === 0) {
 				f = -f;
 			}
-			return new THREE.Vector3(x, 0.15 * Math.pow(v, 5) - 0.075, f);
+			return new THREE.Vector3(x, 0.15 * Math.pow(v, 4) - 0.075, f);
 		};
 		sHull.add(new THREE.Mesh(new THREE.ParametricBufferGeometry(hullParametric, 25, 10), sMetal));
 	}
