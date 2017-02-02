@@ -151,22 +151,22 @@ $(function() {
 
 	window.ship = new THREE.Object3D();
 	var sMetal = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 50, side: THREE.DoubleSide, shading: THREE.FlatShading});
-	var hullRadius = 10;
-	var hullLength = 10;
-	var points = [];
-	for(var i = 0; i < 10; i++) {
-		points.push(new THREE.Vector2(hullRadius * Math.sin(i * Math.PI / 20), i));
+	var hullPeak = 1.5;
+	var sHull = new THREE.Object3D();
+	for(var i = 0; i < 2; i++) {
+		var hullParametric = function(u, v) {
+			var x = v * u + (1 - v) / hullPeak;
+			var f = 0.2 * v * Math.atan(3 * u) * Math.pow(1 - u, 0.25);
+			if(i === 0) {
+				f = -f;
+			}
+			return new THREE.Vector3(x, 0.15 * Math.pow(v, 5), f);
+		};
+		sHull.add(new THREE.Mesh(new THREE.ParametricBufferGeometry(hullParametric, 25, 10), sMetal));
 	}
-	points.push(new THREE.Vector2(hullRadius, hullLength + 10));
-	for(var i = 0; i < 10; i++) {
-		points.push(new THREE.Vector2(hullRadius * Math.cos(i * Math.PI / 20), i / 2 + hullLength + 10));
-	}
-	points.push(new THREE.Vector2(0, hullLength + 14.5));
-	var hullGeometry = new THREE.LatheGeometry(points, 12, 0, Math.PI);
-	var sHull = new THREE.Mesh(hullGeometry, sMetal);
 	ship.add(sHull);
 	ship.position.set(-30, 20, 10);
-	ship.rotation.z = -Math.PI / 2;
+	ship.scale.set(10, 10, 10);
 	scene.add(ship);
 
 	render();
