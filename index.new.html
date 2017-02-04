@@ -59,7 +59,7 @@
 				</div>
 			</div>
 		</div>
-		<script id="vertexShader" type="x-shader/x-vertex">
+		<script id="waveVertexShader" type="x-shader/x-vertex">
 			uniform float u_multiplier;
 			uniform float u_time;
 			uniform vec2 u_wavesize;
@@ -212,7 +212,7 @@
 				gl_FragColor = vec4(color, 0.2);
 			}
 		</script>
-		<script id="beamVertexShader" type="x-shader/x-fragment">
+		<script id="beamVertexShader" type="x-shader/x-vertex">
 			uniform float u_time;
 
 			varying vec2 vUv;

@@ -59,7 +59,7 @@ $(function() {
 		},
 		extensions: {derivatives: true},
 		uniforms: uniforms,
-		vertexShader: document.getElementById("vertexShader").textContent,
+		vertexShader: document.getElementById("waveVertexShader").textContent,
 		fragmentShader: THREE.ShaderLib["phong"].fragmentShader,
 		side: THREE.DoubleSide
 	});
@@ -67,7 +67,7 @@ $(function() {
 		transparent: true,
 		wireframe: true,
 		uniforms: uniforms,
-		vertexShader: document.getElementById("vertexShader").textContent,
+		vertexShader: document.getElementById("waveVertexShader").textContent,
 		fragmentShader: document.getElementById("wireFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
