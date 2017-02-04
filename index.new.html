@@ -200,6 +200,30 @@
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
+		<script id="waveFragmentShader" type="x-shader/x-fragment">
+			uniform vec3 diffuse;
+			uniform float opacity;
+			uniform float u_multiplier;
+			uniform float u_time;
+			uniform vec2 u_wavesize;
+			uniform vec2 u_wavesegments;
+
+			varying vec2 vUv;
+			varying vec3 vViewPosition;
+			varying vec3 vWorldPosition;
+			varying vec3 vNormal;
+			varying vec3 noise;
+
+			void main() {
+				vec3 fdx = vec3(dFdx(vViewPosition.x), dFdx(vViewPosition.y), dFdx(vViewPosition.z));
+				vec3 fdy = vec3(dFdy(vViewPosition.x), dFdy(vViewPosition.y), dFdy(vViewPosition.z));
+				vec3 normal = normalize(cross(fdx, fdy));
+
+				vec3 color = diffuse;
+
+				gl_FragColor = vec4(color, opacity);
+			}
+		</script>
 		<script id="wireFragmentShader" type="x-shader/x-fragment">
 			uniform float u_time;
 

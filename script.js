@@ -35,7 +35,6 @@ $(function() {
 	window.waterCamera = new THREE.CubeCamera(0.01, 1000, 16);
 	waterCamera.lookAt(new THREE.Vector3(0, 1, 0));
 	window.uniforms = THREE.UniformsUtils.merge([
-		THREE.ShaderLib["phong"].uniforms,
 		{
 			diffuse: {type: "c", value: new THREE.Color(0x5f93d3)},
 			envMap: {type: "t", value: waterCamera.renderTarget.texture},
@@ -50,17 +49,10 @@ $(function() {
 	var waveShaderMaterial = new THREE.ShaderMaterial({
 		transparent: true,
 		lights: true,
-		defines: {
-			"FLAT_SHADED": "",
-			"USE_ENVMAP": "",
-			"ENVMAP_MODE_REFLECTION": "",
-			"ENVMAP_TYPE_CUBE": "",
-			"ENVMAP_BLENDING_ADD": ""
-		},
 		extensions: {derivatives: true},
 		uniforms: uniforms,
 		vertexShader: document.getElementById("waveVertexShader").textContent,
-		fragmentShader: THREE.ShaderLib["phong"].fragmentShader,
+		fragmentShader: document.getElementById("waveFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
 	var wireShaderMaterial = new THREE.ShaderMaterial({
