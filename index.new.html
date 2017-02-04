@@ -68,7 +68,6 @@
 			varying vec2 vUv;
 			varying vec3 vViewPosition;
 			varying vec3 vWorldPosition;
-			varying vec3 vNormal;
 			varying vec3 noise;
 
 			// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
@@ -180,19 +179,12 @@
 				return vec3(pos.xy + drift, pos.z - length(noise));
 			}
 
-			vec3 recalculateNormal(vec3 newpos) {
-				vec3 tangent = displacePosition(f(uv.x + 1.0 / u_wavesegments.x, uv.y), vec3(position.x + 1.0, position.y, position.z)) - newpos;
-				vec3 bitangent = displacePosition(f(uv.x, uv.y + 1.0 / u_wavesegments.y), vec3(position.x, position.y + 1.0, position.z)) - newpos;
-				return normalize(cross(tangent, bitangent));
-			}
-
 			void main() {
 				vUv = uv;
 
 				vec2 st = uv * u_wavesize / 100.0;
 				noise = f(st.x, st.y);
 				vec3 transformed = displacePosition(noise, position);
-				vNormal = normalMatrix * recalculateNormal(transformed);
 
 				vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
 				vViewPosition = -mvPosition.xyz;
@@ -211,7 +203,6 @@
 			varying vec2 vUv;
 			varying vec3 vViewPosition;
 			varying vec3 vWorldPosition;
-			varying vec3 vNormal;
 			varying vec3 noise;
 
 			void main() {
@@ -228,7 +219,6 @@
 			uniform float u_time;
 
 			varying vec2 vUv;
-			varying vec3 vNormal;
 			varying vec3 noise;
 
 			void main() {
