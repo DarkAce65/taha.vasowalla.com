@@ -35,6 +35,7 @@ $(function() {
 	window.waterCamera = new THREE.CubeCamera(0.01, 1000, 16);
 	waterCamera.lookAt(new THREE.Vector3(0, 1, 0));
 	window.uniforms = THREE.UniformsUtils.merge([
+		THREE.UniformsLib["lights"],
 		{
 			diffuse: {type: "c", value: new THREE.Color(0x5f93d3)},
 			envMap: {type: "t", value: waterCamera.renderTarget.texture},
@@ -51,7 +52,12 @@ $(function() {
 		lights: true,
 		extensions: {derivatives: true},
 		uniforms: uniforms,
-		vertexShader: document.getElementById("waveVertexShader").textContent,
+		vertexShader: [
+			THREE.ShaderChunk["common"],
+			THREE.ShaderChunk["bsdfs"],
+			THREE.ShaderChunk["lights_pars"],
+			document.getElementById("waveVertexShader").textContent
+		].join("\n"),
 		fragmentShader: document.getElementById("waveFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});
