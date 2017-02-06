@@ -52,12 +52,7 @@ $(function() {
 		lights: true,
 		extensions: {derivatives: true},
 		uniforms: uniforms,
-		vertexShader: [
-			THREE.ShaderChunk["common"],
-			THREE.ShaderChunk["bsdfs"],
-			THREE.ShaderChunk["lights_pars"],
-			document.getElementById("waveVertexShader").textContent
-		].join("\n"),
+		vertexShader: document.getElementById("waveVertexShader").textContent,
 		fragmentShader: document.getElementById("waveFragmentShader").textContent,
 		side: THREE.DoubleSide
 	});

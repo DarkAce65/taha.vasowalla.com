@@ -70,6 +70,10 @@
 			varying vec3 vWorldPosition;
 			varying vec3 noise;
 
+			#include <common>
+			#include <bsdfs>
+			#include <lights_pars>
+
 			// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
 
 			vec3 mod289(vec3 x) {
