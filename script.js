@@ -36,6 +36,7 @@ $(function() {
 	waterCamera.lookAt(new THREE.Vector3(0, 1, 0));
 	window.uniforms = THREE.UniformsUtils.merge([
 		THREE.UniformsLib["lights"],
+		THREE.UniformsLib["phong"],
 		{
 			diffuse: {type: "c", value: new THREE.Color(0x5f93d3)},
 			envMap: {type: "t", value: waterCamera.renderTarget.texture},
@@ -50,6 +51,7 @@ $(function() {
 	var waveShaderMaterial = new THREE.ShaderMaterial({
 		transparent: true,
 		lights: true,
+		defines: {"FLAT_SHADED": ""},
 		extensions: {derivatives: true},
 		uniforms: uniforms,
 		vertexShader: document.getElementById("waveVertexShader").textContent,
