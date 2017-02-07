@@ -13,7 +13,7 @@
 	}
 }
 
-#skills, #clubs, #workexp, #achievements {
+#skills, #clubs, #workexp, #events {
 	b {
 		font-family: "Raleway", sans-serif;
 	}
@@ -61,9 +61,34 @@
 		}
 	}
 
-	#skills, #clubs, #workexp, #achievements {
+	#skills, #clubs, #workexp, #events {
 		display: block;
 		height: auto !important;
+	}
+
+	#skills {
+		.skill {
+			@include display(flex);
+
+			.level {
+				@include display(flex);
+				@include flex-direction(column);
+				width: 100px;
+				text-align: right;
+				font-weight: bold;
+				font-size: 85%;
+
+				&::before, &::after {
+					content: "";
+					@include flex-grow(1);
+				}
+			}
+
+			span:nth-child(n + 2) {
+				@include flex(1 1);
+				margin-left: 10px;
+			}
+		}
 	}
 
 	#workexp .list-group-item .date {
