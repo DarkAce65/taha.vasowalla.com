@@ -67,16 +67,15 @@
 	}
 
 	#skills {
-		.skill {
+		.descList {
 			@include display(flex);
 
-			.level {
+			span:first-child {
 				@include display(flex);
 				@include flex-direction(column);
-				width: 100px;
+				width: 110px;
 				text-align: right;
-				font-weight: bold;
-				font-size: 85%;
+				font-size: 90%;
 
 				&::before, &::after {
 					content: "";
@@ -84,9 +83,9 @@
 				}
 			}
 
-			span:nth-child(n + 2) {
+			.description {
 				@include flex(1 1);
-				margin-left: 10px;
+				margin-left: 15px;
 			}
 		}
 	}
