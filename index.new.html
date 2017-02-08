@@ -65,9 +65,7 @@
 			uniform vec2 u_wavesize;
 			uniform vec2 u_wavesegments;
 
-			varying vec2 vUv;
 			varying vec3 vViewPosition;
-			varying vec3 vWorldPosition;
 			varying vec3 noise;
 
 			// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
@@ -180,15 +178,12 @@
 			}
 
 			void main() {
-				vUv = uv;
-
 				vec2 st = uv * u_wavesize / 100.0;
 				noise = f(st.x, st.y);
 				vec3 transformed = displacePosition(noise, position);
 
 				vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
 				vViewPosition = -mvPosition.xyz;
-				vWorldPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
@@ -204,8 +199,6 @@
 			uniform vec2 u_wavesize;
 			uniform vec2 u_wavesegments;
 
-			varying vec2 vUv;
-			varying vec3 vWorldPosition;
 			varying vec3 noise;
 
 			#include <common>
