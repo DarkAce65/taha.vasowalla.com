@@ -8,10 +8,8 @@ fi
 
 if [[ ! -d "bourbon" ]]; then
 	echo "Error: Bourbon mixins not installed."
-	where bourbon > nul 2>&1
 	if ! type "bourbon" > /dev/null; then
 		echo "Install bourbon via 'gem install bourbon'"
-		exit
 	fi
 	echo "Run 'bourbon install' in this directory"
 	exit
