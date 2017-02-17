@@ -14,7 +14,7 @@ function openPhotoSwipe(thumbnail) {
 	});
 }
 
-var gallery;
+var gallery, psThumb;
 var photoswipeData = {
 	photos: [
 		{
