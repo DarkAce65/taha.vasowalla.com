@@ -1,9 +1,15 @@
 [
 	{
-		"date": "11-11-16",
+		"date": "20-20-17",
 		"status": "In Progress",
 		"title": "Building a fancy new home page",
 		"descriptions": ["It currently looks like <a href=\"index.new.html\">this</a>"]
+	},
+	{
+		"date": "1-4-17",
+		"status": "In Progress",
+		"title": "Experimenting with shader graphics and 3D scenes",
+		"descriptions": ["Experiments<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"experiments/testing/\">Testing Lab</a>"]
 	},
 	{
 		"date": "8-12-16",
@@ -28,12 +34,6 @@
 		"status": "Inactive",
 		"title": "Game lobby system",
 		"descriptions": ["A framework for game lobbies built with <a href=\"https://www.meteor.com/\" target=\"_blank\">Meteor</a>", "<a href=\"https://github.com/RedAce65/GameLobbySystem\" target=\"_blank\">GitHub</a>"]
-	},
-	{
-		"date": "3-26-16",
-		"status": "Ongoing",
-		"title": "Experiments<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"experiments/testing/\">Testing Lab</a>",
-		"descriptions": ["Experimenting with 3D low-poly art"]
 	},
 	{
 		"date": "2-2-16",
