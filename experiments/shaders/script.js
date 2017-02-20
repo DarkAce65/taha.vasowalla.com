@@ -90,13 +90,13 @@ $(function() {
 	material.side = THREE.DoubleSide;
 	cubes["Matrix"] = new THREE.Mesh(cubeGeometry, material);
 
-	material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
+	var material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
 	material.side = THREE.FrontSide;
 	material.transparent = true;
 	var mesh = new THREE.Mesh(cubeGeometry, material);
 	mesh.renderOrder = 2;
 
-	material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
+	var material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "transparentFragmentShader"));
 	material.side = THREE.BackSide;
 	material.transparent = true;
 	var transparentCube = new THREE.Object3D();
