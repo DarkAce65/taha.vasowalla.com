@@ -86,6 +86,11 @@ $(function() {
 	material.side = THREE.DoubleSide;
 	cubes["Noise"] = new THREE.Mesh(new THREE.BoxGeometry(70, 70, 70, 70, 70, 70), material);
 
+	var material = new THREE.ShaderMaterial(shaderConfig("pulseVertexShader", "pulseFragmentShader"));
+	material.transparent = true;
+	material.side = THREE.DoubleSide;
+	cubes["Pulse"] = new THREE.Mesh(new THREE.BoxGeometry(70, 70, 70, 70, 70, 70), material);
+
 	var material = new THREE.ShaderMaterial(shaderConfig("staticVertexShader", "matrixFragmentShader"));
 	material.side = THREE.DoubleSide;
 	cubes["Matrix"] = new THREE.Mesh(cubeGeometry, material);

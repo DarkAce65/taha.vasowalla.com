@@ -164,6 +164,43 @@
 				gl_FragColor = vec4(noise, 1.0);
 			}
 		</script>
+		<script id="pulseVertexShader" type="x-shader/x-vertex">
+			uniform float u_time;
+
+			varying vec2 vUv;
+			varying vec3 vColor;
+			varying vec4 vWorldPosition;
+
+			float random(vec2 st) {
+			    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+			}
+
+			void main() {
+				vUv = uv;
+
+				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+				vWorldPosition = modelMatrix * vec4(position, 1.0);
+				float d = length(vWorldPosition.xyz) / 100.0 - u_time / 10.0;
+				vColor = vec3(fract(d));
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script id="pulseFragmentShader" type="x-shader/x-fragment">
+			uniform float u_time;
+			uniform vec2 u_resolution;
+
+			varying vec2 vUv;
+			varying vec3 vColor;
+			varying vec4 vWorldPosition;
+
+			void main() {
+				vec2 st = vUv * 5.0;
+
+				vec3 color = vColor;
+				float opacity = 1.0;
+				gl_FragColor = vec4(color, opacity);
+			}
+		</script>
 		<script id="matrixFragmentShader" type="x-shader/x-fragment">
 			// Author @patriciogv - 2015
 			// http://patriciogonzalezvivo.com
