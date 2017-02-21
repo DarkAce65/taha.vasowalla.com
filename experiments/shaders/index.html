@@ -178,10 +178,14 @@
 			void main() {
 				vUv = uv;
 
-				vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
 				vWorldPosition = modelMatrix * vec4(position, 1.0);
-				float d = length(vWorldPosition.xyz) / 100.0 - u_time / 10.0;
-				vColor = vec3(fract(d));
+				float d = fract(length(vWorldPosition.xyz - vec3(0.0, 100.0, 0.0)) / 50.0 - u_time / 10.0);
+				vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
+				vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
+				vColor = vec3(d);
+				d *= bl.x * bl.y * tr.x * tr.y;
+
+				vec4 mvPosition = modelViewMatrix * vec4(position - d * 10.0 * normal, 1.0);
 				gl_Position = projectionMatrix * mvPosition;
 			}
 		</script>
@@ -194,7 +198,7 @@
 			varying vec4 vWorldPosition;
 
 			void main() {
-				vec2 st = vUv * 5.0;
+				vec2 st = vUv;
 
 				vec3 color = vColor;
 				float opacity = 1.0;
