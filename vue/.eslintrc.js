@@ -17,6 +17,14 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    'semi': ['warn', 'always'],
+    'space-before-function-paren': [2, 'never'],
+    'keyword-spacing': ['warn', {'overrides': {
+        'if': {'after': false},
+        'for': {'after': false},
+        'while': {'after': false}
+    }}],
+    'brace-style': ['warn', 'stroustrup'],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
@@ -24,4 +32,4 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
-}
+};
