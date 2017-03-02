@@ -18,7 +18,7 @@ module.exports = {
   // add your custom rules here
   'rules': {
     'semi': ['warn', 'always'],
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': ['warn', 'never'],
     'keyword-spacing': ['warn', {'overrides': {
         'if': {'after': false},
         'for': {'after': false},
