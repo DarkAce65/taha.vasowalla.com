@@ -1,0 +1,59 @@
+@import "colors";
+
+@import url("http://fonts.googleapis.com/css?family=Lato:300,400,700|Quicksand|Raleway:400,700");
+
+* {
+	outline: 0;
+}
+
+html {
+	height: 100%;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	font-family: "Lato", sans-serif;
+}
+
+body {
+	min-height: 100%;
+	position: relative;
+}
+
+.Lato {
+	font-family: "Lato", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .Raleway {
+	font-family: "Raleway", sans-serif;
+}
+
+.Quicksand {
+	font-family: "Quicksand", sans-serif;
+}
+
+.valign-middle {
+	display: flex;
+	flex-direction: column;
+
+	&::before, &::after {
+		content: "";
+		flex-grow: 1;
+	}
+}
+
+.construction {
+	z-index: 99999999;
+	position: absolute;
+	top: 40px;
+	left: -60px;
+	width: 250px;
+	background: $dark-accent-color;
+	text-align: center;
+	line-height: 50px;
+	letter-spacing: 1px;
+	color: $light-color;
+	transform: rotate(-45deg);
+}
