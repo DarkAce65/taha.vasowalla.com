@@ -1,6 +1,7 @@
 <template>
 	<div class="home">
 		<h1>{{msg}}</h1>
+		<router-link to="/other">Second Page</router-link>
 		<h2>Essential Links</h2>
 		<ul>
 			<li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>

@@ -9,7 +9,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
 	el: '#site',
-	router,
+	router: router,
 	template: '<Site/>',
 	components: {Site}
 });
