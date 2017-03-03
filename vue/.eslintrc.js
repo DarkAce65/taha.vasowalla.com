@@ -27,6 +27,7 @@ module.exports = {
 			'while': {'after': false}
 		}}],
 		'brace-style': ['warn', 'stroustrup'],
+		'no-unused-vars': 'warn',
 		// allow paren-less arrow functions
 		'arrow-parens': 0,
 		// allow async-await
