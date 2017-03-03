@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="site">
     <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
@@ -7,17 +7,16 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'site'
 };
 </script>
 
 <style lang="scss" src="./assets/global.scss"></style>
 <style>
-#app {
+#site {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 </style>
