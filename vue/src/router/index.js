@@ -1,9 +1,19 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
-import Other from '@/components/Other';
 
 Vue.use(Router);
+
+const Home = resolve => {
+	require.ensure(['@/components/Home'], () => {
+		resolve(require('@/components/Home'));
+	});
+};
+
+const Other = resolve => {
+	require.ensure(['@/components/Other'], () => {
+		resolve(require('@/components/Other'));
+	});
+};
 
 export default new Router({
 	routes: [
