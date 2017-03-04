@@ -1,5 +1,17 @@
 <template>
-	<div class="home">
+	<div class="home" v-on:mousemove="log">
+		<div class="stacked">
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+			<span>Header</span>
+		</div>
 		<h1>{{msg}}</h1>
 		<router-link to="/other">Second Page</router-link>
 		<h2>Essential Links</h2>
@@ -28,6 +40,15 @@ export default {
 		return {
 			msg: 'Welcome to Your Vue.js App'
 		};
+	},
+	methods: {
+		log: function(e) {
+			var height = window.innerHeight;
+			var width = window.innerWidth;
+			var rx = -(e.y / height - 0.5) * 5;
+			var ry = (e.x / width - 0.5) * 5;
+			document.querySelector('.home').style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+		}
 	}
 };
 </script>

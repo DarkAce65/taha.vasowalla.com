@@ -22,6 +22,8 @@ body {
 	position: relative;
 	background: #131d29;
 	color: white;
+	transform-style: preserve-3d;
+	perspective: 200px;
 }
 
 .Lato {
@@ -58,4 +60,29 @@ h1, h2, h3, h4, h5, h6, .Raleway {
 	letter-spacing: 1px;
 	color: $light-color;
 	transform: rotate(-45deg);
+}
+
+.home {
+	transform-style: preserve-3d;
+
+	.stacked {
+		display: inline-block;
+		position: relative;
+		font-size: 70px;
+		font-weight: 900;
+
+		span:not(:first-child) {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: 5s;
+		}
+
+		@for $i from 2 through 10 {
+			span:nth-child(#{$i}) {
+				opacity: 0.3 - ($i - 2) / 30;
+				transform: translateZ(-5px * ($i - 1));
+			}
+		}
+	}
 }
