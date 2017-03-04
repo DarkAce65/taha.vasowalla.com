@@ -1,5 +1,5 @@
 <template>
-	<div class="home" v-on:mousemove="log">
+	<div class="home">
 		<div class="stacked">
 			<span>Header</span>
 			<span>Header</span>
@@ -34,21 +34,46 @@
 </template>
 
 <script>
+function lerp(a, b, f) {
+	return Math.round(((b - a) * f + a) * 1000) / 1000;
+}
+
 export default {
 	name: 'home',
 	data: function() {
 		return {
-			msg: 'Welcome to Your Vue.js App'
+			msg: 'Welcome to Your Vue.js App',
+			active: true,
+			rx: 0,
+			ry: 0,
+			mx: 0,
+			my: 0
 		};
 	},
 	methods: {
-		log: function(e) {
-			var height = window.innerHeight;
-			var width = window.innerWidth;
-			var rx = -(e.y / height - 0.5) * 5;
-			var ry = (e.x / width - 0.5) * 5;
-			document.querySelector('.home').style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+		mouse: function(e) {
+			this.mx = e.x * 2 / window.innerWidth - 1;
+			this.my = e.y * 2 / window.innerHeight - 1;
+		},
+		render: function() {
+			if(this.active) {
+				this.rx = lerp(this.rx, -this.my * 3, 0.1);
+				this.ry = lerp(this.ry, this.mx * 3, 0.1);
+				document.querySelector('.home').style.transform = 'rotateX(' + this.rx + 'deg) rotateY(' + this.ry + 'deg)';
+				requestAnimationFrame(this.render);
+			}
 		}
+	},
+	beforeRouteEnter: function(to, from, next) {
+		next(function(vm) {
+			document.addEventListener('mousemove', vm.mouse);
+			vm.render();
+		});
+	},
+	beforeRouteLeave: function(to, from, next) {
+		this.active = false;
+		document.removeEventListener('mousemove', this.mouse);
+		next();
 	}
 };
 </script>
