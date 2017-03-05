@@ -53,10 +53,10 @@ export default {
 			scene.background = new THREE.Color(0x131d29);
 			var renderer = new THREE.WebGLRenderer({antialias: true});
 			document.querySelector("#rendererContainer").appendChild(renderer.domElement);
-			renderer.setSize(400, 200);
+			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setPixelRatio(window.devicePixelRatio);
 
-			var camera = new THREE.PerspectiveCamera(35, 400 / 200, 0.1, 10000);
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
 			camera.position.set(-50, -300, 100);
 			var controls = new THREE.TrackballControls(camera, renderer.domElement);
 			camera.lookAt(scene.position);
