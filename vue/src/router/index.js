@@ -4,8 +4,8 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 const Home = resolve => {
-	require.ensure(['@/components/Home'], () => {
-		resolve(require('@/components/Home'));
+	require.ensure(['@/components/Home/index'], () => {
+		resolve(require('@/components/Home/index'));
 	});
 };
 
