@@ -10,8 +10,8 @@ const Home = resolve => {
 };
 
 const Other = resolve => {
-	require.ensure(['@/components/Other'], () => {
-		resolve(require('@/components/Other'));
+	require.ensure(['@/components/Other/index'], () => {
+		resolve(require('@/components/Other/index'));
 	});
 };
 
