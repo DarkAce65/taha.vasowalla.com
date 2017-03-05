@@ -139,6 +139,12 @@ export default {
 				satellites.push(satellite);
 			}
 
+			function resize() {
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			}
+
 			vm.renderer = renderer;
 			vm.clock = clock;
 			vm.scene = scene;
@@ -148,11 +154,15 @@ export default {
 			vm.planet = planet;
 			vm.satellites = satellites;
 
+			vm.resize = resize;
 			vm.render();
+
+			window.addEventListener("resize", vm.resize);
 		});
 	},
 	beforeRouteLeave: function(to, from, next) {
 		this.r = false;
+		window.removeEventListener("resize", this.resize);
 		next();
 	}
 };
