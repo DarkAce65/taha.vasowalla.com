@@ -28,15 +28,12 @@ export default {
 			}
 		}
 	},
-	beforeRouteEnter: function(to, from, next) {
-		next(function(vm) {
-			document.addEventListener('mousemove', vm.mouse);
-			vm.render();
-		});
+	mounted: function() {
+		document.addEventListener('mousemove', this.mouse);
+		this.render();
 	},
-	beforeRouteLeave: function(to, from, next) {
+	beforeDestroy: function() {
 		this.r = false;
 		document.removeEventListener('mousemove', this.mouse);
-		next();
 	}
 };

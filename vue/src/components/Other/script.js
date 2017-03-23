@@ -149,22 +149,19 @@ export default {
 			}
 		}
 	},
-	beforeRouteEnter: function(to, from, next) {
-		next(function(vm) {
-			document.querySelector("#rendererContainer").appendChild(vm.renderer.domElement);
-			vm.renderer.setSize(window.innerWidth, window.innerHeight);
-			vm.renderer.setPixelRatio(window.devicePixelRatio);
-			vm.r = true;
-			vm.clock.start();
-			vm.render();
+	mounted: function() {
+		document.querySelector("#rendererContainer").appendChild(this.renderer.domElement);
+		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.setPixelRatio(window.devicePixelRatio);
+		this.r = true;
+		this.clock.start();
+		this.render();
 
-			window.addEventListener("resize", vm.resize);
-		});
+		window.addEventListener("resize", this.resize);
 	},
-	beforeRouteLeave: function(to, from, next) {
+	beforeDestroy: function() {
 		this.r = false;
 		this.clock.stop();
 		window.removeEventListener("resize", this.resize);
-		next();
 	}
 };
