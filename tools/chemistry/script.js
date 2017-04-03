@@ -41,16 +41,28 @@ function getElementInfo(symbol) {
 function checkFormula(formula) { // Formula validation
 	invalidElements = [];
 	errorMessage = "Error.";
-	if(formula.match(/([0-9\(\)][a-z]+|^[a-z0-9\)])/g) !== null) {
+	if(formula.match(/(\([a-z0-9]|^[a-z0-9]|[0-9\)][a-z])/g)) {
 		errorMessage = "Error in formula.";
 		return false; // Formula error
 	}
 
-	if(isNaN(formula.match(/(\(|\))/g))) {
-		if(formula.match(/(\(|\))/g).length % 2 !== 0) {
-			errorMessage = "Unclosed parenthesis.";
-			return false; // Unclosed parenthesis
+	var p = 0;
+	for(var i = 0; i < formula.length; i++) {
+		var c = formula.charAt(i);
+		if(c === "(") {
+			p++;
 		}
+		else if(c === ")") {
+			p--;
+			if(p < 0) {
+				errorMessage = "Unclosed parenthesis.";
+				return false; // Unclosed parenthesis
+			}
+		}
+	}
+	if(p !== 0) {
+		errorMessage = "Unclosed parenthesis.";
+		return false; // Unclosed parenthesis
 	}
 
 	$.each(formula.match(/([A-Z][a-z]*)/g), function(index, value) { // Find invalid Element symbols
