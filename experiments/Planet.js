@@ -52,7 +52,7 @@ $(function() {
 		scene.add(lights[i]);
 	}
 
-	var planetMaterial = new THREE.MultiMaterial([
+	var planetMaterials = [
 		new THREE.MeshPhongMaterial({
 			morphTargets: true,
 			shininess: 30,
@@ -69,7 +69,7 @@ $(function() {
 			side: THREE.DoubleSide,
 			shading: THREE.FlatShading
 		})
-	]);
+	];
 	var planetGeometry = new THREE.IcosahedronGeometry(60, 3);
 	var implodedVertices = [];
 	var cubeVertices = [];
@@ -85,7 +85,7 @@ $(function() {
 	}
 	planetGeometry.morphTargets.push({"name": "implode", "vertices": implodedVertices});
 	planetGeometry.morphTargets.push({"name": "cube", "vertices": cubeVertices});
-	var planet = new THREE.Mesh(planetGeometry, planetMaterial);
+	var planet = new THREE.Mesh(planetGeometry, planetMaterials);
 	scene.add(planet);
 
 	var satellites = [];

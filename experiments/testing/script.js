@@ -122,7 +122,7 @@ $(function() {
 	lighthouse.add(new THREE.Object3D());
 	lighthouse.rotationCounter = -2;
 	lighthouse.children[4].position.y = 37;
-	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), new THREE.MultiMaterial([lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]));
+	var lhLightFixture = new THREE.Mesh(new THREE.ConeGeometry(1, 1), [lhBlack, new THREE.MeshPhongMaterial({emissive: 0xffffbb, shading: THREE.FlatShading})]);
 	for(var i = 0; i < lhLightFixture.geometry.faces.length; i++) {
 		lhLightFixture.geometry.faces[i].materialIndex = i < 8 ? 0 : 1;
 	}
