@@ -1,9 +1,9 @@
 [
 	{
-		"date": "20-20-17",
+		"date": "6-5-17",
 		"status": "In Progress",
-		"title": "Building a fancy new home page",
-		"descriptions": ["It currently looks like <a href=\"index.new.html\">this</a>"]
+		"title": "Rebuild site",
+		"descriptions": ["Redesign pages and clean up code", "A sneak preview can be found <a href=\"new/\">here</a>"]
 	},
 	{
 		"date": "1-4-17",
@@ -15,25 +15,19 @@
 		"date": "8-12-16",
 		"status": "Completed",
 		"title": "Restructured entire website for easier development",
-		"descriptions": ["Added lots of folders"]
+		"descriptions": ["Added lots of folders for cleaner URLs"]
 	},
 	{
 		"date": "8-2-16",
 		"status": "In Progress",
 		"title": "Ventures<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"ventures/eagle/\">Eagle Project</a><br>Ventures<i class=\"fa fa-angle-right fa-fw\"></i><a href=\"ventures/sarndbox/\">SARndbox</a>",
-		"descriptions": ["Creating description pages for various real-world projects I've worked on"]
+		"descriptions": ["Created description pages for various real-world projects I've worked on"]
 	},
 	{
 		"date": "7-24-16",
 		"status": "Completed",
 		"title": "Main menu rework",
 		"descriptions": ["Rebuilt the main menu to eliminate lag and greatly reduce data usage"]
-	},
-	{
-		"date": "4-4-16",
-		"status": "Inactive",
-		"title": "Game lobby system",
-		"descriptions": ["A framework for game lobbies built with <a href=\"https://www.meteor.com/\" target=\"_blank\">Meteor</a>", "<a href=\"https://github.com/RedAce65/GameLobbySystem\" target=\"_blank\">GitHub</a>"]
 	},
 	{
 		"date": "2-2-16",
