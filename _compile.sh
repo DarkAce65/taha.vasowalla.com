@@ -15,9 +15,9 @@ if [[ ! -d "bourbon" ]]; then
 	exit
 fi
 
-echo "Compiling global.scss and style.scss..."
-sass --style $style --update global.scss:global.css style.scss:style.css
+echo "Compiling global.scss..."
+sass --style $style --update global.scss:global.css
 echo "Compiling colors directory..."
 sass --style $style --update colors:colors
 echo "Compiling all subdirectories..."
-sass --style $style --update about:about origami:origami photography:photography ventures:ventures school:school tools:tools visual:visual games:games experiments:experiments
+sass --style $style --update new:new about:about origami:origami photography:photography ventures:ventures school:school tools:tools visual:visual games:games experiments:experiments

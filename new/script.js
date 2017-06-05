@@ -33,7 +33,7 @@ $(function() {
 	scene.add(cubeCamera);
 
 	var loader = new THREE.TextureLoader();
-	loader.setPath("img/textures/");
+	loader.setPath("../img/textures/");
 
 	window.texture = loader.load("room.jpg");
 	window.skybox = new THREE.Mesh(new THREE.SphereBufferGeometry(1000, 16, 16), new THREE.MeshBasicMaterial({map: texture}));
