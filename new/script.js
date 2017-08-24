@@ -22,7 +22,6 @@ $(function() {
 
 	window.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
 	camera.position.set(250, 0, 0);
-	var controls = new THREE.TrackballControls(camera, renderer.domElement);
 	camera.lookAt(scene.position);
 
 	window.ambient = new THREE.AmbientLight(0x666666);
@@ -60,7 +59,6 @@ $(function() {
 	function render() {
 		requestAnimFrame(render);
 		renderer.render(scene, camera);
-		controls.update();
 		box.rotation.set(c / 50, c / 50, c / 50);
 		box.position.set(100 * Math.cos(c / 100), 0, 100 * Math.sin(c / 100));
 
@@ -69,7 +67,7 @@ $(function() {
 		}
 		else {
 			mesh.visible = false;
-			cubeCamera.updateCubeMap(renderer, scene);
+			cubeCamera.update(renderer, scene);
 			mesh.visible = true;
 		}
 		c++;

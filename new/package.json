@@ -1,0 +1,24 @@
+{
+	"name": "taha.vasowalla.com",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"devDependencies": {
+		"node-sass": "latest"
+	},
+	"dependencies": {
+		"bourbon": "latest",
+		"font-awesome": "latest",
+		"jquery": "latest",
+		"three": "latest"
+	},
+	"scripts": {
+		"compile": "node-sass -r --source-map true style.scss style.css",
+		"compile:prod": "node-sass -r --source-map true --output-style compressed style.scss style.css"
+	}
+}
