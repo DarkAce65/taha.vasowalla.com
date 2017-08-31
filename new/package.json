@@ -12,6 +12,7 @@
 		"node-sass": "latest"
 	},
 	"dependencies": {
+		"animejs": "latest",
 		"bourbon": "latest",
 		"font-awesome": "latest",
 		"jquery": "latest",
