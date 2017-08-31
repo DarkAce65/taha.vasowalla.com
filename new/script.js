@@ -10,74 +10,33 @@ window.requestAnimFrame =
 		window.setTimeout(callback, 1000 / 60);
 	};
 
-$(function() {
-	var clock = new THREE.Clock();
-	window.scene = new THREE.Scene();
-	var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-	$("#rendererContainer").append(renderer.domElement);
-	var width = window.innerWidth;
-	var height = Math.min(width, window.innerHeight);
-	renderer.setSize(width, height);
-	renderer.setPixelRatio(window.devicePixelRatio);
-
-	window.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 10000);
-	camera.position.set(250, 0, 0);
-	camera.lookAt(scene.position);
-
-	window.ambient = new THREE.AmbientLight(0x666666);
-	scene.add(ambient);
-
-	window.cubeCamera = new THREE.CubeCamera(1, 1000, 256);
-	cubeCamera.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;
-	scene.add(cubeCamera);
-
-	var loader = new THREE.TextureLoader();
-	loader.setPath("../img/textures/");
-
-	window.texture = loader.load("room.jpg");
-	window.skybox = new THREE.Mesh(new THREE.SphereBufferGeometry(1000, 16, 16), new THREE.MeshBasicMaterial({map: texture}));
-	skybox.scale.x = -1;
-	scene.add(skybox);
-
-	var geometry = new THREE.BoxBufferGeometry(64, 64, 64);
-	var material = new THREE.MeshBasicMaterial({
-		transparent: true,
-		color: 0x2222ff,
-		opacity: 0.75,
-		envMap: cubeCamera.renderTarget.texture
-	});
-	window.mesh = new THREE.Mesh(geometry, material);
-	mesh.add(new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({color: 0x0000ff})));
-	scene.add(mesh);
-
-	window.box = new THREE.Mesh(new THREE.BoxBufferGeometry(5, 16, 16), new THREE.MeshNormalMaterial());
-	scene.add(box);
-
+document.addEventListener('DOMContentLoaded', function(e) {
 	var c = 0;
-	render();
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+
+	var canvas = document.querySelector('#background');
+	canvas.width = width;
+	canvas.height = height;
+	var ctx = canvas.getContext('2d');
+	ctx.strokeStyle = 'white';
 
 	function render() {
-		requestAnimFrame(render);
-		renderer.render(scene, camera);
-		box.rotation.set(c / 50, c / 50, c / 50);
-		box.position.set(100 * Math.cos(c / 100), 0, 100 * Math.sin(c / 100));
+		ctx.beginPath();
+		ctx.arc(width / 2, height / 2, c % (width / 2), 0, 2 * Math.PI);
+		ctx.stroke();
 
-		if(c % 2 === 0) {
-			mesh.material.envMap = cubeCamera.renderTarget.texture;
-		}
-		else {
-			mesh.visible = false;
-			cubeCamera.update(renderer, scene);
-			mesh.visible = true;
-		}
 		c++;
+
+		requestAnimFrame(render);
 	}
 
-	$(window).resize(function(e) {
+	render();
+
+	window.addEventListener('resize', function(e) {
 		width = window.innerWidth;
-		height = Math.min(width, window.innerHeight);
-		renderer.setSize(width, height);
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
+		height = window.innerHeight;
+		canvas.width = width;
+		canvas.height = height;
 	});
 });
