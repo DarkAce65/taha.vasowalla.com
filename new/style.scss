@@ -32,7 +32,7 @@ body {
 	background: #121212;
 	color: whitesmoke;
 
-	&.invisible {
+	&.invisible, &.revealing {
 		background: whitesmoke;
 
 		#canvasContainer {
@@ -42,6 +42,10 @@ body {
 				display: block;
 			}
 		}
+	}
+
+	&.invisible .content {
+		display: none;
 	}
 }
 
@@ -56,5 +60,14 @@ body {
 
 	canvas {
 		display: none;
+	}
+}
+
+.content {
+	height: 100%;
+	text-align: center;
+
+	h1 {
+		text-shadow: 2px 2px gray;
 	}
 }

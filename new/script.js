@@ -41,8 +41,12 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		const animation = anime({
 			targets: circle,
 			r: r,
-			duration: 2000,
-			easing: 'easeOutQuart',
+			duration: 1000,
+			easing: 'easeInOutQuart',
+			begin: function() {
+				document.body.classList.add('revealing');
+				document.body.classList.remove('invisible');
+			},
 			update: function() {
 				ctx.beginPath();
 				ctx.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI, false);
@@ -50,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 				ctx.strokeRect(0, 0, canvas.width, canvas.height);
 			},
 			complete: function() {
-				document.body.classList.remove('invisible');
+				document.body.classList.remove('revealing');
 			}
 		});
 	}, {once: true});
