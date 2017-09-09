@@ -34,14 +34,6 @@ body {
 
 	&.invisible, &.revealing {
 		background: whitesmoke;
-
-		#canvasContainer {
-			border: none;
-
-			canvas {
-				display: block;
-			}
-		}
 	}
 
 	&.invisible .content {
@@ -49,17 +41,17 @@ body {
 	}
 }
 
-#canvasContainer {
+svg {
 	z-index: -1;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	border: 10px solid white;
+	border: 10px solid whitesmoke;
 
-	canvas {
-		display: none;
+	circle {
+		fill: #121212;
 	}
 }
 
@@ -68,6 +60,6 @@ body {
 	text-align: center;
 
 	h1 {
-		text-shadow: 2px 2px gray;
+		// text-shadow: 2px 2px gray;
 	}
 }
