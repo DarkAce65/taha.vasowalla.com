@@ -40,4 +40,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			}
 		});
 	}, {once: true});
+
+	document.querySelector('#toggle').addEventListener('click', function(e) {
+		console.log(e);
+		document.body.classList.toggle('open');
+	});
 });
