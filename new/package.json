@@ -19,7 +19,7 @@
 		"three": "latest"
 	},
 	"scripts": {
-		"compile": "node-sass -r --source-map true style.scss style.css",
-		"compile:prod": "node-sass -r --source-map true --output-style compressed style.scss style.css"
+		"compile": "scripts/compile",
+		"compile:prod": "scripts/compile_prod"
 	}
 }
