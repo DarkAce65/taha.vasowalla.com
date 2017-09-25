@@ -15667,7 +15667,6 @@ ellipsoids
 elliptic
 elliptical
 elliptically
-elnino
 elocution
 elongate
 elongated
