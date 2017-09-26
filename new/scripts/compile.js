@@ -3,8 +3,7 @@ const bourbon = require('bourbon').includePaths[0];
 
 const args = ['--include-path ' + bourbon, '--source-map true'].concat(process.argv.slice(2));
 const sassSources = [
-	'style.scss style.css',
-	'-r test -o test'
+	'style.scss style.css'
 ];
 const options = {
 	shell: true,
