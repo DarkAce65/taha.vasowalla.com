@@ -1,4 +1,0 @@
-node-sass -r \
---include-path 'node_modules/bourbon/app/assets/stylesheets/' \
---source-map true \
-style.scss style.css

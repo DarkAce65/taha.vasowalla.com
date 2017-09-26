@@ -19,7 +19,7 @@
 		"three": "latest"
 	},
 	"scripts": {
-		"compile": "scripts/compile",
-		"compile:prod": "scripts/compile_prod"
+		"compile": "node scripts/compile.js --output-style expanded",
+		"compile:prod": "node scripts/compile.js --output-style compressed"
 	}
 }
