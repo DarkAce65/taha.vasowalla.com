@@ -84,18 +84,30 @@ svg {
 	background: maroon;
 	transition: 1s;
 
-	nav {
+	#menu-container {
+		position: absolute;
+		top: 50%;
+		right: 3rem;
+		text-align: right;
 		font-size: 3rem;
+		transform: translateY(-50%);
+	}
 
-		&:hover {
-			.menu-item {
-				opacity: 0.2;
-			}
+	nav {
+		display: inline-block;
+
+		&:not(:last-child) {
+			margin-right: 3rem;
 		}
+
+		&:hover .menu-item, &:not(:last-child) .menu-item {
+			opacity: 0.2;
+		}
+
 		.menu-item {
 			transition: 1s;
 
-			&:hover {
+			&:hover, &.active {
 				opacity: 1;
 			}
 		}
