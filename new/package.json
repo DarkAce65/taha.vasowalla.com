@@ -9,17 +9,15 @@
 		"tests"
 	],
 	"devDependencies": {
-		"node-sass": "latest"
+		"gulp": "latest",
+		"gulp-sass": "latest",
+		"gulp-sourcemaps": "latest",
+		"gulp-autoprefixer": "latest"
 	},
 	"dependencies": {
 		"animejs": "latest",
 		"bourbon": "latest",
 		"font-awesome": "latest",
-		"jquery": "latest",
 		"three": "latest"
-	},
-	"scripts": {
-		"compile": "node scripts/compile.js --output-style expanded",
-		"compile:prod": "node scripts/compile.js --output-style compressed"
 	}
 }

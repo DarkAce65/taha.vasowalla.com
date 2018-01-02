@@ -1,121 +1,12 @@
-@import 'bourbon';
-@import '../colors/colors';
-
-.construction {
-	z-index: 99999999;
-	position: absolute;
-	top: 40px;
-	left: -60px;
-	width: 250px;
-	background: $dark-accent-color;
-	text-align: center;
-	line-height: 50px;
-	letter-spacing: 1px;
-	color: $light-color;
-	@include transform(rotate(-45deg));
-}
-
-* {
-	box-sizing: border-box;
-}
+@import "bourbon";
+@import "colors/colors";
 
 html, body {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+    height: 100%;
+    overflow: hidden;
 }
 
 body {
-	font-family: 'Arvo', sans-serif;
-	background: #121212;
-	color: whitesmoke;
-
-	&.invisible, &.revealing {
-		background: whitesmoke;
-	}
-
-	&.invisible .content {
-		display: none;
-	}
-
-	&.open {
-		svg {
-			border-width: 1rem 3rem;
-		}
-
-		#menu {
-			right: 0;
-		}
-	}
-}
-
-svg {
-	z-index: -1;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border: 0rem solid whitesmoke;
-	transition: border 0.2s;
-
-	circle {
-		fill: #121212;
-	}
-
-	text {
-		fill: whitesmoke;
-		writing-mode: tb;
-		baseline-shift: super;
-		font-size: 1.2rem;
-		text-anchor: middle;
-		letter-spacing: 99px;
-	}
-}
-
-#menu {
-	position: absolute;
-	top: 0;
-	right: -100%;
-	width: 100%;
-	height: 100%;
-	background: maroon;
-	transition: 1s;
-
-	#menu-container {
-		position: absolute;
-		top: 50%;
-		right: 3rem;
-		text-align: right;
-		font-size: 3rem;
-		transform: translateY(-50%);
-	}
-
-	nav {
-		display: inline-block;
-
-		&:not(:last-child) {
-			margin-right: 3rem;
-		}
-
-		&:hover .menu-item, &:not(:last-child) .menu-item {
-			opacity: 0.2;
-		}
-
-		.menu-item {
-			transition: 1s;
-
-			&:hover, &.active {
-				opacity: 1;
-			}
-		}
-	}
-}
-
-.content {
-	height: 100%;
-	text-align: center;
-	padding: 1rem 3rem;
+    background: $dark;
+    color: $light;
 }
