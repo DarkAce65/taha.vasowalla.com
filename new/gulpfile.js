@@ -17,7 +17,7 @@ const autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%']
 };
 
-gulp.task('js', function () {
+gulp.task('js', function() {
     return gulp.src(['**/script.js', '!node_modules/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(babel(babelOptions))
@@ -30,7 +30,7 @@ gulp.task('js', function () {
         .pipe(gulp.dest('.'));
 });
 
-gulp.task('scss', function () {
+gulp.task('scss', function() {
     return gulp.src(['**/*.scss', '!node_modules/**/*.scss'])
         .pipe(sourcemaps.init())
         .pipe(sass(sassOptions).on('error', sass.logError))
@@ -39,4 +39,4 @@ gulp.task('scss', function () {
         .pipe(gulp.dest('.'));
 });
 
-gulp.task('default', ['js', 'scss']);
+gulp.task('default', gulp.parallel('js', 'scss'));
