@@ -9,15 +9,20 @@
 		"tests"
 	],
 	"devDependencies": {
-		"gulp": "latest",
-		"gulp-sass": "latest",
-		"gulp-sourcemaps": "latest",
-		"gulp-autoprefixer": "latest"
+		"@babel/core": "^7.0.0-beta.36",
+		"@babel/preset-env": "^7.0.0-beta.36",
+		"gulp": "^4.0.0",
+		"gulp-autoprefixer": "^4.1.0",
+		"gulp-babel": "^8.0.0-beta.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-sass": "^3.1.0",
+		"gulp-sourcemaps": "^2.6.3"
 	},
 	"dependencies": {
-		"animejs": "latest",
-		"bourbon": "latest",
-		"font-awesome": "latest",
-		"three": "latest"
+		"animejs": "^2.2.0",
+		"bourbon": "^5.0.0-beta.8",
+		"font-awesome": "^4.7.0",
+		"simplex-noise": "^2.3.0",
+		"three": "^0.89.0"
 	}
 }
