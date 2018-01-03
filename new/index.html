@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Everything Taha</title>
-		<link rel="shortcut icon" href="../img/icons/tv.png"/>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="theme-color" content="#131d29">
-		<meta name="msapplication-navbutton-color" content="#131d29">
-		<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Arvo" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../global.css"/>
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-		<script type="text/javascript" src="node_modules/animejs/anime.js"></script>
-		<script type="text/javascript" src="script.js"></script>
-	</head>
-	<body class="invisible">
-		<div class="construction">Under Construction</div>
-		<svg>
-			<circle cx="0" cy="0" r="0"></circle>
-		</svg>
-		<div id="menu">
-			<div id="menu-container">
-				<nav>
-					<div class="menu-item">A</div>
-					<div class="menu-item">AB</div>
-					<div class="menu-item active">ABCD</div>
-					<div class="menu-item">ABC</div>
-				</nav>
-				<nav>
-					<div class="menu-item">a</div>
-					<div class="menu-item">ab</div>
-					<div class="menu-item">abcd</div>
-					<div class="menu-item">abc</div>
-				</nav>
-			</div>
-		</div>
-		<div class="content valign-middle">
-			<div>
-				<h1>HELLO</h1>
-				<button id="toggle">Toggle</button>
-			</div>
-		</div>
-	</body>
+    <head>
+        <title>Everything Taha</title>
+        <link rel="shortcut icon" href="../img/icons/tv.png" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#131d29">
+        <meta name="msapplication-navbutton-color" content="#131d29">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Arvo" />
+        <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="global.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="node_modules/three/build/three.js"></script>
+        <script type="text/javascript" src="node_modules/simplex-noise/simplex-noise.js"></script>
+        <script type="text/javascript" src="../lib/GSAP/TweenMax.min.js"></script>
+        <script type="text/javascript" src="script.dist.js"></script>
+    </head>
+    <body>
+        <div class="construction">Under Construction</div>
+        <div class="banner">
+            <h1>HELLO</h1>
+        </div>
+        <nav class="menu">
+            <div class="menu-item"><a href="#">About Me</a></div>
+            <div class="submenu active">
+                <div class="menu-item"><a href="#">Web Projects</a></div>
+                <div class="menu-item"><a href="#">Chemistry Calculators</a></div>
+                <div class="menu-item"><a href="#">Financial Tools</a></div>
+                <div class="menu-item"><a href="#">Clock + Weather</a></div>
+                <div class="menu-item"><a href="#">xkcd Search Engine</a></div>
+            </div>
+            <div class="submenu">
+                <div class="menu-item"><a href="#">Games</a></div>
+                <div class="menu-item"><a href="#">Minesweeper</a></div>
+                <div class="menu-item"><a href="#">Ultimate Tic Tac Toe</a></div>
+                <div class="menu-item"><a href="#">Hangman</a></div>
+                <div class="menu-item"><a href="#">Quantum Chess</a></div>
+            </div>
+            <div class="submenu">
+                <div class="menu-item"><a href="#">Experiments</a></div>
+            </div>
+        </nav>
+        <div id="rendererContainer"></div>
+    </body>
 </html>
