@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
     function setCamera() {
         var f = 1;
         if(window.innerWidth < 500) {
+            f = 2;
+        }
+        else if(window.innerWidth < 1000) {
             f = 1.4;
         }
 
@@ -57,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
     }
 
     var planetMaterial = new THREE.MeshPhongMaterial({
-        morphTargets: true,
         shininess: 30,
         color: 0x526464,
         side: THREE.DoubleSide,
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
             planetGeometry.vertices[i].setLength(49 + Math.random() * 2);
         }
     }
-    window.planet = new THREE.Mesh(planetGeometry, planetMaterial);
+    window.planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
     scene.add(planet);
 
     var satellites = [];
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         var s = positionR * Math.sin(i * Math.PI / 50);
         satelliteGeometry.applyMatrix(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Math.random(), Math.random(), Math.random(), 'XYZ')));
         satelliteGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(c, s, Math.random() * 30 - 15));
-        var satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
+        var satellite = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(satelliteGeometry), satelliteMaterial);
         satellite.orbitSpeed = 0.3 / radius;
         scene.add(satellite);
         satellites.push(satellite);
@@ -120,6 +122,5 @@ document.addEventListener('DOMContentLoaded', function(e) {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         setCamera();
-        console.log(window.innerWidth, window.innerHeight);
     });
 });
