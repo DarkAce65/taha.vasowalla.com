@@ -4,14 +4,13 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
-const bourbon = require('bourbon').includePaths;
 const autoprefixer = require('gulp-autoprefixer');
 
 const babelOptions = {
     presets: ['@babel/env']
 };
 const sassOptions = {
-    includePaths: ['colors'].concat(bourbon)
+    includePaths: ['colors']
 };
 const autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%']
