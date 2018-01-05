@@ -343,6 +343,10 @@
   dependencies:
     "@babel/helper-regex" "7.0.0-beta.36"
 
+"@babel/plugin-transform-strict-mode@^7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-strict-mode/-/plugin-transform-strict-mode-7.0.0-beta.36.tgz#7a0105dc87a9b9ab99e5f14857f6e4e6480591b0"
+
 "@babel/plugin-transform-template-literals@7.0.0-beta.36":
   version "7.0.0-beta.36"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-template-literals/-/plugin-transform-template-literals-7.0.0-beta.36.tgz#b03bc1ea5cda1dd0a961d5b6f727fe82a2fc747c"

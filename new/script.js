@@ -1,5 +1,3 @@
-'use strict';
-
 window.requestAnimFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||

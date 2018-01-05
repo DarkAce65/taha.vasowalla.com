@@ -9,7 +9,8 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 
 const babelOptions = {
-    presets: ['@babel/env']
+    presets: ['@babel/env'],
+    plugins: ['@babel/plugin-transform-strict-mode']
 };
 const sassOptions = {
     includePaths: ['colors']
