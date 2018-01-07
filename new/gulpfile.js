@@ -19,10 +19,15 @@ const autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%']
 };
 
+function babelError(error) {
+    console.error(chalk.red(error.message));
+    this.emit('end');
+}
+
 function compileScript(gulpSrc) {
     return () => gulp.src(gulpSrc)
         .pipe(sourcemaps.init())
-        .pipe(babel(babelOptions))
+        .pipe(babel(babelOptions)).on('error', babelError)
         .pipe(sourcemaps.write('maps'))
         .pipe(rename(function(path) {
             if(path.extname === '.js') {
