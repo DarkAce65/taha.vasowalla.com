@@ -59,7 +59,7 @@ function watchFiles() {
         .on('unlink', function(path) {
             log('Unlinking ' + chalk.red(path));
         });
-    gulp.watch(['**/*.scss', '!node_modules/**/*.scss'])
+    gulp.watch(['**/*.scss', '!node_modules/**/*.scss', '!**/_*.scss'])
         .on('add', function(path, stats) {
             compileStyle(path)();
             log('Compiling new file ' + chalk.green(path) + '...');
@@ -74,6 +74,6 @@ function watchFiles() {
 }
 
 gulp.task('js', compileScript(['**/script.js', '!node_modules/**/*.js']));
-gulp.task('scss', compileStyle(['**/*.scss', '!node_modules/**/*.scss']));
+gulp.task('scss', compileStyle(['**/*.scss', '!node_modules/**/*.scss', '!**/_*.scss']));
 gulp.task('default', gulp.parallel('js', 'scss'));
 gulp.task('watch', gulp.series('default', watchFiles));
