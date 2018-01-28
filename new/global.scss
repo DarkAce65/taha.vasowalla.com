@@ -1,4 +1,5 @@
 @import "partials/colors";
+@import "partials/fonts";
 
 .construction {
     z-index: 99999999;
@@ -25,9 +26,9 @@ html, body {
 }
 
 body {
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: $archivo-font-stack;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Arvo', sans-serif;
+    font-family: $arvo-font-stack;
 }
