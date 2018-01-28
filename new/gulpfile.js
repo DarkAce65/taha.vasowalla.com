@@ -13,7 +13,7 @@ const babelOptions = {
     plugins: ['@babel/plugin-transform-strict-mode']
 };
 const sassOptions = {
-    includePaths: ['colors']
+    includePaths: ['partials']
 };
 const autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%']
