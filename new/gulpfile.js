@@ -20,7 +20,7 @@ const autoprefixerOptions = {
 };
 
 function babelError(error) {
-    console.error(chalk.red(error.message));
+    log.error(chalk.red(error.message));
     this.emit('end');
 }
 
