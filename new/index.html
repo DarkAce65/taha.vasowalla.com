@@ -20,27 +20,28 @@
     <body>
         <div class="construction">Under Construction</div>
         <div id="underlayContainer">
-            <div id="banner">
-                <h1>Hi, I'm Taha</h1>
-            </div>
+            <div id="banner">Hi, I'm Taha</div>
             <nav id="menu">
-                <a href="#" class="menu-item">About Me</a>
-                <div class="submenu active">
-                    <a href="#" class="menu-item">Web Projects</a>
-                    <a href="#" class="menu-item">Chemistry Calculators</a>
-                    <a href="#" class="menu-item">Financial Tools</a>
-                    <a href="#" class="menu-item">Clock + Weather</a>
-                    <a href="#" class="menu-item">xkcd Search Engine</a>
+                <div id="primary">
+                    <a href="#" class="menu-item">about</a>
+                    <span data-menu="#web" class="menu-item">projects</span>
+                    <span data-menu="#games" class="menu-item">games</span>
+                    <span data-menu="#experiments" class="menu-item">experiments</span>
                 </div>
-                <div class="submenu">
-                    <a href="#" class="menu-item">Games</a>
-                    <a href="#" class="menu-item">Minesweeper</a>
-                    <a href="#" class="menu-item">Ultimate Tic Tac Toe</a>
-                    <a href="#" class="menu-item">Hangman</a>
-                    <a href="#" class="menu-item">Quantum Chess</a>
-                </div>
-                <div class="submenu">
-                    <a href="#" class="menu-item">Experiments</a>
+                <div id="secondary" class="closed">
+                    <div id="web" class="submenu">
+                        <a href="#" class="menu-item">Chemistry Calculators</a>
+                        <a href="#" class="menu-item">Financial Tools</a>
+                        <a href="#" class="menu-item">Clock + Weather</a>
+                        <a href="#" class="menu-item">xkcd Search Engine</a>
+                    </div>
+                    <div id="games" class="submenu">
+                        <a href="#" class="menu-item">Minesweeper</a>
+                        <a href="#" class="menu-item">Ultimate Tic Tac Toe</a>
+                        <a href="#" class="menu-item">Hangman</a>
+                        <a href="#" class="menu-item">Quantum Chess</a>
+                    </div>
+                    <div id="experiments" class="submenu"></div>
                 </div>
             </nav>
         </div>

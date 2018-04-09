@@ -4,13 +4,13 @@ window.requestAnimFrame =
     window.mozRequestAnimationFrame ||
     window.oRequestAnimationFrame ||
     window.msRequestAnimationFrame ||
-    function(callback) {
+    function (callback) {
         window.setTimeout(callback, 1000 / 60);
     };
 
-document.addEventListener('DOMContentLoaded', function(e) {
+document.addEventListener('DOMContentLoaded', function (e) {
     function displaceSatelliteGeometry(satelliteGeometry) {
-        for(let i = 0; i < satelliteGeometry.vertices.length; i++) {
+        for (let i = 0; i < satelliteGeometry.vertices.length; i++) {
             const v = satelliteGeometry.vertices[i].clone().setLength(0.4);
             satelliteGeometry.vertices[i].setLength(3 + Math.abs(simplex.noise3D(v.x, v.y, v.z)) * 2);
         }
@@ -18,19 +18,18 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     function setCamera() {
         let f = 1;
-        if(window.innerWidth < 500) {
+        if (window.innerWidth < 500) {
             f = 2;
         }
-        else if(window.innerWidth < 1000) {
+        else if (window.innerWidth < 1000) {
             f = 1.4;
         }
 
-        camera.position.set(-50 * f, -300 * f, 100 * f);
+        camera.position.set(50 * f, -300 * f, 100 * f);
         camera.lookAt(scene.position);
     }
 
     const simplex = new SimplexNoise();
-    const animation = { planetRotation: 1, satelliteOrbit: 1 };
 
     const clock = new THREE.Clock();
     window.scene = new THREE.Scene();
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     lights[2] = new THREE.PointLight(0x513c1f, 1, 300, 3);
     lights[2].position.set(40, -40, 80);
 
-    for(let i = 0; i < lights.length; i++) {
+    for (let i = 0; i < lights.length; i++) {
         scene.add(lights[i]);
     }
 
@@ -63,18 +62,22 @@ document.addEventListener('DOMContentLoaded', function(e) {
         side: THREE.DoubleSide,
         flatShading: true
     });
+    window.planetMaterial = planetMaterial;
     const planetGeometry = new THREE.IcosahedronGeometry(50, 3);
-    for(let i = 0; i < planetGeometry.vertices.length; i++) {
+    for (let i = 0; i < planetGeometry.vertices.length; i++) {
         planetGeometry.vertices[i].x += Math.random() * 6 - 3;
         planetGeometry.vertices[i].y += Math.random() * 6 - 3;
-        if(Math.random() < 0.1) {
+        if (Math.random() < 0.1) {
             planetGeometry.vertices[i].setLength(45 + Math.random() * 10);
         }
         else {
             planetGeometry.vertices[i].setLength(49 + Math.random() * 2);
         }
     }
-    window.planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
+    for (let i = 0; i < 50; i++) {
+        planetGeometry.faces[i].materialIndex = 1;
+    }
+    const planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
     scene.add(planet);
 
     const satellites = [];
@@ -84,20 +87,22 @@ document.addEventListener('DOMContentLoaded', function(e) {
         side: THREE.DoubleSide,
         flatShading: true
     });
-    for(let i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
         const radius = Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
         const detail = radius > 2.5 ? 1 : 0;
         const satelliteGeometry = new THREE.IcosahedronGeometry(radius, detail);
-        if(radius > 2.5) {
+        if (radius > 2.5) {
             displaceSatelliteGeometry(satelliteGeometry);
         }
         const positionR = 80 + Math.random() * 30;
         const c = positionR * Math.cos(i * Math.PI / 50);
         const s = positionR * Math.sin(i * Math.PI / 50);
+        const h = Math.random() * 30 - 15;
         satelliteGeometry.applyMatrix(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Math.random(), Math.random(), Math.random(), 'XYZ')));
-        satelliteGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(c, s, Math.random() * 30 - 15));
         const satellite = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(satelliteGeometry), satelliteMaterial);
-        satellite.orbitSpeed = 0.3 / radius;
+        satellite.position.set(c, s, h);
+
+        satellite.orbitSpeed = 0.08 / radius;
         scene.add(satellite);
         satellites.push(satellite);
     }
@@ -107,18 +112,42 @@ document.addEventListener('DOMContentLoaded', function(e) {
         renderer.render(scene, camera);
 
         const delta = clock.getDelta();
-        planet.rotation.z += delta * animation.planetRotation / 5;
-        for(let i = 0; i < satellites.length; i++) {
-            satellites[i].rotation.z += satellites[i].orbitSpeed * delta * animation.satelliteOrbit;
+        planet.rotation.z += delta / 25;
+        for (let i = 0; i < satellites.length; i++) {
+            satellites[i].position.applyAxisAngle(new THREE.Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
         }
     }
 
     render();
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         setCamera();
+    });
+
+    let activeMenuEl = null;
+    document.querySelectorAll('#primary span.menu-item').forEach(el => {
+        el.addEventListener('click', function (e) {
+            if (activeMenuEl !== null && activeMenuEl.dataset.menu === this.dataset.menu) {
+                activeMenuEl.classList.remove('active');
+                document.querySelector('#secondary').classList.add('closed');
+                document.querySelectorAll('.submenu.active').forEach(el => el.classList.remove('active'));
+                activeMenuEl = null;
+                return;
+            }
+
+            if (activeMenuEl === null) {
+                document.querySelector('#secondary').classList.remove('closed');
+            }
+            else {
+                activeMenuEl.classList.remove('active');
+                document.querySelector(activeMenuEl.dataset.menu).classList.remove('active');
+            }
+            activeMenuEl = this;
+            activeMenuEl.classList.add('active');
+            document.querySelector(activeMenuEl.dataset.menu).classList.add('active');
+        });
     });
 });
