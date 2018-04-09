@@ -48,7 +48,7 @@ body {
 
             &.active {
                 color: $light;
-                border-color: $light;
+                border-color: $focus;
             }
         }
     }
@@ -99,12 +99,16 @@ body {
     pointer-events: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 640px) {
     body {
         font-size: 14px;
     }
 
     #banner {
         font-size: 3rem;
+    }
+
+    #underlayContainer {
+        left: 0;
     }
 }
