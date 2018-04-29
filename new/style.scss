@@ -20,22 +20,24 @@ body {
 }
 
 #banner {
-    font-size: 4rem;
+    font-size: 4em;
     font-family: $arvo-font-stack;
 }
 
 #menu {
+    font-size: 18px;
+
     a {
         text-decoration: none;
     }
 
     #primary, #secondary {
-        height: 1.5rem;
-        margin-bottom: 0.5rem;
+        height: 1.5em;
+        margin-bottom: 0.5em;
 
         .menu-item {
             color: $gray;
-            margin: 0 0.5rem;
+            margin: 0 0.5em;
             border-bottom: 1px solid transparent;
             cursor: pointer;
             transition: color 0.3s, border-color 0.3s;
@@ -110,7 +112,7 @@ body {
     }
 
     #banner {
-        font-size: 3rem;
+        font-size: 3em;
     }
 
     #underlayContainer {
