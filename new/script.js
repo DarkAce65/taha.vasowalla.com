@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
     window.scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     document.querySelector('#rendererContainer').appendChild(renderer.domElement);
-    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
     window.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
     setCamera();
