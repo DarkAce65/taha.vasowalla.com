@@ -9,6 +9,8 @@ window.requestAnimFrame =
     };
 
 document.addEventListener('DOMContentLoaded', function (e) {
+    setTimeout(function() {document.body.classList.remove('loading');}, 500);
+
     function displaceSatelliteGeometry(satelliteGeometry) {
         for (let i = 0; i < satelliteGeometry.vertices.length; i++) {
             const v = satelliteGeometry.vertices[i].clone().setLength(0.4);
@@ -88,6 +90,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
         side: THREE.DoubleSide,
         flatShading: true
     });
+    window.planet = planet;
+    window.satellites = satellites;
+    window.satelliteMaterial = satelliteMaterial;
     for (let i = 0; i < 100; i++) {
         const radius = i === 50 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
         const detail = radius > 2.5 ? 1 : 0;
