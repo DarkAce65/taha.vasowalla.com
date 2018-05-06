@@ -36,8 +36,12 @@ body {
         margin-bottom: 0.5em;
 
         .menu-item {
+            padding: 0 0.5em;
+
+            & > * {
+                display: inline-block;
+                width: 100%;
             color: $gray;
-            margin: 0 0.5em;
             border-bottom: 1px solid transparent;
             cursor: pointer;
             transition: color 0.3s, border-color 0.3s;
@@ -53,6 +57,7 @@ body {
                 border-color: $focus;
             }
         }
+    }
     }
 
     #primary {

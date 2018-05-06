@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     });
 
     let activeMenuEl = null;
-    document.querySelectorAll('#primary span.menu-item').forEach(el => {
+    document.querySelectorAll('#primary .menu-item span').forEach(el => {
         el.addEventListener('click', function (e) {
             if (activeMenuEl !== null && activeMenuEl.dataset.menu === this.dataset.menu) {
                 activeMenuEl.classList.remove('active');
