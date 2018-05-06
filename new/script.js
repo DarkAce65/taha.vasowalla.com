@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     const planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
     scene.add(planet);
 
+    let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 2 : 1;
     const satellites = [];
     const satelliteMaterial = new THREE.MeshPhongMaterial({
         shininess: 30,
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         flatShading: true
     });
     for (let i = 0; i < 100; i++) {
-        const radius = Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
+        const radius = i === 50 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
         const detail = radius > 2.5 ? 1 : 0;
         const satelliteGeometry = new THREE.IcosahedronGeometry(radius, detail);
         if (radius > 2.5) {
@@ -99,10 +100,20 @@ document.addEventListener('DOMContentLoaded', function (e) {
         const s = positionR * Math.sin(i * Math.PI / 50);
         const h = Math.random() * 30 - 15;
         satelliteGeometry.applyMatrix(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Math.random(), Math.random(), Math.random(), 'XYZ')));
-        const satellite = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(satelliteGeometry), satelliteMaterial);
+        const satellite = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(satelliteGeometry), i === 50 ? new THREE.MeshPhongMaterial({
+            shininess: 30,
+            color: 0x526464,
+            emissive: 0xe53319,
+            side: THREE.DoubleSide,
+            flatShading: true
+        }) : satelliteMaterial);
         satellite.position.set(c, s, h);
 
         satellite.orbitSpeed = 0.08 / radius;
+        if(i === 50) {
+            satellite.orbitSpeed *= 3;
+            satellite.add(new THREE.PointLight(0xe53319, 1, 100, 2));
+        }
         scene.add(satellite);
         satellites.push(satellite);
     }
@@ -125,6 +136,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         setCamera();
+
+        const newScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 2 : 1;
+        if (satelliteScale !== newScale) {
+            satelliteScale = newScale;
+            satellites.forEach(function (satellite) {
+                satellite.scale.setScalar(newScale);
+            });
+        }
     });
 
     let activeMenuEl = null;
