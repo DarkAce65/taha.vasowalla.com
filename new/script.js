@@ -9,7 +9,7 @@ window.requestAnimFrame =
     };
 
 document.addEventListener('DOMContentLoaded', function (e) {
-    setTimeout(function() {document.body.classList.remove('loading');}, 500);
+    setTimeout(() => document.body.classList.remove('loading'), 500);
 
     function displaceSatelliteGeometry(satelliteGeometry) {
         for (let i = 0; i < satelliteGeometry.vertices.length; i++) {
@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
     document.querySelector('#rendererContainer').appendChild(renderer.domElement);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
+    const textureLoader = new THREE.TextureLoader();
+    const particleSystem = new THREE.GPUParticleSystem({
+        maxParticles: 100000,
+        particleNoiseTex: textureLoader.load('textures/pixel.png'),
+        particleSpriteTex: textureLoader.load('textures/particle.png')
+    });
+    scene.add(particleSystem);
 
     window.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
     setCamera();
@@ -115,23 +122,40 @@ document.addEventListener('DOMContentLoaded', function (e) {
         satellite.position.set(c, s, h);
 
         satellite.orbitSpeed = 0.08 / radius;
-        if(i === 50) {
+        if (i === 50) {
             satellite.orbitSpeed *= 3;
-            satellite.add(new THREE.PointLight(0xe53319, 1, 100, 2));
+            satellite.add(new THREE.PointLight(0xe53319, 1, positionR, 2));
         }
         scene.add(satellite);
         satellites.push(satellite);
     }
 
+    let tick = 0;
+    const options = {
+        position: new THREE.Vector3(),
+        positionRandomness: 1,
+        velocityRandomness: 0.4,
+        color: 0xe53319,
+        colorRandomness: 0.2,
+        lifetime: 5,
+        turbulence: 0
+    };
     function render() {
         requestAnimFrame(render);
         renderer.render(scene, camera);
 
         const delta = clock.getDelta();
+        tick += delta;
         planet.rotation.z += delta / 25;
         for (let i = 0; i < satellites.length; i++) {
             satellites[i].position.applyAxisAngle(new THREE.Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
         }
+
+        options.position = satellites[50].position;
+        for (let i = 0; i < 500 * delta; i++) {
+            particleSystem.spawnParticle(options);
+        }
+        particleSystem.update(tick);
     }
 
     render();
