@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             flatShading: true
         }) : satelliteMaterial);
         satellite.position.set(c, s, h);
+        satellite.scale.setScalar(satelliteScale);
 
         satellite.orbitSpeed = 0.08 / radius;
         if (i === 50) {
