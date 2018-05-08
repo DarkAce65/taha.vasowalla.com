@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     const planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
     scene.add(planet);
 
-    let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 2 : 1;
+    let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
     const satellites = [];
     const satelliteMaterial = new THREE.MeshPhongMaterial({
         shininess: 30,
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         camera.updateProjectionMatrix();
         setCamera();
 
-        const newScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 2 : 1;
+        const newScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
         if (satelliteScale !== newScale) {
             satelliteScale = newScale;
             satellites.forEach(function (satellite) {

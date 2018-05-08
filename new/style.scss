@@ -7,7 +7,7 @@ html, body {
 }
 
 body {
-    background: black;
+    background: $dark;
     color: $gray;
     font-size: 16px;
 }
@@ -47,8 +47,8 @@ body {
                 transition: color 0.3s, border-color 0.3s;
 
                 &:hover {
-                    color: darken($light, 20);
-                    border-color: darken($light, 20);
+                    color: darken($light, 25);
+                    border-color: darken($light, 25);
                     transition: color 0s, border-color 0s;
                 }
 
@@ -117,16 +117,18 @@ body {
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 500px) {
+    #underlayContainer {
+        left: 0;
+    }
+}
+
+@media (max-width: 750px) {
     body {
         font-size: 14px;
     }
 
     #banner {
         font-size: 3em;
-    }
-
-    #underlayContainer {
-        left: 0;
     }
 }
