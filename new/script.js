@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     renderer.setSize(window.innerWidth, window.innerHeight);
     const textureLoader = new THREE.TextureLoader();
     const particleSystem = new THREE.GPUParticleSystem({
-        maxParticles: 100000,
+        maxParticles: 2000,
         particleNoiseTex: textureLoader.load('textures/pixel.png'),
         particleSpriteTex: textureLoader.load('textures/particle.png')
     });
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         lifetime: 5,
         turbulence: 0
     };
+    window.options = options;
     function render() {
         requestAnimFrame(render);
         renderer.render(scene, camera);
