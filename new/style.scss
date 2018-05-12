@@ -47,14 +47,14 @@ body {
                 transition: color 0.3s, border-color 0.3s;
 
                 &:hover {
-                    color: darken($light, 25);
-                    border-color: darken($light, 25);
+                    color: $hover;
+                    border-color: $hover;
                     transition: color 0s, border-color 0s;
                 }
 
                 &.active {
                     color: $light;
-                    border-color: $focus;
+                    border-color: $red;
                 }
             }
         }
