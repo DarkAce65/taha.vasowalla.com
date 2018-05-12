@@ -19,11 +19,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
 
     function setCamera() {
+        const ratio = window.innerWidth / window.innerHeight;
         let f = 1;
-        if (window.innerWidth < 500) {
+        if (ratio < 0.75) {
             f = 2;
         }
-        else if (window.innerWidth < 1000) {
+        else if (ratio < 1) {
             f = 1.4;
         }
 
