@@ -12,7 +12,7 @@ body {
     font-size: 16px;
 }
 
-#underlayContainer {
+#overlayContainer {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -22,6 +22,7 @@ body {
 #banner {
     font-size: 4em;
     font-family: $arvo-font-stack;
+    color: darken($gray, 10);
 }
 
 #menu {
@@ -54,7 +55,7 @@ body {
 
                 &.active {
                     color: $light;
-                    border-color: $red;
+                    border-color: $accent;
                 }
             }
         }
@@ -118,7 +119,7 @@ body {
 }
 
 @media (max-width: 500px) {
-    #underlayContainer {
+    #overlayContainer {
         left: 0;
     }
 }

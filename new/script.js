@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         const satellite = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(satelliteGeometry), i === 50 ? new THREE.MeshPhongMaterial({
             shininess: 30,
             color: 0x526464,
-            emissive: 0xe53319,
+            emissive: 0x8645E8,
             side: THREE.DoubleSide,
             flatShading: true
         }) : satelliteMaterial);
@@ -126,18 +126,19 @@ document.addEventListener('DOMContentLoaded', function (e) {
         satellite.orbitSpeed = 0.08 / radius;
         if (i === 50) {
             satellite.orbitSpeed *= 3;
-            satellite.add(new THREE.PointLight(0xe53319, 1, positionR, 2));
+            satellite.add(new THREE.PointLight(0x8645E8, 1, positionR, 2));
         }
         scene.add(satellite);
         satellites.push(satellite);
     }
 
     let tick = 0;
+    let spawnRate = Math.min(window.innerWidth, window.innerHeight) < 500 ? 75 : 500;
     const options = {
         position: new THREE.Vector3(),
         positionRandomness: 1,
         velocityRandomness: 0.4,
-        color: 0xe53319,
+        color: 0x8645E8,
         colorRandomness: 0.2,
         lifetime: 5,
         turbulence: 0
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
 
         options.position = satellites[50].position;
-        for (let i = 0; i < 500 * delta; i++) {
+        for (let i = 0; i < spawnRate * delta; i++) {
             particleSystem.spawnParticle(options);
         }
         particleSystem.update(tick);
@@ -170,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         const newScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
         if (satelliteScale !== newScale) {
+            spawnRate = newScale === 1.5 ? 75 : 500;
             satelliteScale = newScale;
             satellites.forEach(function (satellite) {
                 satellite.scale.setScalar(newScale);

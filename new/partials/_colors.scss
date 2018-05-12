@@ -1,6 +1,6 @@
 $dark: black;
-$gray: #666666;
-$hover: #aaaaaa;
-$light: #dddddd;
+$gray: rgba(#958ea9, 0.8);
+$hover: lighten($gray, 30);
+$light: rgba(#e7e1fa, 0.8);
 
-$red: #e53319;
+$accent: #8645E8;
