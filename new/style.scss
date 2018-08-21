@@ -45,24 +45,14 @@ body {
                 color: $gray;
                 border-bottom: 1px solid transparent;
                 cursor: pointer;
-                transition: color 0.3s, border-color 0.3s;
+                transition: color 0.3s, border-color 0.3s, padding 0.3s;
 
                 &:hover, &:focus {
                     outline: none;
                     color: $light;
                     border-color: $light;
-                    transition: color 0s, border-color 0s;
+                    transition: color 0s, border-color 0s, padding 0.3s;
                 }
-
-                &.active {
-                    color: $light;
-                    border-color: $red;
-                }
-            }
-
-            span::before {
-                content: "/";
-                font-family: monospace;
             }
         }
     }
@@ -74,6 +64,24 @@ body {
 
         * {
             flex: 1 0 auto;
+        }
+
+        .menu-item span {
+            &::after {
+                content: "/";
+                font-family: monospace;
+                transition: opacity 0.3s;
+            }
+
+            &.active {
+                color: $light;
+                border-color: $red;
+                padding: 0 50px;
+
+                &::after {
+                    opacity: 0;
+                }
+            }
         }
     }
 
@@ -137,5 +145,13 @@ body {
 
     #banner {
         font-size: 3em;
+    }
+
+    #menu #primary .menu-item span.active {
+        padding: 0;
+
+        &::after {
+            opacity: 1;
+        }
     }
 }
