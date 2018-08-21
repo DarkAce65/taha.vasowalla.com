@@ -47,16 +47,22 @@ body {
                 cursor: pointer;
                 transition: color 0.3s, border-color 0.3s;
 
-                &:hover {
-                    color: $hover;
-                    border-color: $hover;
+                &:hover, &:focus {
+                    outline: none;
+                    color: $light;
+                    border-color: $light;
                     transition: color 0s, border-color 0s;
                 }
 
                 &.active {
                     color: $light;
-                    border-color: $accent;
+                    border-color: $red;
                 }
+            }
+
+            span::before {
+                content: "/";
+                font-family: monospace;
             }
         }
     }
@@ -100,7 +106,7 @@ body {
 
 .loading #rendererContainer {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(1.1);
 }
 
 #rendererContainer {

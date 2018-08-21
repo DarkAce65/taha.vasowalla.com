@@ -84,9 +84,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
             planetGeometry.vertices[i].setLength(49 + Math.random() * 2);
         }
     }
-    for (let i = 0; i < 50; i++) {
-        planetGeometry.faces[i].materialIndex = 1;
-    }
     const planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
     scene.add(planet);
 
@@ -116,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         const satellite = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(satelliteGeometry), i === 50 ? new THREE.MeshPhongMaterial({
             shininess: 30,
             color: 0x526464,
-            emissive: 0x8645E8,
+            emissive: 0xf85a3e,
             side: THREE.DoubleSide,
             flatShading: true
         }) : satelliteMaterial);
@@ -126,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         satellite.orbitSpeed = 0.08 / radius;
         if (i === 50) {
             satellite.orbitSpeed *= 3;
-            satellite.add(new THREE.PointLight(0x8645E8, 1, positionR, 2));
+            satellite.add(new THREE.PointLight(0xf85a3e, 1, positionR, 2));
         }
         scene.add(satellite);
         satellites.push(satellite);
@@ -138,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         position: new THREE.Vector3(),
         positionRandomness: 1,
         velocityRandomness: 0.4,
-        color: 0x8645E8,
+        color: 0xf85a3e,
         colorRandomness: 0.2,
         lifetime: 5,
         turbulence: 0
