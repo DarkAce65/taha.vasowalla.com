@@ -8,6 +8,9 @@ const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 
+const scriptGlob = ['**/script.js', '!node_modules/**'];
+const styleGlob = ['**/*.scss', '!node_modules/**', '!**/_*.scss'];
+
 const babelOptions = {
     presets: ['@babel/env'],
     plugins: ['@babel/plugin-transform-strict-mode']
@@ -47,7 +50,7 @@ function compileStyle(gulpSrc) {
 }
 
 function watchFiles() {
-    gulp.watch(['**/script.js', '!node_modules/**/*.js'])
+    gulp.watch(scriptGlob)
         .on('add', function(path, stats) {
             compileScript(path)();
             log('Compiling new file ' + chalk.green(path) + '...');
@@ -59,7 +62,7 @@ function watchFiles() {
         .on('unlink', function(path) {
             log('Unlinking ' + chalk.red(path));
         });
-    gulp.watch(['**/*.scss', '!node_modules/**/*.scss', '!**/_*.scss'])
+    gulp.watch(styleGlob)
         .on('add', function(path, stats) {
             compileStyle(path)();
             log('Compiling new file ' + chalk.green(path) + '...');
@@ -73,7 +76,7 @@ function watchFiles() {
         });
 }
 
-gulp.task('js', compileScript(['**/script.js', '!node_modules/**/*.js']));
-gulp.task('scss', compileStyle(['**/*.scss', '!node_modules/**/*.scss', '!**/_*.scss']));
+gulp.task('js', compileScript(scriptGlob));
+gulp.task('scss', compileStyle(styleGlob));
 gulp.task('default', gulp.parallel('js', 'scss'));
 gulp.task('watch', gulp.series('default', watchFiles));
