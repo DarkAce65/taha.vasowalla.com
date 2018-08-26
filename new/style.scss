@@ -21,11 +21,12 @@ body {
 
 #banner {
     font-size: 4em;
-    font-family: $arvo-font-stack;
+    font-family: $serif-font-stack;
     color: darken($gray, 10);
 }
 
 #menu {
+    font-family: $header-font-stack;
     font-size: 18px;
 
     a {

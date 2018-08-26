@@ -26,9 +26,20 @@ html, body {
 }
 
 body {
-    font-family: $archivo-font-stack;
+    font-family: $base-font-stack;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: $arvo-font-stack;
+    font-family: $header-font-stack;
+    font-weight: normal;
+}
+
+a {
+    color: $red;
+    text-decoration: none;
+
+    &:hover, &:focus {
+        color: rgba($red, 0.7);
+        text-decoration: underline;
+    }
 }
