@@ -1,0 +1,28 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "prettier", "plugin:prettier/recommended"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 120
+      }
+    ],
+    "no-unused-vars": "warn",
+    "no-console": "off"
+  },
+  "globals": {
+    "THREE": false,
+    "d3": false
+  }
+}
