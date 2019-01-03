@@ -1,48 +1,55 @@
-@import "partials/colors";
-@import "partials/fonts";
+@import 'partials/colors';
+@import 'partials/fonts';
 
 .construction {
-    z-index: 99999999;
-    position: absolute;
-    top: 40px;
-    left: -60px;
-    width: 250px;
-    background: $red;
-    text-align: center;
-    line-height: 50px;
-    letter-spacing: 1px;
-    color: white;
-    transform: rotate(-45deg);
+  z-index: 99999999;
+  position: absolute;
+  top: 40px;
+  left: -60px;
+  width: 250px;
+  background: $red;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 1px;
+  color: white;
+  transform: rotate(-45deg);
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: $dark;
-    color: $gray;
-    font-family: $base-font-stack;
-    font-size: 16px;
+  background: $dark;
+  color: $gray;
+  font-family: $base-font-stack;
+  font-size: 16px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: $header-font-stack;
-    font-weight: normal;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $header-font-stack;
+  font-weight: normal;
 }
 
 a {
-    color: $red;
-    text-decoration: none;
+  color: $red;
+  text-decoration: none;
 
-    &:hover, &:focus {
-        color: rgba($red, 0.7);
-        text-decoration: underline;
-    }
+  &:hover,
+  &:focus {
+    color: rgba($red, 0.7);
+    text-decoration: underline;
+  }
 }
