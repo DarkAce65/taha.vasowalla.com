@@ -12,6 +12,7 @@ const autoprefixer = require('gulp-autoprefixer');
 
 const scriptSources = ['**/script.js', '!node_modules/**'];
 const styleSources = ['**/*.scss', '!node_modules/**', '!**/_*.scss'];
+const scssPartials = ['**/_*.scss', '!node_modules/**'];
 
 const babelOptions = {
   presets: ['@babel/env'],
@@ -85,6 +86,11 @@ function watch() {
     .watch(styleSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
     .on('add', path => compileStyles(path)())
     .on('change', path => compileStyles(path)());
+
+  gulp
+    .watch(scssPartials, { ignored: /(^|[/\\])\../ })
+    .on('add', () => compileStyles(styleSources)())
+    .on('change', () => compileStyles(styleSources)());
 }
 
 gulp.task('scripts', compileScripts(scriptSources));
