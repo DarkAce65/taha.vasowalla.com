@@ -1,16 +1,17 @@
 const gulp = require('gulp');
+
+const using = require('gulp-using');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 
-const log = require('fancy-log');
-const chalk = require('chalk');
 const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
+sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const scriptGlob = ['**/script.js', '!node_modules/**'];
-const styleGlob = ['**/*.scss', '!node_modules/**', '!**/_*.scss'];
+const scriptSources = ['**/script.js', '!node_modules/**'];
+const styleSources = ['**/*.scss', '!node_modules/**', '!**/_*.scss'];
 
 const babelOptions = {
   presets: ['@babel/env'],
@@ -23,20 +24,24 @@ const autoprefixerOptions = {
   browsers: ['last 2 versions', '> 5%'],
 };
 
-function babelError(error) {
-  log.error(chalk.red(error.message));
-  this.emit('end');
+function lintScripts(src) {
+  return function lint() {
+    return gulp
+      .src(src)
+      .pipe(using({ prefix: 'Linting' }))
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError());
+  };
 }
 
-function compileScript(gulpSrc) {
-  return () =>
-    gulp
-      .src(gulpSrc)
-      .pipe(eslint())
-      .pipe(eslint.formatEach())
+function transpileScripts(src) {
+  return function transpile() {
+    return gulp
+      .src(src)
+      .pipe(using({ prefix: 'Transpiling' }))
       .pipe(sourcemaps.init())
       .pipe(babel(babelOptions))
-      .on('error', babelError)
       .pipe(sourcemaps.write('maps'))
       .pipe(
         rename(function(path) {
@@ -45,50 +50,51 @@ function compileScript(gulpSrc) {
           }
         })
       )
+      .pipe(using({ prefix: 'Writing', filesize: true }))
       .pipe(gulp.dest('.'));
+  };
 }
 
-function compileStyle(gulpSrc) {
-  return () =>
-    gulp
-      .src(gulpSrc)
+function compileScripts(src) {
+  return gulp.series(lintScripts(src), transpileScripts(src));
+}
+
+function compileStyles(src) {
+  return function styles() {
+    return gulp
+      .src(src)
+      .pipe(using({ prefix: 'Compiling' }))
       .pipe(sourcemaps.init())
-      .pipe(sass(sassOptions).on('error', sass.logError))
+      .pipe(sass.sync(sassOptions))
+      .on('error', sass.logError)
       .pipe(autoprefixer(autoprefixerOptions))
       .pipe(sourcemaps.write('maps'))
+      .pipe(using({ prefix: 'Writing', filesize: true }))
       .pipe(gulp.dest('.'));
+  };
 }
 
-function watchFiles() {
+function watch() {
   gulp
-    .watch(scriptGlob)
+    .watch(scriptSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
     .on('add', function(path) {
-      compileScript(path)();
-      log('Compiling new file ' + chalk.green(path) + '...');
+      compileScripts(path)();
     })
     .on('change', function(path) {
-      compileScript(path)();
-      log('Recompiling ' + chalk.cyan(path) + '...');
-    })
-    .on('unlink', function(path) {
-      log('Unlinking ' + chalk.red(path));
+      compileScripts(path)();
     });
+
   gulp
-    .watch(styleGlob)
+    .watch(styleSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
     .on('add', function(path) {
-      compileStyle(path)();
-      log('Compiling new file ' + chalk.green(path) + '...');
+      compileStyles(path)();
     })
     .on('change', function(path) {
-      compileStyle(path)();
-      log('Recompiling ' + chalk.cyan(path) + '...');
-    })
-    .on('unlink', function(path) {
-      log('Unlinking ' + chalk.red(path));
+      compileStyles(path)();
     });
 }
 
-gulp.task('js', compileScript(scriptGlob));
-gulp.task('scss', compileStyle(styleGlob));
-gulp.task('default', gulp.parallel('js', 'scss'));
-gulp.task('watch', gulp.series('default', watchFiles));
+gulp.task('scripts', compileScripts(scriptSources));
+gulp.task('styles', compileStyles(styleSources));
+gulp.task('default', gulp.parallel('scripts', 'styles'));
+gulp.task('watch', watch);
