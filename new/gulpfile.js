@@ -1,8 +1,8 @@
+const path = require('path');
 const gulp = require('gulp');
 
 const using = require('gulp-using');
 const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
 
 const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
@@ -27,8 +27,7 @@ const autoprefixerOptions = {
 function lintScripts(src) {
   return function lint() {
     return gulp
-      .src(src)
-      .pipe(using({ prefix: 'Linting' }))
+      .src(src, { cwdbase: true })
       .pipe(eslint())
       .pipe(eslint.format())
       .pipe(eslint.failAfterError());
@@ -38,11 +37,8 @@ function lintScripts(src) {
 function transpileScripts(src) {
   return function transpile() {
     return gulp
-      .src(src)
-      .pipe(using({ prefix: 'Transpiling' }))
-      .pipe(sourcemaps.init())
+      .src(src, { cwdbase: true, sourcemaps: true })
       .pipe(babel(babelOptions))
-      .pipe(sourcemaps.write('maps'))
       .pipe(
         rename(function(path) {
           if (path.extname === '.js') {
@@ -50,8 +46,12 @@ function transpileScripts(src) {
           }
         })
       )
-      .pipe(using({ prefix: 'Writing', filesize: true }))
-      .pipe(gulp.dest('.'));
+      .pipe(
+        gulp.dest(file => file.base, {
+          sourcemaps: file => path.join(path.relative(file.base, process.cwd()), 'maps'),
+        })
+      )
+      .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
   };
 }
 
@@ -62,36 +62,29 @@ function compileScripts(src) {
 function compileStyles(src) {
   return function styles() {
     return gulp
-      .src(src)
-      .pipe(using({ prefix: 'Compiling' }))
-      .pipe(sourcemaps.init())
+      .src(src, { cwdbase: true, sourcemaps: true })
       .pipe(sass.sync(sassOptions))
       .on('error', sass.logError)
       .pipe(autoprefixer(autoprefixerOptions))
-      .pipe(sourcemaps.write('maps'))
-      .pipe(using({ prefix: 'Writing', filesize: true }))
-      .pipe(gulp.dest('.'));
+      .pipe(
+        gulp.dest(file => file.base, {
+          sourcemaps: file => path.join(path.relative(file.base, process.cwd()), 'maps'),
+        })
+      )
+      .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
   };
 }
 
 function watch() {
   gulp
     .watch(scriptSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
-    .on('add', function(path) {
-      compileScripts(path)();
-    })
-    .on('change', function(path) {
-      compileScripts(path)();
-    });
+    .on('add', path => compileScripts(path)())
+    .on('change', path => compileScripts(path)());
 
   gulp
     .watch(styleSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
-    .on('add', function(path) {
-      compileStyles(path)();
-    })
-    .on('change', function(path) {
-      compileStyles(path)();
-    });
+    .on('add', path => compileStyles(path)())
+    .on('change', path => compileStyles(path)());
 }
 
 gulp.task('scripts', compileScripts(scriptSources));
