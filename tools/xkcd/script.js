@@ -30,7 +30,7 @@ function search() {
 
 	if(typeof i == "number" && i !== NaN && i < id.length) {
 		$("#error").addClass("hidden");
-		var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+		var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img src="" data-src="https://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
 		$("#output").append(comic);
 		lazyload.update();
 	}
@@ -54,7 +54,7 @@ function search() {
 				}
 			}
 			if(found) {
-				var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img data-original="http://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
+				var comic = $('<div class="comic"><h3 class="title">' + titles[i] + '<span class="subtitle">Comic ' + id[i] + '</span></h3><div class="image"><img data-original="https://' + url[i] + '" title=' + alt[i] + '></div></div><br>');
 				$("#output").append(comic);
 				lazyload.update();
 			}

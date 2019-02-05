@@ -21,7 +21,7 @@ function weatherLocation(position) {
 			$("#title").html("Weather in " + weatherData.name);
 			$("#date").html(new Date(weatherData.dt * 1000).toDateString());
 			$("#temp").html(((weatherData.main.temp - 273.15) * 9 / 5 + 32).toFixed(2) + "&#176;F");
-			$("#weatherIcon").html('<img src="http://openweathermap.org/img/w/' + weatherData.weather[0].icon + '.png" style="width: 5em;">');
+			$("#weatherIcon").html('<img src="https://openweathermap.org/img/w/' + weatherData.weather[0].icon + '.png" style="width: 5em;">');
 			$("#weatherDesc").html(toTitleCase(weatherData.weather[0].description));
 			$("#humidity").html('<span style="color: #888;">Humidity:</span> <b>' + Math.round(weatherData.main.humidity) + '%</b>');
 			$("#wind").html('<span style="color: #888;">Wind:</span> <b><i class="fa fa-long-arrow-up" style="margin: 0 5px;"></i>' + (weatherData.wind.speed * 2.2369362920544).toFixed(2) + ' mph</b>');

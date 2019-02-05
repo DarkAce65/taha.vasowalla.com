@@ -32,7 +32,7 @@ n = 1718
 def scrape():
     for i in range(n):
         istr = str(i)
-        url = 'http://xkcd.com/'
+        url = 'https://xkcd.com/'
         print (url+istr)
         page = requests.get(url+istr);
         print(page)
