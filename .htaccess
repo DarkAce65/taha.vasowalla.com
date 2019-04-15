@@ -1,2 +1,7 @@
 ErrorDocument 403 /403.html
 ErrorDocument 404 /404.html
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^taha\. [NC]
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
