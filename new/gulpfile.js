@@ -25,18 +25,17 @@ const autoprefixerOptions = {
   browsers: ['last 2 versions', '> 5%'],
 };
 
-function lintScripts(src) {
-  return function lint() {
+const lintScripts = src =>
+  function lint() {
     return gulp
       .src(src, { cwdbase: true })
       .pipe(eslint())
       .pipe(eslint.format())
       .pipe(eslint.failAfterError());
   };
-}
 
-function transpileScripts(src) {
-  return function transpile() {
+const transpileScripts = src =>
+  function transpile() {
     return gulp
       .src(src, { cwdbase: true, sourcemaps: true })
       .pipe(babel(babelOptions))
@@ -54,14 +53,11 @@ function transpileScripts(src) {
       )
       .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
   };
-}
 
-function compileScripts(src) {
-  return gulp.series(lintScripts(src), transpileScripts(src));
-}
+const compileScripts = src => gulp.series(lintScripts(src), transpileScripts(src));
 
-function compileStyles(src) {
-  return function styles() {
+const compileStyles = src =>
+  function styles() {
     return gulp
       .src(src, { cwdbase: true, sourcemaps: true })
       .pipe(sass.sync(sassOptions))
@@ -74,9 +70,8 @@ function compileStyles(src) {
       )
       .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
   };
-}
 
-function watch() {
+const watch = () => {
   gulp
     .watch(scriptSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
     .on('add', path => compileScripts(path)())
@@ -89,9 +84,9 @@ function watch() {
 
   gulp
     .watch(scssPartials, { ignored: /(^|[/\\])\../ })
-    .on('add', () => compileStyles(styleSources)())
-    .on('change', () => compileStyles(styleSources)());
-}
+    .on('add', compileStyles(styleSources))
+    .on('change', compileStyles(styleSources));
+};
 
 gulp.task('scripts', compileScripts(scriptSources));
 gulp.task('styles', compileStyles(styleSources));
