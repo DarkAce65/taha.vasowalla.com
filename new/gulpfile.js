@@ -25,7 +25,7 @@ const autoprefixerOptions = {
   browsers: ['last 2 versions', '> 5%'],
 };
 
-const lintScripts = src =>
+const makeLintScriptsTask = src =>
   function lint() {
     return gulp
       .src(src, { cwdbase: true })
@@ -34,7 +34,7 @@ const lintScripts = src =>
       .pipe(eslint.failAfterError());
   };
 
-const transpileScripts = src =>
+const makeTranspileScriptsTask = src =>
   function transpile() {
     return gulp
       .src(src, { cwdbase: true, sourcemaps: true })
@@ -54,9 +54,9 @@ const transpileScripts = src =>
       .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
   };
 
-const compileScripts = src => gulp.series(lintScripts(src), transpileScripts(src));
+const makeCompileScriptsTask = src => gulp.series(makeLintScriptsTask(src), makeTranspileScriptsTask(src));
 
-const compileStyles = src =>
+const makeCompileStylesTask = src =>
   function styles() {
     return gulp
       .src(src, { cwdbase: true, sourcemaps: true })
@@ -74,21 +74,21 @@ const compileStyles = src =>
 const watch = () => {
   gulp
     .watch(scriptSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
-    .on('add', path => compileScripts(path)())
-    .on('change', path => compileScripts(path)());
+    .on('add', path => makeCompileScriptsTask(path)())
+    .on('change', path => makeCompileScriptsTask(path)());
 
   gulp
     .watch(styleSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
-    .on('add', path => compileStyles(path)())
-    .on('change', path => compileStyles(path)());
+    .on('add', path => makeCompileStylesTask(path)())
+    .on('change', path => makeCompileStylesTask(path)());
 
   gulp
     .watch(scssPartials, { ignored: /(^|[/\\])\../ })
-    .on('add', compileStyles(styleSources))
-    .on('change', compileStyles(styleSources));
+    .on('add', makeCompileStylesTask(styleSources))
+    .on('change', makeCompileStylesTask(styleSources));
 };
 
-gulp.task('scripts', compileScripts(scriptSources));
-gulp.task('styles', compileStyles(styleSources));
+gulp.task('scripts', makeCompileScriptsTask(scriptSources));
+gulp.task('styles', makeCompileStylesTask(styleSources));
 gulp.task('default', gulp.parallel('scripts', 'styles'));
 gulp.task('watch', watch);
