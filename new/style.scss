@@ -17,7 +17,7 @@ body {
 #banner {
   font-size: 4em;
   font-family: $serif-font-stack;
-  color: darken($gray, 10);
+  color: $menu-text-color;
 }
 
 #menu {
@@ -39,7 +39,7 @@ body {
       & > * {
         display: inline-block;
         width: 100%;
-        color: $gray;
+        color: $menu-text-color;
         border-bottom: 1px solid transparent;
         cursor: pointer;
         transition: color 0.3s, border-color 0.3s, padding 0.3s;
@@ -47,8 +47,8 @@ body {
         &:hover,
         &:focus {
           outline: none;
-          color: $light;
-          border-color: $light;
+          color: $highlight-color;
+          border-color: $highlight-color;
           transition: color 0s, border-color 0s, padding 0.3s;
         }
       }
@@ -72,7 +72,7 @@ body {
       }
 
       &.active {
-        color: $light;
+        color: $highlight-color;
         border-color: $red;
         padding: 0 50px;
 
