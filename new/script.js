@@ -189,26 +189,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  let activeMenuEl = null;
-  document.querySelectorAll('#primary .menu-item span').forEach(el => {
-    el.addEventListener('click', function() {
-      if (activeMenuEl !== null && activeMenuEl.dataset.menu === this.dataset.menu) {
-        activeMenuEl.classList.remove('active');
-        document.querySelector('#secondary').classList.add('closed');
-        document.querySelectorAll('.submenu.active').forEach(el => el.classList.remove('active'));
-        activeMenuEl = null;
-        return;
-      }
+  let activeMenuElement = null;
+  document.querySelectorAll('#primary .menu-item').forEach(menuElement => {
+    if (menuElement.dataset.menu) {
+      menuElement.querySelector('span').addEventListener('click', () => {
+        if (menuElement.isSameNode(activeMenuElement)) {
+          menuElement.classList.remove('active');
+          document.querySelector('#secondary').classList.add('closed');
+          document.querySelectorAll('.submenu.active').forEach(el => el.classList.remove('active'));
+          activeMenuElement = null;
+          return;
+        }
 
-      if (activeMenuEl === null) {
-        document.querySelector('#secondary').classList.remove('closed');
-      } else {
-        activeMenuEl.classList.remove('active');
-        document.querySelector(activeMenuEl.dataset.menu).classList.remove('active');
-      }
-      activeMenuEl = this;
-      activeMenuEl.classList.add('active');
-      document.querySelector(activeMenuEl.dataset.menu).classList.add('active');
-    });
+        if (activeMenuElement === null) {
+          document.querySelector('#secondary').classList.remove('closed');
+        } else {
+          activeMenuElement.classList.remove('active');
+          document.querySelector(activeMenuElement.dataset.menu).classList.remove('active');
+        }
+        activeMenuElement = menuElement;
+        menuElement.classList.add('active');
+        document.querySelector(menuElement.dataset.menu).classList.add('active');
+      });
+    }
   });
 });

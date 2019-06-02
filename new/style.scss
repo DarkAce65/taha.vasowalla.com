@@ -30,11 +30,11 @@ body {
 
   #primary,
   #secondary {
-    height: 1.5em;
-    margin-bottom: 0.5em;
+    height: 28px;
+    margin-bottom: 8px;
 
     .menu-item {
-      padding: 0 0.5em;
+      padding: 0 8px;
 
       & > * {
         display: inline-block;
@@ -64,14 +64,14 @@ body {
       flex: 1 0 auto;
     }
 
-    .menu-item span {
-      &::after {
+    .menu-item{
+     &>span::after {
         content: '/';
         font-family: monospace;
         transition: opacity 0.3s;
-      }
+    }
 
-      &.active {
+      &.active> span{
         color: $highlight-color;
         border-color: $red;
         padding: 0 50px;
