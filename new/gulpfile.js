@@ -1,8 +1,6 @@
-const path = require('path');
 const gulp = require('gulp');
 
 const using = require('gulp-using');
-const rename = require('gulp-rename');
 
 const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
@@ -10,9 +8,9 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const scriptSources = ['**/script.js', '!node_modules/**'];
-const styleSources = ['**/*.scss', '!node_modules/**', '!**/_*.scss'];
-const scssPartials = ['**/_*.scss', '!node_modules/**'];
+const scriptSources = 'src/**/*.js';
+const scssPartials = 'src/**/_*.scss';
+const styleSources = ['src/**/*.scss', `!${scssPartials}`];
 
 const babelOptions = {
   presets: ['@babel/env'],
@@ -25,70 +23,54 @@ const autoprefixerOptions = {
   browsers: ['last 2 versions', '> 5%'],
 };
 
-const makeLintScriptsTask = src =>
-  function lint() {
-    return gulp
-      .src(src, { cwdbase: true })
-      .pipe(eslint())
-      .pipe(eslint.format())
-      .pipe(eslint.failAfterError());
-  };
+const lintScripts = () =>
+  gulp
+    .src(scriptSources, { since: gulp.lastRun(lintScripts) })
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+lintScripts.displayName = 'lint';
 
-const makeTranspileScriptsTask = src =>
-  function transpile() {
-    return gulp
-      .src(src, { cwdbase: true, sourcemaps: true })
-      .pipe(babel(babelOptions))
-      .pipe(
-        rename(function(path) {
-          if (path.extname === '.js') {
-            path.extname = '.dist.js';
-          }
-        })
-      )
-      .pipe(
-        gulp.dest(file => file.base, {
-          sourcemaps: file => path.join(path.relative(file.base, process.cwd()), 'maps'),
-        })
-      )
-      .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
-  };
+const transpileScripts = () =>
+  gulp
+    .src(scriptSources, { sourcemaps: true, since: gulp.lastRun(transpileScripts) })
+    .pipe(babel(babelOptions))
+    .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
+    .pipe(using({ prefix: 'Writing', filesize: true }));
+transpileScripts.displayName = 'transpile';
 
-const makeCompileScriptsTask = src => gulp.series(makeLintScriptsTask(src), makeTranspileScriptsTask(src));
+const compileScripts = gulp.series(lintScripts, transpileScripts);
+compileScripts.displayName = 'scripts';
 
-const makeCompileStylesTask = src =>
-  function styles() {
-    return gulp
-      .src(src, { cwdbase: true, sourcemaps: true })
+const compileStyles = ({ compileAll } = {}) => {
+  const compile = () =>
+    gulp
+      .src(styleSources, {
+        sourcemaps: true,
+        since: compileAll ? null : gulp.lastRun(compile),
+      })
       .pipe(sass.sync(sassOptions))
       .on('error', sass.logError)
       .pipe(autoprefixer(autoprefixerOptions))
-      .pipe(
-        gulp.dest(file => file.base, {
-          sourcemaps: file => path.join(path.relative(file.base, process.cwd()), 'maps'),
-        })
-      )
-      .pipe(using({ prefix: 'Writing', path: 'relative', filesize: true }));
-  };
+      .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
+      .pipe(using({ prefix: 'Writing', filesize: true }));
+  compile.displayName = 'styles';
 
-const watch = () => {
-  gulp
-    .watch(scriptSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
-    .on('add', path => makeCompileScriptsTask(path)())
-    .on('change', path => makeCompileScriptsTask(path)());
-
-  gulp
-    .watch(styleSources, { ignoreInitial: false, ignored: /(^|[/\\])\../ })
-    .on('add', path => makeCompileStylesTask(path)())
-    .on('change', path => makeCompileStylesTask(path)());
-
-  gulp
-    .watch(scssPartials, { ignored: /(^|[/\\])\../ })
-    .on('add', makeCompileStylesTask(styleSources))
-    .on('change', makeCompileStylesTask(styleSources));
+  return compile;
 };
 
-gulp.task('scripts', makeCompileScriptsTask(scriptSources));
-gulp.task('styles', makeCompileStylesTask(styleSources));
-gulp.task('default', gulp.parallel('scripts', 'styles'));
-gulp.task('watch', watch);
+const watchScripts = () => gulp.watch(scriptSources, { ignoreInitial: false }, compileScripts);
+watchScripts.displayName = 'watch:scripts';
+
+const watchStyles = () => gulp.watch(styleSources, { ignoreInitial: false }, compileStyles());
+watchStyles.displayName = 'watch:styles';
+
+const watchSCSSPartials = () => gulp.watch(scssPartials, compileStyles({ compileAll: true }));
+watchSCSSPartials.displayName = 'watch:scssPartials';
+
+exports.html = compileHTML;
+exports.scripts = compileScripts;
+exports.styles = compileStyles();
+exports.watch = gulp.parallel(watchScripts, watchStyles, watchSCSSPartials);
+
+exports.default = gulp.parallel(compileHTML, compileScripts, compileStyles());

@@ -16,9 +16,8 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+# compiled files
+dist/
+
 # sourcemaps
 maps/
-
-# compiled files
-*.css
-*.dist.js
