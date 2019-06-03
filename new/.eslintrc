@@ -18,9 +18,10 @@
         "printWidth": 120
       }
     ],
+    "no-console": "off",
     "no-shadow": "warn",
     "no-unused-vars": "warn",
-    "no-console": "off"
+    "prefer-template": "warn"
   },
   "globals": {
     "THREE": false,
