@@ -1,0 +1,78 @@
+doctype html
+html
+  head
+    title Everything Taha
+    link(rel="shortcut icon" href="../img/icons/tv.png")
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="theme-color" content="#000000")
+    meta(name="msapplication-navbutton-color" content="#000000")
+    link(rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Oswald")
+    link(rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css")
+    link(rel="stylesheet" type="text/css" href="global.css")
+    link(rel="stylesheet" type="text/css" href="style.css")
+    script(type="text/javascript" src="../node_modules/three/build/three.js")
+    script(type="text/javascript" src="../node_modules/three/examples/js/GPUParticleSystem.js")
+    script(type="text/javascript" src="../node_modules/simplex-noise/simplex-noise.js")
+    script(type="text/javascript" src="script.js")
+
+  body.loading
+    #rendererContainer
+    #overlayContainer
+      #banner Hi, I'm Taha
+      nav#menu
+        #primary
+          .menu-item
+            a(href="about/") about
+          .menu-item(data-menu="#web")
+            span projects
+          .menu-item(data-menu="#visual")
+            span visual
+          .menu-item(data-menu="#games")
+            span games
+          .menu-item(data-menu="#experiments")
+            span experiments
+        #secondary.closed
+          #web.submenu
+            .menu-item
+              a(href="../tools/chemistry/") chemistry calculators
+            .menu-item
+              a(href="../tools/financial/") financial tools
+            .menu-item
+              a(href="../tools/clock/") clock + weather
+            .menu-item
+              a(href="../tools/xkcd/") xkcd search engine
+          #visual.submenu
+            .menu-item
+              a(href="../visual/deviantart/") DeviantArt
+            .menu-item
+              a(href="../visual/webaudio2d/") 2D audio
+            .menu-item
+              a(href="../visual/webaudio3d/") 3D audio
+            .menu-item
+              a(href="../visual/animation/") cards
+            .menu-item
+              a(href="../visual/ytbookmarklet/") ytbookmarklet
+          #games.submenu
+            .menu-item
+              a(href="../games/minesweeper/") minesweeper
+            .menu-item
+              a(href="../games/ultimatettt/") ultimate tic tac toe
+            .menu-item
+              a(href="../games/hangman/") hangman
+            .menu-item
+              a(href="../games/quantumchess/") quantum chess
+          #experiments.submenu
+            .menu-item
+              a(href="../experiments/canvas/") html5 canvas
+            .menu-item
+              a(href="../experiments/shaders/") glsl shaders
+            .menu-item
+              a(href="../experiments/fireball/") fireball
+            .menu-item
+              a(href="../experiments/svg/") svg
+            .menu-item
+              a(href="../experiments/security/") php web security
+            .menu-item
+              a(href="../experiments/testing/") testing lab
