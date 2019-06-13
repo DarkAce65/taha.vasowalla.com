@@ -15,7 +15,10 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const assets = { static: {}, lib: { js: ['node_modules/three/examples/js/GPUParticleSystem.js'] } };
+const assets = {
+  static: { icons: '../img/icons/**/*', textures: 'static/textures/**/*' },
+  lib: { js: 'node_modules/three/examples/js/GPUParticleSystem.js' },
+};
 
 const pugSources = 'src/**/*.pug';
 const scriptSources = 'src/**/*.js';
@@ -45,7 +48,7 @@ const copyAssets = gulp.series(
           .src(asset)
           .pipe(
             rename(file => {
-              file.dirname += `/${assetType}`;
+              file.dirname = path.join(assetType, file.dirname);
             })
           )
           .pipe(gulp.dest('dist/static'))

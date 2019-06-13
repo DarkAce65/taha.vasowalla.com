@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const textureLoader = new THREE.TextureLoader();
   const particleSystem = new THREE.GPUParticleSystem({
     maxParticles: 2000,
-    particleNoiseTex: textureLoader.load('textures/pixel.png'),
-    particleSpriteTex: textureLoader.load('textures/particle.png'),
+    particleNoiseTex: textureLoader.load('static/textures/pixel.png'),
+    particleSpriteTex: textureLoader.load('static/textures/particle.png'),
   });
   scene.add(particleSystem);
 
