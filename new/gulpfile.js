@@ -1,10 +1,12 @@
 const gulp = require('gulp');
 const path = require('path');
 
+const del = require('del');
 const plumber = require('gulp-plumber');
 const chalk = require('chalk');
 const log = require('fancy-log');
 const using = require('gulp-using');
+const rename = require('gulp-rename');
 
 const pug = require('gulp-pug');
 const eslint = require('gulp-eslint');
@@ -12,6 +14,8 @@ const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
+
+const assets = { static: {}, lib: { js: ['node_modules/three/examples/js/GPUParticleSystem.js'] } };
 
 const pugSources = 'src/**/*.pug';
 const scriptSources = 'src/**/*.js';
@@ -28,6 +32,44 @@ const sassOptions = {
 const autoprefixerOptions = {
   browsers: ['last 2 versions', '> 5%'],
 };
+
+const cleanAssets = () => del(['dist/static', 'dist/lib']);
+cleanAssets.displayName = 'clean:assets';
+
+const copyAssets = gulp.series(
+  cleanAssets,
+  gulp.parallel(
+    ...Object.entries(assets.static).map(([assetType, asset]) => {
+      const copyAsset = () =>
+        gulp
+          .src(asset)
+          .pipe(
+            rename(file => {
+              file.dirname += `/${assetType}`;
+            })
+          )
+          .pipe(gulp.dest('dist/static'))
+          .pipe(using({ prefix: 'Writing', filesize: true }));
+      copyAsset.displayName = `copy:static:${assetType}`;
+      return copyAsset;
+    }),
+    ...Object.entries(assets.lib).map(([assetType, asset]) => {
+      const copyLib = () =>
+        gulp
+          .src(asset)
+          .pipe(
+            rename(file => {
+              file.dirname += `/${assetType}`;
+            })
+          )
+          .pipe(gulp.dest('dist/lib'))
+          .pipe(using({ prefix: 'Writing', filesize: true }));
+      copyLib.displayName = `copy:lib:${assetType}`;
+      return copyLib;
+    })
+  )
+);
+copyAssets.displayName = 'copy:assets';
 
 const compileHTML = () =>
   gulp
@@ -102,6 +144,7 @@ watchStyles.displayName = 'watch:styles';
 const watchSCSSPartials = () => gulp.watch(scssPartials, compileStyles({ compileAll: true }));
 watchSCSSPartials.displayName = 'watch:scssPartials';
 
+exports.copyAssets = copyAssets;
 exports.html = compileHTML;
 exports.scripts = compileScripts;
 exports.styles = compileStyles();
