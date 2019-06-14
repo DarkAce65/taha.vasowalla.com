@@ -5,12 +5,13 @@ const del = require('del');
 const plumber = require('gulp-plumber');
 const chalk = require('chalk');
 const log = require('fancy-log');
+const named = require('vinyl-named');
 const using = require('gulp-using');
 const rename = require('gulp-rename');
 
 const pug = require('gulp-pug');
+const webpack = require('webpack-stream');
 const eslint = require('gulp-eslint');
-const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
@@ -25,10 +26,6 @@ const scriptSources = 'src/**/*.js';
 const scssPartials = 'src/**/_*.scss';
 const styleSources = ['src/**/*.scss', `!${scssPartials}`];
 
-const babelOptions = {
-  presets: ['@babel/env'],
-  plugins: ['@babel/plugin-transform-strict-mode'],
-};
 const sassOptions = {
   includePaths: ['partials'],
 };
@@ -110,9 +107,10 @@ lintScripts.displayName = 'lint';
 
 const transpileScripts = () =>
   gulp
-    .src(scriptSources, { sourcemaps: true, since: gulp.lastRun(transpileScripts) })
-    .pipe(babel(babelOptions))
-    .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
+    .src(scriptSources, { since: gulp.lastRun(transpileScripts) })
+    .pipe(named(file => path.relative('src', path.join(file.dirname, file.stem))))
+    .pipe(webpack({ ...require('./webpack.config.js'), mode: process.env.NODE_ENV || 'development' }))
+    .pipe(gulp.dest('dist'))
     .pipe(using({ prefix: 'Writing', filesize: true }));
 transpileScripts.displayName = 'transpile';
 
