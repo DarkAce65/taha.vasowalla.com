@@ -1,15 +1,10 @@
+include partials/mixins
+
 doctype html
 html
   head
-    title Everything Taha
-    link(rel="shortcut icon" href="static/icons/tv.png")
-    meta(charset="utf-8")
-    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    meta(name="theme-color" content="#000000")
-    meta(name="msapplication-navbutton-color" content="#000000")
-    link(rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Oswald")
-    link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/fontawesome.min.css")
+    +head("Everything Taha")
+    link(rel="shortcut icon" href="assets/icons/tv.png")
     link(rel="stylesheet" type="text/css" href="global.css")
     link(rel="stylesheet" type="text/css" href="style.css")
     script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js")
