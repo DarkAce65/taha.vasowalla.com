@@ -1,4 +1,21 @@
-/* globals SimplexNoise: false */
+import {
+  BufferGeometry,
+  Clock,
+  DoubleSide,
+  Euler,
+  IcosahedronGeometry,
+  Matrix4,
+  Mesh,
+  MeshPhongMaterial,
+  PerspectiveCamera,
+  PointLight,
+  Scene,
+  TextureLoader,
+  Vector3,
+  WebGLRenderer,
+} from 'three';
+import { GPUParticleSystem } from 'three/examples/jsm/objects/GPUParticleSystem';
+import SimplexNoise from 'simplex-noise';
 
 const requestAnimFrame =
   window.requestAnimationFrame ||
@@ -15,48 +32,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const simplex = new SimplexNoise();
 
-  const clock = new THREE.Clock();
-  const scene = new THREE.Scene();
+  const clock = new Clock();
+  const scene = new Scene();
   window.scene = scene;
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   document.querySelector('#rendererContainer').appendChild(renderer.domElement);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
-  const textureLoader = new THREE.TextureLoader();
-  const particleSystem = new THREE.GPUParticleSystem({
+  const textureLoader = new TextureLoader();
+  const particleSystem = new GPUParticleSystem({
     maxParticles: 2000,
     particleNoiseTex: textureLoader.load('static/textures/pixel.png'),
     particleSpriteTex: textureLoader.load('static/textures/particle.png'),
   });
   scene.add(particleSystem);
 
-  const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+  const camera = new PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
   window.camera = camera;
   setCamera();
 
   const lights = [];
 
-  lights[0] = new THREE.PointLight(0xeeeefe, 2, 300, 1.5);
+  lights[0] = new PointLight(0xeeeefe, 2, 300, 1.5);
   lights[0].position.set(45, 15, 105);
 
-  lights[1] = new THREE.PointLight(0x423e6a, 1, 1200, 2);
+  lights[1] = new PointLight(0x423e6a, 1, 1200, 2);
   lights[1].position.set(-90, 10, 120);
 
-  lights[2] = new THREE.PointLight(0x513c1f, 1, 300, 3);
+  lights[2] = new PointLight(0x513c1f, 1, 300, 3);
   lights[2].position.set(40, -40, 80);
 
   for (let i = 0; i < lights.length; i++) {
     scene.add(lights[i]);
   }
 
-  const planetMaterial = new THREE.MeshPhongMaterial({
+  const planetMaterial = new MeshPhongMaterial({
     shininess: 30,
     color: 0x526464,
-    side: THREE.DoubleSide,
+    side: DoubleSide,
     flatShading: true,
   });
   window.planetMaterial = planetMaterial;
-  const planetGeometry = new THREE.IcosahedronGeometry(50, 3);
+  const planetGeometry = new IcosahedronGeometry(50, 3);
   for (let i = 0; i < planetGeometry.vertices.length; i++) {
     planetGeometry.vertices[i].x += Math.random() * 6 - 3;
     planetGeometry.vertices[i].y += Math.random() * 6 - 3;
@@ -66,14 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
       planetGeometry.vertices[i].setLength(49 + Math.random() * 2);
     }
   }
-  const planet = new THREE.Mesh(new THREE.BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
+  const planet = new Mesh(new BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
   window.planet = planet;
   scene.add(planet);
 
-  const satelliteMaterial = new THREE.MeshPhongMaterial({
+  const satelliteMaterial = new MeshPhongMaterial({
     shininess: 30,
     color: 0x526464,
-    side: THREE.DoubleSide,
+    side: DoubleSide,
     flatShading: true,
   });
   window.satelliteMaterial = satelliteMaterial;
@@ -84,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
   for (let i = 0; i < 100; i++) {
     const radius = i === 50 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
     const detail = radius > 2.5 ? 1 : 0;
-    const satelliteGeometry = new THREE.IcosahedronGeometry(radius, detail);
+    const satelliteGeometry = new IcosahedronGeometry(radius, detail);
     if (radius > 2.5) {
       displaceSatelliteGeometry(satelliteGeometry);
     }
@@ -93,17 +110,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const s = positionR * Math.sin((i * Math.PI) / 50);
     const h = Math.random() * 30 - 15;
     satelliteGeometry.applyMatrix(
-      new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(Math.random(), Math.random(), Math.random(), 'XYZ'))
+      new Matrix4().makeRotationFromEuler(new Euler(Math.random(), Math.random(), Math.random(), 'XYZ'))
     );
 
-    const satellite = new THREE.Mesh(
-      new THREE.BufferGeometry().fromGeometry(satelliteGeometry),
+    const satellite = new Mesh(
+      new BufferGeometry().fromGeometry(satelliteGeometry),
       i === 50
-        ? new THREE.MeshPhongMaterial({
+        ? new MeshPhongMaterial({
             shininess: 30,
             color: 0x526464,
             emissive: 0xf85a3e,
-            side: THREE.DoubleSide,
+            side: DoubleSide,
             flatShading: true,
           })
         : satelliteMaterial
@@ -114,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
     satellite.orbitSpeed = 0.08 / radius;
     if (i === 50) {
       satellite.orbitSpeed *= 3;
-      satellite.add(new THREE.PointLight(0xf85a3e, 1, positionR, 2));
+      satellite.add(new PointLight(0xf85a3e, 1, positionR, 2));
     }
     scene.add(satellite);
     satellites.push(satellite);
@@ -123,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let tick = 0;
   let spawnRate = Math.min(window.innerWidth, window.innerHeight) < 500 ? 75 : 500;
   const options = {
-    position: new THREE.Vector3(),
+    position: new Vector3(),
     positionRandomness: 1,
     velocityRandomness: 0.4,
     color: 0xf85a3e,
@@ -141,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
     tick += delta;
     planet.rotation.z += delta / 25;
     for (let i = 0; i < satellites.length; i++) {
-      satellites[i].position.applyAxisAngle(new THREE.Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
+      satellites[i].position.applyAxisAngle(new Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
     }
 
     options.position = satellites[50].position;

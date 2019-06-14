@@ -6174,10 +6174,9 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-three@0.105.1:
+three@mrdoob/three.js.git#dev:
   version "0.105.1"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.105.1.tgz#323fc31e19b25eec408a84f8401ea6dbe42a32bb"
-  integrity sha512-Oa6dfF3qsgS/mmeNB+nKgcQBq71Ucxv8TdmVS+lNjLzG/GAIgvrTDTKmtvxXd7tXDv7RXmEprcmzO3JiT0UDsA==
+  resolved "https://codeload.github.com/mrdoob/three.js/tar.gz/895829f6a6ba3b7bb449914e2a6144a77e0d0285"
 
 through2-filter@^3.0.0:
   version "3.0.0"

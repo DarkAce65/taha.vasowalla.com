@@ -45,6 +45,6 @@
         "d3": "5.9.2",
         "font-awesome": "4.7.0",
         "simplex-noise": "2.4.0",
-        "three": "0.105.1"
+        "three": "mrdoob/three.js.git#dev"
     }
 }
