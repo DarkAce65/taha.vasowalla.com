@@ -27,9 +27,6 @@ const styleSources = ['src/**/*.scss', `!${scssPartials}`];
 const sassOptions = {
   includePaths: ['partials'],
 };
-const autoprefixerOptions = {
-  browsers: ['last 2 versions', '> 5%'],
-};
 
 const flattenObject = (object, root = '') =>
   Object.entries(object).reduce((obj, [key, value]) => {
@@ -121,7 +118,7 @@ const compileStyles = ({ compileAll } = {}) => {
         since: compileAll ? null : gulp.lastRun(compile),
       })
       .pipe(sass.sync(sassOptions).on('error', sass.logError))
-      .pipe(autoprefixer(autoprefixerOptions))
+      .pipe(autoprefixer())
       .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
       .pipe(using({ prefix: 'Writing', filesize: true }));
   compile.displayName = 'styles';
