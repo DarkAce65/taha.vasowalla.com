@@ -7,7 +7,6 @@ const chalk = require('chalk');
 const log = require('fancy-log');
 const named = require('vinyl-named');
 const using = require('gulp-using');
-const rename = require('gulp-rename');
 
 const pug = require('gulp-pug');
 const webpack = require('webpack-stream');
@@ -16,9 +15,8 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const assets = {
-  static: { icons: '../img/icons/**/*', textures: 'static/textures/**/*' },
-  lib: { js: 'node_modules/three/examples/js/GPUParticleSystem.js' },
+const staticFiles = {
+  assets: { img: '../img/*', icons: '../img/icons/**/*', textures: 'static/textures/**/*' },
 };
 
 const pugSources = 'src/**/*.pug';
@@ -33,43 +31,41 @@ const autoprefixerOptions = {
   browsers: ['last 2 versions', '> 5%'],
 };
 
-const cleanAssets = () => del(['dist/static', 'dist/lib']);
-cleanAssets.displayName = 'clean:assets';
+const flattenObject = (object, root = '') =>
+  Object.entries(object).reduce((obj, [key, value]) => {
+    const base = root === '' ? '' : `${root}/`;
+    if (!Array.isArray(value) && typeof value === 'object') {
+      return { ...obj, ...flattenObject(value, `${base}${key}`) };
+    }
 
-const copyAssets = gulp.series(
-  cleanAssets,
+    obj[`${base}${key}`] = value;
+    return obj;
+  }, {});
+
+const cleanStatic = (destRootPath = '') => {
+  const cleanStaticFiles = () =>
+    del(Object.keys(flattenObject(staticFiles)).map(staticDir => `dist/${destRootPath}/${staticDir}`));
+  cleanStaticFiles.displayName = 'clean:static';
+
+  return cleanStaticFiles;
+};
+
+const copyStatic = gulp.series(
+  cleanStatic(),
   gulp.parallel(
-    ...Object.entries(assets.static).map(([assetType, asset]) => {
-      const copyAsset = () =>
+    ...Object.entries(flattenObject(staticFiles)).map(([destPath, source]) => {
+      const copyStaticFiles = () =>
         gulp
-          .src(asset)
-          .pipe(
-            rename(file => {
-              file.dirname = path.join(assetType, file.dirname);
-            })
-          )
-          .pipe(gulp.dest('dist/static'))
+          .src(source)
+          .pipe(gulp.dest(`dist/${destPath}`))
           .pipe(using({ prefix: 'Writing', filesize: true }));
-      copyAsset.displayName = `copy:static:${assetType}`;
-      return copyAsset;
-    }),
-    ...Object.entries(assets.lib).map(([assetType, asset]) => {
-      const copyLib = () =>
-        gulp
-          .src(asset)
-          .pipe(
-            rename(file => {
-              file.dirname += `/${assetType}`;
-            })
-          )
-          .pipe(gulp.dest('dist/lib'))
-          .pipe(using({ prefix: 'Writing', filesize: true }));
-      copyLib.displayName = `copy:lib:${assetType}`;
-      return copyLib;
+      copyStaticFiles.displayName = `copy:${destPath.replace(/\//g, ':')}`;
+
+      return copyStaticFiles;
     })
   )
 );
-copyAssets.displayName = 'copy:assets';
+copyStatic.displayName = 'copy:static';
 
 const compileHTML = () =>
   gulp
@@ -145,10 +141,10 @@ watchStyles.displayName = 'watch:styles';
 const watchSCSSPartials = () => gulp.watch(scssPartials, compileStyles({ compileAll: true }));
 watchSCSSPartials.displayName = 'watch:scssPartials';
 
-exports.copyAssets = copyAssets;
+exports.copyStatic = copyStatic;
 exports.html = compileHTML;
 exports.scripts = compileScripts;
 exports.styles = compileStyles();
 exports.watch = gulp.parallel(watchHTML, watchScripts, watchStyles, watchSCSSPartials);
 
-exports.default = gulp.parallel(compileHTML, compileScripts, compileStyles());
+exports.default = gulp.series(copyStatic, gulp.parallel(compileHTML, compileScripts, compileStyles()));
