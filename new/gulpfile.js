@@ -6,7 +6,7 @@ const log = require('fancy-log');
 const using = require('gulp-using');
 const plumber = require('gulp-plumber');
 const named = require('vinyl-named');
-const { endStream, flattenObject } = require('./gulpUtils');
+const { endStream, flattenObject } = require('./gulp/utils');
 
 const del = require('del');
 const pug = require('gulp-pug');
