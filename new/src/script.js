@@ -110,7 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const s = positionR * Math.sin((i * Math.PI) / 50);
     const h = Math.random() * 30 - 15;
     satelliteGeometry.applyMatrix(
-      new Matrix4().makeRotationFromEuler(new Euler(Math.random(), Math.random(), Math.random(), 'XYZ'))
+      new Matrix4().makeRotationFromEuler(
+        new Euler(Math.random(), Math.random(), Math.random(), 'XYZ')
+      )
     );
 
     const satellite = new Mesh(

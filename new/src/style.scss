@@ -64,14 +64,14 @@ body {
       flex: 1 0 auto;
     }
 
-    .menu-item{
-     &>span::after {
+    .menu-item {
+      & > span::after {
         content: '/';
         font-family: monospace;
         transition: opacity 0.3s;
-    }
+      }
 
-      &.active> span{
+      &.active > span {
         color: $highlight-color;
         border-color: $red;
         padding: 0 50px;

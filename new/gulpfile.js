@@ -30,7 +30,9 @@ const sassOptions = {
 
 const cleanStatic = (destRootPath = '') => {
   const cleanStaticFiles = () =>
-    del(Object.keys(flattenObject(staticFiles)).map(staticDir => `dist/${destRootPath}/${staticDir}`));
+    del(
+      Object.keys(flattenObject(staticFiles)).map(staticDir => `dist/${destRootPath}/${staticDir}`)
+    );
   cleanStaticFiles.displayName = 'clean:static';
 
   return cleanStaticFiles;
@@ -61,14 +63,16 @@ const compileHTML = () =>
       pug({ pretty: true }).on('error', error => {
         if (error.path) {
           log(
-            `${chalk.red(error.name)} in ${chalk.magenta(path.relative(process.cwd(), error.path))}\n`,
+            `${chalk.red(error.name)} in ${chalk.magenta(
+              path.relative(process.cwd(), error.path)
+            )}\n`,
             error.message
           );
         } else if (error.code && error.filename) {
           log(
-            `${chalk.red(error.code)} in ${chalk.magenta(path.relative(process.cwd(), error.filename))}\nMessage: ${
-              error.msg
-            }`
+            `${chalk.red(error.code)} in ${chalk.magenta(
+              path.relative(process.cwd(), error.filename)
+            )}\nMessage: ${error.msg}`
           );
         } else {
           log(error.message);
@@ -119,7 +123,8 @@ const compileStyles = ({ compileAll } = {}) => {
 const watchHTML = () => gulp.watch(pugSources, { ignoreInitial: false }, compileHTML);
 watchHTML.displayName = 'watch:html';
 
-const watchScripts = () => gulp.watch(scriptSources, { ignoreInitial: false }, lintAndCompileScripts);
+const watchScripts = () =>
+  gulp.watch(scriptSources, { ignoreInitial: false }, lintAndCompileScripts);
 watchScripts.displayName = 'watch:scripts';
 
 const watchStyles = () => gulp.watch(styleSources, { ignoreInitial: false }, compileStyles());
@@ -132,6 +137,12 @@ exports.copyStatic = copyStatic;
 exports.html = compileHTML;
 exports.scripts = lintAndCompileScripts;
 exports.styles = compileStyles();
-exports.watch = gulp.series(copyStatic, gulp.parallel(watchHTML, watchScripts, watchStyles, watchSCSSPartials));
+exports.watch = gulp.series(
+  copyStatic,
+  gulp.parallel(watchHTML, watchScripts, watchStyles, watchSCSSPartials)
+);
 
-exports.default = gulp.series(copyStatic, gulp.parallel(compileHTML, lintAndCompileScripts, compileStyles()));
+exports.default = gulp.series(
+  copyStatic,
+  gulp.parallel(compileHTML, lintAndCompileScripts, compileStyles())
+);

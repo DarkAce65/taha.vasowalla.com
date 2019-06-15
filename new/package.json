@@ -9,6 +9,7 @@
         "tests"
     ],
     "scripts": {
+        "prettier:write": "prettier --write \"gulpfile.js\" \"webpack.config.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "build": "NODE_ENV=production gulp --silent",
         "dev": "gulp --silent",
