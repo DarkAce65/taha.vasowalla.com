@@ -1,13 +1,14 @@
 const gulp = require('gulp');
 const path = require('path');
 
-const del = require('del');
-const plumber = require('gulp-plumber');
 const chalk = require('chalk');
 const log = require('fancy-log');
-const named = require('vinyl-named');
 const using = require('gulp-using');
+const plumber = require('gulp-plumber');
+const named = require('vinyl-named');
+const { endStream, flattenObject } = require('./gulpUtils');
 
+const del = require('del');
 const pug = require('gulp-pug');
 const webpack = require('webpack-stream');
 const eslint = require('gulp-eslint');
@@ -18,7 +19,6 @@ const autoprefixer = require('gulp-autoprefixer');
 const staticFiles = {
   assets: { img: '../img/*', icons: '../img/icons/**/*', textures: 'assets/textures/**/*' },
 };
-
 const pugSources = 'src/**/*.pug';
 const scriptSources = 'src/**/*.js';
 const scssPartials = 'src/**/_*.scss';
@@ -27,17 +27,6 @@ const styleSources = ['src/**/*.scss', `!${scssPartials}`];
 const sassOptions = {
   includePaths: ['partials'],
 };
-
-const flattenObject = (object, root = '') =>
-  Object.entries(object).reduce((obj, [key, value]) => {
-    const base = root === '' ? '' : `${root}/`;
-    if (!Array.isArray(value) && typeof value === 'object') {
-      return { ...obj, ...flattenObject(value, `${base}${key}`) };
-    }
-
-    obj[`${base}${key}`] = value;
-    return obj;
-  }, {});
 
 const cleanStatic = (destRootPath = '') => {
   const cleanStaticFiles = () =>
@@ -102,7 +91,9 @@ const transpileScripts = () =>
   gulp
     .src(scriptSources, { since: gulp.lastRun(transpileScripts) })
     .pipe(named(file => path.relative('src', path.join(file.dirname, file.stem))))
-    .pipe(webpack({ ...require('./webpack.config.js'), mode: process.env.NODE_ENV || 'development' }))
+    .pipe(
+      webpack({ ...require('./webpack.config.js'), mode: process.env.NODE_ENV || 'development' }).on('error', endStream)
+    )
     .pipe(gulp.dest('dist'))
     .pipe(using({ prefix: 'Writing', filesize: true }));
 transpileScripts.displayName = 'transpile';

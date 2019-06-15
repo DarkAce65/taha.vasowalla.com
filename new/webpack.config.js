@@ -7,14 +7,19 @@ module.exports = {
     sourceMapFilename: 'maps/[name].js.map',
   },
 
+  optimization: {
+    usedExports: true,
+  },
+
   module: {
+    strictExportPresence: true,
     rules: [
       {
         test: /\.js$/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/env'],
+            presets: ['@babel/preset-env'],
             plugins: ['@babel/plugin-transform-strict-mode'],
           },
         },
