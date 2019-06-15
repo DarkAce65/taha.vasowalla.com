@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const textureLoader = new TextureLoader();
   const particleSystem = new GPUParticleSystem({
     maxParticles: 2000,
-    particleNoiseTex: textureLoader.load('static/textures/pixel.png'),
-    particleSpriteTex: textureLoader.load('static/textures/particle.png'),
+    particleNoiseTex: textureLoader.load('assets/textures/pixel.png'),
+    particleSpriteTex: textureLoader.load('assets/textures/particle.png'),
   });
   scene.add(particleSystem);
 

@@ -16,7 +16,7 @@ sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
 const staticFiles = {
-  assets: { img: '../img/*', icons: '../img/icons/**/*', textures: 'static/textures/**/*' },
+  assets: { img: '../img/*', icons: '../img/icons/**/*', textures: 'assets/textures/**/*' },
 };
 
 const pugSources = 'src/**/*.pug';
