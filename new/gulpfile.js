@@ -19,7 +19,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const staticFiles = {
   assets: { img: '../img/*', icons: '../img/icons/**/*', textures: 'assets/textures/**/*' },
 };
-const pugSources = 'src/**/*.pug';
+const pugSources = ['src/**/*.pug', '!src/partials/**/*'];
 const scriptSources = 'src/**/*.js';
 const scssPartials = 'src/**/_*.scss';
 const styleSources = ['src/**/*.scss', `!${scssPartials}`];
