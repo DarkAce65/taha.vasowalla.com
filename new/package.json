@@ -42,6 +42,6 @@
     },
     "dependencies": {
         "simplex-noise": "^2.4.0",
-        "three": "mrdoob/three.js.git#dev"
+        "three": "mrdoob/three.js.git#54050ed0d52288e2122bd690da1f5a3bae86639f"
     }
 }
