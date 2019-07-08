@@ -9,11 +9,13 @@ module.exports = {
   },
 
   output: {
+    publicPath: '/',
     filename: '[name].js',
     sourceMapFilename: 'maps/[name].js.map',
   },
 
   optimization: {
+    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
     },

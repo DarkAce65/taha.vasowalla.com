@@ -23,9 +23,5 @@
     "no-shadow": "warn",
     "no-unused-vars": "warn",
     "prefer-template": "warn"
-  },
-  "globals": {
-    "THREE": false,
-    "d3": false
   }
 }
