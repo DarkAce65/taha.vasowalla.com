@@ -1,6 +1,6 @@
 @import 'partials/colors';
 @import 'partials/fonts';
-@import 'partials/bootstrap-grid';
+@import '../node_modules/bootstrap/scss/bootstrap-grid';
 
 .construction {
   z-index: 99999999;

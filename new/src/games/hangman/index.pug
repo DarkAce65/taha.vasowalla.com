@@ -24,7 +24,7 @@ html
                 button#submitWord.btn.btn-primary Go!
       h1 Hangman
       .row
-        svg.col-xs-7.col-sm-8.col-md-6.col-md-offset-1(viewbox="0 0 500 400")
+        svg.col-7.col-sm-8.col-md-6.col-md-offset-1(viewbox="0 0 500 400")
           path#base(d="m 52.567061,362.68341 c 88.653899,-29.13563 197.359959,-17.43136 278.732599,4.8749")
           path#gallows(d="m 143.44166,345.45176 c 10.88005,-103.29584 11.68263,-208.83798 14.14214,-312.13713 82.3107,-8.19067 165.55984,-11.1117 248.49747,-11.1117 -0.27648,13.64776 -1.34605,26.92097 -2.0203,40.4061")
           g#man
@@ -39,23 +39,23 @@ html
             path(d="m 386.88843,86.94196 c 2.55432,1.43504 4.2581,4.04221 5.55584,6.06091")
             path(d="m 411.8897,81.63866 c -0.1828,2.6209 -2.30291,4.40199 -4.04061,6.31345")
             path(d="m 407.34402,81.89119 c 0.62853,3.02856 3.3129,4.10015 5.80837,5.55584")
-        .col-xs-5.col-sm-4.col-md-4
-          .hidden-xs
-            p.h4 Guessed Letters
+        .col-5.col-sm-4.col-md-4
+          .d-none.d-sm-block
+            h3 Guessed Letters
             #guessedLetters
           p#guessesLeft
           p(style="text-align: center;")
             button.btn.btn-sm.btn-warning(style="margin: 0 5px 5px;" tabindex="1" data-toggle="modal" data-target="#wordDialog") Set word
             button#randomWord.btn.btn-sm.btn-warning(style="margin: 0 5px 5px;" tabindex="2" data-loading-text="Loading...")
-              | Random Word
-              span.hidden-xs  (Shift + R)
+              | Random Word&nbsp;
+              span.d-none.d-sm-inline-block (Shift + R)
       #wordDisplay
-      #guessContainer.input-group.hidden-xs
+      #guessContainer.input-group.d-none.d-sm-block
         input#guess.form-control(maxlength="1" tabindex="3")
         span.input-group-btn
           button#submitGuess.btn.btn-default(tabindex="4" data-trigger="manual" data-container="body" data-toggle="tooltip" data-placement="right" title="Error")
             i.fa.fa-arrow-right.fa-fw
-      #guessContainer-xs.input-group.visible-xs-block(style="text-align: center;")
+      #guessContainer-xs.input-group.d-block.d-sm-none(style="text-align: center;")
         span.guess-xs(data-letter="A") A
         span.guess-xs(data-letter="B") B
         span.guess-xs(data-letter="C") C

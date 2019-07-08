@@ -1,21 +1,21 @@
 import TimelineMax from 'gsap/TimelineMax';
-import { Sine } from 'gsap/TweenMax';
+import { Sine } from 'gsap/EasePack';
 import DrawSVGPlugin from '../../../lib/DrawSVGPlugin';
 
 // eslint-disable-next-line no-unused-vars
 const plugins = [DrawSVGPlugin];
 
-let hangmanWord = '',
-  guessedLetters = '',
-  guessesLeft = 6;
+let hangmanWord = '';
+let guessedLetters = [];
+let guessesLeft = 6;
 let randomWords = null;
 const timeline = new TimelineMax();
 
 function submitWord(word) {
   hangmanWord = word.toUpperCase(); // Convert word to uppercase
-  guessedLetters = ''; // Clear guessed letters
+  guessedLetters = []; // Clear guessed letters
   guessesLeft = 6; // Set 6 guesses
-  document.querySelector('#guessesLeft').innerHTML = `${guessesLeft} Guesses left`; // Reset DOM elements
+  document.querySelector('#guessesLeft').innerHTML = `${guessesLeft} guesses left`; // Reset DOM elements
   document.querySelector('#wordInput').value = '';
   document.querySelector('#wordDisplay').innerHTML = '';
   document.querySelector('#guessedLetters').innerHTML = '';
@@ -32,37 +32,26 @@ function submitWord(word) {
 
 function guess(letter) {
   document.querySelector('#guess').value = '';
-  if (hangmanWord !== '' && guessedLetters === '') {
+  if (hangmanWord !== '' && guessedLetters.length === 0) {
     // Reset on first guess
     timeline.clear();
     timeline.set(document.querySelectorAll('#man path, #eyes path'), { drawSVG: '0%' });
   }
   if (letter.match(/[^A-Za-z]/)) {
     // Invalid guess
-    document
-      .querySelector('#submitGuess')
-      .attr('title', 'Only letters are allowed.')
-      .tooltip('fixTitle')
-      .tooltip('show');
     document.querySelector('#guess').focus();
-  } else if (guessedLetters.indexOf(letter) != -1) {
+  } else if (guessedLetters.indexOf(letter) !== -1) {
     // Letter already guessed
-    // document
-    //   .querySelector('#submitGuess')
-    //   .attr('title', "You've already guessed this letter.")
-    //   .tooltip('fixTitle')
-    //   .tooltip('show');
     document.querySelector('#guess').focus();
-  } else if (guessedLetters.indexOf(letter) == -1) {
+  } else if (guessedLetters.indexOf(letter) === -1) {
     // Check if letter has not been guessed
-    // document.querySelector('#submitGuess').tooltip('hide');
-    guessedLetters += letter; // Add guessed letter to guessedLetters
+    guessedLetters.push(letter); // Add guessed letter to guessedLetters
     let offset = 0;
     let index = hangmanWord.indexOf(letter, offset); // Get index of guess in the word
-    if (index != -1) {
+    if (index !== -1) {
       // Guessed letter is in the word
       document.querySelector(`.guess-xs[data-letter='${letter}']`).classList.add('correct');
-      while (index != -1) {
+      while (index !== -1) {
         // While guessed letter is still in word
         let space = document.querySelectorAll('#wordDisplay .letter')[index]; // Get blank space where letter is
         timeline.to(space, 0.2, { background: 'rgba(62, 200, 62, 0.6)' }, timeline.time()); // Green highlight
@@ -72,7 +61,7 @@ function guess(letter) {
         index = hangmanWord.indexOf(letter, offset); // Get next occurence of letter
       }
       if (
-        document.querySelector('#wordDisplay').innerHTML.replace(/<[^<>]*>/g, '') == hangmanWord
+        document.querySelector('#wordDisplay').innerHTML.replace(/<[^<>]*>/g, '') === hangmanWord
       ) {
         // Word has been guessed
         guessesLeft = -1;
@@ -151,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   timeline.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
 
   document.addEventListener('keypress', function(e) {
-    if (e.which == 82 && e.shiftKey) {
+    if (e.which === 82 && e.shiftKey) {
       // Shift + R sets random word
       document.querySelector('#randomWord').click();
       document.querySelector('#guess').focus();
@@ -160,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelector('#wordInput').addEventListener('keypress', function(e) {
-    if (e.which == 13) {
+    if (e.which === 13) {
       // Enter key triggers submit button
       document.querySelector('#submitWord').click();
     }
@@ -168,12 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelector('#guess').addEventListener('keypress', function(e) {
-    if (e.which == 82 && e.shiftKey) {
+    if (e.which === 82 && e.shiftKey) {
       // Shift + R sets random word
       e.preventDefault();
       document.querySelector('#randomWord').click();
     }
-    if (e.which == 13) {
+    if (e.which === 13) {
       // Enter key triggers submit button
       document.querySelector('#submitGuess').click();
     }
