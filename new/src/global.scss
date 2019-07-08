@@ -1,5 +1,6 @@
 @import 'partials/colors';
 @import 'partials/fonts';
+@import 'partials/bootstrap-grid';
 
 .construction {
   z-index: 99999999;
@@ -44,12 +45,12 @@ h6 {
 }
 
 a {
-  color: $red;
+  color: $text-color;
   text-decoration: none;
+  border-bottom: 1px solid $red;
 
   &:hover,
   &:focus {
-    color: rgba($red, 0.7);
-    text-decoration: underline;
+    color: $red;
   }
 }

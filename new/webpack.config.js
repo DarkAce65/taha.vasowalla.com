@@ -6,6 +6,7 @@ module.exports = {
 
   entry: {
     script: './src/script.js',
+    hangman: './src/games/hangman/script.js',
   },
 
   output: {
@@ -24,6 +25,10 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
+      {
+        test: /\.txt$/i,
+        use: 'raw-loader',
+      },
       {
         test: /\.pug$/,
         use: {
@@ -52,6 +57,12 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.pug',
       chunks: ['script'],
+    }),
+    new HtmlWebpackPlugin({
+      inject: 'head',
+      filename: 'games/hangman/index.html',
+      template: './src/games/hangman/index.pug',
+      chunks: ['hangman'],
     }),
   ],
 };

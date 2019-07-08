@@ -34,12 +34,15 @@
         "prettier": "^1.17.1",
         "pug": "^2.0.4",
         "pug-loader": "^2.4.0",
+        "raw-loader": "^3.0.0",
         "sass": "^1.20.3",
         "serve": "^11.0.1",
         "webpack": "^4.35.2",
         "webpack-stream": "^5.2.1"
     },
     "dependencies": {
+        "bootstrap": "^4.3.1",
+        "gsap": "^2.1.3",
         "simplex-noise": "^2.4.0",
         "three": "mrdoob/three.js.git#54050ed0d52288e2122bd690da1f5a3bae86639f"
     }
