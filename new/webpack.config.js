@@ -5,7 +5,8 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    script: './src/script.js',
+    index: './src/script.js',
+    about: './src/about/script.js',
     hangman: './src/games/hangman/script.js',
   },
 
@@ -26,8 +27,32 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.txt$/i,
+        test: /\.txt$/,
         use: 'raw-loader',
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'lib/[name].[ext]',
+            },
+          },
+          'extract-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.(png|woff2?|eot|ttf|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'lib/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.pug$/,
@@ -56,7 +81,7 @@ module.exports = {
       inject: 'head',
       filename: 'index.html',
       template: './src/index.pug',
-      chunks: ['script'],
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
       inject: 'head',
