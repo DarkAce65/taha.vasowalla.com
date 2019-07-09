@@ -9,6 +9,15 @@ html
     link(rel="stylesheet" href="style.css")
 
   body
+    #modal-1.modal
+      .modal-overlay(data-micromodal-close)
+        .modal-inner
+          header
+            | TEST
+            span.typcn.typcn-times(data-micromodal-close)
+          div CONTENT
+
+    button(data-micromodal-trigger="modal-1") Open
     .container
       #wordDialog.modal.fade(data-keyboard="false" data-backdrop="static")
         .modal-dialog

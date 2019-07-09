@@ -46,6 +46,7 @@
     "dependencies": {
         "bootstrap": "^4.3.1",
         "gsap": "^2.1.3",
+        "micromodal": "^0.4.0",
         "simplex-noise": "^2.4.0",
         "three": "mrdoob/three.js.git#54050ed0d52288e2122bd690da1f5a3bae86639f",
         "typicons.font": "^2.0.9"

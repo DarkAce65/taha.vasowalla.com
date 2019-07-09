@@ -1,4 +1,5 @@
-import TimelineMax from 'gsap/TimelineMax';
+import MicroModal from 'micromodal';
+import { TimelineMax } from 'gsap/TweenMax';
 import { Sine } from 'gsap/EasePack';
 import DrawSVGPlugin from '../../../lib/DrawSVGPlugin';
 
@@ -137,6 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
   import(/* webpackChunkName: "wordlist" */ './wordlist.txt').then(({ default: words }) => {
     randomWords = words.split('\n');
   });
+
+  MicroModal.init({ awaitCloseAnimation: true });
+
   timeline.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
 
   document.addEventListener('keypress', function(e) {
