@@ -30,7 +30,7 @@ body {
 
   #primary,
   #secondary {
-    height: 28px;
+    height: 32px;
     margin-bottom: 8px;
 
     .menu-item {
@@ -137,12 +137,8 @@ body {
 }
 
 @media (max-width: 750px) {
-  body {
-    font-size: 14px;
-  }
-
   #banner {
-    font-size: 3em;
+    font-size: 2.625em;
   }
 
   #menu #primary .menu-item span.active {
