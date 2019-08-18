@@ -36,7 +36,8 @@ body {
     .menu-item {
       padding: 0 8px;
 
-      & > * {
+      & > a,
+      & > span {
         display: inline-block;
         width: 100%;
         color: $menu-text-color;
