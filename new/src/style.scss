@@ -142,7 +142,7 @@ body {
     font-size: 2.625em;
   }
 
-  #menu #primary .menu-item span.active {
+  #menu #primary .menu-item.active span {
     padding: 0;
 
     &::after {
