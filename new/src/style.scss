@@ -7,6 +7,10 @@ body {
   overflow: hidden;
 }
 
+body {
+  background: black;
+}
+
 #overlayContainer {
   position: absolute;
   bottom: 0;
@@ -17,7 +21,7 @@ body {
 #banner {
   font-size: 4em;
   font-family: $serif-font-stack;
-  color: $menu-text-color;
+  color: $dim-text-color;
 }
 
 #menu {
@@ -40,7 +44,7 @@ body {
       & > span {
         display: inline-block;
         width: 100%;
-        color: $menu-text-color;
+        color: $dim-text-color;
         border-bottom: 1px solid transparent;
         cursor: pointer;
         transition: color 0.3s, border-color 0.3s, padding 0.3s;
