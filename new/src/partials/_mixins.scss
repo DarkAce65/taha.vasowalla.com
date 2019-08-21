@@ -1,0 +1,10 @@
+@mixin vertical-align {
+  display: flex;
+  flex-direction: column;
+
+  &::before,
+  &::after {
+    content: '';
+    flex-grow: 1;
+  }
+}

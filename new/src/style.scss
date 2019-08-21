@@ -1,5 +1,6 @@
 @import 'partials/colors';
 @import 'partials/fonts';
+@import 'partials/mixins';
 
 html,
 body {
@@ -38,6 +39,8 @@ body {
     margin-bottom: 8px;
 
     .menu-item {
+      @include vertical-align;
+      flex: 1 0 auto;
       padding: 0 8px;
 
       & > a,
@@ -64,10 +67,6 @@ body {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-
-    * {
-      flex: 1 0 auto;
-    }
 
     .menu-item {
       & > span::after {
@@ -107,10 +106,6 @@ body {
         visibility: visible;
         height: 100%;
       }
-
-      * {
-        flex: 1 0 auto;
-      }
     }
   }
 }
@@ -142,8 +137,17 @@ body {
 }
 
 @media (max-width: 750px) {
+  #overlayContainer {
+    bottom: 10px;
+  }
+
   #banner {
     font-size: 2.625em;
+  }
+
+  #menu #primary,
+  #menu #secondary {
+    height: 40px;
   }
 
   #menu #primary .menu-item.active span {

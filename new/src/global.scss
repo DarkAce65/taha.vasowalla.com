@@ -2,6 +2,7 @@
 
 @import 'partials/reset';
 
+@import 'partials/mixins';
 @import 'partials/modal';
 @import '../node_modules/bootstrap/scss/bootstrap-grid';
 
@@ -17,4 +18,8 @@
   letter-spacing: 1px;
   color: white;
   transform: rotate(-45deg);
+}
+
+.vertical-align {
+  @include vertical-align;
 }
