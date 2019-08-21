@@ -209,27 +209,34 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   let activeMenuElement = null;
+  const toggleSubmenu = menuElement => {
+    if (menuElement.isSameNode(activeMenuElement)) {
+      menuElement.classList.remove('active');
+      document.querySelector('#secondary').classList.add('closed');
+      document.querySelectorAll('.submenu.active').forEach(el => el.classList.remove('active'));
+      activeMenuElement = null;
+      return;
+    }
+
+    if (activeMenuElement === null) {
+      document.querySelector('#secondary').classList.remove('closed');
+    } else {
+      activeMenuElement.classList.remove('active');
+      document.querySelector(activeMenuElement.dataset.menu).classList.remove('active');
+    }
+    activeMenuElement = menuElement;
+    menuElement.classList.add('active');
+    document.querySelector(menuElement.dataset.menu).classList.add('active');
+  };
+
   document.querySelectorAll('#primary .menu-item').forEach(menuElement => {
     if (menuElement.dataset.menu) {
-      menuElement.querySelector('span').addEventListener('click', () => {
-        if (menuElement.isSameNode(activeMenuElement)) {
-          menuElement.classList.remove('active');
-          document.querySelector('#secondary').classList.add('closed');
-          document.querySelectorAll('.submenu.active').forEach(el => el.classList.remove('active'));
-          activeMenuElement = null;
-          return;
-        }
-
-        if (activeMenuElement === null) {
-          document.querySelector('#secondary').classList.remove('closed');
-        } else {
-          activeMenuElement.classList.remove('active');
-          document.querySelector(activeMenuElement.dataset.menu).classList.remove('active');
-        }
-        activeMenuElement = menuElement;
-        menuElement.classList.add('active');
-        document.querySelector(menuElement.dataset.menu).classList.add('active');
-      });
+      const span = menuElement.querySelector('span');
+      span.addEventListener('click', toggleSubmenu.bind(this, menuElement));
+      span.addEventListener(
+        'keydown',
+        e => [' ', 'Enter'].indexOf(e.key) !== -1 && toggleSubmenu(menuElement)
+      );
     }
   });
 });
