@@ -1,0 +1,21 @@
+@import '../colors';
+@import '../fonts';
+
+$global-font-family: $base-font-stack;
+$global-muted-color: $dim-text-color;
+$global-color: $text-color;
+$global-emphasis-color: $bright-text-color;
+
+$global-link-color: $global-emphasis-color;
+$global-link-hover-color: $red;
+$base-link-hover-text-decoration: none;
+
+$global-background: $background;
+$global-muted-background: darken($background, 3);
+$global-primary-background: $red;
+
+$button-border-width: 1px;
+$button-focus-shadow-width: 3px;
+$button-default-background: transparent;
+$button-secondary-background: lighten($background, 20);
+$button-disabled-background: transparent;

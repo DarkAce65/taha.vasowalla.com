@@ -1,0 +1,91 @@
+@import 'variables';
+
+@mixin hook-button() {
+  transition: 0.3s;
+}
+
+@mixin hook-button-hover() {
+  transition: 0s;
+}
+
+@mixin hook-button-default() {
+  border: $button-border-width solid $global-border;
+
+  &:focus {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 $button-focus-shadow-width $global-border;
+    transition: 0s;
+  }
+}
+
+@mixin hook-button-default-hover() {
+  border-color: darken($global-border, 30);
+}
+
+@mixin hook-button-default-active() {
+  border-color: darken($global-border, 50);
+}
+
+@mixin hook-button-primary() {
+  border: $button-border-width solid transparent;
+
+  &:focus {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 $button-focus-shadow-width rgba($button-primary-background, 0.75);
+    transition: 0s;
+  }
+}
+
+@mixin hook-button-secondary() {
+  border: $button-border-width solid transparent;
+
+  &:focus {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 $button-focus-shadow-width rgba($button-secondary-background, 0.75);
+    transition: 0s;
+  }
+}
+
+@mixin hook-button-danger() {
+  border: $button-border-width solid transparent;
+
+  &:focus {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 $button-focus-shadow-width rgba($button-danger-background, 0.75);
+    transition: 0s;
+  }
+}
+
+@mixin hook-button-text() {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 100%;
+    border-bottom: $button-border-width solid;
+    transition: right 0.3s ease-out;
+  }
+}
+
+@mixin hook-button-text-hover() {
+  &::before {
+    right: 0;
+  }
+}
+
+@mixin hook-button-text-disabled() {
+  &::before {
+    display: none;
+  }
+}
+
+@mixin hook-button-disabled() {
+  border-color: $global-border;
+}

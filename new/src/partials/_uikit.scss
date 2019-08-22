@@ -1,18 +1,9 @@
-@import 'colors';
-@import 'fonts';
-
-$global-font-family: $base-font-stack;
-$global-color: $text-color;
-$global-emphasis-color: $bright-text-color;
-
-$global-background: $background;
-$global-muted-background: darken($background, 3);
-$global-primary-background: $red;
-$global-link-color: $global-emphasis-color;
-$global-link-hover-color: $red;
+@import 'uikit-overrides/variables';
 
 @import 'uikit/src/scss/variables';
 @import 'uikit/src/scss/mixins';
+
+@import 'uikit-overrides/button-mixins';
 
 // Base
 @import 'uikit/src/scss/components/variables';
