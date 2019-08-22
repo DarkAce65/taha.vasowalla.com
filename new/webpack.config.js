@@ -6,7 +6,6 @@ module.exports = {
 
   entry: {
     index: './src/script.js',
-    about: './src/about/script.js',
     hangman: './src/games/hangman/script.js',
   },
 
@@ -44,24 +43,19 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|woff2?|eot|ttf|svg)$/,
+        test: /\.(woff2?|eot|ttf|svg)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: 'lib/[name].[ext]',
+              name: 'fonts/[name].[ext]',
             },
           },
         ],
       },
       {
         test: /\.pug$/,
-        use: {
-          loader: 'pug-loader',
-          options: {
-            pretty: true,
-          },
-        },
+        use: 'pug-loader',
       },
       {
         test: /\.js$/,
