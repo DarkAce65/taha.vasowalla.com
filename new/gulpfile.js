@@ -21,7 +21,7 @@ const styleSources = ['src/**/*.scss', `!${scssPartials}`];
 
 const webpackConfig = require('./webpack.config.js');
 const sassOptions = {
-  includePaths: ['partials'],
+  includePaths: ['node_modules/'],
 };
 
 const cleanStatic = (destRootPath = '') => {

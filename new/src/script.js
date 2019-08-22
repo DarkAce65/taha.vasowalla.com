@@ -1,3 +1,4 @@
+import 'uikit';
 import {
   BufferGeometry,
   Clock,

@@ -55,8 +55,8 @@ body {
         &:hover,
         &:focus {
           outline: none;
-          color: $highlight-color;
-          border-color: $highlight-color;
+          color: $bright-text-color;
+          border-color: $bright-text-color;
           transition: color 0s, border-color 0s, padding 0.3s;
         }
       }
@@ -76,7 +76,7 @@ body {
       }
 
       &.active > span {
-        color: $highlight-color;
+        color: $bright-text-color;
         border-color: $red;
         padding: 0 50px;
 
@@ -130,9 +130,14 @@ body {
   }
 }
 
-@media (max-width: 500px) {
-  #overlayContainer {
-    left: 0;
+@media (min-width: 751px) {
+  #menu {
+    font-size: 20px;
+  }
+
+  #menu #primary,
+  #menu #secondary {
+    height: 36px;
   }
 }
 
@@ -156,5 +161,11 @@ body {
     &::after {
       opacity: 1;
     }
+  }
+}
+
+@media (max-width: 500px) {
+  #overlayContainer {
+    left: 0;
   }
 }

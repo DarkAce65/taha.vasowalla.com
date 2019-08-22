@@ -1,0 +1,79 @@
+@import 'colors';
+@import 'fonts';
+
+$global-font-family: $base-font-stack;
+$global-color: $text-color;
+$global-emphasis-color: $bright-text-color;
+
+$global-background: $background;
+$global-muted-background: darken($background, 3);
+$global-primary-background: $red;
+$global-link-color: $global-emphasis-color;
+$global-link-hover-color: $red;
+
+@import 'uikit/src/scss/variables';
+@import 'uikit/src/scss/mixins';
+
+// Base
+@import 'uikit/src/scss/components/variables';
+@import 'uikit/src/scss/components/mixin';
+@import 'uikit/src/scss/components/base';
+
+// Elements
+@import 'uikit/src/scss/components/link';
+@import 'uikit/src/scss/components/heading';
+@import 'uikit/src/scss/components/divider';
+@import 'uikit/src/scss/components/list';
+@import 'uikit/src/scss/components/description-list';
+@import 'uikit/src/scss/components/table';
+@import 'uikit/src/scss/components/icon';
+@import 'uikit/src/scss/components/form-range';
+@import 'uikit/src/scss/components/form'; // After: Icon, Form Range
+@import 'uikit/src/scss/components/button';
+
+// Layout
+@import 'uikit/src/scss/components/section';
+@import 'uikit/src/scss/components/container';
+@import 'uikit/src/scss/components/grid';
+@import 'uikit/src/scss/components/tile';
+@import 'uikit/src/scss/components/card';
+
+// Common
+@import 'uikit/src/scss/components/close'; // After: Icon
+@import 'uikit/src/scss/components/spinner'; // After: Icon
+@import 'uikit/src/scss/components/alert'; // After: Close
+
+// Navs
+@import 'uikit/src/scss/components/tab';
+
+// JavaScript
+@import 'uikit/src/scss/components/accordion';
+@import 'uikit/src/scss/components/modal'; // After: Close
+@import 'uikit/src/scss/components/switcher';
+
+// Scrollspy
+// Toggle
+// Scroll
+
+// Additional
+@import 'uikit/src/scss/components/tooltip';
+
+// Utilities
+@import 'uikit/src/scss/components/width';
+@import 'uikit/src/scss/components/height';
+@import 'uikit/src/scss/components/text';
+@import 'uikit/src/scss/components/column';
+@import 'uikit/src/scss/components/cover';
+@import 'uikit/src/scss/components/background';
+@import 'uikit/src/scss/components/align';
+@import 'uikit/src/scss/components/svg';
+@import 'uikit/src/scss/components/utility';
+@import 'uikit/src/scss/components/flex'; // After: Utility
+@import 'uikit/src/scss/components/margin';
+@import 'uikit/src/scss/components/padding';
+@import 'uikit/src/scss/components/position';
+@import 'uikit/src/scss/components/transition';
+@import 'uikit/src/scss/components/visibility';
+
+// Need to be loaded last
+@import 'uikit/src/scss/components/print';
