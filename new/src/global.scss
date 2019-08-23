@@ -1,7 +1,7 @@
 @import 'partials/colors';
 @import 'partials/mixins';
 
-@import 'partials/uikit';
+@import "partials/uikit-overrides/variables";
 
 * {
   box-sizing: border-box;

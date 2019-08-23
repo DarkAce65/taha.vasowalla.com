@@ -2,6 +2,7 @@
 @import '../fonts';
 
 $global-font-family: $base-font-stack;
+$base-heading-font-family: $header-font-stack;
 $global-muted-color: $dim-text-color;
 $global-color: $text-color;
 $global-emphasis-color: $bright-text-color;
@@ -18,3 +19,5 @@ $button-focus-shadow-width: 3px;
 $button-default-background: transparent;
 $button-secondary-background: lighten($background, 20);
 $button-disabled-background: transparent;
+
+@import 'uikit/src/scss/variables';

@@ -1,9 +1,7 @@
-@import 'uikit-overrides/variables';
-
-@import 'uikit/src/scss/variables';
+@import 'partials/uikit-overrides/variables';
 @import 'uikit/src/scss/mixins';
 
-@import 'uikit-overrides/button-mixins';
+@import 'partials/uikit-overrides/button-mixins';
 
 // Base
 @import 'uikit/src/scss/components/variables';
