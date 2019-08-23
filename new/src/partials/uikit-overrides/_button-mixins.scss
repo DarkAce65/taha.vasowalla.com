@@ -2,6 +2,7 @@
 
 @mixin hook-button() {
   transition: 0.3s;
+  transition-property: color, background, border-color, box-shadow;
 }
 
 @mixin hook-button-hover() {
@@ -88,4 +89,19 @@
 
 @mixin hook-button-disabled() {
   border-color: $global-border;
+}
+
+@mixin hook-button-misc() {
+  .uk-button-group > .uk-button:nth-child(n + 2),
+  .uk-button-group > div:nth-child(n + 2) .uk-button {
+    margin-left: -$button-border-width;
+  }
+
+  .uk-button-group .uk-button:hover,
+  .uk-button-group .uk-button:focus,
+  .uk-button-group .uk-button:active,
+  .uk-button-group .uk-button.uk-active {
+    position: relative;
+    z-index: 1;
+  }
 }

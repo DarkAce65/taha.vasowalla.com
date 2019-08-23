@@ -13,11 +13,11 @@ $base-link-hover-text-decoration: none;
 $global-background: $background;
 $global-muted-background: darken($background, 3);
 $global-primary-background: $red;
+$global-secondary-background: lighten($background, 10);
 
 $button-border-width: 1px;
 $button-focus-shadow-width: 3px;
 $button-default-background: transparent;
-$button-secondary-background: lighten($background, 20);
 $button-disabled-background: transparent;
 
 @import 'uikit/src/scss/variables';
