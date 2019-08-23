@@ -2,6 +2,8 @@
 @import 'partials/fonts';
 @import 'partials/mixins';
 
+@import "partials/uikit-overrides/variables";
+
 html,
 body {
   height: 100%;
@@ -130,7 +132,7 @@ body {
   }
 }
 
-@media (min-width: 751px) {
+@media (min-width: $breakpoint-medium) {
   #menu {
     font-size: 20px;
   }
@@ -141,7 +143,7 @@ body {
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: $breakpoint-small-max) {
   #overlayContainer {
     bottom: 10px;
   }
@@ -164,7 +166,7 @@ body {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: $breakpoint-xsmall-max) {
   #overlayContainer {
     left: 0;
   }
