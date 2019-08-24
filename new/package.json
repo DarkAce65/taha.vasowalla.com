@@ -15,6 +15,15 @@
         "dev": "gulp --silent",
         "watch": "gulp watch --silent"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.js": "eslint --max-warnings=0",
+        "*.{js,scss}": "prettier --list-different"
+    },
     "devDependencies": {
         "@babel/core": "^7.5.5",
         "@babel/plugin-transform-strict-mode": "^7.2.0",
@@ -34,6 +43,8 @@
         "gulp-sass": "^4.0.2",
         "gulp-using": "^0.1.1",
         "html-webpack-plugin": "^4.0.0-beta.5",
+        "husky": "^3.0.4",
+        "lint-staged": "^9.2.3",
         "prettier": "^1.17.1",
         "pug": "^2.0.4",
         "pug-loader": "^2.4.0",
