@@ -11,9 +11,10 @@ $global-link-color: $global-emphasis-color;
 $base-link-hover-text-decoration: none;
 
 $global-background: $background;
-$global-muted-background: darken($background, 3);
+$global-muted-background: darken($background, 4);
 $global-primary-background: $red;
 $global-secondary-background: lighten($background, 10);
+$global-danger-background: $red;
 
 $button-border-width: 1px;
 $button-focus-shadow-width: 3px;
@@ -21,3 +22,10 @@ $button-default-background: transparent;
 $button-disabled-background: transparent;
 
 @import 'uikit/src/scss/variables';
+
+$form-border: darken($global-border, 50);
+$form-focus-border: $global-emphasis-color;
+$form-disabled-border: $form-border;
+$form-danger-border: $global-danger-background;
+$form-success-border: $global-success-background;
+$form-blank-focus-border: $form-border;

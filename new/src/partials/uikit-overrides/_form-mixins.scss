@@ -1,0 +1,32 @@
+@import 'variables';
+
+@mixin hook-form() {
+  border: $global-border-width solid $form-border;
+  transition: 0.2s ease-in-out;
+  transition-property: color, background-color, border;
+}
+
+@mixin hook-form-focus() {
+  border-color: $form-focus-border;
+}
+
+@mixin hook-form-disabled() {
+  border-color: $form-disabled-border;
+}
+
+@mixin hook-form-danger() {
+  border-color: $form-danger-border;
+}
+
+@mixin hook-form-success() {
+  border-color: $form-success-border;
+}
+
+@mixin hook-form-blank() {
+  border-color: transparent;
+}
+
+@mixin hook-form-blank-focus() {
+  border-color: transparent;
+  border-bottom-color: $form-blank-focus-border;
+}
