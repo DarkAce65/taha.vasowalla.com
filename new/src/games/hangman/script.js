@@ -1,170 +1,185 @@
-import MicroModal from 'micromodal';
-import { TimelineMax } from 'gsap/TweenMax';
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+import TimelineLite from 'gsap/TimelineLite';
 import { Sine } from 'gsap/EasePack';
 import DrawSVGPlugin from '../../../lib/DrawSVGPlugin';
 
-// eslint-disable-next-line no-unused-vars
-const plugins = [DrawSVGPlugin];
+const plugins = [DrawSVGPlugin]; // eslint-disable-line no-unused-vars
 
 let hangmanWord = '';
 let guessedLetters = [];
 let guessesLeft = 6;
+let showingError = false;
 let randomWords = null;
-const timeline = new TimelineMax();
-
-function submitWord(word) {
-  hangmanWord = word.toUpperCase(); // Convert word to uppercase
-  guessedLetters = []; // Clear guessed letters
-  guessesLeft = 6; // Set 6 guesses
-  document.querySelector('#guessesLeft').innerHTML = `${guessesLeft} guesses left`; // Reset DOM elements
-  document.querySelector('#wordInput').value = '';
-  document.querySelector('#wordDisplay').innerHTML = '';
-  document.querySelector('#guessedLetters').innerHTML = '';
-  document.querySelectorAll('.guess-xs').forEach(guessXs => {
-    guessXs.classList.remove('correct', 'incorrect');
-  });
-  for (let i = 0; i < word.length; i++) {
-    const span = document.createElement('span');
-    span.classList.add('letter');
-    span.innerHTML = '&emsp;';
-    document.querySelector('#wordDisplay').append(span);
-  }
-}
-
-function guess(letter) {
-  document.querySelector('#guess').value = '';
-  if (hangmanWord !== '' && guessedLetters.length === 0) {
-    // Reset on first guess
-    timeline.clear();
-    timeline.set(document.querySelectorAll('#man path, #eyes path'), { drawSVG: '0%' });
-  }
-  if (letter.match(/[^A-Za-z]/)) {
-    // Invalid guess
-    document.querySelector('#guess').focus();
-  } else if (guessedLetters.indexOf(letter) !== -1) {
-    // Letter already guessed
-    document.querySelector('#guess').focus();
-  } else if (guessedLetters.indexOf(letter) === -1) {
-    // Check if letter has not been guessed
-    guessedLetters.push(letter); // Add guessed letter to guessedLetters
-    let offset = 0;
-    let index = hangmanWord.indexOf(letter, offset); // Get index of guess in the word
-    if (index !== -1) {
-      // Guessed letter is in the word
-      document.querySelector(`.guess-xs[data-letter='${letter}']`).classList.add('correct');
-      while (index !== -1) {
-        // While guessed letter is still in word
-        let space = document.querySelectorAll('#wordDisplay .letter')[index]; // Get blank space where letter is
-        timeline.to(space, 0.2, { background: 'rgba(62, 200, 62, 0.6)' }, timeline.time()); // Green highlight
-        timeline.to(space, 0.8, { background: 'rgba(62, 200, 62, 0)' }, timeline.time() + 0.2);
-        space.innerHTML = letter; // Set content of blank to the letter
-        offset = index + 1;
-        index = hangmanWord.indexOf(letter, offset); // Get next occurence of letter
-      }
-      if (
-        document.querySelector('#wordDisplay').innerHTML.replace(/<[^<>]*>/g, '') === hangmanWord
-      ) {
-        // Word has been guessed
-        guessesLeft = -1;
-        console.log({
-          title: 'Hooray!',
-          text: 'You win!',
-          type: 'success',
-          confirmButtonClass: 'btn-success',
-          confirmButtonText: 'OK',
-        });
-      } else if (window.innerWidth > 767) {
-        document.querySelector('#guess').focus();
-      }
-    } else {
-      // Guessed letter is not in the word
-      guessesLeft--;
-      document.querySelector('#guessesLeft').innerHTML = `${guessesLeft} Guesses left`;
-      timeline.to(
-        document.querySelectorAll('#man path')[guessesLeft],
-        1,
-        { drawSVG: '100%', ease: Sine.easeIn },
-        timeline.time()
-      ); // Draw part of man
-      let incorrectGuess = document.createElement('span');
-      incorrectGuess.classList.add('letter');
-      incorrectGuess.innerHTML = letter;
-      document.querySelector('#guessedLetters').appendChild(incorrectGuess); // Append incorrect guess to the guessed letters section
-      timeline.to(incorrectGuess, 0.2, { background: 'rgba(200, 62, 62, 0.6)' }, timeline.time()); // Red highlight
-      timeline.to(
-        incorrectGuess,
-        0.8,
-        { background: 'rgba(200, 62, 62, 0)' },
-        timeline.time() + 0.2
-      );
-      document.querySelector(`.guess-xs[data-letter='${letter}']`).classList.add('incorrect');
-      if (guessesLeft === 0) {
-        // Out of guesses
-        let guessedWord = document.querySelector('#wordDisplay').innerHTML.replace(/<[^<>]*>/g, '');
-        timeline.staggerFromTo(
-          document.querySelectorAll('#eyes path'),
-          0.25,
-          { drawSVG: '0%' },
-          { drawSVG: '100%' },
-          0.25
-        ); // X-ed out eyes
-        for (let i = 0; i < hangmanWord.length; i++) {
-          // Get blank spaces
-          if (/\s/.test(guessedWord.charAt(i))) {
-            let blankSpace = document.querySelectorAll('#wordDisplay .letter')[i];
-            blankSpace.innerHTML = hangmanWord.charAt(i); // Set blank to correct letter
-            timeline.to(
-              blankSpace,
-              0.2,
-              { background: 'rgba(200, 62, 62, 0.6)', color: 'red', 'border-color': 'red' },
-              timeline.time()
-            ); // Red highlight
-            timeline.to(
-              blankSpace,
-              0.8,
-              { background: 'rgba(200, 62, 62, 0)' },
-              timeline.time() + 0.2
-            );
-          }
-        }
-      } else {
-        document.querySelector('#guess').focus();
-      }
-    }
-  }
-}
+const timeline = new TimelineLite();
 
 document.addEventListener('DOMContentLoaded', () => {
+  UIkit.use(Icons);
+
+  const guessInput = document.querySelector('#guessInput');
+  const wordInput = document.querySelector('#wordInput');
+  const guessesLeftEl = document.querySelector('#guessesLeft');
+  const wordDisplayEl = document.querySelector('#wordDisplay');
+  const guessedLettersEl = document.querySelector('#guessedLetters');
+  const setWordButton = document.querySelector('#setWord');
+  const randomWordButton = document.querySelector('#randomWord');
+  const submitGuessButton = document.querySelector('#submitGuess');
+  const errorToggle = UIkit.toggle('#setWordModal #error', {
+    animation: 'uk-animation-slide-top-small',
+  });
+
+  const setWord = word => {
+    hangmanWord = word.toUpperCase(); // Convert word to uppercase
+    guessedLetters = []; // Clear guessed letters
+    guessesLeft = 6; // Set 6 guesses
+
+    // Reset DOM elements
+    guessInput.disabled = false;
+    guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
+    wordInput.value = '';
+    wordInput.classList.remove('uk-form-danger');
+    if (showingError) {
+      errorToggle.toggle();
+      showingError = false;
+    }
+    wordDisplayEl.innerHTML = '';
+    guessedLettersEl.innerHTML = '';
+    document.querySelectorAll('.letter-tile').forEach(guessXs => {
+      guessXs.classList.remove('correct', 'incorrect');
+    });
+    for (let i = 0; i < word.length; i++) {
+      const span = document.createElement('span');
+      span.classList.add('letter');
+      span.innerHTML = '&emsp;';
+      wordDisplayEl.appendChild(span);
+    }
+
+    timeline.clear().to(document.querySelectorAll('#man path, #eyes path'), 0.3, { drawSVG: '0%' });
+  };
+
+  const guess = letter => {
+    guessInput.value = '';
+    if (letter.match(/[^A-Za-z]/)) {
+      // Invalid guess
+      guessInput.focus();
+    } else if (guessedLetters.indexOf(letter) !== -1) {
+      // Letter already guessed
+      guessInput.focus();
+    } else if (guessedLetters.indexOf(letter) === -1) {
+      // Check if letter has not been guessed
+      guessedLetters.push(letter); // Add guessed letter to guessedLetters
+      let offset = 0;
+      let index = hangmanWord.indexOf(letter, offset); // Get index of guess in the word
+      if (index !== -1) {
+        // Guessed letter is in the word
+        document.querySelector(`.letter-tile[data-letter='${letter}']`).classList.add('correct');
+        while (index !== -1) {
+          // While guessed letter is still in word
+          let space = document.querySelectorAll('#wordDisplay .letter')[index]; // Get blank space where letter is
+          space.innerHTML = letter; // Set content of blank to the letter
+          space.classList.add('correct');
+          offset = index + 1;
+          index = hangmanWord.indexOf(letter, offset); // Get next occurence of letter
+        }
+        if (wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '') === hangmanWord) {
+          // Word has been guessed
+          guessesLeft = -1;
+          console.log({
+            title: 'Hooray!',
+            text: 'You win!',
+            type: 'success',
+            confirmButtonClass: 'btn-success',
+            confirmButtonText: 'OK',
+          });
+        } else if (window.innerWidth > 767) {
+          guessInput.focus();
+        }
+      } else {
+        // Guessed letter is not in the word
+        guessesLeft--;
+        guessesLeftEl.innerHTML = `${guessesLeft} Guesses left`;
+        timeline.to(
+          document.querySelectorAll('#man path')[guessesLeft],
+          1,
+          { drawSVG: '100%', ease: Sine.easeIn },
+          timeline.time()
+        ); // Draw part of man
+        let incorrectGuess = document.createElement('span');
+        incorrectGuess.classList.add('letter', 'incorrect');
+        incorrectGuess.innerHTML = letter;
+        guessedLettersEl.appendChild(incorrectGuess); // Append incorrect guess to the guessed letters section
+        document.querySelector(`.letter-tile[data-letter='${letter}']`).classList.add('incorrect');
+        if (guessesLeft === 0) {
+          // Out of guesses
+          let guessedWord = wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '');
+          timeline.staggerFromTo(
+            document.querySelectorAll('#eyes path'),
+            0.25,
+            { drawSVG: '0%' },
+            { drawSVG: '100%' },
+            0.25
+          ); // X-ed out eyes
+          for (let i = 0; i < hangmanWord.length; i++) {
+            // Get blank spaces
+            if (/\s/.test(guessedWord.charAt(i))) {
+              let blankSpace = document.querySelectorAll('#wordDisplay .letter')[i];
+              blankSpace.innerHTML = hangmanWord.charAt(i); // Set blank to correct letter
+              blankSpace.classList.add('incorrect');
+            }
+          }
+        } else {
+          guessInput.focus();
+        }
+      }
+    }
+  };
+
   import(/* webpackChunkName: "wordlist" */ './wordlist.txt').then(({ default: words }) => {
     randomWords = words.split('\n');
   });
 
-  MicroModal.init({ awaitCloseAnimation: true });
-
   timeline.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
 
   document.addEventListener('keypress', function(e) {
+    // Shift + R sets random word
     if (e.which === 82 && e.shiftKey) {
-      // Shift + R sets random word
-      document.querySelector('#randomWord').click();
-      document.querySelector('#guess').focus();
+      randomWordButton.click();
+      guessInput.focus();
       e.preventDefault();
     }
   });
 
-  document.querySelector('#wordInput').addEventListener('keypress', function(e) {
+  wordInput.addEventListener('keypress', function(e) {
     if (e.which === 13) {
       // Enter key triggers submit button
-      document.querySelector('#submitWord').click();
+      setWordButton.click();
     }
     e.stopPropagation();
   });
 
-  document.querySelector('#guess').addEventListener('keypress', function(e) {
+  wordInput.addEventListener('input', function() {
+    const word = wordInput.value.trim();
+
+    if (/[^A-Za-z]/.test(word)) {
+      wordInput.classList.add('uk-form-danger');
+      if (!showingError) {
+        errorToggle.toggle();
+        showingError = true;
+      }
+    } else {
+      wordInput.classList.remove('uk-form-danger');
+      if (showingError) {
+        errorToggle.toggle();
+        showingError = false;
+      }
+    }
+  });
+
+  guessInput.addEventListener('keypress', function(e) {
     if (e.which === 82 && e.shiftKey) {
       // Shift + R sets random word
       e.preventDefault();
-      document.querySelector('#randomWord').click();
+      randomWordButton.click();
     }
     if (e.which === 13) {
       // Enter key triggers submit button
@@ -173,52 +188,32 @@ document.addEventListener('DOMContentLoaded', () => {
     e.stopPropagation();
   });
 
-  document.querySelector('#randomWord').addEventListener('click', function() {
-    // Random word button press
-    submitWord(randomWords[Math.floor(Math.random() * randomWords.length)].trim()); // Submit random word
-    timeline.clear();
-    timeline.to(document.querySelectorAll('#man path, #eyes path'), 0.2, { drawSVG: '0%' }); // Clear the gallows
-  });
-
-  document.querySelector('#wordDialog').addEventListener('shown.bs.modal', function() {
-    document.querySelector('#wordInput').focus();
-  });
-
-  document.querySelector('#submitWord').addEventListener('click', function() {
-    // Submit button press
-    var word = document.querySelector('#wordInput').value;
-    if (word !== '' && !/[^A-Za-z]/.test(word)) {
-      // Check if the word exists and contains valid characters
-      document.querySelector('#wordDialog').modal('hide'); // Close modal
-      submitWord(word); // Submit the word
-
-      const listener = function() {
-        // When the modal is closed, clear the gallows
-        timeline.clear();
-        timeline.to(document.querySelector('#man path, #eyes path'), 0.2, { drawSVG: '0%' });
-        document.querySelector('#guess').focus();
-
-        document.querySelector('#wordDialog').removeEventListener('hidden.bs.modal', listener);
-      };
-      document.querySelector('#wordDialog').addEventListener('hidden.bs.modal', listener);
-    } else if (word === '') {
-      document.querySelector('#wordDialog').modal('hide'); // Close modal
-    } else {
-      document.querySelector('#error').show(500); // Show the error message
+  setWordButton.addEventListener('click', () => {
+    const word = wordInput.value.trim();
+    if (showingError || word.length === 0) {
+      return;
     }
+
+    UIkit.modal('#setWordModal').hide();
+    setWord(word);
   });
 
-  document.querySelector('#submitGuess').addEventListener('click', function() {
-    var guessedLetter = document.querySelector('#guess').value.trim();
+  randomWordButton.addEventListener('click', () => {
+    // Random word button press
+    setWord(randomWords[Math.floor(Math.random() * randomWords.length)]); // Submit random word
+  });
+
+  submitGuessButton.addEventListener('click', function() {
+    var guessedLetter = guessInput.value.trim();
     if (hangmanWord !== '' && guessedLetter !== '' && guessesLeft > 0) {
       // Check if a word is set, guess is not whitespace, and there are guesses left
       guess(guessedLetter.toUpperCase()); // Submit guess
     }
   });
 
-  document.querySelectorAll('.guess-xs').forEach(guessXs => {
-    guessXs.addEventListener('click', function() {
-      const classList = guessXs.classList;
+  document.querySelectorAll('.letter-tile').forEach(letterTile => {
+    letterTile.addEventListener('click', () => {
+      const classList = letterTile.classList;
       if (
         !classList.contains('correct') &&
         !classList.contains('incorrect') &&
@@ -226,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         guessesLeft > 0
       ) {
         // Check if letter has not been guessed, a word is set, and there are guesses left
-        guess(guessXs.dataset.letter); // Submit guess
+        guess(letterTile.dataset.letter); // Submit guess
       }
     });
   });

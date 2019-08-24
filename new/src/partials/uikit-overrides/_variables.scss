@@ -1,6 +1,8 @@
 @import '../colors';
 @import '../fonts';
 
+$animation-duration: 0.3s;
+
 $global-font-family: $base-font-stack;
 $base-heading-font-family: $header-font-stack;
 $global-muted-color: $dim-text-color;
@@ -20,6 +22,9 @@ $button-border-width: 1px;
 $button-focus-shadow-width: 3px;
 $button-default-background: transparent;
 $button-disabled-background: transparent;
+
+$modal-header-background: $global-background;
+$modal-footer-background: $global-background;
 
 @import 'uikit/src/scss/variables';
 

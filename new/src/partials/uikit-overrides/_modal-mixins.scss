@@ -1,5 +1,9 @@
 @import 'variables';
 
+@mixin hook-modal-footer() {
+  border-top: $global-border-width solid $global-secondary-background;
+}
+
 @mixin hook-modal-misc() {
   .uk-modal-dialog {
     transform: scale(1.2);
