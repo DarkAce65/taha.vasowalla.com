@@ -13,12 +13,6 @@
   }
 }
 
-@keyframes incorrect {
-  20% {
-    background: rgba($global-danger-background, 0.6);
-  }
-}
-
 .letter {
   display: inline-block;
   font-size: 1.5rem;
@@ -35,6 +29,11 @@
   &.incorrect {
     animation: incorrect 1s;
   }
+}
+
+#wordDisplay.lost .letter.incorrect {
+  color: $global-danger-background;
+  border-bottom-color: $global-danger-background;
 }
 
 #guessInput {

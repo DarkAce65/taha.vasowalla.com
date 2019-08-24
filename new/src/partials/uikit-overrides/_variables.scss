@@ -26,6 +26,8 @@ $button-disabled-background: transparent;
 $modal-header-background: $global-background;
 $modal-footer-background: $global-background;
 
+$notification-message-background: $global-secondary-background;
+
 @import 'uikit/src/scss/variables';
 
 $form-border: darken($global-border, 50);

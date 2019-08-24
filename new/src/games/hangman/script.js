@@ -1,5 +1,6 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+import TweenLite from 'gsap/TweenLite';
 import TimelineLite from 'gsap/TimelineLite';
 import { Sine } from 'gsap/EasePack';
 import DrawSVGPlugin from '../../../lib/DrawSVGPlugin';
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showingError = false;
     }
     wordDisplayEl.innerHTML = '';
+    wordDisplayEl.classList.remove('lost');
     guessedLettersEl.innerHTML = '';
     document.querySelectorAll('.letter-tile').forEach(guessXs => {
       guessXs.classList.remove('correct', 'incorrect');
@@ -84,20 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '') === hangmanWord) {
           // Word has been guessed
           guessesLeft = -1;
-          console.log({
-            title: 'Hooray!',
-            text: 'You win!',
-            type: 'success',
-            confirmButtonClass: 'btn-success',
-            confirmButtonText: 'OK',
-          });
-        } else if (window.innerWidth > 767) {
+          UIkit.notification('You win!');
+        } else {
           guessInput.focus();
         }
       } else {
         // Guessed letter is not in the word
         guessesLeft--;
-        guessesLeftEl.innerHTML = `${guessesLeft} Guesses left`;
+        guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
         timeline.to(
           document.querySelectorAll('#man path')[guessesLeft],
           1,
@@ -127,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
               blankSpace.classList.add('incorrect');
             }
           }
+          wordDisplayEl.classList.add('lost');
         } else {
           guessInput.focus();
         }
@@ -138,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     randomWords = words.split('\n');
   });
 
-  timeline.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
+  TweenLite.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
 
   document.addEventListener('keypress', function(e) {
     // Shift + R sets random word
