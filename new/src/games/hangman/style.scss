@@ -1,70 +1,65 @@
+@import '../../partials/colors';
+@import '../../partials/uikit-overrides/variables';
+
+@keyframes correct {
+  20% {
+    background: rgba($global-success-background, 0.6);
+  }
+}
+
+@keyframes incorrect {
+  20% {
+    background: rgba($global-danger-background, 0.6);
+  }
+}
+
+@keyframes incorrect {
+  20% {
+    background: rgba($global-danger-background, 0.6);
+  }
+}
+
 .letter {
   display: inline-block;
-  font-size: 24px;
-  min-width: 1.28571429em;
-  margin: 0 10px;
+  font-size: 1.5rem;
+  min-width: 1.25em;
+  margin: 4px 8px 8px !important;
   border-bottom: 2px solid white;
   text-transform: uppercase;
   text-align: center;
-}
-
-.guess-xs {
-  display: inline-block;
-  font-size: 22px;
-  min-width: 1.1em;
-  margin: 2px;
-  background-color: rgba(white, 0.1);
-  border-radius: 2px;
-  text-transform: uppercase;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.2s linear;
 
   &.correct {
-    background-color: rgba(0, 200, 0, 0.25);
+    animation: correct 1s;
   }
 
   &.incorrect {
-    background-color: rgba(200, 0, 0, 0.25);
+    animation: incorrect 1s;
   }
 }
 
-#guessedLetters {
-  margin-bottom: 5px;
-  background-color: rgba(white, 0.1);
-  padding: 5px 15px;
-  border-radius: 5px;
-}
-
-#wordDisplay {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#guessContainer {
-  margin: 0 auto 5px;
-
-  .input-group-btn {
-    width: 50%;
-  }
-}
-
-#guess {
-  height: 40px;
-  width: 40px;
-  padding: 1px 0;
-  font-size: 20px;
+#guessInput {
+  width: 2 * $form-icon-width;
   text-align: center;
   text-transform: uppercase;
-
-  &:focus {
-    background-color: #ffc;
-  }
 }
 
-#submitGuess {
-  height: 40px;
-  width: 40px;
+.letter-tile {
+  display: inline-block;
+  font-size: 1.5rem;
+  width: 1.1em;
+  margin: 4px;
+  background: $global-secondary-background;
+  transition: 0.3s;
+
+  &.correct {
+    color: $text-emphasis-color;
+    background: $global-success-background;
+  }
+
+  &.incorrect {
+    color: $text-emphasis-color;
+    background: $global-danger-background;
+  }
 }
 
 svg path {
@@ -73,30 +68,10 @@ svg path {
   stroke-width: 2;
 }
 
-.tooltip-arrow {
-  border-right-color: #de4f4f !important;
-}
-
-.tooltip-inner {
-  background-color: #de4f4f !important;
-}
-
-@media screen and (max-width: 767px) {
+@media screen and (max-width: $breakpoint-xsmall-max) {
   .letter {
-    font-size: 20px;
+    font-size: 1.25rem;
     margin: 0 5px;
-  }
-
-  #guess {
-    height: 35px;
-    width: 35px;
-    font-size: 15px;
-  }
-
-  #submitGuess {
-    height: 35px;
-    width: 35px;
-    padding: 6px 8px;
   }
 
   svg {
