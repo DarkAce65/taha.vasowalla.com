@@ -42,7 +42,7 @@ html
       .uk-text-center.uk-hidden-touch
         .uk-inline
           button#submitGuess.uk-form-icon.uk-form-icon-flip(uk-icon="icon: chevron-right")
-          input#guessInput.uk-input.uk-form-large(maxlength="1" placeholder="_" disabled)
+          input#guessInput.uk-input.uk-form-large(maxlength="1")
       .uk-text-center.uk-hidden-notouch
         each letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
           .letter-tile(data-letter=letter)= letter

@@ -30,3 +30,21 @@
   border-color: transparent;
   border-bottom-color: $form-blank-focus-border;
 }
+
+@mixin hook-form-misc() {
+  .uk-input:disabled::-ms-input-placeholder {
+    color: $form-disabled-placeholder-color !important;
+  }
+
+  .uk-input:disabled::placeholder {
+    color: $form-disabled-placeholder-color;
+  }
+
+  .uk-textarea:disabled::-ms-input-placeholder {
+    color: $form-disabled-placeholder-color !important;
+  }
+
+  .uk-textarea:disabled::placeholder {
+    color: $form-disabled-placeholder-color;
+  }
+}

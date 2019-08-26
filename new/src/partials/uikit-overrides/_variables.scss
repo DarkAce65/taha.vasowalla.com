@@ -28,11 +28,13 @@ $modal-footer-background: $global-background;
 
 $notification-message-background: $global-secondary-background;
 
-@import 'uikit/src/scss/variables';
-
+$form-disabled-placeholder-color: darken($global-muted-color, 10);
 $form-border: darken($global-border, 50);
 $form-focus-border: $global-emphasis-color;
-$form-disabled-border: $form-border;
+$form-disabled-border: transparent;
+$form-blank-focus-border: $form-border;
+
+@import 'uikit/src/scss/variables';
+
 $form-danger-border: $global-danger-background;
 $form-success-border: $global-success-background;
-$form-blank-focus-border: $form-border;

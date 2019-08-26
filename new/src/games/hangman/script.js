@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     guessesLeft = 6; // Set 6 guesses
 
     // Reset DOM elements
-    guessInput.disabled = false;
     guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
     wordInput.value = '';
     wordInput.classList.remove('uk-form-danger');
