@@ -140,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Shift + R sets random word
     if (e.which === 82 && e.shiftKey) {
       randomWordButton.click();
-      guessInput.focus();
       e.preventDefault();
     }
   });
@@ -172,31 +171,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   guessInput.addEventListener('keypress', function(e) {
-    if (e.which === 82 && e.shiftKey) {
-      // Shift + R sets random word
-      e.preventDefault();
-      randomWordButton.click();
-    }
     if (e.which === 13) {
       // Enter key triggers submit button
       document.querySelector('#submitGuess').click();
     }
-    e.stopPropagation();
   });
 
-  setWordButton.addEventListener('click', () => {
+  setWordButton.addEventListener('click', async () => {
     const word = wordInput.value.trim();
     if (showingError || word.length === 0) {
       return;
     }
 
-    UIkit.modal('#setWordModal').hide();
     setWord(word);
+    await UIkit.modal('#setWordModal').hide();
+    guessInput.focus();
   });
 
   randomWordButton.addEventListener('click', () => {
     // Random word button press
     setWord(randomWords[Math.floor(Math.random() * randomWords.length)]); // Submit random word
+    guessInput.focus();
   });
 
   submitGuessButton.addEventListener('click', function() {
