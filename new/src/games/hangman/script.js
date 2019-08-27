@@ -136,23 +136,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   TweenLite.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
 
-  document.addEventListener('keypress', function(e) {
+  document.addEventListener('keypress', evt => {
+    const key = evt.key || evt.keyCode;
     // Shift + R sets random word
-    if (e.which === 82 && e.shiftKey) {
+    if (key === 'R' || (key === 82 && evt.shiftKey)) {
       randomWordButton.click();
-      e.preventDefault();
+      evt.preventDefault();
     }
   });
 
-  wordInput.addEventListener('keypress', function(e) {
-    if (e.which === 13) {
+  wordInput.addEventListener('keypress', evt => {
+    const key = evt.key || evt.keyCode;
+    if (key === 'Enter' || key === 13) {
       // Enter key triggers submit button
       setWordButton.click();
     }
-    e.stopPropagation();
+    evt.stopPropagation();
   });
 
-  wordInput.addEventListener('input', function() {
+  wordInput.addEventListener('input', () => {
     const word = wordInput.value.trim();
 
     if (/[^A-Za-z]/.test(word)) {
@@ -170,8 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  guessInput.addEventListener('keypress', function(e) {
-    if (e.which === 13) {
+  guessInput.addEventListener('keypress', evt => {
+    const key = evt.key || evt.keyCode;
+    if (key === 'Enter' || key === 13) {
       // Enter key triggers submit button
       document.querySelector('#submitGuess').click();
     }
@@ -194,8 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
     guessInput.focus();
   });
 
-  submitGuessButton.addEventListener('click', function() {
-    var guessedLetter = guessInput.value.trim();
+  submitGuessButton.addEventListener('click', () => {
+    const guessedLetter = guessInput.value.trim();
     if (hangmanWord !== '' && guessedLetter !== '' && guessesLeft > 0) {
       // Check if a word is set, guess is not whitespace, and there are guesses left
       guess(guessedLetter.toUpperCase()); // Submit guess
