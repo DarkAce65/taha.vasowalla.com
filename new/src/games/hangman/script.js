@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const wordInput = document.querySelector('#wordInput');
   const guessesLeftEl = document.querySelector('#guessesLeft');
   const wordDisplayEl = document.querySelector('#wordDisplay');
+  const guessedLettersContainerEl = document.querySelector('#guessedLettersContainer');
   const guessedLettersEl = document.querySelector('#guessedLetters');
   const setWordButton = document.querySelector('#setWord');
   const randomWordButton = document.querySelector('#randomWord');
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     guessesLeft = 6; // Set 6 guesses
 
     // Reset DOM elements
+    guessedLettersContainerEl.classList.add('uk-hidden');
     guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
     wordInput.value = '';
     wordInput.classList.remove('uk-form-danger');
@@ -68,11 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
       guessInput.focus();
     } else if (guessedLetters.indexOf(letter) === -1) {
       // Check if letter has not been guessed
+      guessedLettersContainerEl.classList.remove('uk-hidden');
       guessedLetters.push(letter); // Add guessed letter to guessedLetters
+      const guessedLetterEl = document.createElement('span');
+      guessedLetterEl.classList.add('letter');
+      guessedLetterEl.innerHTML = letter;
       let offset = 0;
       let index = hangmanWord.indexOf(letter, offset); // Get index of guess in the word
       if (index !== -1) {
         // Guessed letter is in the word
+        guessedLetterEl.classList.add('correct');
         document.querySelector(`.letter-tile[data-letter='${letter}']`).classList.add('correct');
         while (index !== -1) {
           // While guessed letter is still in word
@@ -91,18 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } else {
         // Guessed letter is not in the word
+        guessedLetterEl.classList.add('incorrect');
         guessesLeft--;
-        guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
+        guessesLeftEl.innerHTML =
+          guessesLeft === 1 ? `${guessesLeft} guess left` : `${guessesLeft} guesses left`;
         timeline.to(
           document.querySelectorAll('#man path')[guessesLeft],
           1,
           { drawSVG: '100%', ease: Sine.easeIn },
           timeline.time()
         ); // Draw part of man
-        let incorrectGuess = document.createElement('span');
+        const incorrectGuess = document.createElement('span');
         incorrectGuess.classList.add('letter', 'incorrect');
         incorrectGuess.innerHTML = letter;
-        guessedLettersEl.appendChild(incorrectGuess); // Append incorrect guess to the guessed letters section
         document.querySelector(`.letter-tile[data-letter='${letter}']`).classList.add('incorrect');
         if (guessesLeft === 0) {
           // Out of guesses
@@ -127,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
           guessInput.focus();
         }
       }
+
+      guessedLettersEl.appendChild(guessedLetterEl); // Append incorrect guess to the guessed letters section
     }
   };
 
