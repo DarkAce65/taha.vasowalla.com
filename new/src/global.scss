@@ -3,42 +3,6 @@
 
 @import 'partials/uikit-overrides/variables';
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-size: $base-font-size;
-}
-
-a,
-.uk-link,
-.uk-button-link {
-  border-bottom: 1px solid transparent;
-  transition: 0.3s;
-}
-
-a,
-.uk-link,
-.uk-button-link {
-  &:hover,
-  &:focus,
-  &:active {
-    outline: none;
-    color: $red;
-    border-bottom-color: $red;
-    text-decoration: none;
-    transition: 0s;
-  }
-}
-
 .construction {
   z-index: 99999999;
   position: absolute;
