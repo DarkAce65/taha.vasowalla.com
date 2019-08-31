@@ -18,7 +18,7 @@
 
   .uk-link,
   .uk-button-link {
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid;
     transition: 0.3s;
   }
 
@@ -29,7 +29,6 @@
     &:active {
       outline: none;
       color: $red;
-      border-bottom-color: $red;
       text-decoration: none;
       transition: 0s;
     }
