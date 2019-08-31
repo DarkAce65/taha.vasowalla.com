@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 
 const using = require('gulp-using');
+const gulpif = require('gulp-if');
 const { handleSassImports, endStream, flattenObject } = require('./gulp/utils');
 
 const del = require('del');
@@ -63,7 +64,7 @@ const compileScriptsAndHTML = () =>
     .src(Object.values(webpackConfig.entry).concat(pugSources), {
       since: gulp.lastRun(compileScriptsAndHTML),
     })
-    .pipe(using({ prefix: 'Compiling', filesize: true }))
+    .pipe(using({ prefix: 'Compiling' }))
     .pipe(webpack(webpackConfig).on('error', endStream))
     .pipe(gulp.dest('dist'))
     .pipe(using({ prefix: 'Writing', filesize: true }));
@@ -72,17 +73,19 @@ compileScriptsAndHTML.displayName = 'compile';
 const lintAndCompileScriptsAndHTML = gulp.series(lintScripts, compileScriptsAndHTML);
 lintAndCompileScriptsAndHTML.displayName = 'scripts_html';
 
-const compileStyles = () =>
-  gulp
-    .src(styleSources, {
-      sourcemaps: true,
-      since: gulp.lastRun(compileStyles),
-    })
-    .pipe(handleSassImports({ firstRun: !gulp.lastRun(compileStyles) }))
+const compileStyles = () => {
+  const since = gulp.lastRun(compileStyles);
+  const firstRun = !since;
+
+  return gulp
+    .src(styleSources, { sourcemaps: true, since })
+    .pipe(gulpif(!firstRun && /_[^/]*$/, using({ prefix: 'Compiling dependents of' })))
+    .pipe(handleSassImports({ firstRun }))
     .pipe(sass.sync(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
     .pipe(using({ prefix: 'Writing', filesize: true }));
+};
 compileStyles.displayName = 'styles';
 
 const watchScriptsAndHTML = () =>

@@ -9,7 +9,7 @@
         "tests"
     ],
     "scripts": {
-        "prettier:write": "prettier --write \"gulpfile.js\" \"webpack.config.js\" \"src/**/*.{js,scss}\"",
+        "prettier:write": "prettier --write \"gulpfile.js\" \"webpack.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "build": "NODE_ENV=production gulp --silent",
         "dev": "gulp --silent",
@@ -40,6 +40,7 @@
         "gulp": "^4.0.2",
         "gulp-autoprefixer": "^7.0.0",
         "gulp-eslint": "^6.0.0",
+        "gulp-if": "^3.0.0",
         "gulp-sass": "^4.0.2",
         "gulp-using": "^0.1.1",
         "html-webpack-plugin": "^4.0.0-beta.5",

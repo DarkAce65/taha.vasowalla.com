@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const Vinyl = require('vinyl');
 
+const Vinyl = require('vinyl');
 const through2 = require('through2');
 const sassGraph = require('sass-graph');
 
@@ -9,7 +9,7 @@ const handleSassImports = ({ firstRun } = {}) =>
   through2.obj(function(file, _, callback) {
     // Skip dependency traversal for first run
     if (firstRun) {
-      if (/^_.*$/.test(file.basename)) {
+      if (/^_/.test(file.basename)) {
         callback(); // Skip partials
       } else {
         callback(null, file);
@@ -21,28 +21,30 @@ const handleSassImports = ({ firstRun } = {}) =>
     const graph = sassGraph.parseDir('src');
 
     const workingPaths = [file.path];
+    const processedPaths = new Set();
     const paths = [];
     while (workingPaths.length > 0) {
       const activePath = workingPaths.shift();
-      if (paths.indexOf(activePath) !== -1) {
+      if (processedPaths.has(activePath)) {
         continue;
       }
 
       const imports = graph.index[activePath].importedBy;
-      paths.push(activePath);
-      workingPaths.push(
-        ...imports.filter(p => paths.indexOf(p) === -1 && workingPaths.indexOf(p) === -1)
-      );
+
+      if (!/^_/.test(path.basename(activePath))) {
+        paths.push(activePath);
+      }
+
+      workingPaths.push(...imports.filter(p => !processedPaths.has(p)));
+      processedPaths.add(activePath);
     }
 
-    paths
-      .filter(p => !/^_.*$/.test(path.basename(p)))
-      .forEach(p => {
-        const stat = fs.statSync(p);
-        const contents = fs.readFileSync(p);
+    paths.forEach(p => {
+      const stat = fs.statSync(p);
+      const contents = fs.readFileSync(p);
 
-        this.push(new Vinyl({ cwd, base, path: p, stat, contents }));
-      });
+      this.push(new Vinyl({ cwd, base, path: p, stat, contents }));
+    });
 
     callback();
   });
