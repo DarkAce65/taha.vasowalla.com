@@ -38,3 +38,9 @@ $form-border: darken($global-border, 50);
 $form-blank-focus-border: $form-border;
 $form-danger-border: $global-danger-background;
 $form-success-border: $global-success-background;
+
+$tab-item-font-size: $global-small-font-size;
+$tab-border-width: $global-border-width;
+$tab-item-active-border-width: $tab-border-width + 1;
+$tab-border: $global-border;
+$tab-item-active-border: $red;

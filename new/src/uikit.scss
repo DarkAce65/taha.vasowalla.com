@@ -5,6 +5,7 @@
 @import 'partials/uikit-overrides/button-mixins';
 @import 'partials/uikit-overrides/form-mixins';
 @import 'partials/uikit-overrides/modal-mixins';
+@import 'partials/uikit-overrides/tab-mixins';
 
 // Base
 @import 'uikit/src/scss/components/variables';
@@ -36,10 +37,12 @@
 @import 'uikit/src/scss/components/alert'; // After: Close
 
 // Navs
+@import 'uikit/src/scss/components/nav';
 @import 'uikit/src/scss/components/tab';
 
 // JavaScript
 @import 'uikit/src/scss/components/accordion';
+@import 'uikit/src/scss/components/dropdown'; // After: Card
 @import 'uikit/src/scss/components/modal'; // After: Close
 @import 'uikit/src/scss/components/switcher';
 

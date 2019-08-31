@@ -1,0 +1,76 @@
+@import 'variables';
+
+@mixin hook-tab() {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: $tab-margin-horizontal;
+    right: 0;
+    border-bottom: $tab-border-width solid $tab-border;
+  }
+}
+
+@mixin hook-tab-item() {
+  font-size: $tab-item-font-size;
+  text-transform: uppercase;
+  border-bottom: $tab-border-width solid transparent;
+  transition: color 0.1s ease-in-out;
+}
+
+@mixin hook-tab-item-active() {
+  border-width: $tab-item-active-border-width;
+  border-color: $tab-item-active-border;
+}
+
+@mixin hook-tab-bottom() {
+  &::before {
+    top: 0;
+    bottom: auto;
+  }
+}
+
+@mixin hook-tab-bottom-item() {
+  border-bottom: none;
+  border-top: $tab-border-width solid transparent;
+}
+
+@mixin hook-tab-left() {
+  &::before {
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    border-bottom: none;
+    border-left: $tab-border-width solid $tab-border;
+  }
+}
+
+@mixin hook-tab-right() {
+  &::before {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    border-bottom: none;
+    border-left: $tab-border-width solid $tab-border;
+  }
+}
+
+@mixin hook-tab-left-item() {
+  border-bottom: none;
+  border-right: $tab-border-width solid transparent;
+}
+
+@mixin hook-tab-right-item() {
+  border-bottom: none;
+  border-left: $tab-border-width solid transparent;
+}
+
+@mixin hook-tab-misc() {
+  .uk-tab .uk-dropdown {
+    margin-left: $tab-margin-horizontal + $tab-item-padding-horizontal;
+  }
+}
