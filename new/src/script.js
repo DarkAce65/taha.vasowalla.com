@@ -10,12 +10,11 @@ import {
   PerspectiveCamera,
   PointLight,
   Scene,
-  TextureLoader,
   Vector3,
   WebGLRenderer,
 } from 'three';
-import { GPUParticleSystem } from 'three/examples/jsm/objects/GPUParticleSystem';
 import SimplexNoise from 'simplex-noise';
+import { ParticleEmitter } from './lib/ParticleEmitter';
 
 const requestAnimFrame =
   window.requestAnimationFrame ||
@@ -38,13 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#rendererContainer').appendChild(renderer.domElement);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
-  const textureLoader = new TextureLoader();
-  const particleSystem = new GPUParticleSystem({
-    maxParticles: 2000,
-    particleNoiseTex: textureLoader.load('assets/textures/pixel.png'),
-    particleSpriteTex: textureLoader.load('assets/textures/particle.png'),
-  });
-  scene.add(particleSystem);
 
   const camera = new PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
   setCamera();
@@ -89,6 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
     side: DoubleSide,
     flatShading: true,
   });
+  const emitter = new ParticleEmitter({ color: 0xf85a3e });
+  scene.add(emitter);
 
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites = [];
@@ -123,44 +117,32 @@ document.addEventListener('DOMContentLoaded', function() {
     );
     satellite.position.set(c, s, h);
     satellite.scale.setScalar(satelliteScale);
-
     satellite.orbitSpeed = 0.08 / radius;
+
     if (i === 50) {
       satellite.orbitSpeed *= 3;
       satellite.add(new PointLight(0xf85a3e, 1, positionR, 2));
+      emitter.uniforms.size.value = 12 * (window.devicePixelRatio || 1);
     }
+
     scene.add(satellite);
     satellites.push(satellite);
   }
 
-  let tick = 0;
-  let spawnRate = Math.min(window.innerWidth, window.innerHeight) < 500 ? 75 : 500;
-  const options = {
-    position: new Vector3(),
-    positionRandomness: 1,
-    velocityRandomness: 0.4,
-    color: 0xf85a3e,
-    colorRandomness: 0.2,
-    lifetime: 5,
-    turbulence: 0,
-  };
-
+  let elapsedTime = 0;
   function render() {
     requestAnimFrame(render);
     renderer.render(scene, camera);
 
     const delta = clock.getDelta();
-    tick += delta;
+    elapsedTime += delta;
     planet.rotation.z += delta / 25;
     for (let i = 0; i < satellites.length; i++) {
       satellites[i].position.applyAxisAngle(new Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
     }
 
-    options.position = satellites[50].position;
-    for (let i = 0; i < spawnRate * delta; i++) {
-      particleSystem.spawnParticle(options);
-    }
-    particleSystem.update(tick);
+    emitter.emit(satellites[50].position);
+    emitter.update(elapsedTime);
   }
 
   function displaceSatelliteGeometry(satelliteGeometry) {
@@ -173,9 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function setCamera() {
     const ratio = window.innerWidth / window.innerHeight;
     let f = 1;
-    if (ratio < 0.75) {
-      f = 2;
-    } else if (ratio < 1) {
+    if (ratio < 1) {
       f = 1.4;
     }
 
@@ -193,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const newScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
     if (satelliteScale !== newScale) {
-      spawnRate = newScale === 1.5 ? 75 : 500;
       satelliteScale = newScale;
       satellites.forEach(function(satellite) {
         satellite.scale.setScalar(newScale);

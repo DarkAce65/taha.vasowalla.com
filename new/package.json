@@ -61,7 +61,7 @@
         "core-js": "^3.2.1",
         "gsap": "^2.1.3",
         "simplex-noise": "^2.4.0",
-        "three": "mrdoob/three.js.git#54050ed0d52288e2122bd690da1f5a3bae86639f",
+        "three": "^0.108.0",
         "uikit": "^3.1.7"
     }
 }
