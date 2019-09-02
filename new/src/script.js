@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const clock = new Clock();
   const scene = new Scene();
-  window.scene = scene;
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   document.querySelector('#rendererContainer').appendChild(renderer.domElement);
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
   scene.add(particleSystem);
 
   const camera = new PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-  window.camera = camera;
   setCamera();
 
   const lights = [];
@@ -72,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
     side: DoubleSide,
     flatShading: true,
   });
-  window.planetMaterial = planetMaterial;
   const planetGeometry = new IcosahedronGeometry(50, 3);
   for (let i = 0; i < planetGeometry.vertices.length; i++) {
     planetGeometry.vertices[i].x += Math.random() * 6 - 3;
@@ -84,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   const planet = new Mesh(new BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
-  window.planet = planet;
   scene.add(planet);
 
   const satelliteMaterial = new MeshPhongMaterial({
@@ -93,11 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
     side: DoubleSide,
     flatShading: true,
   });
-  window.satelliteMaterial = satelliteMaterial;
 
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites = [];
-  window.satellites = satellites;
   for (let i = 0; i < 100; i++) {
     const radius = i === 50 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
     const detail = radius > 2.5 ? 1 : 0;
@@ -150,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
     lifetime: 5,
     turbulence: 0,
   };
-  window.options = options;
 
   function render() {
     requestAnimFrame(render);
