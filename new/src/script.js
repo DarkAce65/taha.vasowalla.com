@@ -141,7 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
       satellites[i].position.applyAxisAngle(new Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
     }
 
-    emitter.emit(satellites[50].position);
+    const pos = satellites[50].position;
+    emitter.emit(pos, { x: pos.y / 10, y: -pos.x / 10 });
     emitter.update(elapsedTime);
   }
 
