@@ -31,7 +31,7 @@ body {
 #banner {
   font-size: 4em;
   font-family: $serif-font-stack;
-  color: $dim-text-color;
+  color: darken($dim-text-color, 5);
 }
 
 #menu {
@@ -56,7 +56,7 @@ body {
       & > span {
         display: inline-block;
         width: 100%;
-        color: $dim-text-color;
+        color: darken($dim-text-color, 5);
         border-bottom: 1px solid transparent;
         cursor: pointer;
         transition: color 0.3s, border-color 0.3s, padding 0.3s;

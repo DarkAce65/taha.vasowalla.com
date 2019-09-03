@@ -1,6 +1,6 @@
 $background: #222222;
-$dim-text-color: #555555;
 $text-color: #999999;
+$dim-text-color: darken($text-color, 20);
 $bright-text-color: white;
 
 $red: #f85a3e;

@@ -33,4 +33,21 @@
       transition: 0s;
     }
   }
+
+  a {
+    transition: 0.3s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      text-decoration: none;
+      transition: 0s;
+    }
+  }
+
+  .uk-link,
+  .uk-button-link {
+    border-bottom: 1px solid;
+  }
 }

@@ -4,12 +4,14 @@
 $animation-duration: 0.3s;
 
 $global-font-family: $base-font-stack;
+$global-font-size: $base-font-size;
 $base-heading-font-family: $header-font-stack;
 $global-muted-color: $dim-text-color;
 $global-color: $text-color;
 $global-emphasis-color: $bright-text-color;
 
 $global-link-color: $global-emphasis-color;
+$base-link-hover-color: $red;
 $base-link-hover-text-decoration: none;
 
 $global-background: $background;
