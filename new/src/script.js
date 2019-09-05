@@ -1,6 +1,5 @@
 import {
   BufferGeometry,
-  Clock,
   DoubleSide,
   Euler,
   IcosahedronGeometry,
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const simplex = new SimplexNoise();
 
-  const clock = new Clock();
   const scene = new Scene();
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   document.querySelector('#rendererContainer').appendChild(renderer.domElement);
@@ -134,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     requestAnimFrame(render);
     renderer.render(scene, camera);
 
-    const delta = clock.getDelta();
+    const delta = 1 / 60;
     elapsedTime += delta;
     planet.rotation.z += delta / 25;
     for (let i = 0; i < satellites.length; i++) {
@@ -154,13 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function setCamera() {
-    const ratio = window.innerWidth / window.innerHeight;
-    let f = 1;
-    if (ratio < 1) {
-      f = 1.4;
-    }
+    const ratio = window.innerWidth / window.innerHeight < 1 ? 1.4 : 1;
 
-    camera.position.set(50 * f, -300 * f, 100 * f);
+    camera.position.set(50 * ratio, -300 * ratio, 100 * ratio);
     camera.lookAt(scene.position);
   }
 
