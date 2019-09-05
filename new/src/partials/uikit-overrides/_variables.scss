@@ -34,6 +34,9 @@ $form-disabled-placeholder-color: darken($global-muted-color, 10);
 $form-focus-border: $global-emphasis-color;
 $form-disabled-border: transparent;
 
+$breadcrumb-item-font-size: 0.875em;
+$breadcrumb-divider-margin-horizontal: 10px;
+
 @import 'uikit/src/scss/variables';
 
 $form-border: darken($global-border, 50);

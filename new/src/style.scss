@@ -80,7 +80,6 @@ body {
     .menu-item {
       & > span::after {
         content: '/';
-        font-family: monospace;
         transition: opacity 0.3s;
       }
 
