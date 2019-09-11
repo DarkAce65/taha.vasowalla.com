@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (i === 50) {
       satellite.orbitSpeed *= 3;
-      satellite.add(new PointLight(0xf85a3e, 1, positionR, 2));
+      satellite.add(new PointLight(0xf85a3e, 1, positionR * 1.5, 2));
       emitter.uniforms.size.value = 12 * (window.devicePixelRatio || 1);
     }
 
