@@ -8,6 +8,7 @@
 
 @mixin hook-form-focus() {
   border-color: $form-focus-border;
+  border-bottom-width: 2px;
 }
 
 @mixin hook-form-disabled() {
@@ -32,19 +33,10 @@
 }
 
 @mixin hook-form-misc() {
-  .uk-input:disabled::-ms-input-placeholder {
-    color: $form-disabled-placeholder-color !important;
-  }
-
-  .uk-input:disabled::placeholder {
-    color: $form-disabled-placeholder-color;
-  }
-
-  .uk-textarea:disabled::-ms-input-placeholder {
-    color: $form-disabled-placeholder-color !important;
-  }
-
-  .uk-textarea:disabled::placeholder {
-    color: $form-disabled-placeholder-color;
+  .uk-input,
+  .uk-textarea {
+    &:disabled::placeholder {
+      color: $form-disabled-placeholder-color;
+    }
   }
 }
