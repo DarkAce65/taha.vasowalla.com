@@ -65,7 +65,7 @@ const compileScriptsAndHTML = () =>
       since: gulp.lastRun(compileScriptsAndHTML),
     })
     .pipe(using({ prefix: 'Compiling' }))
-    .pipe(webpack(webpackConfig).on('error', endStream))
+    .pipe(webpack(webpackConfig, require('webpack')).on('error', endStream))
     .pipe(gulp.dest('dist'))
     .pipe(using({ prefix: 'Writing', filesize: true }));
 compileScriptsAndHTML.displayName = 'compile';
