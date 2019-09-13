@@ -3,12 +3,10 @@
 @mixin hook-form() {
   border: $global-border-width solid $form-border;
   transition: 0.2s ease-in-out;
-  transition-property: color, background-color, border;
 }
 
 @mixin hook-form-focus() {
   border-color: $form-focus-border;
-  border-bottom-width: 2px;
 }
 
 @mixin hook-form-disabled() {

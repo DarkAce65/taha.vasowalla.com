@@ -9,13 +9,17 @@
   transition: 0s;
 }
 
+@mixin hook-button-disabled() {
+  border-color: darken($global-border, 50);
+}
+
 @mixin hook-button-default() {
-  border: $button-border-width solid $global-border;
+  border: $button-border-width solid darken($global-border, 50);
 
   &:focus {
     position: relative;
     z-index: 1;
-    box-shadow: 0 0 0 $button-focus-shadow-width $global-border;
+    box-shadow: 0 0 0 $button-focus-shadow-width currentColor;
     transition: 0s;
   }
 }
@@ -25,7 +29,7 @@
 }
 
 @mixin hook-button-default-active() {
-  border-color: darken($global-border, 50);
+  border-color: $global-border;
 }
 
 @mixin hook-button-primary() {
@@ -85,10 +89,6 @@
   &::before {
     display: none;
   }
-}
-
-@mixin hook-button-disabled() {
-  border-color: $global-border;
 }
 
 @mixin hook-button-misc() {
