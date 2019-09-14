@@ -26,9 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const setWordButton = document.querySelector('#setWord');
   const randomWordButton = document.querySelector('#randomWord');
   const submitGuessButton = document.querySelector('#submitGuess');
-  const errorToggle = UIkit.toggle('#setWordModal #error', {
-    animation: 'uk-animation-slide-top-small',
-  });
+  const errorMessage = document.querySelector('#setWordModal #error');
 
   const setWord = word => {
     hangmanWord = word.toUpperCase(); // Convert word to uppercase
@@ -41,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     wordInput.value = '';
     wordInput.classList.remove('uk-form-danger');
     if (showingError) {
-      errorToggle.toggle();
+      errorMessage.classList.remove('uk-animation-slide-top-small');
+      errorMessage.setAttribute('hidden', '');
+      setWordButton.disabled = true;
       showingError = false;
     }
     wordDisplayEl.innerHTML = '';
@@ -170,13 +170,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/[^A-Za-z]/.test(word)) {
       wordInput.classList.add('uk-form-danger');
       if (!showingError) {
-        errorToggle.toggle();
+        errorMessage.removeAttribute('hidden');
+        errorMessage.classList.add('uk-animation-slide-top-small');
+        setWordButton.disabled = true;
         showingError = true;
       }
     } else {
       wordInput.classList.remove('uk-form-danger');
       if (showingError) {
-        errorToggle.toggle();
+        errorMessage.classList.remove('uk-animation-slide-top-small', 'uk-animation-reverse');
+        errorMessage.setAttribute('hidden', '');
+        setWordButton.disabled = false;
         showingError = false;
       }
     }
