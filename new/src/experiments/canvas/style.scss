@@ -1,0 +1,35 @@
+@import '../../partials/colors';
+@import '../../partials/uikit-overrides/variables';
+
+canvas {
+  width: 100%;
+  height: 250px;
+  background: black;
+  border: 1px solid $button-default-border;
+}
+
+#rainDial {
+  cursor: crosshair;
+
+  .base {
+    fill: $text-color;
+  }
+
+  .dial {
+    fill: $dim-text-color;
+  }
+
+  .indicator {
+    stroke: $red;
+  }
+}
+
+#dialLabels {
+  path {
+    stroke: $text-color;
+  }
+
+  text {
+    fill: $text-color;
+  }
+}

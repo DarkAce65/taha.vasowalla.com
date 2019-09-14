@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     index: './src/script.js',
     hangman: './src/games/hangman/script.js',
+    canvas: './src/experiments/canvas/script.js',
   },
 
   output: {
@@ -83,6 +84,12 @@ module.exports = {
       filename: 'games/hangman/index.html',
       template: './src/games/hangman/index.pug',
       chunks: ['hangman'],
+    }),
+    new HtmlWebpackPlugin({
+      inject: 'head',
+      filename: 'experiments/canvas/index.html',
+      template: './src/experiments/canvas/index.pug',
+      chunks: ['canvas'],
     }),
   ],
 };
