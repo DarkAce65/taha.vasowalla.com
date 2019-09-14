@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`.letter-tile[data-letter='${letter}']`).classList.add('correct');
         while (index !== -1) {
           // While guessed letter is still in word
-          let space = document.querySelectorAll('#wordDisplay .letter')[index]; // Get blank space where letter is
+          const space = document.querySelectorAll('#wordDisplay .letter')[index]; // Get blank space where letter is
           space.innerHTML = letter; // Set content of blank to the letter
           space.classList.add('correct');
           offset = index + 1;
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`.letter-tile[data-letter='${letter}']`).classList.add('incorrect');
         if (guessesLeft === 0) {
           // Out of guesses
-          let guessedWord = wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '');
+          const guessedWord = wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '');
           timeline.staggerFromTo(
             document.querySelectorAll('#eyes path'),
             0.25,
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
           for (let i = 0; i < hangmanWord.length; i++) {
             // Get blank spaces
             if (/\s/.test(guessedWord.charAt(i))) {
-              let blankSpace = document.querySelectorAll('#wordDisplay .letter')[i];
+              const blankSpace = document.querySelectorAll('#wordDisplay .letter')[i];
               blankSpace.innerHTML = hangmanWord.charAt(i); // Set blank to correct letter
               blankSpace.classList.add('incorrect');
             }
