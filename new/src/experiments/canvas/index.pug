@@ -3,13 +3,13 @@ include ../../partials/mixins
 html
   head
     +head("Canvas")
-    link(rel="shortcut icon" href="../../assets/icons/canvas.png")
+    link(rel="shortcut icon" href="../../assets/icons/HTML5.png")
     link(rel="stylesheet" type="text/css" href="../../uikit.css")
     link(rel="stylesheet" type="text/css" href="../../global.css")
     link(rel="stylesheet" href="style.css")
 
   body
-    .uk-container.uk-margin-top
+    .uk-container.uk-margin-top.uk-margin-bottom
       +breadcrumbs("experiments", "canvas")
       div(uk-grid)
         div(class="uk-width-2-3@s")
@@ -22,8 +22,7 @@ html
             h4 Rain Chance:
             svg(xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewbox="0 0 64 64")
               g#rainDial
-                circle.base(cx="32" cy="32" r="22")
-                circle.dial(cx="32" cy="32" r="20")
+                circle.dial(cx="32" cy="32" r="22")
                 path.indicator(d="M32,27 l0,-10")
               g#dialLabels
                 path(d="M14,50 l-5,5")
