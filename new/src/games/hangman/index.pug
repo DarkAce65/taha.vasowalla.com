@@ -10,10 +10,10 @@ html
 
   body
     .uk-container.uk-margin-top
-      h1 Hangman
+      +breadcrumbs("games", "hangman")
       .uk-grid-collapse.uk-flex-center(uk-grid)
         div(class="uk-width-3-5 uk-width-2-3@s uk-width-1-2@m" style="max-width: 80vh")
-          svg(viewbox="0 0 500 400" style="width: 100%;")
+          svg#hangman(viewbox="0 0 500 400" style="width: 100%;")
             path#base(d="m 52.567061,362.68341 c 88.653899,-29.13563 197.359959,-17.43136 278.732599,4.8749")
             path#gallows(d="m 143.44166,345.45176 c 10.88005,-103.29584 11.68263,-208.83798 14.14214,-312.13713 82.3107,-8.19067 165.55984,-11.1117 248.49747,-11.1117 -0.27648,13.64776 -1.34605,26.92097 -2.0203,40.4061")
             g#man
@@ -52,7 +52,7 @@ html
         .uk-modal-header
           h2.uk-modal-title Enter your word below
         .uk-modal-body
-          input#wordInput.uk-input.uk-text-uppercase(placeholder="Word")
+          input#wordInput.uk-input.uk-text-uppercase
           #error.uk-text-danger(hidden) Your word contains invalid characters. Only letters are accepted.
         .uk-modal-footer.uk-text-right
           button#setWord.uk-button.uk-button-primary Go!

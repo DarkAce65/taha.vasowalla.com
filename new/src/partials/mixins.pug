@@ -6,3 +6,9 @@ mixin head(title)
   meta(name="theme-color" content="#000000")
   meta(name="msapplication-navbutton-color" content="#000000")
   link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo|Lato|Oswald&display=swap")
+
+mixin breadcrumbs(...items)
+  h3: ul.uk-breadcrumb.uk-margin-remove
+    li: a(href="/") #[span(uk-icon="home")] home
+    each item in items
+      li: span= item
