@@ -10,8 +10,8 @@ $global-muted-color: $dim-text-color;
 $global-color: $text-color;
 $global-emphasis-color: $bright-text-color;
 
-$global-link-color: $global-emphasis-color;
-$base-link-hover-color: $red;
+$global-link-color: currentColor;
+$base-link-hover-color: $global-emphasis-color;
 $base-link-hover-text-decoration: none;
 
 $global-background: $background;
@@ -38,6 +38,8 @@ $breadcrumb-item-font-size: 0.875em;
 $breadcrumb-divider-margin-horizontal: 10px;
 
 @import 'uikit/src/scss/variables';
+
+$button-default-border: darken($global-border, 50);
 
 $form-border: darken($global-border, 50);
 $form-blank-focus-border: $form-border;

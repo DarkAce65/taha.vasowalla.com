@@ -16,31 +16,16 @@
     font-size: $base-font-size;
   }
 
+  a,
   .uk-link,
   .uk-button-link {
-    border-bottom: 1px solid;
-    transition: 0.3s;
-  }
-
-  .uk-link,
-  .uk-button-link {
-    &:hover,
-    &:focus,
-    &:active {
-      outline: none;
-      color: $red;
-      text-decoration: none;
-      transition: 0s;
-    }
-  }
-
-  a {
     transition: 0.3s;
 
     &:hover,
     &:focus,
     &:active {
       outline: none;
+      color: white;
       text-decoration: none;
       transition: 0s;
     }
@@ -48,6 +33,6 @@
 
   .uk-link,
   .uk-button-link {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid currentColor;
   }
 }

@@ -10,11 +10,11 @@
 }
 
 @mixin hook-button-disabled() {
-  border-color: darken($global-border, 50);
+  border-color: $button-default-border;
 }
 
 @mixin hook-button-default() {
-  border: $button-border-width solid darken($global-border, 50);
+  border: $button-border-width solid $button-default-border;
 
   &:focus {
     position: relative;
