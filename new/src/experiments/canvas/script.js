@@ -3,18 +3,18 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import TweenLite from 'gsap/TweenLite';
 import Draggable from 'gsap/Draggable';
 
-var bubblesCanvas, bubblesCtx;
-var rainCanvas, rainCtx;
+let bubblesCanvas, bubblesCtx;
+let rainCanvas, rainCtx;
 
-var animateBubbles = false;
-var bubbles = [];
+let animateBubbles = false;
+const bubbles = [];
 
-var animateRain = false;
-var raindrops = [],
-  drops = [];
-var wind = 0.015;
-var gravity = 0.2;
-var rain_chance = 0.3;
+let animateRain = false;
+const raindrops = [];
+const drops = [];
+const wind = 0.015;
+const gravity = 0.2;
+let rain_chance = 0.3;
 
 const requestAnimFrame =
   window.requestAnimationFrame ||
@@ -26,39 +26,43 @@ const requestAnimFrame =
     window.setTimeout(callback, 1000 / 60);
   };
 
-var Vector = function(x, y) {
-  this.x = x || 0;
-  this.y = y || 0;
-};
+class Vector {
+  constructor(x = 0, y = 0) {
+    this.x = x;
+    this.y = y;
+  }
 
-Vector.prototype.copy = function() {
-  return new Vector(this.x, this.y);
-};
+  clone() {
+    return new Vector(this.x, this.y);
+  }
+}
 
-var Bubble = function(x, y) {
-  this.radius = Math.random() * 14 + 6;
-  this.position = new Vector(x, y + this.radius);
-  this.velocity = new Vector(0, -Math.random() / 2);
-  this.opacity = Math.random() * 0.7 + 0.1;
-};
+class Bubble {
+  constructor(x, y) {
+    this.radius = Math.random() * 14 + 6;
+    this.position = new Vector(x, y + this.radius);
+    this.velocity = new Vector(0, -Math.random() / 2);
+    this.opacity = Math.random() * 0.7 + 0.1;
+  }
 
-Bubble.prototype.update = function() {
-  this.position.y = this.position.y + this.velocity.y;
-  this.opacity = this.opacity - 0.0005;
-};
+  update() {
+    this.position.y = this.position.y + this.velocity.y;
+    this.opacity = this.opacity - 0.0005;
+  }
 
-Bubble.prototype.draw = function() {
-  bubblesCtx.beginPath();
-  bubblesCtx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
-  bubblesCtx.closePath();
-  bubblesCtx.fillStyle = `rgba(185, 211, 238,${this.opacity})`;
-  bubblesCtx.fill();
-};
+  draw(context) {
+    context.beginPath();
+    context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
+    context.closePath();
+    context.fillStyle = `rgba(185, 211, 238,${this.opacity})`;
+    context.fill();
+  }
+}
 
-function updateBubbles() {
+const updateBubbles = () => {
   if (animateBubbles) {
     bubblesCtx.clearRect(0, 0, bubblesCanvas.width, bubblesCanvas.height);
-    for (var i = 0; i < bubbles.length; i++) {
+    for (let i = 0; i < bubbles.length; i++) {
       if (bubbles[i].position.y + bubbles[i].radius < 0 || bubbles[i].opacity < 0.01) {
         bubbles[i] = new Bubble(
           Math.random() * bubblesCanvas.width,
@@ -67,49 +71,53 @@ function updateBubbles() {
       } else {
         bubbles[i].update();
       }
-      bubbles[i].draw();
+      bubbles[i].draw(bubblesCtx);
     }
     requestAnimFrame(updateBubbles);
   }
+};
+
+class Raindrop {
+  constructor() {
+    this.position = new Vector(Math.random() * rainCanvas.width, 0);
+    this.prev = this.position;
+    this.velocity = new Vector(0, -Math.random() * 12);
+    this.drops = Math.round(Math.random() * 4 + 2);
+  }
+
+  update() {
+    this.prev = this.position.clone();
+    this.velocity.y += gravity;
+    this.velocity.x += wind;
+    this.position.x = this.position.x + this.velocity.x;
+    this.position.y = this.position.y + this.velocity.y;
+  }
 }
 
-var Raindrop = function() {
-  this.position = new Vector(Math.random() * rainCanvas.width, 0);
-  this.prev = this.position;
-  this.velocity = new Vector(0, -Math.random() * 12);
-  this.drops = Math.round(Math.random() * 4 + 2);
-};
+class Drop {
+  constructor(x, y) {
+    const dist = Math.random() * 5;
+    const angle = Math.PI + Math.random() * Math.PI;
+    this.position = new Vector(x, y);
+    this.velocity = new Vector(Math.cos(angle) * dist, Math.sin(angle) * dist);
+  }
 
-Raindrop.prototype.update = function() {
-  this.prev = this.position.copy();
-  this.velocity.y += gravity;
-  this.velocity.x += wind;
-  this.position.x = this.position.x + this.velocity.x;
-  this.position.y = this.position.y + this.velocity.y;
-};
+  update() {
+    this.velocity.y += gravity;
+    this.velocity.x *= 0.95;
+    this.position.x = this.position.x + this.velocity.x;
+    this.position.y = this.position.y + this.velocity.y;
+  }
+}
 
-var Drop = function(x, y) {
-  var dist = Math.random() * 5;
-  var angle = Math.PI + Math.random() * Math.PI;
-  this.position = new Vector(x, y);
-  this.velocity = new Vector(Math.cos(angle) * dist, Math.sin(angle) * dist);
-};
-
-Drop.prototype.update = function() {
-  this.velocity.y += gravity;
-  this.velocity.x *= 0.95;
-  this.position.x = this.position.x + this.velocity.x;
-  this.position.y = this.position.y + this.velocity.y;
-};
-
-function updateRain() {
+const updateRain = () => {
   if (animateRain) {
     rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
     rainCtx.strokeStyle = 'rgb(60, 135, 235)';
     rainCtx.lineWidth = 2;
     rainCtx.beginPath();
     for (let i = 0; i < raindrops.length; i++) {
-      var rain = raindrops[i];
+      const rain = raindrops[i];
       rain.update();
       rainCtx.moveTo(rain.prev.x, rain.prev.y);
       rainCtx.lineTo(rain.position.x, rain.position.y);
@@ -121,7 +129,7 @@ function updateRain() {
         rain.position.x -= rainCanvas.width;
       }
       if (rain.position.y > rainCanvas.height) {
-        var n = rain.drops;
+        let n = rain.drops;
         while (n--) {
           drops.push(new Drop(rain.position.x, rainCanvas.height));
         }
@@ -132,7 +140,7 @@ function updateRain() {
     rainCtx.fillStyle = 'rgb(60, 135, 235)';
     rainCtx.stroke();
     for (let i = 0; i < drops.length; i++) {
-      var drop = drops[i];
+      const drop = drops[i];
       drop.update();
       rainCtx.beginPath();
       rainCtx.arc(drop.position.x, drop.position.y, 1, 0, Math.PI * 2, false);
@@ -148,7 +156,7 @@ function updateRain() {
     }
     requestAnimFrame(updateRain);
   }
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
@@ -157,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Draggable.create('#rainDial', {
     type: 'rotation',
     bounds: { minRotation: -135, maxRotation: 135 },
-    onDrag: function() {
+    onDrag() {
       rain_chance = (this.rotation + 135) / 270;
     },
   });
@@ -165,14 +173,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   rainCanvas = document.querySelector('#rain');
   rainCtx = rainCanvas.getContext('2d');
-  rainCanvas.height = document.querySelector('#rain').offsetHeight;
-  rainCanvas.width = document.querySelector('#rain').offsetWidth;
+  rainCanvas.height = rainCanvas.offsetHeight;
+  rainCanvas.width = rainCanvas.offsetWidth;
 
   bubblesCanvas = document.querySelector('#bubbles');
   bubblesCtx = bubblesCanvas.getContext('2d');
-  bubblesCanvas.height = document.querySelector('#bubbles').offsetHeight;
-  bubblesCanvas.width = document.querySelector('#bubbles').offsetWidth;
-  for (var i = 0; i < document.querySelector('#bubbles').offsetWidth / 3; i++) {
+  bubblesCanvas.height = bubblesCanvas.offsetHeight;
+  bubblesCanvas.width = bubblesCanvas.offsetWidth;
+  for (let i = 0; i < bubblesCanvas.width / 3; i++) {
     bubbles[i] = new Bubble(
       Math.random() * bubblesCanvas.width,
       Math.random() * 190 + 10 + bubblesCanvas.height
@@ -202,9 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('resize', () => {
-    rainCanvas.height = document.querySelector('#rain').offsetHeight;
-    rainCanvas.width = document.querySelector('#rain').offsetWidth;
-    bubblesCanvas.height = document.querySelector('#bubbles').offsetHeight;
-    bubblesCanvas.width = document.querySelector('#bubbles').offsetWidth;
+    rainCanvas.height = rainCanvas.offsetHeight;
+    rainCanvas.width = rainCanvas.offsetWidth;
+    bubblesCanvas.height = bubblesCanvas.offsetHeight;
+    bubblesCanvas.width = bubblesCanvas.offsetWidth;
   });
 });
