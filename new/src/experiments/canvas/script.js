@@ -3,6 +3,8 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import TweenLite from 'gsap/TweenLite';
 import Draggable from 'gsap/Draggable';
 
+import requestAnimationFrame from '../../lib/requestAnimationFrame';
+
 let bubblesCanvas, bubblesCtx;
 let rainCanvas, rainCtx;
 
@@ -15,16 +17,6 @@ const drops = [];
 const wind = 0.015;
 const gravity = 0.2;
 let rain_chance = 0.3;
-
-const requestAnimFrame =
-  window.requestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  window.oRequestAnimationFrame ||
-  window.msRequestAnimationFrame ||
-  function(callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
 
 class Vector {
   constructor(x = 0, y = 0) {
@@ -73,7 +65,7 @@ const updateBubbles = () => {
       }
       bubbles[i].draw(bubblesCtx);
     }
-    requestAnimFrame(updateBubbles);
+    requestAnimationFrame(updateBubbles);
   }
 };
 
@@ -154,7 +146,7 @@ const updateRain = () => {
     if (Math.random() < rain_chance) {
       raindrops.push(new Raindrop());
     }
-    requestAnimFrame(updateRain);
+    requestAnimationFrame(updateRain);
   }
 };
 
