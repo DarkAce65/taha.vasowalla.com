@@ -19,6 +19,7 @@ module.exports = {
     'no-shadow': 'warn',
     'no-unused-vars': 'warn',
     'no-var': 'warn',
+    'one-var': ['warn', 'never'],
     'prefer-const': 'warn',
     'prefer-template': 'warn',
   },

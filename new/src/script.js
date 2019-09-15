@@ -14,16 +14,7 @@ import {
 } from 'three';
 import SimplexNoise from 'simplex-noise';
 import { ParticleEmitter } from './lib/ParticleEmitter';
-
-const requestAnimFrame =
-  window.requestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  window.oRequestAnimationFrame ||
-  window.msRequestAnimationFrame ||
-  function(callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
+import requestAnimationFrame from './lib/requestAnimationFrame';
 
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(() => document.body.classList.remove('loading'), 500);
@@ -129,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let elapsedTime = 0;
   function render() {
-    requestAnimFrame(render);
+    requestAnimationFrame(render);
     renderer.render(scene, camera);
 
     const delta = 1 / 60;

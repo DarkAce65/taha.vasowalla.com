@@ -10,6 +10,7 @@ module.exports = {
     index: './src/script.js',
     hangman: './src/games/hangman/script.js',
     canvas: './src/experiments/canvas/script.js',
+    shaders: './src/experiments/shaders/script.js',
   },
 
   output: {
@@ -62,6 +63,12 @@ module.exports = {
       filename: 'experiments/canvas/index.html',
       template: './src/experiments/canvas/index.pug',
       chunks: ['canvas'],
+    }),
+    new HtmlWebpackPlugin({
+      inject: 'head',
+      filename: 'experiments/shaders/index.html',
+      template: './src/experiments/shaders/index.pug',
+      chunks: ['shaders'],
     }),
   ],
 };

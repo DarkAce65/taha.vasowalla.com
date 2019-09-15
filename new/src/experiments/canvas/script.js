@@ -5,8 +5,10 @@ import Draggable from 'gsap/Draggable';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
-let bubblesCanvas, bubblesCtx;
-let rainCanvas, rainCtx;
+let bubblesCanvas;
+let bubblesCtx;
+let rainCanvas;
+let rainCtx;
 
 let animateBubbles = false;
 const bubbles = [];

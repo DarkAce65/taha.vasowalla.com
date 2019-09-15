@@ -1,0 +1,19 @@
+include ../../partials/mixins
+
+html
+  head
+    +head("GLSL Shaders")
+    link(rel="shortcut icon" href="../../assets/icons/chip.png")
+    link(rel="stylesheet" type="text/css" href="../../uikit.css")
+    link(rel="stylesheet" type="text/css" href="../../global.css")
+    link(rel="stylesheet" href="style.css")
+
+  body
+    #header.uk-flex.uk-flex-wrap(uk-margin)
+      +breadcrumbs("experiments", "shaders")(class="uk-flex-auto")
+      .uk-flex-none
+        .uk-button.uk-button-default.uk-button-small(style="background: black;") Camera #[span(uk-icon="triangle-down")]
+        div(uk-dropdown="mode: click")
+          ul#cubeDropdown.uk-nav.uk-dropdown-nav
+            li: a#overview.view(href="javascript:void(0)") Overview
+    #rendererContainer

@@ -8,7 +8,7 @@ mixin head(title)
   link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo|Lato|Oswald&display=swap")
 
 mixin breadcrumbs(...items)
-  h3: ul.uk-breadcrumb.uk-margin-remove
+  h3&attributes(attributes): ul.uk-breadcrumb.uk-margin-remove
     li: a(href="/") #[span(uk-icon="home")] home
     each item in items
       li: span= item
