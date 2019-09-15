@@ -4,6 +4,8 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
   devtool: 'source-map',
 
+  stats: { version: false, entrypoints: false },
+
   entry: {
     index: './src/script.js',
     hangman: './src/games/hangman/script.js',
@@ -61,13 +63,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/preset-env', { useBuiltIns: 'usage', corejs: 3 }]],
-            plugins: ['@babel/plugin-transform-strict-mode'],
-          },
-        },
+        use: ['babel-loader', 'eslint-loader'],
       },
     ],
   },

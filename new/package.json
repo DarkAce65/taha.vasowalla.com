@@ -9,7 +9,7 @@
         "tests"
     ],
     "scripts": {
-        "prettier:write": "prettier --write \"gulpfile.js\" \"webpack.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
+        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "build": "NODE_ENV=production gulp --silent",
         "dev": "gulp --silent",
@@ -34,12 +34,12 @@
         "del": "^5.0.0",
         "eslint": "^6.1.0",
         "eslint-config-prettier": "^6.0.0",
+        "eslint-loader": "^3.0.0",
         "eslint-plugin-prettier": "^3.1.0",
         "extract-loader": "^3.1.0",
         "file-loader": "^4.2.0",
         "gulp": "^4.0.2",
         "gulp-autoprefixer": "^7.0.0",
-        "gulp-eslint": "^6.0.0",
         "gulp-if": "^3.0.0",
         "gulp-sass": "^4.0.2",
         "gulp-using": "^0.1.1",
