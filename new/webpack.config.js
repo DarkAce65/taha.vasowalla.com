@@ -20,51 +20,27 @@ module.exports = {
 
   optimization: {
     runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-    },
+    splitChunks: { chunks: 'all' },
   },
 
   module: {
     strictExportPresence: true,
     rules: [
-      {
-        test: /\.txt$/,
-        use: 'raw-loader',
-      },
+      { test: /\.txt$/, use: 'raw-loader' },
       {
         test: /\.css$/,
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'lib/[name].[ext]',
-            },
-          },
+          { loader: 'file-loader', options: { name: 'lib/[name].[ext]' } },
           'extract-loader',
           'css-loader',
         ],
       },
       {
         test: /\.(woff2?|eot|ttf|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'fonts/[name].[ext]',
-            },
-          },
-        ],
+        use: [{ loader: 'file-loader', options: { name: 'fonts/[name].[ext]' } }],
       },
-      {
-        test: /\.pug$/,
-        use: 'pug-loader',
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
-      },
+      { test: /\.pug$/, use: 'pug-loader' },
+      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
     ],
   },
 
