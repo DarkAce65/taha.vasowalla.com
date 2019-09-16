@@ -10,6 +10,7 @@ module.exports = {
     index: './src/script.js',
     hangman: './src/games/hangman/script.js',
     canvas: './src/experiments/canvas/script.js',
+    fireball: './src/experiments/fireball/script.js',
     shaders: './src/experiments/shaders/script.js',
   },
 
@@ -63,6 +64,12 @@ module.exports = {
       filename: 'experiments/canvas/index.html',
       template: './src/experiments/canvas/index.pug',
       chunks: ['canvas'],
+    }),
+    new HtmlWebpackPlugin({
+      inject: 'head',
+      filename: 'experiments/fireball/index.html',
+      template: './src/experiments/fireball/index.pug',
+      chunks: ['fireball'],
     }),
     new HtmlWebpackPlugin({
       inject: 'head',
