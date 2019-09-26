@@ -17,17 +17,13 @@ let colorTimeline;
 let animationTimeline;
 
 const resize = () => {
+  const container = document.querySelector('#animationContainer');
   // Resize function
   height =
-    window.innerHeight -
-    document.querySelector('#animationContainer').getBoundingClientRect().top +
-    document.body.scrollTop -
-    10;
+    window.innerHeight - container.getBoundingClientRect().top + document.body.scrollTop - 10;
 
-  document.querySelector('#animationContainer').style.height = height;
-  width = parseFloat(
-    getComputedStyle(document.querySelector('#animationContainer'), null).width.replace('px', '')
-  );
+  container.style.height = height;
+  width = parseFloat(getComputedStyle(container, null).width.replace('px', ''));
 
   cardHeight = Math.min(90, Math.floor(((height - 20) * 3) / 20));
   cardWidth = Math.min(50, Math.floor(width / 20));
@@ -40,17 +36,14 @@ const resize = () => {
   });
 };
 
-function pile(elements, offset) {
+const pile = (elements, offset = 0) => {
   // Pile orientation
   current = 'pile'; // Set the current orientation
-  offset = typeof offset === 'undefined' ? 0 : offset;
   animationTimeline.staggerTo(
     elements,
     1,
     {
-      cycle: {
-        y: index => height - (index + offset) / 2,
-      },
+      cycle: { y: index => height - (index + offset) / 2 },
       x: width / 4,
       z: 0,
       rotationX: 90,
@@ -60,12 +53,11 @@ function pile(elements, offset) {
     delay,
     animationTimeline.time()
   );
-}
+};
 
-function cylinder(elements, offset) {
+const cylinder = (elements, offset = 0) => {
   // Cylinder orientation
   current = 'cylinder';
-  offset = typeof offset === 'undefined' ? 0 : offset;
   elements.forEach((value, index) => {
     const radiusOffset = Math.floor((index + offset) / 60);
     const radius = Math.max(0, width / 4 - (radiusOffset * width) / 30);
@@ -88,12 +80,11 @@ function cylinder(elements, offset) {
       animationTimeline.time()
     );
   });
-}
+};
 
-function sphere(elements, offset) {
+const sphere = (elements, offset = 0) => {
   // Sphere orientation
   current = 'sphere';
-  offset = typeof offset === 'undefined' ? 0 : offset;
   const radius = Math.min(width / 2.2, height / 2.2);
   elements.forEach((value, index) => {
     const phi = Math.acos(-1 + (2 * (index + offset)) / cardCount);
@@ -126,12 +117,11 @@ function sphere(elements, offset) {
       animationTimeline.time()
     );
   });
-}
+};
 
-function fan(elements, offset) {
+const fan = (elements, offset = 0) => {
   // Fan orientation
   current = 'fan';
-  offset = typeof offset === 'undefined' ? 0 : offset;
   const radius = Math.min(width / 2.2 - cardHeight / 2, height / 2.2 - cardHeight / 2);
   elements.forEach((value, index) => {
     const angle = (-(index + offset) / cardCount) * Math.PI;
@@ -153,9 +143,9 @@ function fan(elements, offset) {
       animationTimeline.time()
     );
   });
-}
+};
 
-function drop(elements) {
+const drop = elements => {
   // Drop to floor
   current = 'drop';
   animationTimeline.staggerTo(
@@ -188,9 +178,9 @@ function drop(elements) {
     delay / 1.5,
     animationTimeline.time()
   );
-}
+};
 
-function randomPosition(elements) {
+const randomPosition = elements => {
   // Random orientation
   current = 'random';
   animationTimeline.staggerTo(
@@ -209,9 +199,9 @@ function randomPosition(elements) {
     delay,
     animationTimeline.time()
   );
-}
+};
 
-function shuffle(array) {
+const shuffle = array => {
   // Fisher–Yates Shuffle
   let m = array.length;
   let t;
@@ -223,7 +213,7 @@ function shuffle(array) {
     array[i] = t;
   }
   return array;
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
@@ -266,66 +256,59 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a#add, button#add').forEach(element => {
     element.addEventListener('click', () => {
       // Add 30 cards
-      if (window.innerWidth >= 768 || (window.innerWidth < 768 && cardCount < 240)) {
-        cardCount += 30;
-        document.querySelector('#cardCount').innerHTML = cardCount;
-        delay = 5 / cardCount;
+      cardCount += 30;
+      document.querySelector('#cardCount').innerHTML = cardCount;
+      delay = 5 / cardCount;
 
-        const newCards = [];
-        for (let i = 0; i < 30; i++) {
-          const card = document.createElement('div');
-          card.classList.add('card');
-          newCards.push(card);
-          document.querySelector('#animation').appendChild(card);
-        }
-        resize();
-        animationTimeline.set(
-          newCards,
-          { y: height / 2, rotationZ: 90, opacity: cardOpacity },
-          animationTimeline.time()
-        );
+      const newCards = [];
+      for (let i = 0; i < 30; i++) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        newCards.push(card);
+        document.querySelector('#animation').appendChild(card);
+      }
+      resize();
+      animationTimeline.set(
+        newCards,
+        { y: height / 2, rotationZ: 90, opacity: cardOpacity },
+        animationTimeline.time()
+      );
 
-        switch (current) {
-          case 'pile':
-            pile(newCards, cardCount - 30);
-            break;
-          case 'cylinder':
-            cylinder(newCards, cardCount - 30);
-            break;
-          case 'sphere':
-            animationTimeline.clear();
-            sphere(document.querySelectorAll('.card:not(.dead)'));
-            break;
-          case 'fan':
-            animationTimeline.clear();
-            fan(document.querySelectorAll('.card:not(.dead)'));
-            break;
-          case 'drop':
-            drop(newCards);
-            break;
-          case 'random':
-            randomPosition(newCards);
-            break;
-        }
+      switch (current) {
+        case 'pile':
+          pile(newCards, cardCount - 30);
+          break;
+        case 'cylinder':
+          cylinder(newCards, cardCount - 30);
+          break;
+        case 'sphere':
+          animationTimeline.clear();
+          sphere(document.querySelectorAll('.card:not(.dead)'));
+          break;
+        case 'fan':
+          animationTimeline.clear();
+          fan(document.querySelectorAll('.card:not(.dead)'));
+          break;
+        case 'drop':
+          drop(newCards);
+          break;
+        case 'random':
+          randomPosition(newCards);
+          break;
+      }
 
-        colorTimeline.clear();
-        colorTimeline.to('.card:not(.dead)', 1, { backgroundColor: 'hsl(0, 100%, 50%)' }).staggerTo(
+      colorTimeline.clear();
+      colorTimeline
+        .to('.card:not(.dead)', 1, { backgroundColor: 'hsl(0, 100%, 50%)' })
+        .staggerTo(
           '.card:not(.dead)',
           1,
-          {
-            cycle: {
-              backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
-            },
-          },
+          { cycle: { backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)` } },
           0.01
         );
 
-        document.querySelector('button#remove').removeAttribute('disabled');
-        document.querySelector('a#remove').parentNode.removeAttribute('disabled');
-        if (cardCount === 240) {
-          document.querySelector('a#add').parentNode.removeAttribute('disabled');
-        }
-      }
+      document.querySelector('button#remove').removeAttribute('disabled');
+      document.querySelector('a#remove').parentNode.removeAttribute('disabled');
     });
   });
 
@@ -384,10 +367,9 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         }
 
-        document.querySelector('a#add').parentNode.removeAttribute('disabled');
-        if (cardCount === 60) {
-          document.querySelector('button#remove').removeAttribute('disabled');
-          document.querySelector('a#remove').parentNode.removeAttribute('disabled');
+        if (cardCount <= 60) {
+          document.querySelector('button#remove').setAttribute('disabled', '');
+          document.querySelector('a#remove').parentNode.setAttribute('disabled', '');
         }
       }
     })

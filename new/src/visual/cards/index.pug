@@ -12,7 +12,7 @@ html
     .uk-container.uk-margin-top
       +breadcrumbs("visual", "cards")
 
-      .uk-button-group
+      .uk-button-group(class="uk-visible@s")
         button#random.hidden-xs.uk-button.uk-button-default.uk-button-small Random
         button#pile.hidden-xs.uk-button.uk-button-default.uk-button-small Pile
         button#cylinder.hidden-xs.uk-button.uk-button-default.uk-button-small Cylinder
@@ -21,18 +21,18 @@ html
         button#drop.hidden-xs.uk-button.uk-button-default.uk-button-small Drop
         button#add.uk-button.uk-button-default.uk-button-small Add Cards
         button#remove.uk-button.uk-button-default.uk-button-small(disabled) Remove Cards
-        .uk-button.uk-button-default.uk-button-small: span(uk-icon="triangle-down")
-        div(uk-dropdown="mode: click")
-          ul.uk-nav.uk-dropdown-nav
-            li: a#random(href="javascript:void(0)") Random
-            li: a#pile(href="javascript:void(0)") Pile
-            li: a#cylinder(href="javascript:void(0)") Cylinder
-            li: a#sphere(href="javascript:void(0)") Sphere
-            li: a#fan(href="javascript:void(0)") Fan
-            li: a#drop(href="javascript:void(0)") Drop
-            li: a#add(href="javascript:void(0)") Add Cards
-            li: a#remove(href="javascript:void(0)") Remove Cards
-      #cardCountContainer.btn.btn-default Card Count: #[span#cardCount 60]
+      .uk-button.uk-button-default.uk-button-small(class="uk-hidden@s"): span(uk-icon="triangle-down")
+      div(uk-dropdown="mode: click")
+        ul.uk-nav.uk-dropdown-nav
+          li: a#random(href="javascript:void(0)") Random
+          li: a#pile(href="javascript:void(0)") Pile
+          li: a#cylinder(href="javascript:void(0)") Cylinder
+          li: a#sphere(href="javascript:void(0)") Sphere
+          li: a#fan(href="javascript:void(0)") Fan
+          li: a#drop(href="javascript:void(0)") Drop
+          li: a#add(href="javascript:void(0)") Add Cards
+          li: a#remove(href="javascript:void(0)") Remove Cards
+      #cardCountContainer.uk-button.uk-button-default.uk-button-small Card Count: #[span#cardCount 60]
 
       #animationContainer
         #animation
