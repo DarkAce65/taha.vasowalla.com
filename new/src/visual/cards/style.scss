@@ -5,6 +5,10 @@ body {
   overflow: hidden;
 }
 
+li.uk-disabled a {
+  opacity: 0.5;
+}
+
 #cardCountContainer {
   float: right;
 }

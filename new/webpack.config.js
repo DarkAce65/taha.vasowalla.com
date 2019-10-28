@@ -12,6 +12,7 @@ module.exports = {
     canvas: './src/experiments/canvas/script.js',
     fireball: './src/experiments/fireball/script.js',
     shaders: './src/experiments/shaders/script.js',
+    cards: './src/visual/cards/script.js',
   },
 
   output: {
@@ -76,6 +77,12 @@ module.exports = {
       filename: 'experiments/shaders/index.html',
       template: './src/experiments/shaders/index.pug',
       chunks: ['shaders'],
+    }),
+    new HtmlWebpackPlugin({
+      inject: 'head',
+      filename: 'visual/cards/index.html',
+      template: './src/visual/cards/index.pug',
+      chunks: ['cards'],
     }),
   ],
 };

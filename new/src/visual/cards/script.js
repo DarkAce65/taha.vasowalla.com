@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
       document.querySelector('button#remove').removeAttribute('disabled');
-      document.querySelector('a#remove').parentNode.removeAttribute('disabled');
+      document.querySelector('a#remove').parentNode.classList.remove('uk-disabled');
     });
   });
 
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (cardCount <= 60) {
           document.querySelector('button#remove').setAttribute('disabled', '');
-          document.querySelector('a#remove').parentNode.setAttribute('disabled', '');
+          document.querySelector('a#remove').parentNode.classList.add('uk-disabled');
         }
       }
     })
