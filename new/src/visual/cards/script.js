@@ -18,10 +18,9 @@ let animationTimeline;
 
 const resize = () => {
   const container = document.querySelector('#animationContainer');
-  // Resize function
+
   height =
     window.innerHeight - container.getBoundingClientRect().top + document.body.scrollTop - 10;
-
   container.style.height = height;
   width = parseFloat(getComputedStyle(container, null).width.replace('px', ''));
 
