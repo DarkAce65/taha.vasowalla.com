@@ -16,7 +16,7 @@ module.exports = {
   },
 
   output: {
-    publicPath: '/',
+    publicPath: process.env.PUBLIC_PATH || '/',
     filename: '[name].js',
     sourceMapFilename: 'maps/[name].js.map',
   },

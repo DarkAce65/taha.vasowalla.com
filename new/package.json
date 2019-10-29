@@ -11,7 +11,7 @@
     "scripts": {
         "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
-        "build": "NODE_ENV=production gulp --silent",
+        "build": "NODE_ENV=production PUBLIC_PATH='/new' gulp --silent",
         "dev": "gulp --silent",
         "watch": "gulp watch --silent"
     },
