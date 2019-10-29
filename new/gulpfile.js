@@ -50,15 +50,16 @@ const copyStatic = gulp.series(
 );
 copyStatic.displayName = 'copy:static';
 
-const compileScriptsAndHTML = () =>
-  gulp
-    .src(Object.values(webpackConfig.entry).concat(pugSources), {
-      since: gulp.lastRun(compileScriptsAndHTML),
-    })
-    .pipe(using({ prefix: 'Compiling' }))
+const compileScriptsAndHTML = () => {
+  const since = gulp.lastRun(compileScriptsAndHTML);
+  const firstRun = !since;
+
+  return gulp
+    .src(Object.values(webpackConfig.entry).concat(pugSources), { since })
+    .pipe(gulpif(!firstRun, using({ prefix: 'Compiling' })))
     .pipe(webpack(webpackConfig, require('webpack')).on('error', endStream))
-    .pipe(gulp.dest('dist'))
-    .pipe(using({ prefix: 'Writing', filesize: true }));
+    .pipe(gulp.dest('dist'));
+};
 compileScriptsAndHTML.displayName = 'scripts_html';
 
 const compileStyles = () => {
