@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y *= factor;
     z *= factor;
 
-    TweenLite.to(camera.position, 2, { x: x, y: y, z: z, ease: Power2.easeInOut });
+    TweenLite.to(camera.position, 2, { x, y, z, ease: Power2.easeInOut });
     TweenLite.to(controls.target, 2, {
       x: tx,
       y: ty,
