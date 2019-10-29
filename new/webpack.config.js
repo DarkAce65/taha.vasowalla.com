@@ -1,4 +1,14 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const pages = [
+  { entry: 'index', dir: '' },
+  { entry: 'hangman', dir: 'games/hangman' },
+  { entry: 'canvas', dir: 'experiments/canvas' },
+  { entry: 'fireball', dir: 'experiments/fireball' },
+  { entry: 'shaders', dir: 'experiments/shaders' },
+  { entry: 'cards', dir: 'visual/cards' },
+];
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -6,14 +16,13 @@ module.exports = {
 
   stats: { version: false, entrypoints: false },
 
-  entry: {
-    index: './src/script.js',
-    hangman: './src/games/hangman/script.js',
-    canvas: './src/experiments/canvas/script.js',
-    fireball: './src/experiments/fireball/script.js',
-    shaders: './src/experiments/shaders/script.js',
-    cards: './src/visual/cards/script.js',
-  },
+  entry: pages.reduce(
+    (acc, { entry, dir }) => ({
+      ...acc,
+      [entry]: path.join(__dirname, 'src', dir, 'script.js'),
+    }),
+    {}
+  ),
 
   output: {
     publicPath: process.env.PUBLIC_PATH || '/',
@@ -47,42 +56,12 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
+  plugins: pages.map(({ entry, dir, chunks = [entry] }) => {
+    return new HtmlWebpackPlugin({
       inject: 'head',
-      filename: 'index.html',
-      template: './src/index.pug',
-      chunks: ['index'],
-    }),
-    new HtmlWebpackPlugin({
-      inject: 'head',
-      filename: 'games/hangman/index.html',
-      template: './src/games/hangman/index.pug',
-      chunks: ['hangman'],
-    }),
-    new HtmlWebpackPlugin({
-      inject: 'head',
-      filename: 'experiments/canvas/index.html',
-      template: './src/experiments/canvas/index.pug',
-      chunks: ['canvas'],
-    }),
-    new HtmlWebpackPlugin({
-      inject: 'head',
-      filename: 'experiments/fireball/index.html',
-      template: './src/experiments/fireball/index.pug',
-      chunks: ['fireball'],
-    }),
-    new HtmlWebpackPlugin({
-      inject: 'head',
-      filename: 'experiments/shaders/index.html',
-      template: './src/experiments/shaders/index.pug',
-      chunks: ['shaders'],
-    }),
-    new HtmlWebpackPlugin({
-      inject: 'head',
-      filename: 'visual/cards/index.html',
-      template: './src/visual/cards/index.pug',
-      chunks: ['cards'],
-    }),
-  ],
+      filename: path.join(dir, 'index.html'),
+      template: path.join(__dirname, 'src', dir, 'index.pug'),
+      chunks,
+    });
+  }),
 };
