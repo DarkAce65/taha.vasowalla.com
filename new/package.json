@@ -55,6 +55,7 @@
         "serve": "^11.2.0",
         "through2": "^3.0.1",
         "webpack": "^4.41.0",
+        "webpack-dev-server": "^3.9.0",
         "webpack-stream": "^5.2.1"
     },
     "dependencies": {

@@ -5,17 +5,20 @@ const gulpif = require('gulp-if');
 const { handleSassImports, endStream, flattenObject } = require('./gulp/utils');
 
 const del = require('del');
-const webpack = require('webpack-stream');
+const webpackStream = require('webpack-stream');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
 const staticFiles = {
-  assets: { img: '../img/*', icons: '../img/icons/**/*', textures: 'assets/textures/**/*' },
+  assets: {
+    img: '../img/*',
+    icons: '../img/icons/**/*',
+    textures: 'assets/textures/**/*',
+  },
 };
-const scriptSources = 'src/**/*.js';
-const pugSources = ['src/**/*.pug', '!src/partials/**/*'];
-const scriptAndPugSources = [scriptSources].concat(pugSources);
 const styleSources = 'src/**/*.scss';
 
 const webpackConfig = require('./webpack.config.js');
@@ -50,17 +53,17 @@ const copyStatic = gulp.series(
 );
 copyStatic.displayName = 'copy:static';
 
-const compileScriptsAndHTML = () => {
-  const since = gulp.lastRun(compileScriptsAndHTML);
-  const firstRun = !since;
-
-  return gulp
-    .src(Object.values(webpackConfig.entry).concat(pugSources), { since })
-    .pipe(gulpif(!firstRun, using({ prefix: 'Compiling' })))
-    .pipe(webpack(webpackConfig, require('webpack')).on('error', endStream))
+const compileScriptsAndHTML = () =>
+  gulp
+    .src(Object.values(webpackConfig.entry))
+    .pipe(using({ prefix: 'Compiling' }))
+    .pipe(webpackStream(webpackConfig, webpack).on('error', endStream))
     .pipe(gulp.dest('dist'));
-};
 compileScriptsAndHTML.displayName = 'scripts_html';
+
+const devServer = () =>
+  new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(5000, '127.0.0.1');
+devServer.displayName = 'dev_server:scripts_html';
 
 const compileStyles = () => {
   const since = gulp.lastRun(compileStyles);
@@ -77,16 +80,12 @@ const compileStyles = () => {
 };
 compileStyles.displayName = 'styles';
 
-const watchScriptsAndHTML = () =>
-  gulp.watch(scriptAndPugSources, { ignoreInitial: false }, compileScriptsAndHTML);
-watchScriptsAndHTML.displayName = 'watch:scripts_html';
-
 const watchStyles = () => gulp.watch(styleSources, { ignoreInitial: false }, compileStyles);
 watchStyles.displayName = 'watch:styles';
 
 exports.copyStatic = copyStatic;
 exports.scripts = compileScriptsAndHTML;
 exports.styles = compileStyles;
-exports.watch = gulp.series(copyStatic, gulp.parallel(watchScriptsAndHTML, watchStyles));
+exports.watch = gulp.series(copyStatic, gulp.parallel(devServer, watchStyles));
 
 exports.default = gulp.series(copyStatic, gulp.parallel(compileScriptsAndHTML, compileStyles));

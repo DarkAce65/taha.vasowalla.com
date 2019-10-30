@@ -16,6 +16,25 @@ module.exports = {
 
   stats: { version: false, entrypoints: false },
 
+  devServer: {
+    publicPath: '/',
+    port: 5000,
+    contentBase: path.join(__dirname, 'dist'),
+    watchContentBase: true,
+    stats: {
+      colors: true,
+      version: false,
+      hash: false,
+      timings: false,
+      cached: false,
+      cachedAssets: false,
+      chunkModules: false,
+      chunks: false,
+      entrypoints: false,
+      modules: false,
+    },
+  },
+
   entry: pages.reduce(
     (acc, { entry, dir }) => ({
       ...acc,
