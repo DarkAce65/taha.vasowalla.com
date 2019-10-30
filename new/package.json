@@ -1,6 +1,7 @@
 {
     "name": "taha.vasowalla.com",
     "private": true,
+    "sideEffects": false,
     "ignore": [
         "**/.*",
         "node_modules",
@@ -11,9 +12,9 @@
     "scripts": {
         "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
-        "build": "NODE_ENV=production PUBLIC_PATH='/new' gulp --silent",
-        "dev": "gulp --silent",
-        "watch": "gulp watch --silent"
+        "dev": "gulp watch --silent",
+        "build": "gulp --silent",
+        "build:prod": "NODE_ENV=production PUBLIC_PATH='/new' gulp --silent"
     },
     "husky": {
         "hooks": {
