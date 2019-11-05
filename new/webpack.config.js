@@ -10,11 +10,23 @@ const pages = [
   { entry: 'cards', dir: 'visual/cards' },
 ];
 
+const entrypoints = pages.reduce(
+  (acc, { entry, dir }) => ({
+    ...acc,
+    [entry]: path.join(__dirname, 'src', dir, 'script.js'),
+  }),
+  {}
+);
+
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   devtool: 'source-map',
 
-  stats: { version: false, entrypoints: false },
+  stats: {
+    assetsSort: 'chunks',
+    version: false,
+    entrypoints: false,
+  },
 
   devServer: {
     publicPath: '/',
@@ -22,6 +34,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     watchContentBase: true,
     stats: {
+      assetsSort: 'chunks',
+      excludeAssets: /.map$/,
       colors: true,
       version: false,
       hash: false,
@@ -35,13 +49,7 @@ module.exports = {
     },
   },
 
-  entry: pages.reduce(
-    (acc, { entry, dir }) => ({
-      ...acc,
-      [entry]: path.join(__dirname, 'src', dir, 'script.js'),
-    }),
-    {}
-  ),
+  entry: entrypoints,
 
   output: {
     publicPath: process.env.PUBLIC_PATH || '/',
