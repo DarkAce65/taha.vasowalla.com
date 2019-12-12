@@ -21,6 +21,3 @@ dist/
 
 # sourcemaps
 maps/
-
-# premium library
-lib/DrawSVGPlugin.js

@@ -1,18 +1,16 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import TweenLite from 'gsap/TweenLite';
-import TimelineLite from 'gsap/TimelineLite';
-import { Sine } from 'gsap/EasePack';
-import DrawSVGPlugin from '../../../lib/DrawSVGPlugin';
-
-const plugins = [DrawSVGPlugin]; // eslint-disable-line no-unused-vars
+import gsap from 'gsap';
+import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
+window.gsap = gsap;
+window.makeDashOffsetParams = makeDashOffsetParams;
 
 let hangmanWord = '';
 let guessedLetters = [];
 let guessesLeft = 6;
 let showingError = false;
 let randomWords = null;
-const timeline = new TimelineLite();
+const timeline = new gsap.timeline();
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
@@ -57,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
       wordDisplayEl.appendChild(span);
     }
 
-    timeline.clear().to(document.querySelectorAll('#man path, #eyes path'), 0.3, { drawSVG: '0%' });
+    timeline
+      .clear()
+      .restart()
+      .to('#man path, #eyes path', { duration: 0.3, ...makeDashOffsetParams({ progress: 0 }) });
   };
 
   const guess = letter => {
@@ -104,8 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
           guessesLeft === 1 ? `${guessesLeft} guess left` : `${guessesLeft} guesses left`;
         timeline.to(
           document.querySelectorAll('#man path')[guessesLeft],
-          1,
-          { drawSVG: '100%', ease: Sine.easeIn },
+          { duration: 1, ...makeDashOffsetParams({ progress: 1 }) },
           timeline.time()
         ); // Draw part of man
         const incorrectGuess = document.createElement('span');
@@ -115,13 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (guessesLeft === 0) {
           // Out of guesses
           const guessedWord = wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '');
-          timeline.staggerFromTo(
-            document.querySelectorAll('#eyes path'),
-            0.25,
-            { drawSVG: '0%' },
-            { drawSVG: '100%' },
-            0.25
-          ); // X-ed out eyes
+          timeline.fromTo('#eyes path', makeDashOffsetParams({ progress: 0 }), {
+            duration: 0.25,
+            stagger: 0.25,
+            ...makeDashOffsetParams({ progress: 1 }),
+          }); // X-ed out eyes
           for (let i = 0; i < hangmanWord.length; i++) {
             // Get blank spaces
             if (/\s/.test(guessedWord.charAt(i))) {
@@ -141,10 +139,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   import(/* webpackChunkName: "wordlist" */ './wordlist.txt').then(({ default: words }) => {
-    randomWords = words.split('\n');
+    randomWords = words.split('\n').map(word => word.trim());
   });
 
-  TweenLite.fromTo(document.querySelectorAll('path'), 1, { drawSVG: '0%' }, { drawSVG: '100%' }); // Initial drawing of gallows
+  gsap.fromTo('#base, #gallows', makeDashOffsetParams({ progress: 0 }), {
+    duration: 1,
+    ...makeDashOffsetParams({ progress: 1 }),
+  }); // Initial drawing of gallows
+  timeline.fromTo('#man path, #eyes path', makeDashOffsetParams({ progress: 0 }), {
+    duration: 1,
+    ...makeDashOffsetParams({ progress: 1 }),
+  });
 
   document.addEventListener('keypress', evt => {
     const key = evt.key || evt.keyCode;
