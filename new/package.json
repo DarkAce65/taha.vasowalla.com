@@ -14,7 +14,7 @@
         "copy:static": "gulp copy:static --silent",
         "dev": "gulp watch --silent",
         "build": "gulp --silent",
-        "build:prod": "NODE_ENV=production PUBLIC_PATH='/new' gulp --silent"
+        "build:prod": "cross-env NODE_ENV=production PUBLIC_PATH='/new/' gulp --silent"
     },
     "husky": {
         "hooks": {
@@ -31,6 +31,7 @@
         "@babel/preset-env": "^7.7.6",
         "babel-eslint": "^10.0.3",
         "babel-loader": "^8.0.6",
+        "cross-env": "^6.0.3",
         "css-loader": "^3.3.0",
         "del": "^5.1.0",
         "eslint": "^6.7.2",
