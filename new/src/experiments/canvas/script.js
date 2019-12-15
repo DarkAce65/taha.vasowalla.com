@@ -1,9 +1,11 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import TweenLite from 'gsap/TweenLite';
+import gsap from 'gsap';
 import Draggable from 'gsap/Draggable';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
+
+gsap.registerPlugin(Draggable);
 
 let bubblesCanvas;
 let bubblesCtx;
@@ -155,7 +157,7 @@ const updateRain = () => {
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
-  TweenLite.set('#rainDial', { transformOrigin: '50% 50%' });
+  gsap.set('#rainDial', { transformOrigin: '50% 50%' });
   Draggable.create('#rainDial', {
     type: 'rotation',
     bounds: { minRotation: -135, maxRotation: 135 },
@@ -163,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       rain_chance = (this.rotation + 135) / 270;
     },
   });
-  TweenLite.set('#rainDial', { rotation: -81 });
+  gsap.set('#rainDial', { rotation: -81 });
 
   rainCanvas = document.querySelector('#rain');
   rainCtx = rainCanvas.getContext('2d');
