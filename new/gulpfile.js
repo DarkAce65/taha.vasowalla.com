@@ -81,12 +81,12 @@ const compileStyles = () => {
 };
 compileStyles.displayName = 'styles';
 
-const watchStyles = () => gulp.watch(styleSources, { ignoreInitial: false }, compileStyles);
+const watchStyles = () => gulp.watch(styleSources, compileStyles);
 watchStyles.displayName = 'watch:styles';
 
 exports.copyStatic = copyStatic;
 exports.scripts = compileScriptsAndHTML;
 exports.styles = compileStyles;
-exports.watch = gulp.series(copyStatic, gulp.parallel(devServer, watchStyles));
+exports.watch = gulp.series(copyStatic, compileStyles, gulp.parallel(devServer, watchStyles));
 
 exports.default = gulp.series(copyStatic, gulp.parallel(compileScriptsAndHTML, compileStyles));
