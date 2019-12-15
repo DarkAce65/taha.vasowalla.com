@@ -1,6 +1,6 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import { Bounce, Linear, Power1, TimelineMax } from 'gsap';
+import gsap from 'gsap';
 
 let height;
 let width;
@@ -11,10 +11,6 @@ let delay;
 let cardOpacity = 1;
 let cardCount = 60;
 let current = 'random';
-
-let backgroundTimeline;
-let colorTimeline;
-let animationTimeline;
 
 const resize = () => {
   const container = document.querySelector('#animationContainer');
@@ -35,57 +31,53 @@ const resize = () => {
   });
 };
 
+// Pile orientation
 const pile = (elements, offset = 0) => {
-  // Pile orientation
-  current = 'pile'; // Set the current orientation
-  animationTimeline.staggerTo(
-    elements,
-    1,
-    {
-      cycle: { y: index => height - (index + offset) / 2 },
-      x: width / 4,
-      z: 0,
-      rotationX: 90,
-      rotationY: 0,
-      rotationZ: 0,
-    },
-    delay,
-    animationTimeline.time()
-  );
+  current = 'pile';
+
+  gsap.to(elements, {
+    duration: 1,
+    stagger: delay,
+    x: width / 4,
+    y: index => height - (index + offset) / 2,
+    z: 0,
+    rotationX: 90,
+    rotationY: 0,
+    rotationZ: 0,
+  });
 };
 
+// Cylinder orientation
 const cylinder = (elements, offset = 0) => {
-  // Cylinder orientation
   current = 'cylinder';
-  elements.forEach((value, index) => {
+
+  elements.forEach((element, index) => {
     const radiusOffset = Math.floor((index + offset) / 60);
     const radius = Math.max(0, width / 4 - (radiusOffset * width) / 30);
     const angle = (((index + offset) % 10) / 10) * 2 * Math.PI;
     const px = radius * Math.cos(angle);
     const pz = radius * Math.sin(angle);
     const py = (Math.floor((index + offset - radiusOffset * 60) / 10) * height) / 6 + height / 12;
-    animationTimeline.to(
-      value,
-      1,
-      {
-        x: px,
-        y: py,
-        z: pz,
-        rotationX: 0,
-        rotationY: 90 - (angle * 180) / Math.PI,
-        rotationZ: 0,
-        delay: index * delay,
-      },
-      animationTimeline.time()
-    );
+
+    gsap.to(element, {
+      duration: 1,
+      delay: index * delay,
+      x: px,
+      y: py,
+      z: pz,
+      rotationX: 0,
+      rotationY: 90 - (angle * 180) / Math.PI,
+      rotationZ: 0,
+    });
   });
 };
 
+// Sphere orientation
 const sphere = (elements, offset = 0) => {
-  // Sphere orientation
   current = 'sphere';
+
   const radius = Math.min(width / 2.2, height / 2.2);
-  elements.forEach((value, index) => {
+  elements.forEach((element, index) => {
     const phi = Math.acos(-1 + (2 * (index + offset)) / cardCount);
     const theta = Math.sqrt(cardCount * Math.PI) * phi;
     const px = radius * Math.cos(theta) * Math.sin(phi);
@@ -101,103 +93,89 @@ const sphere = (elements, offset = 0) => {
     }
     const ry = (180 / Math.PI) * Math.atan(px / pz);
     const rz = 0;
-    animationTimeline.to(
-      value,
-      1,
-      {
-        x: px,
-        y: py + height / 2,
-        z: pz,
-        rotationX: rx,
-        rotationY: ry,
-        rotationZ: rz,
-        delay: index * delay,
-      },
-      animationTimeline.time()
-    );
+
+    gsap.to(element, {
+      duration: 1,
+      delay: index * delay,
+      x: px,
+      y: py + height / 2,
+      z: pz,
+      rotationX: rx,
+      rotationY: ry,
+      rotationZ: rz,
+    });
   });
 };
 
+// Fan orientation
 const fan = (elements, offset = 0) => {
-  // Fan orientation
   current = 'fan';
+
   const radius = Math.min(width / 2.2 - cardHeight / 2, height / 2.2 - cardHeight / 2);
-  elements.forEach((value, index) => {
+  elements.forEach((element, index) => {
     const angle = (-(index + offset) / cardCount) * Math.PI;
     const px = radius * Math.cos(angle);
     const py = radius * Math.sin(angle) + height / 1.5;
     const pz = (index + offset) / 5;
-    animationTimeline.to(
-      value,
-      1,
-      {
-        x: px,
-        y: py,
-        z: pz,
-        rotationX: 0,
-        rotationY: 0,
-        rotationZ: 90 + (angle * 180) / Math.PI,
-        delay: index * delay,
-      },
-      animationTimeline.time()
-    );
+    gsap.to(element, {
+      duration: 1,
+      delay: index * delay,
+      x: px,
+      y: py,
+      z: pz,
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: 90 + (angle * 180) / Math.PI,
+    });
   });
 };
 
+// Drop to floor
 const drop = elements => {
-  // Drop to floor
   current = 'drop';
-  animationTimeline.staggerTo(
-    elements,
-    1,
-    {
-      cycle: {
-        x(_, element) {
-          const transform = element._gsTransform || { x: 0 };
-          return transform.x + Math.random() * 50 - 25;
-        },
-        z(_, element) {
-          const transform = element._gsTransform || { z: 0 };
-          return transform.z + Math.random() * 50 - 25;
-        },
-        rotationX(_, element) {
-          const transform = element._gsTransform || { rotationX: 0 };
-          transform.rotationX += Math.random() - 0.5;
-          return transform.rotationX % 90 < 0 ? -90 : 90;
-        },
-        rotationY(_, element) {
-          const transform = element._gsTransform || { rotationY: 0 };
-          return transform.rotationY + Math.random() * 120 - 60;
-        },
-      },
-      y: height,
-      rotationZ: 0,
-      ease: Bounce.easeOut,
+
+  gsap.to(elements, {
+    duration: 1,
+    stagger: delay / 1.5,
+    ease: 'bounce.out',
+    x(_, element) {
+      const x = gsap.getProperty(element, 'x') || 0;
+      return x + Math.random() * 50 - 25;
     },
-    delay / 1.5,
-    animationTimeline.time()
-  );
+    y: height,
+    z(_, element) {
+      const z = gsap.getProperty(element, 'z') || 0;
+      return z + Math.random() * 50 - 25;
+    },
+    rotationX(_, element) {
+      const rotationX = gsap.getProperty(element, 'rotationX') || 0;
+      return rotationX % 90 < 0 ? -90 : 90;
+    },
+    rotationY(_, element) {
+      const rotationY = gsap.getProperty(element, 'rotationX') || 0;
+      return rotationY + Math.random() * 120 - 60;
+    },
+    rotationZ: 0,
+  });
 };
 
+// Random orientation
 const randomPosition = elements => {
-  // Random orientation
   current = 'random';
-  animationTimeline.staggerTo(
-    elements,
-    1,
-    {
-      cycle: {
-        x: () => (Math.random() - 0.5) * (width - cardHeight * 2),
-        y: () => Math.random() * height,
-        z: () => (Math.random() - 0.5) * (width - cardHeight * 2),
-        rotationX: () => Math.random() * 720 - 360,
-        rotationY: () => Math.random() * 720 - 360,
-        rotationZ: () => Math.random() * 720 - 360,
-      },
-    },
-    delay,
-    animationTimeline.time()
-  );
+
+  const s = (width - cardHeight * 2) / 2;
+  const r = gsap.utils.random(-s, s, true);
+  const randomAngle = gsap.utils.random(-360, 360, true);
+  gsap.to(elements, {
+    duration: 1,
+    stagger: delay,
+    x: r,
+    y: () => Math.random() * height,
+    z: r,
+    rotationX: randomAngle,
+    rotationY: randomAngle,
+    rotationZ: randomAngle,
+  });
 };
 
 const shuffle = array => {
@@ -217,15 +195,7 @@ const shuffle = array => {
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
-  backgroundTimeline = new TimelineMax();
-  backgroundTimeline.to('#animation', 20, {
-    rotationY: -360,
-    repeat: -1,
-    ease: Linear.easeNone,
-  }); // Infinite spin
-
-  colorTimeline = new TimelineMax();
-  animationTimeline = new TimelineMax();
+  gsap.to('#animation', { duration: 20, ease: 'none', rotationY: -360 }).repeat(-1); // Infinite spin
 
   for (let i = 0; i < cardCount; i++) {
     document
@@ -237,11 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   resize();
-  animationTimeline.set(
-    '.card',
-    { y: height / 2, rotationZ: 90, opacity: cardOpacity },
-    animationTimeline.time()
-  );
+  gsap.set('.card', { y: height / 2, rotationZ: 90, opacity: cardOpacity });
   delay = 0.02;
   randomPosition(document.querySelectorAll('.card'));
   delay = 5 / cardCount;
@@ -249,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#cardCountContainer').addEventListener('click', () => {
     // Change opacity
     cardOpacity = cardOpacity === 1 ? 0.5 : 1;
-    backgroundTimeline.to('.card', 2, { opacity: cardOpacity }, backgroundTimeline.time());
+    gsap.to('.card', { overwrite: 'auto', duration: 2, opacity: cardOpacity });
   });
 
   document.querySelectorAll('a#add, button#add').forEach(element => {
@@ -267,11 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#animation').appendChild(card);
       }
       resize();
-      animationTimeline.set(
-        newCards,
-        { y: height / 2, rotationZ: 90, opacity: cardOpacity },
-        animationTimeline.time()
-      );
+      gsap.set(newCards, { y: height / 2, rotationZ: 90, opacity: cardOpacity });
 
       switch (current) {
         case 'pile':
@@ -281,11 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
           cylinder(newCards, cardCount - 30);
           break;
         case 'sphere':
-          animationTimeline.clear();
+          gsap.killTweensOf('.card:not(.dead)');
           sphere(document.querySelectorAll('.card:not(.dead)'));
           break;
         case 'fan':
-          animationTimeline.clear();
+          gsap.killTweensOf('.card:not(.dead)');
           fan(document.querySelectorAll('.card:not(.dead)'));
           break;
         case 'drop':
@@ -296,15 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
           break;
       }
 
-      colorTimeline.clear();
-      colorTimeline
-        .to('.card:not(.dead)', 1, { backgroundColor: 'hsl(0, 100%, 50%)' })
-        .staggerTo(
-          '.card:not(.dead)',
-          1,
-          { cycle: { backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)` } },
-          0.01
-        );
+      gsap.killTweensOf('.card:not(.dead)', 'backgroundColor');
+      gsap.to('.card:not(.dead)', { duration: 1, backgroundColor: 'hsl(0, 100%, 50%)' }).then(() =>
+        gsap.to('.card:not(.dead)', {
+          duration: 1,
+          stagger: 0.01,
+          backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
+        })
+      );
 
       document.querySelector('button#remove').removeAttribute('disabled');
       document.querySelector('a#remove').parentNode.classList.remove('uk-disabled');
@@ -315,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeButton.addEventListener('click', () => {
       // Remove 30 cards
       if (cardCount > 60) {
-        animationTimeline.clear();
+        gsap.killTweensOf('.card:not(.dead)');
         cardCount -= 30;
         delay = 5 / cardCount;
 
@@ -323,33 +284,18 @@ document.addEventListener('DOMContentLoaded', () => {
           Array.from(document.querySelectorAll('.card:not(.dead)'))
         ).slice(0, 30);
         killedElements.forEach(el => el.classList.add('dead'));
-        backgroundTimeline.to(
-          killedElements,
-          0.6,
-          { rotationX: 0, rotationY: 0, rotationZ: 0 },
-          backgroundTimeline.time()
-        );
-        backgroundTimeline.to(
-          killedElements,
-          1,
-          {
-            y: 0,
-            opacity: 0,
-            ease: Power1.easeIn,
-            onComplete() {
-              this.target.forEach(el => el.parentNode.removeChild(el));
-              document.querySelector('#cardCount').innerHTML = cardCount;
-              colorTimeline.clear();
-              colorTimeline.staggerTo(
-                '.card:not(.dead)',
-                1,
-                { cycle: { backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)` } },
-                0.01
-              );
-            },
-          },
-          backgroundTimeline.time()
-        );
+        gsap
+          .to(killedElements, { duration: 0.6, rotationX: 0, rotationY: 0, rotationZ: 0 })
+          .then(() => gsap.to(killedElements, { duration: 1, ease: 'power1.in', y: 0, opacity: 0 }))
+          .then(() => {
+            killedElements.forEach(el => el.parentNode.removeChild(el));
+            document.querySelector('#cardCount').innerHTML = cardCount;
+            gsap.to('.card:not(.dead)', {
+              duration: 1,
+              stagger: 0.01,
+              backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
+            });
+          });
 
         switch (current) {
           case 'pile':
@@ -376,41 +322,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('a#pile, button#pile').forEach(pileButton =>
     pileButton.addEventListener('click', () => {
-      // Pile button click
-      animationTimeline.clear(); // Stop all animations
+      gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       pile(document.querySelectorAll('.card:not(.dead)')); // Position cards
     })
   );
 
   document.querySelectorAll('a#cylinder, button#cylinder').forEach(cylinderButton =>
     cylinderButton.addEventListener('click', () => {
-      // Cylinder button click
-      animationTimeline.clear();
+      gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       cylinder(document.querySelectorAll('.card:not(.dead)'));
     })
   );
 
   document.querySelectorAll('a#sphere, button#sphere').forEach(sphereButton =>
     sphereButton.addEventListener('click', () => {
-      // Sphere button click
-      animationTimeline.clear();
+      gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       sphere(document.querySelectorAll('.card:not(.dead)'));
     })
   );
 
   document.querySelectorAll('a#fan, button#fan').forEach(fanButton =>
     fanButton.addEventListener('click', () => {
-      // Fan button click
-      animationTimeline.clear();
+      gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       fan(document.querySelectorAll('.card:not(.dead)'));
     })
   );
 
   document.querySelectorAll('a#drop, button#drop').forEach(dropButton =>
     dropButton.addEventListener('click', () => {
-      // Drop button click
       if (current !== 'drop') {
-        animationTimeline.clear();
+        gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
         drop(shuffle(Array.from(document.querySelectorAll('.card:not(.dead)'))));
       }
     })
@@ -418,8 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('a#random, button#random').forEach(randomButton =>
     randomButton.addEventListener('click', () => {
-      // Random button click
-      animationTimeline.clear();
+      gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       randomPosition(shuffle(Array.from(document.querySelectorAll('.card:not(.dead)'))));
     })
   );
@@ -430,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeTimeout = setTimeout(() => {
       resize();
 
-      animationTimeline.clear();
+      gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       switch (current) {
         case 'pile':
           pile(document.querySelectorAll('.card:not(.dead)'));

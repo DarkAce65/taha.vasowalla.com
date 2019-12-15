@@ -164,11 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
     y *= factor;
     z *= factor;
 
-    gsap.to(camera.position, { overwrite: true, duration: 2, ease: 'power2.easeInOut', x, y, z });
+    gsap.to(camera.position, { overwrite: true, duration: 2, ease: 'power2.inOut', x, y, z });
     gsap.to(controls.target, 2, {
       overwrite: true,
       duration: 2,
-      ease: 'power2.easeInOut',
+      ease: 'power2.inOut',
       x: tx,
       y: ty,
       z: tz,
