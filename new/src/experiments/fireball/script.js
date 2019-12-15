@@ -4,18 +4,18 @@ import {
   Clock,
   Color,
   DoubleSide,
+  IcosahedronGeometry,
   Mesh,
   PerspectiveCamera,
   Scene,
   ShaderMaterial,
-  WebGLRenderer,
   TextureLoader,
-  IcosahedronGeometry,
+  WebGLRenderer,
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
-import { fireballVertexShader, fireballFragmentShader } from './shaders';
+import requestAnimationFrame from '../../lib/requestAnimationFrame';
+import { fireballFragmentShader, fireballVertexShader } from './shaders';
 
 const uniforms = {
   u_time: { type: 'f', value: 0 },

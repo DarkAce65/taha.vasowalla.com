@@ -1,9 +1,8 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 import gsap from 'gsap';
+
 import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
-window.gsap = gsap;
-window.makeDashOffsetParams = makeDashOffsetParams;
 
 let hangmanWord = '';
 let guessedLetters = [];

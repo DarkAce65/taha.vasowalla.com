@@ -4,10 +4,10 @@ import {
   BufferGeometry,
   Color,
   Float32BufferAttribute,
-  Math as _Math,
   Object3D,
   Points,
   ShaderMaterial,
+  Math as _Math,
 } from 'three';
 
 const ParticleShader = {

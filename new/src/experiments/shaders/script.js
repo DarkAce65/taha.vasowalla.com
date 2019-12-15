@@ -17,8 +17,8 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import gsap from 'gsap';
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
+import requestAnimationFrame from '../../lib/requestAnimationFrame';
 import {
   matrixFragmentShader,
   noiseFragmentShader,

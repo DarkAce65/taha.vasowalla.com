@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-
 const Vinyl = require('vinyl');
 const through2 = require('through2');
 const sassGraph = require('sass-graph');

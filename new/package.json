@@ -10,6 +10,7 @@
         "tests"
     ],
     "scripts": {
+        "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.js\"",
         "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "dev": "gulp watch --silent",
@@ -22,7 +23,7 @@
         }
     },
     "lint-staged": {
-        "*.js": "eslint --max-warnings=0",
+        "*.js!eslintrc.js": "eslint --max-warnings=0",
         "*.{js,scss}": "prettier --list-different"
     },
     "devDependencies": {
@@ -37,6 +38,7 @@
         "eslint": "^6.7.2",
         "eslint-config-prettier": "^6.7.0",
         "eslint-loader": "^3.0.3",
+        "eslint-plugin-import": "^2.19.1",
         "eslint-plugin-prettier": "^3.1.1",
         "extract-loader": "^3.1.0",
         "file-loader": "^5.0.2",

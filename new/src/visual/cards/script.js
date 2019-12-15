@@ -1,6 +1,6 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import { TimelineMax, Linear, Power1, Bounce } from 'gsap';
+import { Bounce, Linear, Power1, TimelineMax } from 'gsap';
 
 let height;
 let width;

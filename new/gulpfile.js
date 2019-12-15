@@ -1,9 +1,8 @@
 const gulp = require('gulp');
-
+// Utils
 const using = require('gulp-using');
 const gulpif = require('gulp-if');
-const { handleSassImports, endStream, flattenObject } = require('./gulp/utils');
-
+// Build tools
 const del = require('del');
 const webpackStream = require('webpack-stream');
 const webpack = require('webpack');
@@ -11,6 +10,9 @@ const WebpackDevServer = require('webpack-dev-server');
 const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
+
+const { handleSassImports, endStream, flattenObject } = require('./gulp/utils');
+const webpackConfig = require('./webpack.config.js');
 
 const staticFiles = {
   assets: {
@@ -21,7 +23,6 @@ const staticFiles = {
 };
 const styleSources = 'src/**/*.scss';
 
-const webpackConfig = require('./webpack.config.js');
 const sassOptions = {
   includePaths: ['node_modules/'],
 };
