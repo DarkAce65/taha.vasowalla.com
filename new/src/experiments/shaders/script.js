@@ -16,7 +16,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
-import TweenLite, { Power2 } from 'gsap/TweenLite';
+import gsap from 'gsap';
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
 import {
@@ -164,17 +164,19 @@ document.addEventListener('DOMContentLoaded', () => {
     y *= factor;
     z *= factor;
 
-    TweenLite.to(camera.position, 2, { x, y, z, ease: Power2.easeInOut });
-    TweenLite.to(controls.target, 2, {
+    gsap.to(camera.position, { overwrite: true, duration: 2, ease: 'power2.easeInOut', x, y, z });
+    gsap.to(controls.target, 2, {
+      overwrite: true,
+      duration: 2,
+      ease: 'power2.easeInOut',
       x: tx,
       y: ty,
       z: tz,
-      ease: Power2.easeOut,
       onUpdate() {
         camera.lookAt(controls.target);
       },
     });
-    TweenLite.to(camera.up, 1.75, { x: 0, y: uy, z: uz });
+    gsap.to(camera.up, { overwrite: true, duration: 1.75, x: 0, y: uy, z: uz });
   };
 
   const render = () => {
