@@ -15,6 +15,7 @@ module.exports = {
     'no-duplicate-imports': 'warn',
     'no-shadow': 'error',
     'no-unused-vars': 'warn',
+    'no-use-before-define': ['error', 'nofunc'],
     'no-var': 'error',
     'object-shorthand': 'warn',
     'one-var': ['warn', 'never'],
