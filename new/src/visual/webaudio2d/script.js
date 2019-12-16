@@ -48,10 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
   enableFAIcons(faPause, faFileAudio, faExpand);
 
-  const fftSize = Math.pow(2, 11);
-
   let visualizerWidth = 800;
   let visualizerHeight = 400;
+  const volumeBarHeight = 10;
+
+  const c = document.getElementById('visualizer');
+  const ctx = c.getContext('2d');
+  c.height = visualizerHeight;
+  c.width = visualizerWidth;
+  ctx.fillStyle = '#0F0';
+  ctx.font = '16px serif';
+
+  const fftSize = Math.pow(2, 11);
   let mapLogarithmic;
 
   const audioContext = new AudioContext();
@@ -76,13 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
   wavesurfer.setMute(true);
 
   let wavesurferReady = Promise.resolve();
-
-  const c = document.getElementById('visualizer');
-  const ctx = c.getContext('2d');
-  c.height = visualizerHeight;
-  c.width = visualizerWidth;
-  ctx.fillStyle = '#0F0';
-  ctx.font = '16px serif';
 
   let targetVolume = 0;
   let currentVolume = 0;
@@ -137,12 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
     analyser.getByteTimeDomainData(volumeData);
     analyser.getByteFrequencyData(frequencyData);
     ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
-    targetVolume = 0;
-    for (let i = 0; i < bufferLength; i++) {
-      const v = volumeData[i] - 128;
-      targetVolume += v * v;
-    }
 
+    const h = visualizerHeight - volumeBarHeight;
     for (let i = 0; i < visualizerWidth; i++) {
       const mappedIndex = mapLogarithmic(i);
       const p = mappedIndex % 1;
@@ -150,10 +147,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
       const y = ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
 
-      ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, (y * y + 0.1) * 80)}%)`;
-      ctx.fillRect(i, (1 - y) * visualizerHeight, 1, y * visualizerHeight);
+      ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, y * y * 70 + 10)}%)`;
+      ctx.fillRect(i, (1 - y) * h, 1, y * h);
     }
 
+    targetVolume = 0;
+    for (let i = 0; i < bufferLength; i++) {
+      const v = volumeData[i] - 128;
+      targetVolume += v * v;
+    }
     targetVolume = Math.sqrt(targetVolume / bufferLength) / 85;
     if (currentVolume < targetVolume) {
       currentVolume = targetVolume;
@@ -164,8 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
       currentVolume = 1;
     }
 
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(10, 1210, currentVolume * (visualizerWidth - 20), 25);
+    ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, currentVolume * currentVolume * 60 + 40)}%)`;
+    const volumeBarWidth = visualizerWidth * currentVolume;
+    ctx.fillRect(visualizerWidth / 2 - volumeBarWidth / 2, h, volumeBarWidth, volumeBarHeight);
+
     if (playing) {
       document.getElementById('currentTime').innerHTML = toHHMMSS(
         audioContext.currentTime - startTime + startOffset
