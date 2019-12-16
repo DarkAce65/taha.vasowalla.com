@@ -3,6 +3,7 @@ import {
   BufferAttribute,
   BufferGeometry,
   Color,
+  DynamicDrawUsage,
   Float32BufferAttribute,
   Object3D,
   Points,
@@ -82,21 +83,21 @@ class ParticleEmitter extends Object3D {
     }
 
     this.geometry = new BufferGeometry();
-    this.geometry.addAttribute(
+    this.geometry.setAttribute(
       'position',
-      new BufferAttribute(new Float32Array(this.particleCount * 3), 3).setDynamic(true)
+      new BufferAttribute(new Float32Array(this.particleCount * 3), 3).setUsage(DynamicDrawUsage)
     );
-    this.geometry.addAttribute(
+    this.geometry.setAttribute(
       'velocity',
-      new BufferAttribute(new Float32Array(this.particleCount * 3), 3).setDynamic(true)
+      new BufferAttribute(new Float32Array(this.particleCount * 3), 3).setUsage(DynamicDrawUsage)
     );
-    this.geometry.addAttribute(
+    this.geometry.setAttribute(
       'particleColor',
-      new BufferAttribute(new Float32Array(this.particleCount * 3), 3).setDynamic(true)
+      new BufferAttribute(new Float32Array(this.particleCount * 3), 3).setUsage(DynamicDrawUsage)
     );
-    this.geometry.addAttribute(
+    this.geometry.setAttribute(
       'spawnTime',
-      new Float32BufferAttribute(spawnTimes, 1).setDynamic(true)
+      new Float32BufferAttribute(spawnTimes, 1).setUsage(DynamicDrawUsage)
     );
 
     this.points = new Points(this.geometry, this.material);
