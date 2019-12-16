@@ -48,16 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
   enableFAIcons(faPause, faFileAudio, faExpand);
 
-  const fftSize = 2048;
+  const fftSize = Math.pow(2, 11);
 
-  const visualizerWidth = fftSize;
-  const visualizerHeight = 400;
+  let visualizerWidth = 800;
+  let visualizerHeight = 400;
   let mapLogarithmic;
 
   const audioContext = new AudioContext();
   let source;
   const gainNode = audioContext.createGain();
   const analyser = audioContext.createAnalyser();
+  analyser.fftSize = fftSize;
   analyser.smoothingTimeConstant = 0.8;
 
   const wavesurfer = WaveSurfer.create({
@@ -93,6 +94,23 @@ document.addEventListener('DOMContentLoaded', () => {
   let frequencyData;
   let duration = 0;
   let playing = false;
+
+  const resize = () => {
+    visualizerWidth = document.querySelector('#visualizerContainer').clientWidth;
+    if (window.innerHeight <= 600) {
+      visualizerHeight = 200;
+    } else {
+      visualizerHeight = 400;
+    }
+    c.width = visualizerWidth;
+    c.height = visualizerHeight;
+
+    if (source) {
+      mapLogarithmic = makeLogarithmicMapper(visualizerWidth, bufferLength);
+    }
+  };
+
+  resize();
 
   const reset = () => {
     if (source) {
@@ -132,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
       const y = ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
 
-      ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, y * 100)}%)`;
+      ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, (y * y + 0.1) * 80)}%)`;
       ctx.fillRect(i, (1 - y) * visualizerHeight, 1, y * visualizerHeight);
     }
 
@@ -236,4 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  window.addEventListener('resize', resize);
 });
