@@ -8,6 +8,7 @@ const pages = [
   { entry: 'fireball', dir: 'experiments/fireball' },
   { entry: 'shaders', dir: 'experiments/shaders' },
   { entry: 'cards', dir: 'visual/cards' },
+  { entry: 'webaudio2d', dir: 'visual/webaudio2d' },
 ];
 
 const entrypoints = pages.reduce(

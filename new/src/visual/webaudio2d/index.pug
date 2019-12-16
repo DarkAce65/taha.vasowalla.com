@@ -1,0 +1,24 @@
+include ../../partials/mixins
+
+html
+  head
+    +head("Web Audio API")
+    link(rel="shortcut icon" href="../../assets/icons/webaudio.png")
+    link(rel="stylesheet" type="text/css" href="../../uikit.css")
+    link(rel="stylesheet" type="text/css" href="../../global.css")
+    link(rel="stylesheet" href="style.css")
+
+  body
+    .uk-container.uk-margin-top
+      +breadcrumbs("visual", "webaudio2d")
+
+      .uk-button-group
+        button#playPause.uk-button.uk-button-default.uk-button-small &#8203;#[i.fas.fa-pause]
+        button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-audio] Upload audio file
+          input#fileInput(type="file" accept="audio/*")
+        button#fullscreen.uk-button.uk-button-default.uk-button-small &#8203;#[i.fas.fa-expand]
+      span#filename
+      div #[span#currentTime -:--] / #[span#duration -:--]
+      #visualizerContainer
+        canvas#visualizer
+        #wave

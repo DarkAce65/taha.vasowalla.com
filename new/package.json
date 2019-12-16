@@ -63,10 +63,14 @@
         "webpack-stream": "^5.2.1"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.26",
+        "@fortawesome/free-regular-svg-icons": "^5.12.0",
+        "@fortawesome/free-solid-svg-icons": "^5.12.0",
         "core-js": "^3.5.0",
         "gsap": "^3.0.4",
         "simplex-noise": "^2.4.0",
         "three": "^0.111.0",
-        "uikit": "^3.2.4"
+        "uikit": "^3.2.4",
+        "wavesurfer.js": "^3.2.0"
     }
 }
