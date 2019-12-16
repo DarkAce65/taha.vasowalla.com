@@ -35,6 +35,15 @@ const toHHMMSS = number => {
   return `${hours}${minutes}:${seconds}`;
 };
 
+const makeLogarithmicMapper = (maxDomain, maxRange) => {
+  const mapped = [];
+  for (let i = 0; i < maxDomain; i++) {
+    mapped[i] = toLog((i * maxRange) / maxDomain, maxRange);
+  }
+
+  return i => mapped[i];
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
   enableFAIcons(faPause, faFileAudio, faExpand);
@@ -43,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const visualizerWidth = fftSize;
   const visualizerHeight = 400;
+  let mapLogarithmic;
 
   const audioContext = new AudioContext();
   let source;
@@ -116,10 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     for (let i = 0; i < visualizerWidth; i++) {
-      const log = toLog((i * bufferLength) / visualizerWidth, bufferLength);
-      const p = log % 1;
-      const l = Math.max(0, Math.floor(log));
-      const r = Math.min(bufferLength - 1, Math.ceil(log));
+      const mappedIndex = mapLogarithmic(i);
+      const p = mappedIndex % 1;
+      const l = Math.max(0, Math.floor(mappedIndex));
+      const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
       const y = ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
 
       ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, y * 100)}%)`;
@@ -171,11 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
     volumeData = new Uint8Array(bufferLength);
     frequencyData = new Uint8Array(bufferLength);
     duration = dataBuffer.duration;
+    mapLogarithmic = makeLogarithmicMapper(visualizerWidth, bufferLength);
 
     await wavesurferReady;
-    play();
-
-    document.getElementById('duration').innerHTML = toHHMMSS(duration);
   };
 
   document.querySelector('#fileInput').addEventListener('change', e => {
@@ -209,6 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
               status: 'danger',
               pos: 'top-right',
             });
+          })
+          .then(() => {
+            play();
+            document.getElementById('duration').innerHTML = toHHMMSS(duration);
           });
       };
 
