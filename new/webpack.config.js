@@ -19,6 +19,15 @@ const entrypoints = pages.reduce(
   {}
 );
 
+const plugins = pages.map(({ entry, dir, chunks = [entry] }) => {
+  return new HtmlWebpackPlugin({
+    inject: 'head',
+    filename: path.join(dir, 'index.html'),
+    template: path.join(__dirname, 'src', dir, 'index.pug'),
+    chunks,
+  });
+});
+
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   devtool: 'source-map',
@@ -60,7 +69,13 @@ module.exports = {
 
   optimization: {
     runtimeChunk: 'single',
-    splitChunks: { chunks: 'all' },
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        three: { name: 'three', test: /[\\/]node_modules[\\/]three/ },
+        uikit: { name: 'uikit', test: /[\\/]node_modules[\\/]uikit/ },
+      },
+    },
   },
 
   module: {
@@ -84,12 +99,5 @@ module.exports = {
     ],
   },
 
-  plugins: pages.map(({ entry, dir, chunks = [entry] }) => {
-    return new HtmlWebpackPlugin({
-      inject: 'head',
-      filename: path.join(dir, 'index.html'),
-      template: path.join(__dirname, 'src', dir, 'index.pug'),
-      chunks,
-    });
-  }),
+  plugins,
 };
