@@ -1,10 +1,6 @@
-.spacer {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.btn {
-  margin-right: 3px;
+#visualizerContainer {
+  position: relative;
+  overflow: hidden;
 }
 
 #visualizer {
@@ -21,34 +17,15 @@
   }
 }
 
-#filename {
+#details {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  color: white;
+  text-align: right;
+}
+
+#name {
   font-style: italic;
-}
-
-.fullscreen {
-  overflow: hidden;
-  max-height: 100%;
-
-  #controls {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px;
-    z-index: 10000;
-    text-align: right;
-  }
-
-  #visualizer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 9999;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  #visualizer {
-    height: 250px;
-  }
+  white-space: pre;
 }
