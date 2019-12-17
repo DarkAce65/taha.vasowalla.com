@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gainNode.connect(analyser);
     analyser.connect(audioContext.destination);
 
-    bufferLength = analyser.frequencyBinCount * (20000 / 24000); // Restrict buffer to 20000Hz
+    bufferLength = Math.ceil(analyser.frequencyBinCount * (20000 / 24000)); // Restrict buffer to 20000Hz
     volumeData = new Uint8Array(bufferLength);
     frequencyData = new Uint8Array(bufferLength);
     duration = dataBuffer.duration;
