@@ -122,11 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `<li><a id="${key}" class="view" href="javascript:void(0)">${key} Cube</a></li>`
       );
   });
-  document.querySelectorAll('.view').forEach(view =>
-    view.addEventListener('click', e => {
-      setCamera(e.target.id);
-    })
-  );
   viewportBounds.maxX += 50;
   viewportBounds.maxY += 50;
 
@@ -188,6 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render();
   setCamera('Overview');
+
+  document.querySelectorAll('.view').forEach(view =>
+    view.addEventListener('click', e => {
+      setCamera(e.target.id);
+    })
+  );
 
   window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
