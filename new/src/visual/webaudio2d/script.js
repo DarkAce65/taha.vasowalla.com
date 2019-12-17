@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gainNode.connect(analyser);
     analyser.connect(audioContext.destination);
 
-    bufferLength = analyser.frequencyBinCount;
+    bufferLength = analyser.frequencyBinCount * (20000 / 24000); // Restrict buffer to 20000Hz
     volumeData = new Uint8Array(bufferLength);
     frequencyData = new Uint8Array(bufferLength);
     duration = dataBuffer.duration;
@@ -205,7 +205,20 @@ document.addEventListener('DOMContentLoaded', () => {
   resize();
   reset();
 
-  document.getElementById('fileInput').addEventListener('change', ev => {
+  const fileInput = document.getElementById('fileInput');
+
+  ['dragenter', 'dragover'].forEach(event => {
+    fileInput.addEventListener(event, () => {
+      fileInput.parentNode.classList.add('uk-active');
+    });
+  });
+  ['dragleave', 'dragend', 'drop'].forEach(event => {
+    fileInput.addEventListener(event, () => {
+      fileInput.parentNode.classList.remove('uk-active');
+    });
+  });
+
+  fileInput.addEventListener('change', ev => {
     const { files } = ev.target;
     if (files.length !== 0) {
       const reader = new FileReader();
