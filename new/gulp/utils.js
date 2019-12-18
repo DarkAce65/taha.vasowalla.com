@@ -1,8 +1,52 @@
 const fs = require('fs');
 const path = require('path');
+const { Duplex } = require('stream');
 const Vinyl = require('vinyl');
 const through2 = require('through2');
 const sassGraph = require('sass-graph');
+
+const endStream = function() {
+  this.emit('end');
+};
+
+const flattenObject = (object, root = '') =>
+  Object.entries(object).reduce((obj, [key, value]) => {
+    const base = root === '' ? '' : `${root}/`;
+    if (!Array.isArray(value) && typeof value === 'object') {
+      return { ...obj, ...flattenObject(value, `${base}${key}`) };
+    }
+
+    obj[`${base}${key}`] = value;
+    return obj;
+  }, {});
+
+const debounceStream = ({ timeout = 100, cacheKeyFn = file => file.path } = {}) => {
+  const cache = {};
+
+  return new Duplex({
+    objectMode: true,
+    read() {},
+    write(file, _, done) {
+      const cacheKey = cacheKeyFn(file);
+      if (Object.prototype.hasOwnProperty.call(cache, cacheKey)) {
+        clearTimeout(cache[cacheKey].timeout);
+      } else {
+        cache[cacheKey] = {};
+      }
+
+      cache[cacheKey].timeout = setTimeout(() => {
+        this.push(file);
+        delete cache[cacheKey];
+
+        if (Object.keys(cache).length === 0) {
+          this.push(null);
+        }
+      }, timeout);
+
+      done();
+    },
+  });
+};
 
 const handleSassImports = ({ firstRun } = {}) =>
   through2.obj(function(file, _, callback) {
@@ -48,19 +92,4 @@ const handleSassImports = ({ firstRun } = {}) =>
     callback();
   });
 
-const endStream = function() {
-  this.emit('end');
-};
-
-const flattenObject = (object, root = '') =>
-  Object.entries(object).reduce((obj, [key, value]) => {
-    const base = root === '' ? '' : `${root}/`;
-    if (!Array.isArray(value) && typeof value === 'object') {
-      return { ...obj, ...flattenObject(value, `${base}${key}`) };
-    }
-
-    obj[`${base}${key}`] = value;
-    return obj;
-  }, {});
-
-module.exports = { handleSassImports, endStream, flattenObject };
+module.exports = { endStream, flattenObject, debounceStream, handleSassImports };

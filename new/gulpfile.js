@@ -11,7 +11,7 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const { handleSassImports, endStream, flattenObject } = require('./gulp/utils');
+const { endStream, flattenObject, debounceStream, handleSassImports } = require('./gulp/utils');
 const webpackConfig = require('./webpack.config.js');
 
 const staticFiles = {
@@ -74,6 +74,7 @@ const compileStyles = () => {
     .src(styleSources, { sourcemaps: true, since })
     .pipe(gulpif(!firstRun && /_[^/]*$/, using({ prefix: 'Compiling dependents of' })))
     .pipe(handleSassImports({ firstRun }))
+    .pipe(debounceStream())
     .pipe(sass.sync(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
