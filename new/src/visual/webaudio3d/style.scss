@@ -16,3 +16,8 @@ body {
   right: 0;
   margin: $global-margin;
 }
+
+#name {
+  font-style: italic;
+  white-space: pre;
+}
