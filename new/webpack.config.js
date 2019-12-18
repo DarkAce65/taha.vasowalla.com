@@ -9,6 +9,7 @@ const pages = [
   { entry: 'shaders', dir: 'experiments/shaders' },
   { entry: 'cards', dir: 'visual/cards' },
   { entry: 'webaudio2d', dir: 'visual/webaudio2d' },
+  { entry: 'webaudio3d', dir: 'visual/webaudio3d' },
 ];
 
 const entrypoints = pages.reduce(
