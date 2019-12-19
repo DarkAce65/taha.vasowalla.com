@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
   enableFAIcons(faFileAudio, faVideo);
 
   const scene = new Scene();
-  scene.background = new Color(0x000000);
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   document.querySelector('#rendererContainer').appendChild(renderer.domElement);
   renderer.setSize(window.innerWidth, window.innerHeight);
