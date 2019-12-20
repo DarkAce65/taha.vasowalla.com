@@ -20,7 +20,7 @@ const flattenObject = (object, root = '') =>
     return obj;
   }, {});
 
-const debounceStream = ({ timeout = 100, cacheKeyFn = file => file.path } = {}) => {
+const debounceStream = ({ delay = 100, cacheKeyFn = file => file.path } = {}) => {
   const cache = {};
 
   return new Duplex({
@@ -34,14 +34,20 @@ const debounceStream = ({ timeout = 100, cacheKeyFn = file => file.path } = {}) 
         cache[cacheKey] = {};
       }
 
+      cache[cacheKey].file = file;
       cache[cacheKey].timeout = setTimeout(() => {
         this.push(file);
         delete cache[cacheKey];
+      }, delay);
 
-        if (Object.keys(cache).length === 0) {
-          this.push(null);
-        }
-      }, timeout);
+      done();
+    },
+    final(done) {
+      Object.values(cache).forEach(({ timeout, file }) => {
+        clearTimeout(timeout);
+        this.push(file);
+      });
+      this.push(null);
 
       done();
     },
