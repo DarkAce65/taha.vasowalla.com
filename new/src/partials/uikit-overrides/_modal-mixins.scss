@@ -1,7 +1,7 @@
 @import 'variables';
 
-@mixin hook-modal-footer() {
-  border-top: $global-border-width solid $global-secondary-background;
+@mixin hook-modal-dialog {
+  border: 1px solid $modal-border-width;
 }
 
 @mixin hook-modal-misc() {
