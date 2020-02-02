@@ -16,12 +16,11 @@
 @mixin hook-tab-item() {
   font-size: $tab-item-font-size;
   text-transform: uppercase;
-  border-bottom: $tab-border-width solid transparent;
+  border-bottom: $tab-item-border-width solid transparent;
   transition: color 0.1s ease-in-out;
 }
 
 @mixin hook-tab-item-active() {
-  border-width: $tab-item-active-border-width;
   border-color: $tab-item-active-border;
 }
 
@@ -34,7 +33,7 @@
 
 @mixin hook-tab-bottom-item() {
   border-bottom: none;
-  border-top: $tab-border-width solid transparent;
+  border-top: $tab-item-border-width solid transparent;
 }
 
 @mixin hook-tab-left() {
@@ -61,12 +60,12 @@
 
 @mixin hook-tab-left-item() {
   border-bottom: none;
-  border-right: $tab-border-width solid transparent;
+  border-right: $tab-item-border-width solid transparent;
 }
 
 @mixin hook-tab-right-item() {
   border-bottom: none;
-  border-left: $tab-border-width solid transparent;
+  border-left: $tab-item-border-width solid transparent;
 }
 
 @mixin hook-tab-misc() {
