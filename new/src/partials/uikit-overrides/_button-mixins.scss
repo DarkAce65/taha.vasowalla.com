@@ -16,7 +16,8 @@
 @mixin hook-button-default() {
   border: $button-border-width solid $button-default-border;
 
-  &:focus {
+  &:focus,
+  &:active {
     position: relative;
     z-index: 1;
     box-shadow: 0 0 0 $button-focus-shadow-width currentColor;
@@ -35,7 +36,8 @@
 @mixin hook-button-primary() {
   border: $button-border-width solid transparent;
 
-  &:focus {
+  &:focus,
+  &:active {
     position: relative;
     z-index: 1;
     box-shadow: 0 0 0 $button-focus-shadow-width rgba($button-primary-background, 0.75);
@@ -46,7 +48,8 @@
 @mixin hook-button-secondary() {
   border: $button-border-width solid transparent;
 
-  &:focus {
+  &:focus,
+  &:active {
     position: relative;
     z-index: 1;
     box-shadow: 0 0 0 $button-focus-shadow-width rgba($button-secondary-background, 0.75);
@@ -57,7 +60,8 @@
 @mixin hook-button-danger() {
   border: $button-border-width solid transparent;
 
-  &:focus {
+  &:focus,
+  &:active {
     position: relative;
     z-index: 1;
     box-shadow: 0 0 0 $button-focus-shadow-width rgba($button-danger-background, 0.75);
