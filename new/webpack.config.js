@@ -73,8 +73,9 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        three: { name: 'three', test: /[\\/]node_modules[\\/]three/ },
-        uikit: { name: 'uikit', test: /[\\/]node_modules[\\/]uikit/ },
+        three: { name: 'vendor~three', test: /[\\/]node_modules[\\/]three/, priority: 10 },
+        uikit: { name: 'vendor~uikit', test: /[\\/]node_modules[\\/]uikit/, priority: 10 },
+        shared: { name: 'vendors~shared', test: /[\\/]node_modules/, minChunks: 6 },
       },
     },
   },
