@@ -1,7 +1,7 @@
 @import 'variables';
 
 @mixin hook-modal-dialog {
-  border: 1px solid $modal-border-width;
+  border: $modal-border-width solid $darkgray;
 }
 
 @mixin hook-modal-misc() {

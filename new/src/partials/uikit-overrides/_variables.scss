@@ -18,8 +18,11 @@ $global-background: $black;
 $global-muted-background: lighten($black, 8);
 $global-primary-background: $red;
 $global-secondary-background: $light;
-$global-danger-background: $red;
+$global-danger-background: $darkred;
 $global-inverse-color: $black;
+
+$breadcrumb-item-font-size: 0.875em;
+$breadcrumb-divider-margin-horizontal: 10px;
 
 $button-border-width: 1px;
 $button-focus-shadow-width: 2px;
@@ -27,25 +30,30 @@ $button-default-color: $global-color;
 $button-default-background: transparent;
 $button-disabled-background: transparent;
 
-$notification-message-background: $global-secondary-background;
+$form-background: $black;
+$form-disabled-placeholder-color: darken($global-muted-color, 10);
+$form-focus-border: $global-emphasis-color;
+$form-disabled-border: transparent;
+
+$notification-message-background: $black;
+
+@import 'uikit/src/scss/variables';
 
 $form-disabled-placeholder-color: darken($global-muted-color, 10);
 $form-focus-border: $global-emphasis-color;
 $form-disabled-border: transparent;
 
-$breadcrumb-item-font-size: 0.875em;
-$breadcrumb-divider-margin-horizontal: 10px;
-
-@import 'uikit/src/scss/variables';
+$modal-border-width: 1px;
 
 $button-default-border: darken($global-border, 50);
+$button-secondary-hover-background: darken($button-secondary-background, 10);
+$button-secondary-active-background: darken($button-secondary-background, 20);
 
 $form-border: darken($global-border, 50);
-$form-blank-focus-border: $form-border;
+$form-blank-focus-border: $global-border;
 $form-danger-border: $global-danger-background;
 $form-success-border: $global-success-background;
 
-$modal-border-width: 1px;
 $modal-header-background: $modal-background;
 
 $tab-item-font-size: $global-small-font-size;

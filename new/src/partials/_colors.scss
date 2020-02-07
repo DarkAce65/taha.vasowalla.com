@@ -5,6 +5,8 @@ $light: #eeeeee;
 $white: white;
 
 $red: #f85a3e;
+$highlightred: lighten($red, 5);
+$darkred: darken($red, 20);
 
 $text-color: $gray;
 $dim-text-color: $darkgray;
