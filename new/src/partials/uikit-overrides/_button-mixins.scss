@@ -3,6 +3,14 @@
 @mixin hook-button() {
   transition: 0.3s;
   transition-property: color, background, border-color, box-shadow;
+
+  &:focus,
+  &:active {
+    position: relative;
+    z-index: 1;
+    box-shadow: inset 0 0 0 $button-focus-shadow-width currentColor;
+    transition: 0s;
+  }
 }
 
 @mixin hook-button-hover() {
@@ -15,14 +23,6 @@
 
 @mixin hook-button-default() {
   border: $button-border-width solid $button-default-border;
-
-  &:focus,
-  &:active {
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 0 $button-focus-shadow-width currentColor;
-    transition: 0s;
-  }
 }
 
 @mixin hook-button-default-hover() {
@@ -35,38 +35,14 @@
 
 @mixin hook-button-primary() {
   border: $button-border-width solid transparent;
-
-  &:focus,
-  &:active {
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 0 $button-focus-shadow-width $button-primary-background;
-    transition: 0s;
-  }
 }
 
 @mixin hook-button-secondary() {
   border: $button-border-width solid transparent;
-
-  &:focus,
-  &:active {
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 0 $button-focus-shadow-width $button-secondary-background;
-    transition: 0s;
-  }
 }
 
 @mixin hook-button-danger() {
   border: $button-border-width solid transparent;
-
-  &:focus,
-  &:active {
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 0 $button-focus-shadow-width $button-danger-background;
-    transition: 0s;
-  }
 }
 
 @mixin hook-button-text() {
