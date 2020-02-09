@@ -9,6 +9,7 @@ $base-heading-font-family: $header-font-stack;
 $global-muted-color: $dim-text-color;
 $global-color: $text-color;
 $global-emphasis-color: $bright-text-color;
+$global-inverse-color: $black;
 
 $global-link-color: currentColor;
 $base-link-hover-color: $global-emphasis-color;
@@ -19,38 +20,36 @@ $global-muted-background: lighten($black, 8);
 $global-primary-background: $red;
 $global-secondary-background: $light;
 $global-danger-background: $darkred;
-$global-inverse-color: $black;
+$global-border: $light;
 
 $breadcrumb-item-font-size: 0.875em;
 $breadcrumb-divider-margin-horizontal: 10px;
 
 $button-border-width: 1px;
 $button-focus-shadow-width: 2px;
+$button-default-border: darken($global-border, 50);
 $button-default-color: $global-color;
 $button-default-background: transparent;
 $button-disabled-background: transparent;
 
 $form-background: $black;
 $form-disabled-placeholder-color: darken($global-muted-color, 10);
+$form-border: darken($global-border, 50);
 $form-focus-border: $global-emphasis-color;
-$form-disabled-border: transparent;
-
-$notification-message-background: $black;
-
-@import 'uikit/src/scss/variables';
-
-$form-disabled-placeholder-color: darken($global-muted-color, 10);
-$form-focus-border: $global-emphasis-color;
+$form-blank-focus-border: $global-border;
 $form-disabled-border: transparent;
 
 $modal-border-width: 1px;
 
-$button-default-border: darken($global-border, 50);
+$notification-message-background: $black;
+$tab-border: $global-border;
+$tab-item-active-border: $red;
+
+@import 'uikit/src/scss/variables';
+
 $button-secondary-hover-background: darken($button-secondary-background, 10);
 $button-secondary-active-background: darken($button-secondary-background, 20);
 
-$form-border: darken($global-border, 50);
-$form-blank-focus-border: $global-border;
 $form-danger-border: $global-danger-background;
 $form-success-border: $global-success-background;
 
@@ -59,5 +58,3 @@ $modal-header-background: $modal-background;
 $tab-item-font-size: $global-small-font-size;
 $tab-border-width: $global-border-width;
 $tab-item-border-width: $tab-border-width + 1;
-$tab-border: $global-border;
-$tab-item-active-border: $red;
