@@ -27,18 +27,12 @@ const sassOptions = {
   includePaths: ['node_modules/'],
 };
 
-const cleanStatic = (destRootPath = '') => {
-  const cleanStaticFiles = () =>
-    del(
-      Object.keys(flattenObject(staticFiles)).map(staticDir => `dist/${destRootPath}/${staticDir}`)
-    );
-  cleanStaticFiles.displayName = 'clean:static';
-
-  return cleanStaticFiles;
-};
+const cleanStatic = () =>
+  del(Object.keys(flattenObject(staticFiles)).map(staticDir => `dist/${staticDir}`));
+cleanStatic.displayName = 'clean:static';
 
 const copyStatic = gulp.series(
-  cleanStatic(),
+  cleanStatic,
   gulp.parallel(
     ...Object.entries(flattenObject(staticFiles)).map(([destPath, source]) => {
       const copyStaticFiles = () =>
