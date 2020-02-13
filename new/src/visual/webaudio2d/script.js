@@ -249,12 +249,12 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(() => {
             notification.close();
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
-          })
-          .then(() => {
+
             play();
 
             document.getElementById('duration').innerHTML = toHHMMSS(duration);
             document.getElementById('details').classList.remove('uk-hidden');
+            document.getElementById('visualizerContainer').classList.remove('bordered');
           })
           .catch(error => {
             console.error(error);

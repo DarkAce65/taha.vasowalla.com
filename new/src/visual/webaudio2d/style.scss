@@ -1,15 +1,22 @@
+@import '../../partials/colors';
+
 #visualizerContainer {
   position: relative;
   overflow: hidden;
+  border: 1px solid transparent;
+  transition: border 1s;
+
+  &.bordered {
+    border-color: currentColor;
+  }
 }
 
 #visualizer {
   width: 100%;
-  background: black;
+  background: $black;
 }
 
 #wave {
-  background: rgba(0, 0, 0, 0.4);
   margin-bottom: 10px;
 
   canvas {
@@ -21,7 +28,7 @@
   position: absolute;
   top: 2px;
   right: 10px;
-  color: white;
+  color: $white;
   text-align: right;
 }
 
