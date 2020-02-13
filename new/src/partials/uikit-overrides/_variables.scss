@@ -16,7 +16,7 @@ $base-link-hover-color: $global-emphasis-color;
 $base-link-hover-text-decoration: none;
 
 $global-background: $black;
-$global-muted-background: lighten($black, 8);
+$global-muted-background: $muted;
 $global-primary-background: $red;
 $global-secondary-background: $light;
 $global-danger-background: $darkred;
@@ -42,7 +42,7 @@ $form-disabled-border: transparent;
 $modal-border-width: 1px;
 
 $notification-message-background: $black;
-$tab-border: $global-border;
+$tab-border: $darkgray;
 $tab-item-active-border: $red;
 
 @import 'uikit/src/scss/variables';

@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wordDisplayEl.innerHTML.replace(/<[^<>]*>/g, '') === hangmanWord) {
           // Word has been guessed
           guessesLeft = -1;
-          UIkit.notification('You win!');
+          UIkit.notification('You win!', { status: 'success' });
         } else {
           guessInput.focus();
         }
