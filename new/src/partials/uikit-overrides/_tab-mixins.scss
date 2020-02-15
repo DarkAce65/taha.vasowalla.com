@@ -76,15 +76,12 @@
 
   @media (max-width: $breakpoint-small) {
     .uk-tab.uk-tab-stacked {
-      &::before {
-        display: none;
-      }
-
       & > * {
         flex-basis: 100%;
+        margin-bottom: 10px;
 
         & > a {
-          border: none;
+          border-bottom: 0 solid transparent;
         }
       }
 
