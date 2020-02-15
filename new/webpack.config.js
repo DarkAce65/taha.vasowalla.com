@@ -7,6 +7,7 @@ const pages = [
   { entry: 'canvas', dir: 'experiments/canvas' },
   { entry: 'fireball', dir: 'experiments/fireball' },
   { entry: 'shaders', dir: 'experiments/shaders' },
+  { entry: 'chemistry', dir: 'projects/chemistry' },
   { entry: 'cards', dir: 'visual/cards' },
   { entry: 'webaudio2d', dir: 'visual/webaudio2d' },
   { entry: 'webaudio3d', dir: 'visual/webaudio3d' },

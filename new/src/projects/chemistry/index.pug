@@ -1,0 +1,25 @@
+include ../../partials/mixins
+
+html
+  head
+    +head("Chemistry Calculators")
+    link(rel="shortcut icon" href="../../assets/icons/chemistry.png")
+    link(rel="stylesheet" type="text/css" href="../../uikit.css")
+    link(rel="stylesheet" type="text/css" href="../../global.css")
+    link(rel="stylesheet" type="text/css" href="style.css")
+  body
+    .uk-container.uk-margin-top
+      +breadcrumbs("projects", "chemistry")
+      div(uk-grid)
+        div(class="uk-width-auto@m")
+          ul.uk-tab-left.uk-tab-stacked(uk-tab uk-switcher="connect: #switcher; animation: uk-animation-fade")
+            li: a(href="#") Molar Mass
+            li: a(href="#") Dilution
+            li: a(href="#") Ideal Gas Law
+            li: a(href="#") Specific Heat Capacity
+        .uk-width-expand
+          #switcher.uk-switcher
+            li: .uk-tile.uk-tile-primary test
+            li test2
+            li test23
+            li: .uk-tile.uk-tile-secondary test234
