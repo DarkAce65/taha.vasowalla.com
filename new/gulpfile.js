@@ -56,8 +56,12 @@ const compileScriptsAndHTML = () =>
     .pipe(gulp.dest('dist'));
 compileScriptsAndHTML.displayName = 'scripts_html';
 
-const devServer = () =>
-  new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(5000, '127.0.0.1');
+const devServer = () => {
+  const {
+    devServer: { host, port },
+  } = webpackConfig;
+  return new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(port, host);
+};
 devServer.displayName = 'dev_server:scripts_html';
 
 const compileStyles = () => {
