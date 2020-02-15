@@ -17,12 +17,8 @@
   font-size: $tab-item-font-size;
   text-transform: uppercase;
   border-bottom: $tab-item-border-width solid transparent;
-  transition-property: color, border-color;
+  transition-property: color, border-color, background;
   transition-duration: $transition-duration;
-}
-
-@mixin hook-tab-item-hover() {
-  transition-property: border-color;
 }
 
 @mixin hook-tab-item-active() {
@@ -76,5 +72,26 @@
 @mixin hook-tab-misc() {
   .uk-tab .uk-dropdown {
     margin-left: $tab-margin-horizontal + $tab-item-padding-horizontal;
+  }
+
+  @media (max-width: $breakpoint-small) {
+    .uk-tab.uk-tab-stacked {
+      &::before {
+        display: none;
+      }
+
+      & > * {
+        flex-basis: 100%;
+
+        & > a {
+          border: none;
+        }
+      }
+
+      & > .uk-active > a {
+        color: $global-inverse-color;
+        background: $red;
+      }
+    }
   }
 }
