@@ -62,7 +62,7 @@ const devServer = () => {
   } = webpackConfig;
   return new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(port, host);
 };
-devServer.displayName = 'dev_server:scripts_html';
+devServer.displayName = 'dev_server:run';
 
 const compileStyles = () => {
   const since = gulp.lastRun(compileStyles);
