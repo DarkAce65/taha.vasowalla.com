@@ -68,6 +68,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.12.1",
         "core-js": "^3.6.4",
         "gsap": "^3.1.1",
+        "katex": "^0.11.1",
         "music-metadata-browser": "^2.0.3",
         "simplex-noise": "^2.4.0",
         "three": "^0.113.2",

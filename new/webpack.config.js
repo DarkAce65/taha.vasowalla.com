@@ -48,7 +48,7 @@ module.exports = {
     watchContentBase: true,
     stats: {
       assetsSort: 'chunks',
-      excludeAssets: /.map$/,
+      excludeAssets: /(^lib\/|.map$)/,
       colors: true,
       version: false,
       hash: false,
@@ -85,19 +85,22 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
-      { test: /\.txt$/, use: 'raw-loader' },
       {
         test: /\.css$/,
+        include: /node_modules/,
         use: [
-          { loader: 'file-loader', options: { name: 'lib/[name].[ext]' } },
+          { loader: 'file-loader', options: { name: 'lib/css/[name].[ext]' } },
           'extract-loader',
           'css-loader',
         ],
       },
       {
-        test: /\.(woff2?|eot|ttf|svg)$/,
-        use: [{ loader: 'file-loader', options: { name: 'fonts/[name].[ext]' } }],
+        test: /\.(woff2?|eot|ttf|png|svg|jpg|gif)$/,
+        include: /node_modules/,
+        loader: 'file-loader',
+        options: { name: 'lib/assets/[name].[ext]', esModule: false },
       },
+      { test: /\.txt$/, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
     ],
