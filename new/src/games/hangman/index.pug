@@ -9,8 +9,7 @@ html
     link(rel="stylesheet" type="text/css" href="style.css")
 
   body
-    .uk-container.uk-margin-top
-      +breadcrumbs("games", "hangman")
+    +container(["games", "hangman"])
       .uk-grid-collapse.uk-flex-center(uk-grid)
         div(class="uk-width-3-5 uk-width-2-3@s uk-width-1-2@m" style="max-width: 80vh")
           svg#hangman(viewbox="0 0 500 400" style="width: 100%;")

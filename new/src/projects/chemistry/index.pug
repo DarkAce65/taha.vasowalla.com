@@ -8,11 +8,10 @@ html
     link(rel="stylesheet" type="text/css" href="../../global.css")
     link(rel="stylesheet" type="text/css" href="style.css")
   body
-    .uk-container.uk-margin-top
-      +breadcrumbs("projects", "chemistry")
+    +container(["projects", "chemistry"])
       div(uk-grid)
-        div(class="uk-width-auto@m")
-          ul.uk-tab-left.uk-tab-stacked(uk-tab uk-switcher="connect: #switcher; animation: uk-animation-fade")
+        div(class="uk-width-medium@m")
+          ul.uk-tab-left.uk-tab-stacked(uk-tab uk-sticky="offset: 40; media: @m" uk-switcher="connect: #switcher; animation: uk-animation-fade")
             li: a(href="#") Molar Mass
             li: a(href="#") Dilution
             li: a(href="#") Ideal Gas Law

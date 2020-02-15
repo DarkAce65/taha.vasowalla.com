@@ -9,9 +9,7 @@ html
     link(rel="stylesheet" type="text/css" href="style.css")
 
   body
-    .uk-container.uk-margin-top
-      +breadcrumbs("visual", "cards")
-
+    +container(["visual", "cards"])
       .uk-button-group(class="uk-visible@m")
         button#random.hidden-xs.uk-button.uk-button-default.uk-button-small Random
         button#pile.hidden-xs.uk-button.uk-button-default.uk-button-small Pile

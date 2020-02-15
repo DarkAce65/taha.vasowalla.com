@@ -12,3 +12,8 @@ mixin breadcrumbs(...items)
     li: a(href="/") #[span(uk-icon="home")] home
     each item in items
       li: span= item
+
+mixin container(breadcrumbItems)
+  .uk-container.uk-margin-top
+    +breadcrumbs(...breadcrumbItems)
+    block
