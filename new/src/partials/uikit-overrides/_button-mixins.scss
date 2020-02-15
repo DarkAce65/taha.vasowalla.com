@@ -2,7 +2,7 @@
 
 @mixin hook-button() {
   transition-property: color, background, border-color, box-shadow;
-  transition-duration: $animation-duration;
+  transition-duration: $transition-duration;
 
   &:focus,
   &:active {
@@ -55,7 +55,7 @@
     left: 0;
     right: 100%;
     border-bottom: $button-border-width solid;
-    transition: right $animation-duration ease-out;
+    transition: right $transition-duration ease-out;
   }
 }
 

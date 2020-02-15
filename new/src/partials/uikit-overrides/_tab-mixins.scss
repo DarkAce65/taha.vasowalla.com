@@ -18,7 +18,7 @@
   text-transform: uppercase;
   border-bottom: $tab-item-border-width solid transparent;
   transition-property: color, border-color;
-  transition-duration: $animation-duration;
+  transition-duration: $transition-duration;
 }
 
 @mixin hook-tab-item-hover() {
