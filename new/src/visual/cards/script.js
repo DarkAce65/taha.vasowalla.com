@@ -17,17 +17,17 @@ const resize = () => {
 
   height =
     window.innerHeight - container.getBoundingClientRect().top + document.body.scrollTop - 10;
-  container.style.height = height;
+  container.style.height = `${height}px`;
   width = parseFloat(getComputedStyle(container, null).width.replace('px', ''));
 
   cardHeight = Math.min(90, Math.floor(((height - 20) * 3) / 20));
   cardWidth = Math.min(50, Math.floor(width / 20));
 
   document.querySelectorAll('.card').forEach(element => {
-    element.style.height = cardHeight;
-    element.style.width = cardWidth;
-    element.style.marginTop = -cardHeight / 2;
-    element.style.marginLeft = -cardWidth / 2;
+    element.style.height = `${cardHeight}px`;
+    element.style.width = `${cardWidth}px`;
+    element.style.marginTop = `${-cardHeight / 2}px`;
+    element.style.marginLeft = `${-cardWidth / 2}px`;
   });
 };
 
