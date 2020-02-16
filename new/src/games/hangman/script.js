@@ -7,7 +7,7 @@ import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
 let hangmanWord = '';
 let guessedLetters = [];
 let guessesLeft = 6;
-let showingError = false;
+let wordInputHasError = false;
 let randomWords = null;
 const timeline = new gsap.timeline();
 
@@ -23,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const setWordButton = document.querySelector('#setWord');
   const randomWordButton = document.querySelector('#randomWord');
   const submitGuessButton = document.querySelector('#submitGuess');
-  const errorMessage = document.querySelector('#setWordModal #error');
+  const errorMessage = UIkit.toggle('#setWordModal #error', {
+    animation: 'uk-animation-slide-top-small',
+    mode: null,
+  });
 
   const setWord = word => {
     hangmanWord = word.toUpperCase(); // Convert word to uppercase
@@ -35,12 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
     wordInput.value = '';
     wordInput.classList.remove('uk-form-danger');
-    if (showingError) {
-      errorMessage.classList.remove('uk-animation-slide-top-small');
-      errorMessage.setAttribute('hidden', '');
-      setWordButton.disabled = true;
-      showingError = false;
+    if (wordInputHasError) {
+      errorMessage.toggle();
+      wordInputHasError = false;
     }
+    setWordButton.disabled = true;
     wordDisplayEl.innerHTML = '';
     wordDisplayEl.classList.remove('lost');
     guessedLettersEl.innerHTML = '';
@@ -172,21 +174,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const word = wordInput.value.trim();
 
     if (/[^A-Za-z]/.test(word)) {
-      wordInput.classList.add('uk-form-danger');
-      if (!showingError) {
-        errorMessage.removeAttribute('hidden');
-        errorMessage.classList.add('uk-animation-slide-top-small');
-        setWordButton.disabled = true;
-        showingError = true;
+      if (!wordInputHasError) {
+        wordInput.classList.add('uk-form-danger');
+        errorMessage.toggle();
+        wordInputHasError = true;
       }
+      setWordButton.disabled = true;
     } else {
-      wordInput.classList.remove('uk-form-danger');
-      if (showingError) {
-        errorMessage.classList.remove('uk-animation-slide-top-small', 'uk-animation-reverse');
-        errorMessage.setAttribute('hidden', '');
-        setWordButton.disabled = false;
-        showingError = false;
+      if (wordInputHasError) {
+        wordInput.classList.remove('uk-form-danger');
+        errorMessage.toggle();
+        wordInputHasError = false;
       }
+      setWordButton.disabled = word.length === 0;
     }
   });
 
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setWordButton.addEventListener('click', async () => {
     const word = wordInput.value.trim();
-    if (showingError || word.length === 0) {
+    if (wordInputHasError || word.length === 0) {
       return;
     }
 
