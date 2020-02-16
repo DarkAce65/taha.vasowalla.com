@@ -36,11 +36,12 @@ $button-default-background: transparent;
 $button-disabled-background: transparent;
 
 $form-background: $black;
-$form-disabled-placeholder-color: darken($global-muted-color, 10);
 $form-border: darken($global-border, 50);
+$form-focus-color: $global-emphasis-color;
 $form-focus-border: $global-emphasis-color;
 $form-blank-focus-border: $global-border;
 $form-disabled-border: transparent;
+$form-disabled-placeholder-color: darken($global-muted-color, 10);
 
 $modal-border-width: 1px;
 
