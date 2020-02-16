@@ -3,11 +3,11 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import gsap from 'gsap';
 
 import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
+import wrapToggle from '../../lib/wrapToggle';
 
 let hangmanWord = '';
 let guessedLetters = [];
 let guessesLeft = 6;
-let wordInputHasError = false;
 let randomWords = null;
 const timeline = new gsap.timeline();
 
@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const setWordButton = document.querySelector('#setWord');
   const randomWordButton = document.querySelector('#randomWord');
   const submitGuessButton = document.querySelector('#submitGuess');
-  const errorMessage = UIkit.toggle('#setWordModal #error', {
-    animation: 'uk-animation-slide-top-small',
-    mode: null,
-  });
+  const errorMessage = wrapToggle(
+    UIkit.toggle('#setWordModal #error', {
+      animation: 'uk-animation-slide-top-small',
+      mode: null,
+    })
+  );
 
   const setWord = word => {
     hangmanWord = word.toUpperCase(); // Convert word to uppercase
@@ -38,10 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
     wordInput.value = '';
     wordInput.classList.remove('uk-form-danger');
-    if (wordInputHasError) {
-      errorMessage.toggle();
-      wordInputHasError = false;
-    }
+    errorMessage.hide();
     setWordButton.disabled = true;
     wordDisplayEl.innerHTML = '';
     wordDisplayEl.classList.remove('lost');
@@ -174,18 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const word = wordInput.value.trim();
 
     if (/[^A-Za-z]/.test(word)) {
-      if (!wordInputHasError) {
-        wordInput.classList.add('uk-form-danger');
-        errorMessage.toggle();
-        wordInputHasError = true;
-      }
+      wordInput.classList.add('uk-form-danger');
+      errorMessage.show();
       setWordButton.disabled = true;
     } else {
-      if (wordInputHasError) {
-        wordInput.classList.remove('uk-form-danger');
-        errorMessage.toggle();
-        wordInputHasError = false;
-      }
+      wordInput.classList.remove('uk-form-danger');
+      errorMessage.hide();
       setWordButton.disabled = word.length === 0;
     }
   });
@@ -200,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setWordButton.addEventListener('click', async () => {
     const word = wordInput.value.trim();
-    if (wordInputHasError || word.length === 0) {
+    if (errorMessage.toggled || word.length === 0) {
       return;
     }
 
