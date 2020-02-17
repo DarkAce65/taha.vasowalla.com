@@ -25,6 +25,10 @@
   border-color: $tab-item-active-border;
 }
 
+@mixin hook-tab-item-disabled() {
+  text-decoration: line-through;
+}
+
 @mixin hook-tab-bottom() {
   &::before {
     top: 0;
