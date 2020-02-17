@@ -65,15 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const planet = new Mesh(new BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
   scene.add(planet);
 
+  const emitterOptions = { color: 0xf85a3e };
+  if (window.innerWidth < 640) {
+    emitterOptions.count = 100;
+    emitterOptions.lifetime = 2.5;
+  }
+  const emitter = new ParticleEmitter(emitterOptions);
+  scene.add(emitter);
+
   const satelliteMaterial = new MeshPhongMaterial({
     shininess: 30,
     color: 0x526464,
     side: DoubleSide,
     flatShading: true,
   });
-  const emitter = new ParticleEmitter({ color: 0xf85a3e });
-  scene.add(emitter);
-
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites = [];
   for (let i = 0; i < 100; i++) {
