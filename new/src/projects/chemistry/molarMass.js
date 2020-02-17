@@ -56,4 +56,10 @@ const getFormulaErrors = formula => {
   return false;
 };
 
-export { getFormulaErrors };
+const formulaToLatex = formula =>
+  `\\displaystyle ${formula
+    .replace(/\(/g, '\\left(')
+    .replace(/\)/g, '\\right)')
+    .replace(/(\d+)/g, '_{$1}')}`;
+
+export { getFormulaErrors, formulaToLatex };
