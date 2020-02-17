@@ -14,7 +14,7 @@ const getFormulaErrors = formula => {
   }
 
   if (!/^([A-Z][a-z]*[0-9]*|\(|\)[0-9]*)*$/.test(formula)) {
-    return 'Formula is invalid. Make sure element symbols are capitalized correctly and atom counts directly follow elements';
+    return 'Formula is invalid. Make sure element symbols are capitalized correctly and atom counts directly follow elements.';
   }
 
   let p = 0;
@@ -25,18 +25,18 @@ const getFormulaErrors = formula => {
     } else if (c === ')') {
       p--;
       if (p < 0) {
-        return "Found ')' without matching '('";
+        return 'Formula is invalid. Make sure parentheses match correctly.';
       }
     }
   }
   if (p !== 0) {
-    return 'Unclosed parenthesis';
+    return 'Formula is invalid. Make sure parentheses match correctly.';
   }
 
   const elements = formula.match(/([A-Z][a-z]*)/g);
 
   if (elements === null) {
-    return 'Found no elements in formula';
+    return 'Found no elements in formula.';
   }
 
   const invalidElements = elements.filter(
