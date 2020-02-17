@@ -18,10 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
       queued: true,
     })
   );
+  const molarMassInput = document.querySelector('#molarMassInput input');
 
-  const molarMassInput = document.querySelector('#molarMassInput');
-  molarMassInput.querySelector('input').addEventListener('input', function() {
+  const resetMolarMass = () => {
+    molarMassInput.value = '';
+    molarMassInput.classList.remove('uk-form-danger');
+    document.querySelector('#molarMassFormula').innerHTML = '';
+    document.querySelector('#molarMassTable tbody').innerHTML = '';
+    molarMassFormulaAndError.show();
+  };
+
+  molarMassInput.addEventListener('input', function() {
     const formula = this.value.replace(/\s+/g, '');
+    if (formula.length === 0) {
+      resetMolarMass();
+      return;
+    }
+
     const error = getFormulaErrors(formula);
     if (error) {
       document.querySelector('#molarMassInputError').innerHTML = error;
@@ -36,9 +49,5 @@ document.addEventListener('DOMContentLoaded', () => {
     katex.render(formulaToLatex(formula), document.querySelector('#molarMassFormula'));
   });
 
-  molarMassInput.querySelector('a').addEventListener('click', () => {
-    molarMassInput.querySelector('input').value = '';
-    document.querySelector('#molarMassTable tbody').innerHTML = '';
-    molarMassFormulaAndError.show();
-  });
+  document.querySelector('#molarMassInput a').addEventListener('click', resetMolarMass);
 });
