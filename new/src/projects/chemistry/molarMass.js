@@ -13,7 +13,7 @@ const getFormulaErrors = formula => {
     return false;
   }
 
-  if (formula.match(/(^[a-z0-9]|\([a-z0-9]|[0-9)][a-z])/g)) {
+  if (!/^([A-Z][a-z]*[0-9]*|\(|\)[0-9]*)*$/.test(formula)) {
     return 'Formula is invalid. Make sure element symbols are capitalized correctly and atom counts directly follow elements';
   }
 
