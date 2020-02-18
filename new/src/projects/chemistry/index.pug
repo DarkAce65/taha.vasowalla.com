@@ -32,19 +32,20 @@ html
               #molarMassFormulaContainer.uk-margin-small
                 #molarMassFormula.uk-text-center
                 #molarMassInputError.uk-text-danger(hidden)
-              table#molarMassTable.uk-table.uk-table-small.uk-table-divider
-                thead
-                  th Element
-                  th Atoms
-                  th Mass In Compound (g / mol)
-                  th Mass Percent
-                tbody
-                tfoot
-                  tr
-                    td Total:
-                    td 0
-                    td 0.0000
-                    td
+              .uk-overflow-auto
+                table#molarMassTable.uk-table.uk-table-small.uk-table-divider.uk-table-middle
+                  thead
+                    th Element
+                    th Atoms
+                    th Mass In Compound #[small (g&nbsp;/&nbsp;mol)]
+                    th Mass Percent
+                  tbody
+                  tfoot
+                    tr
+                      td Total:
+                      td#molarMassTotalAtomCount 0
+                      td#molarMassTotalMass 0.0000
+                      td
             div Under construction
             div Under construction
             div Under construction

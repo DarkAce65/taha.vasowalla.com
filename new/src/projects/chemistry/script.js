@@ -4,7 +4,7 @@ import katex from 'katex';
 
 import renderLaTeX from '../../lib/renderLaTeX';
 import wrapToggle from '../../lib/wrapToggle';
-import { formulaToLatex, getFormulaErrors } from './molarMass';
+import { formulaToLatex, getFormulaErrors, parse } from './molarMass';
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const molarMassFormulaAndError = wrapToggle(
     UIkit.toggle('#molarMassFormulaContainer', {
       target: '#molarMassFormulaContainer > *',
-      animation: 'uk-animation-slide-top-small',
+      animation: 'uk-animation-fade',
       mode: null,
       queued: true,
     })
@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     molarMassInput.classList.remove('uk-form-danger');
     document.querySelector('#molarMassFormula').innerHTML = '';
     document.querySelector('#molarMassTable tbody').innerHTML = '';
+    document.querySelector('#molarMassTotalAtomCount').textContent = '0';
+    document.querySelector('#molarMassTotalMass').textContent = '0';
     molarMassFormulaAndError.show();
   };
 
@@ -47,6 +49,33 @@ document.addEventListener('DOMContentLoaded', () => {
     molarMassFormulaAndError.show();
 
     katex.render(formulaToLatex(formula), document.querySelector('#molarMassFormula'));
+
+    const { elements, totalAtoms, totalMass } = parse(formula);
+
+    document.querySelector('#molarMassTable tbody').innerHTML = '';
+    for (let r = 0; r < elements.length; r++) {
+      const element = elements[r];
+
+      const row = document.createElement('tr');
+      const elementCell = document.createElement('td');
+      const atomsCell = document.createElement('td');
+      const massCell = document.createElement('td');
+      const massPercentCell = document.createElement('td');
+
+      elementCell.innerHTML = `${element.name}<br><small>${element.mass.toFixed(4)}</small>`;
+      atomsCell.textContent = element.count;
+      massCell.textContent = (element.mass * element.count).toFixed(4);
+      massPercentCell.textContent = `${element.massPercent.toFixed(4)}%`;
+
+      row.appendChild(elementCell);
+      row.appendChild(atomsCell);
+      row.appendChild(massCell);
+      row.appendChild(massPercentCell);
+      document.querySelector('#molarMassTable tbody').appendChild(row);
+    }
+
+    document.querySelector('#molarMassTotalAtomCount').textContent = totalAtoms;
+    document.querySelector('#molarMassTotalMass').textContent = totalMass.toFixed(4);
   });
 
   document.querySelector('#molarMassInput a').addEventListener('click', resetMolarMass);
