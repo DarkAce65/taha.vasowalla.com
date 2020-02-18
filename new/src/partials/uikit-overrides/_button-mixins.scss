@@ -6,16 +6,19 @@
 }
 
 @mixin hook-button-hover() {
+  box-shadow: inset 0 0 0 $button-inset-width currentColor;
   transition-duration: 0s;
 }
 
 @mixin hook-button-focus() {
-  box-shadow: inset 0 0 0 $button-focus-shadow-width currentColor;
-  transition-duration: 0s;
+  box-shadow: inset 0 0 0 $button-inset-width currentColor;
+  transition-duration: $transition-duration;
 }
 
 @mixin hook-button-active() {
-  @include hook-button-focus();
+  border-color: currentColor;
+  box-shadow: inset 0 0 0 $button-inset-width currentColor;
+  transition-duration: 0s;
 }
 
 @mixin hook-button-disabled() {
@@ -27,24 +30,24 @@
 }
 
 @mixin hook-button-default-hover() {
-  border-color: $lightgray;
+  border-color: currentColor;
   box-shadow: none;
 }
 
 @mixin hook-button-default-active() {
-  @include hook-button-focus();
+  @include hook-button-active();
 }
 
 @mixin hook-button-primary() {
-  border: $button-border-width solid transparent;
+  border: $button-border-width solid $button-primary-background;
 }
 
 @mixin hook-button-secondary() {
-  border: $button-border-width solid transparent;
+  border: $button-border-width solid $button-secondary-background;
 }
 
 @mixin hook-button-danger() {
-  border: $button-border-width solid transparent;
+  border: $button-border-width solid $button-danger-background;
 }
 
 @mixin hook-button-text() {

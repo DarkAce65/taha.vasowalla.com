@@ -29,7 +29,7 @@ $breadcrumb-item-font-size: 0.875em;
 $breadcrumb-divider-margin-horizontal: 10px;
 
 $button-border-width: 1px;
-$button-focus-shadow-width: 2px;
+$button-inset-width: 2px;
 $button-default-border: $global-border;
 $button-default-color: $global-color;
 $button-default-background: transparent;
@@ -52,8 +52,18 @@ $tab-item-active-border: $red;
 
 @import 'uikit/src/scss/variables';
 
-$button-secondary-hover-background: darken($button-secondary-background, 10);
-$button-secondary-active-background: darken($button-secondary-background, 20);
+$button-primary-hover-color: $button-primary-color;
+$button-primary-hover-background: $button-primary-background;
+$button-primary-active-color: $button-primary-background;
+$button-primary-active-background: $button-primary-color;
+$button-secondary-hover-color: $button-secondary-color;
+$button-secondary-hover-background: $button-secondary-background;
+$button-secondary-active-color: $button-secondary-background;
+$button-secondary-active-background: $button-secondary-color;
+$button-danger-hover-color: $button-danger-color;
+$button-danger-hover-background: $button-danger-background;
+$button-danger-active-color: $button-danger-background;
+$button-danger-active-background: $button-danger-color;
 
 $form-danger-border: $global-danger-background;
 $form-success-border: $global-success-background;
