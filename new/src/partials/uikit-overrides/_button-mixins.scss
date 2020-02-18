@@ -3,18 +3,19 @@
 @mixin hook-button() {
   transition-property: color, background, border-color, box-shadow;
   transition-duration: $transition-duration;
-
-  &:focus,
-  &:active {
-    position: relative;
-    z-index: 1;
-    box-shadow: inset 0 0 0 $button-focus-shadow-width currentColor;
-    transition-duration: 0s;
-  }
 }
 
 @mixin hook-button-hover() {
   transition-duration: 0s;
+}
+
+@mixin hook-button-focus() {
+  box-shadow: inset 0 0 0 $button-focus-shadow-width currentColor;
+  transition-duration: 0s;
+}
+
+@mixin hook-button-active() {
+  @include hook-button-focus();
 }
 
 @mixin hook-button-disabled() {
@@ -26,11 +27,12 @@
 }
 
 @mixin hook-button-default-hover() {
-  border-color: darken($global-border, 30);
+  border-color: $lightgray;
+  box-shadow: none;
 }
 
 @mixin hook-button-default-active() {
-  border-color: $global-border;
+  @include hook-button-focus();
 }
 
 @mixin hook-button-primary() {
@@ -75,14 +77,6 @@
   .uk-button-group > .uk-button:nth-child(n + 2),
   .uk-button-group > div:nth-child(n + 2) .uk-button {
     margin-left: -$button-border-width;
-  }
-
-  .uk-button-group .uk-button:hover,
-  .uk-button-group .uk-button:focus,
-  .uk-button-group .uk-button:active,
-  .uk-button-group .uk-button.uk-active {
-    position: relative;
-    z-index: 1;
   }
 
   .uk-button-file {
