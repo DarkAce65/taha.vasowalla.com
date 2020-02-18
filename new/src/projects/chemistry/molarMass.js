@@ -8,50 +8,58 @@ const molarMassTable = periodicTable.elements.reduce(
   {}
 );
 
-const getFormulaErrors = formula => {
+const validateFormula = formula => {
   if (formula.length === 0) {
-    return false;
+    return;
   }
 
-  if (!/^([A-Z][a-z]*\d*|\(|\)\d*)*$/.test(formula)) {
-    return 'Formula is invalid. Make sure element symbols are capitalized correctly and atom counts directly follow elements.';
+  if (!/^([A-Z][a-z]*([1-9]\d*)?|\(|\)([1-9]\d*)?)*$/.test(formula)) {
+    throw new Error(
+      'Invalid formula. Make sure element symbols are capitalized correctly and atom counts directly follow elements.'
+    );
   }
 
-  let p = 0;
+  let lastOpenParen = -1;
+  let parenCount = 0;
   for (let i = 0; i < formula.length; i++) {
     const c = formula.charAt(i);
     if (c === '(') {
-      p++;
+      parenCount++;
+      lastOpenParen = i;
     } else if (c === ')') {
-      p--;
-      if (p < 0) {
-        return 'Formula is invalid. Make sure parentheses match correctly.';
+      parenCount--;
+      if (parenCount < 0) {
+        throw new Error('Invalid formula. Found mismatched parentheses.');
+      } else if (lastOpenParen === i - 1) {
+        throw new Error('Invalid formula. Found a pair of empty parentheses.');
       }
     }
   }
-  if (p !== 0) {
-    return 'Formula is invalid. Make sure parentheses match correctly.';
+  if (parenCount !== 0) {
+    throw new Error('Invalid formula. Found mismatched parentheses.');
   }
 
   const elements = formula.match(/([A-Z][a-z]*)/g);
   if (elements === null) {
-    return 'Found no elements in formula.';
+    throw new Error('Found no elements in formula.');
   }
 
   const invalidElements = elements.filter(
     value => !Object.prototype.hasOwnProperty.call(molarMassTable, value)
   );
   if (invalidElements.length === 1) {
-    return `${invalidElements[0]} is not a recognized element symbol.`;
+    throw new Error(`Unknown elements. ${invalidElements[0]} is not a recognized element symbol.`);
   } else if (invalidElements.length === 2) {
-    return `${invalidElements[0]} and ${invalidElements[1]} are not recognized element symbols.`;
+    throw new Error(
+      `Unknown elements. ${invalidElements[0]} and ${invalidElements[1]} are not recognized element symbols.`
+    );
   } else if (invalidElements.length > 2) {
-    return `${invalidElements.slice(0, -1).join(', ')}, and ${
-      invalidElements[invalidElements.length - 1]
-    } are not recognized element symbols.`;
+    throw new Error(
+      `Unknown elements. ${invalidElements.slice(0, -1).join(', ')}, and ${
+        invalidElements[invalidElements.length - 1]
+      } are not recognized element symbols.`
+    );
   }
-
-  return false;
 };
 
 const formulaToLatex = formula =>
@@ -60,7 +68,9 @@ const formulaToLatex = formula =>
     .replace(/\)/g, '\\right)')
     .replace(/(\d+)/g, '_{$1}')}`;
 
-const parse = formula => {
+const parseFormula = formula => {
+  validateFormula(formula);
+
   const tokens = formula.match(/([A-Z][a-z]*|\d+|\(|\))/g);
 
   for (let i = 0; i < tokens.length; i++) {
@@ -124,4 +134,4 @@ const parse = formula => {
   };
 };
 
-export { getFormulaErrors, formulaToLatex, parse };
+export { formulaToLatex, parseFormula };

@@ -4,7 +4,7 @@ import katex from 'katex';
 
 import renderLaTeX from '../../lib/renderLaTeX';
 import wrapToggle from '../../lib/wrapToggle';
-import { formulaToLatex, getFormulaErrors, parse } from './molarMass';
+import { formulaToLatex, parseFormula } from './molarMass';
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
@@ -37,9 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const error = getFormulaErrors(formula);
-    if (error) {
-      document.querySelector('#molarMassInputError').innerHTML = error;
+    let parsedFormula;
+    try {
+      parsedFormula = parseFormula(formula);
+    } catch (error) {
+      document.querySelector('#molarMassInputError').textContent = error.message;
       this.classList.add('uk-form-danger');
       molarMassFormulaAndError.hide();
       return;
@@ -47,10 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     this.classList.remove('uk-form-danger');
     molarMassFormulaAndError.show();
-
     katex.render(formulaToLatex(formula), document.querySelector('#molarMassFormula'));
 
-    const { elements, totalAtoms, totalMass } = parse(formula);
+    const { elements, totalAtoms, totalMass } = parsedFormula;
 
     document.querySelector('#molarMassTable tbody').innerHTML = '';
     for (let r = 0; r < elements.length; r++) {
