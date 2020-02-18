@@ -20,7 +20,7 @@ $global-muted-background: $muted;
 $global-primary-background: $red;
 $global-secondary-background: $light;
 $global-danger-background: $darkred;
-$global-border: $light;
+$global-border: $darkgray;
 
 $accordion-title-color: $global-color;
 $accordion-title-hover-color: $global-emphasis-color;
@@ -30,13 +30,13 @@ $breadcrumb-divider-margin-horizontal: 10px;
 
 $button-border-width: 1px;
 $button-focus-shadow-width: 2px;
-$button-default-border: darken($global-border, 50);
+$button-default-border: $global-border;
 $button-default-color: $global-color;
 $button-default-background: transparent;
 $button-disabled-background: transparent;
 
 $form-background: $black;
-$form-border: darken($global-border, 50);
+$form-border: $global-border;
 $form-focus-color: $global-emphasis-color;
 $form-focus-border: $global-emphasis-color;
 $form-blank-focus-border: $global-border;
@@ -46,6 +46,7 @@ $form-disabled-placeholder-color: darken($global-muted-color, 10);
 $modal-border-width: 1px;
 
 $notification-message-background: $black;
+
 $tab-border: $darkgray;
 $tab-item-active-border: $red;
 
