@@ -1,9 +1,9 @@
 import periodicTable from './periodicTable.json';
 
 const molarMassTable = periodicTable.elements.reduce(
-  (table, { symbol, name, atomic_mass }) => ({
+  (table, { number, symbol, name, atomic_mass }) => ({
     ...table,
-    [symbol]: { name, mass: atomic_mass },
+    [symbol]: { number, name, mass: atomic_mass },
   }),
   {}
 );
@@ -13,7 +13,7 @@ const getFormulaErrors = formula => {
     return false;
   }
 
-  if (!/^([A-Z][a-z]*[0-9]*|\(|\)[0-9]*)*$/.test(formula)) {
+  if (!/^([A-Z][a-z]*\d*|\(|\)\d*)*$/.test(formula)) {
     return 'Formula is invalid. Make sure element symbols are capitalized correctly and atom counts directly follow elements.';
   }
 
@@ -34,7 +34,6 @@ const getFormulaErrors = formula => {
   }
 
   const elements = formula.match(/([A-Z][a-z]*)/g);
-
   if (elements === null) {
     return 'Found no elements in formula.';
   }
@@ -42,7 +41,6 @@ const getFormulaErrors = formula => {
   const invalidElements = elements.filter(
     value => !Object.prototype.hasOwnProperty.call(molarMassTable, value)
   );
-
   if (invalidElements.length === 1) {
     return `${invalidElements[0]} is not a recognized element symbol.`;
   } else if (invalidElements.length === 2) {
@@ -62,4 +60,68 @@ const formulaToLatex = formula =>
     .replace(/\)/g, '\\right)')
     .replace(/(\d+)/g, '_{$1}')}`;
 
-export { getFormulaErrors, formulaToLatex };
+const parse = formula => {
+  const tokens = formula.match(/([A-Z][a-z]*|\d+|\(|\))/g);
+
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+
+    if (/^[A-Z][a-z]*$/.test(token)) {
+      let count = 1;
+      if (i < tokens.length - 1 && /^\d+$/.test(tokens[i + 1])) {
+        count = parseInt(tokens.splice(i + 1, 1)[0], 10);
+      }
+      tokens[i] = { symbol: token, count };
+    } else if (token === ')') {
+      let count = 1;
+      if (i < tokens.length - 1 && /^\d+$/.test(tokens[i + 1])) {
+        count = parseInt(tokens.splice(i + 1, 1)[0], 10);
+      }
+
+      let j = i - 1;
+      while (tokens[j] !== '(') {
+        tokens[j].count *= count;
+        j--;
+      }
+      tokens.splice(i, 1);
+      tokens.splice(j, 1);
+      i -= 2;
+    }
+  }
+
+  const elementMap = tokens.reduce((acc, { symbol, count }) => {
+    if (Object.prototype.hasOwnProperty.call(acc, symbol)) {
+      acc[symbol] += count;
+    } else {
+      acc[symbol] = count;
+    }
+    return acc;
+  }, {});
+
+  const elements = [];
+  let totalAtoms = 0;
+  let totalMass = 0;
+  for (const symbol in elementMap) {
+    if (Object.prototype.hasOwnProperty.call(elementMap, symbol)) {
+      const count = elementMap[symbol];
+      const { number, name, mass } = molarMassTable[symbol];
+      const massInFormula = mass * count;
+      elements.push({ name, number, mass, massInFormula, massPercent: 0, count });
+      totalAtoms += count;
+      totalMass += massInFormula;
+    }
+  }
+
+  return {
+    elements: elements
+      .map(element => {
+        element.massPercent = (element.massInFormula / totalMass) * 100;
+        return element;
+      })
+      .sort((a, b) => a.number - b.number),
+    totalAtoms,
+    totalMass,
+  };
+};
+
+export { getFormulaErrors, formulaToLatex, parse };
