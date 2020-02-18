@@ -18,7 +18,7 @@
   font-size: 1.5rem;
   min-width: 1.25em;
   margin: 4px 8px 8px !important;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid $white;
   text-transform: uppercase;
   text-align: center;
 
@@ -47,23 +47,23 @@
   font-size: 1.5rem;
   width: 1.1em;
   margin: 4px;
-  background: $global-secondary-background;
-  transition: 0.3s;
+  background: $global-muted-background;
+  transition: $transition-duration;
 
   &.correct {
-    color: $text-emphasis-color;
+    color: $global-success-color;
     background: $global-success-background;
   }
 
   &.incorrect {
-    color: $text-emphasis-color;
+    color: $global-danger-color;
     background: $global-danger-background;
   }
 }
 
 #hangman path {
   fill: none;
-  stroke: white;
+  stroke: $white;
   stroke-width: 2;
 }
 
