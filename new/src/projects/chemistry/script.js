@@ -6,11 +6,8 @@ import renderLaTeX from '../../lib/renderLaTeX';
 import wrapToggle from '../../lib/wrapToggle';
 import { formulaToLatex, parseFormula } from './molarMass';
 
-document.addEventListener('DOMContentLoaded', () => {
-  UIkit.use(Icons);
-  renderLaTeX();
-
-  const molarMassFormulaAndError = wrapToggle(
+const initMolarMass = () => {
+  const formulaAndError = wrapToggle(
     UIkit.toggle('#molarMassFormulaContainer', {
       target: '#molarMassFormulaContainer > *',
       animation: 'uk-animation-fade',
@@ -18,22 +15,24 @@ document.addEventListener('DOMContentLoaded', () => {
       queued: true,
     })
   );
-  const molarMassInput = document.querySelector('#molarMassInput input');
+  const input = document.querySelector('#molarMassInput input');
+  const formulaEl = document.querySelector('#molarMassFormula');
+  const tableOutput = document.querySelector('#molarMassTable tbody');
 
-  const resetMolarMass = () => {
-    molarMassInput.value = '';
-    molarMassInput.classList.remove('uk-form-danger');
-    document.querySelector('#molarMassFormula').innerHTML = '';
-    document.querySelector('#molarMassTable tbody').innerHTML = '';
+  const reset = () => {
+    input.value = '';
+    input.classList.remove('uk-form-danger');
+    formulaEl.innerHTML = '';
+    tableOutput.innerHTML = '';
     document.querySelector('#molarMassTotalAtomCount').textContent = '0';
     document.querySelector('#molarMassTotalMass').textContent = '0';
-    molarMassFormulaAndError.show();
+    formulaAndError.show();
   };
 
-  molarMassInput.addEventListener('input', function() {
+  input.addEventListener('input', function() {
     const formula = this.value.replace(/\s+/g, '');
     if (formula.length === 0) {
-      resetMolarMass();
+      reset();
       return;
     }
 
@@ -43,17 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       document.querySelector('#molarMassInputError').textContent = error.message;
       this.classList.add('uk-form-danger');
-      molarMassFormulaAndError.hide();
+      formulaAndError.hide();
       return;
     }
 
     this.classList.remove('uk-form-danger');
-    molarMassFormulaAndError.show();
-    katex.render(formulaToLatex(formula), document.querySelector('#molarMassFormula'));
+    formulaAndError.show();
+    katex.render(formulaToLatex(formula), formulaEl);
 
     const { elements, totalAtoms, totalMass } = parsedFormula;
 
-    document.querySelector('#molarMassTable tbody').innerHTML = '';
+    tableOutput.innerHTML = '';
     for (let r = 0; r < elements.length; r++) {
       const element = elements[r];
 
@@ -72,12 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
       row.appendChild(atomsCell);
       row.appendChild(massCell);
       row.appendChild(massPercentCell);
-      document.querySelector('#molarMassTable tbody').appendChild(row);
+      tableOutput.appendChild(row);
     }
 
     document.querySelector('#molarMassTotalAtomCount').textContent = totalAtoms;
     document.querySelector('#molarMassTotalMass').textContent = totalMass.toFixed(4);
   });
 
-  document.querySelector('#molarMassInput a').addEventListener('click', resetMolarMass);
+  document.querySelector('#molarMassInput a').addEventListener('click', reset);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  UIkit.use(Icons);
+  renderLaTeX();
+
+  initMolarMass();
 });
