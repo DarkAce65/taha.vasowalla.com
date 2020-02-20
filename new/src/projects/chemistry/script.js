@@ -48,7 +48,7 @@ const initMolarMass = () => {
 
     this.classList.remove('uk-form-danger');
     formulaAndError.show();
-    katex.render(formulaToLatex(formula), formulaEl);
+    katex.render(formulaToLatex(formula), formulaEl, { displayMode: true });
 
     const { elements, totalAtoms, totalMass } = parsedFormula;
 

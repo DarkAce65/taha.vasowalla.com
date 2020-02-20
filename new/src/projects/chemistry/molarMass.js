@@ -63,10 +63,10 @@ const validateFormula = formula => {
 };
 
 const formulaToLatex = formula =>
-  `\\displaystyle ${formula
+  formula
     .replace(/\(/g, '\\left(')
     .replace(/\)/g, '\\right)')
-    .replace(/(\d+)/g, '_{$1}')}`;
+    .replace(/(\d+)/g, '_{$1}');
 
 const parseFormula = formula => {
   validateFormula(formula);
