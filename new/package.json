@@ -41,7 +41,7 @@
         "eslint-plugin-import": "^2.20.1",
         "eslint-plugin-prettier": "^3.1.2",
         "extract-loader": "^4.0.3",
-        "file-loader": "^5.0.2",
+        "file-loader": "^5.1.0",
         "gulp": "^4.0.2",
         "gulp-autoprefixer": "^7.0.1",
         "gulp-if": "^3.0.0",
@@ -67,12 +67,12 @@
         "@fortawesome/free-regular-svg-icons": "^5.12.1",
         "@fortawesome/free-solid-svg-icons": "^5.12.1",
         "core-js": "^3.6.4",
-        "gsap": "^3.1.1",
+        "gsap": "^3.2.0",
         "katex": "^0.11.1",
-        "music-metadata-browser": "^2.0.3",
+        "music-metadata-browser": "^2.0.4",
         "simplex-noise": "^2.4.0",
         "three": "^0.113.2",
-        "uikit": "^3.3.1",
+        "uikit": "^3.3.2",
         "wavesurfer.js": "^3.3.1"
     }
 }
