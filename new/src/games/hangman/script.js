@@ -3,7 +3,7 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import gsap from 'gsap';
 
 import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
-import wrapToggle from '../../lib/wrapToggle';
+import ValidatedInput from '../../lib/ValidatedInput';
 
 let hangmanWord = '';
 let guessedLetters = [];
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
   const guessInput = document.querySelector('#guessInput');
-  const wordInput = document.querySelector('#wordInput');
   const guessesLeftEl = document.querySelector('#guessesLeft');
   const wordDisplayEl = document.querySelector('#wordDisplay');
   const guessedLettersContainerEl = document.querySelector('#guessedLettersContainer');
@@ -23,12 +22,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const setWordButton = document.querySelector('#setWord');
   const randomWordButton = document.querySelector('#randomWord');
   const submitGuessButton = document.querySelector('#submitGuess');
-  const errorMessage = wrapToggle(
-    UIkit.toggle('#setWordModal #error', {
-      animation: 'uk-animation-slide-top-small',
-      mode: null,
-    })
-  );
+
+  const wordInput = new ValidatedInput(document.querySelector('#wordInput'), {
+    validationMessageElement: document.querySelector('#error'),
+    validator: input => {
+      const word = input.trim();
+      if (/[^A-Za-z]/.test(word)) {
+        return { type: 'error' };
+      }
+
+      return false;
+    },
+    inputCallback: (input, state) => {
+      setWordButton.disabled = state === 'error' || input.length === 0;
+    },
+  });
 
   const setWord = word => {
     hangmanWord = word.toUpperCase(); // Convert word to uppercase
@@ -38,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset DOM elements
     guessedLettersContainerEl.classList.add('uk-hidden');
     guessesLeftEl.innerHTML = `${guessesLeft} guesses left`;
-    wordInput.value = '';
-    wordInput.classList.remove('uk-form-danger');
-    errorMessage.hide();
+    wordInput.reset();
     setWordButton.disabled = true;
     wordDisplayEl.innerHTML = '';
     wordDisplayEl.classList.remove('lost');
@@ -160,27 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  wordInput.addEventListener('keypress', evt => {
+  wordInput.input.addEventListener('keypress', evt => {
     const key = evt.key || evt.keyCode;
     if (key === 'Enter' || key === 13) {
       // Enter key triggers submit button
       setWordButton.click();
     }
     evt.stopPropagation();
-  });
-
-  wordInput.addEventListener('input', () => {
-    const word = wordInput.value.trim();
-
-    if (/[^A-Za-z]/.test(word)) {
-      wordInput.classList.add('uk-form-danger');
-      errorMessage.show();
-      setWordButton.disabled = true;
-    } else {
-      wordInput.classList.remove('uk-form-danger');
-      errorMessage.hide();
-      setWordButton.disabled = word.length === 0;
-    }
   });
 
   guessInput.addEventListener('keypress', evt => {
@@ -193,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setWordButton.addEventListener('click', async () => {
     const word = wordInput.value.trim();
-    if (errorMessage.toggled || word.length === 0) {
+    if (wordInput.getState() === 'error' || word.length === 0) {
       return;
     }
 
