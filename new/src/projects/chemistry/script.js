@@ -3,18 +3,16 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import katex from 'katex';
 
 import renderLaTeX from '../../lib/renderLaTeX';
-import wrapToggle from '../../lib/wrapToggle';
+import makeToggleWrapper from '../../lib/makeToggleWrapper';
 import { formulaToLatex, parseFormula } from './molarMass';
 
 const initMolarMass = () => {
-  const formulaAndError = wrapToggle(
-    UIkit.toggle('#molarMassFormulaContainer', {
-      target: '#molarMassFormulaContainer > *',
-      animation: 'uk-animation-fade',
-      mode: null,
-      queued: true,
-    })
-  );
+  const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {
+    target: '#molarMassFormulaContainer > *',
+    animation: 'uk-animation-fade',
+    mode: null,
+    queued: true,
+  });
   const input = document.querySelector('#molarMassInput input');
   const formulaEl = document.querySelector('#molarMassFormula');
   const tableOutput = document.querySelector('#molarMassTable tbody');

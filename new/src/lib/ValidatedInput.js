@@ -1,6 +1,4 @@
-import UIkit from 'uikit';
-
-import wrapToggle from './wrapToggle';
+import makeToggleWrapper from './makeToggleWrapper';
 
 class ValidatedInput {
   constructor(
@@ -18,12 +16,10 @@ class ValidatedInput {
     }
 
     this._validationMessage.setAttribute('hidden', '');
-    this._validationMessageToggle = wrapToggle(
-      UIkit.toggle(this._validationMessage, {
-        animation: 'uk-animation-slide-top-small',
-        mode: null,
-      })
-    );
+    this._validationMessageToggle = makeToggleWrapper(this._validationMessage, {
+      animation: 'uk-animation-slide-top-small',
+      mode: null,
+    });
     this._listener = null;
 
     if (validator) {
