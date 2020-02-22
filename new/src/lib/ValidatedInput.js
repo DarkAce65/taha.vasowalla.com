@@ -82,30 +82,26 @@ class ValidatedInput {
       if (!validation) {
         this._setState('default', stateCallback);
         this._validationMessageToggle.hide();
-        inputCallback(this.getValue(), this.getState());
-        return;
-      }
-
-      if (typeof validation === 'string') {
+      } else if (typeof validation === 'string') {
         this._setState('error', stateCallback);
         this._validationMessage.textContent = validation;
         this._validationMessageToggle.show();
-        inputCallback(this.getValue(), this.getState());
-        return;
-      }
-
-      this._setState(validation.type, stateCallback);
-      if (validation.message) {
-        this._validationMessage.textContent = validation.message;
-      }
-
-      if (validation.type && this._validationMessage.textContent) {
-        this._validationMessageToggle.show();
       } else {
-        this._validationMessageToggle.hide();
+        this._setState(validation.type, stateCallback);
+        if (validation.message) {
+          this._validationMessage.textContent = validation.message;
+        }
+
+        if (validation.type && this._validationMessage.textContent) {
+          this._validationMessageToggle.show();
+        } else {
+          this._validationMessageToggle.hide();
+        }
       }
 
-      inputCallback(this.getValue(), this.getState());
+      if (inputCallback) {
+        inputCallback(this.getValue(), this.getState());
+      }
     };
 
     this.input.addEventListener('input', this._listener);
