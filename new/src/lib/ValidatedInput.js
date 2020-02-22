@@ -1,3 +1,4 @@
+import getEl from './getEl';
 import makeToggleWrapper from './makeToggleWrapper';
 
 class ValidatedInput {
@@ -5,14 +6,14 @@ class ValidatedInput {
     inputElement,
     { validationMessageElement, validator, stateCallback, inputCallback } = {}
   ) {
-    this.input = inputElement;
+    this.input = getEl(inputElement);
     this._state = 'default';
 
     if (validationMessageElement) {
-      this._validationMessage = validationMessageElement;
+      this._validationMessage = getEl(validationMessageElement);
     } else {
       this._validationMessage = document.createElement('div');
-      inputElement.insertAdjacentElement('afterend', this._validationMessage);
+      this.input.insertAdjacentElement('afterend', this._validationMessage);
     }
 
     this._validationMessage.setAttribute('hidden', '');

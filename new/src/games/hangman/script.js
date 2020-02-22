@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const randomWordButton = document.querySelector('#randomWord');
   const submitGuessButton = document.querySelector('#submitGuess');
 
-  const wordInput = new ValidatedInput(document.querySelector('#wordInput'), {
-    validationMessageElement: document.querySelector('#error'),
+  const wordInput = new ValidatedInput('#wordInput', {
+    validationMessageElement: '#error',
     validator: input => {
       const word = input.trim();
       if (/[^A-Za-z]/.test(word)) {
