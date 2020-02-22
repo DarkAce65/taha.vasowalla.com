@@ -15,6 +15,9 @@ class ValidatedInput {
 
     if (validationMessageElement) {
       this._validationMessage = getEl(validationMessageElement);
+      if (this._validationMessage === null) {
+        throw new Error(`Cannot find element matching: ${validationMessageElement}`);
+      }
     } else {
       this._validationMessage = document.createElement('div');
       this.input.insertAdjacentElement('afterend', this._validationMessage);
