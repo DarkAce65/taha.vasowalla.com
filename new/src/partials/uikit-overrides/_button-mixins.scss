@@ -77,9 +77,19 @@
 }
 
 @mixin hook-button-misc() {
-  .uk-button-group > .uk-button:nth-child(n + 2),
-  .uk-button-group > div:nth-child(n + 2) .uk-button {
-    margin-left: -$button-border-width;
+  .uk-button-group {
+    margin-left: $button-border-width;
+
+    & > .uk-button {
+      margin-left: -$button-border-width;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &.uk-active {
+        z-index: 1;
+      }
+    }
   }
 
   .uk-button-file {

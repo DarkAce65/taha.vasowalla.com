@@ -37,4 +37,18 @@
       color: $form-disabled-placeholder-color;
     }
   }
+
+  .uk-form-group {
+    margin-left: $global-border-width;
+
+    & > * {
+      margin-left: -$global-border-width;
+
+      &:focus,
+      &:active,
+      &.uk-active {
+        z-index: 1;
+      }
+    }
+  }
 }
