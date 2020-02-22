@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   setWordButton.addEventListener('click', async () => {
-    const word = wordInput.value.trim();
+    const word = wordInput.getValue().trim();
     if (wordInput.getState() === 'error' || word.length === 0) {
       return;
     }
