@@ -7,6 +7,10 @@ class ValidatedInput {
     { validationMessageElement, validator, stateCallback, inputCallback } = {}
   ) {
     this.input = getEl(inputElement);
+    if (this.input === null) {
+      throw new Error(`Cannot find element matching: ${inputElement}`);
+    }
+
     this._state = 'default';
 
     if (validationMessageElement) {
