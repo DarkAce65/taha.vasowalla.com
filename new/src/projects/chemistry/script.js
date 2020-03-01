@@ -7,9 +7,10 @@ import makeToggleWrapper from '../../lib/makeToggleWrapper';
 import debounce from '../../lib/debounce';
 import { formulaToLatex, parseFormula } from './molarMass';
 import getComputeTarget from './getComputeTarget';
-import { compute as computeDilution } from './dilution';
-import { compute as computeIdealGasLaw } from './idealGasLaw';
-import { compute as computeSpecificHeat } from './specificHeat';
+import compute from './compute';
+import computeDilution from './computeDilution';
+import computeIdealGasLaw from './computeIdealGasLaw';
+import computeSpecificHeat from './computeSpecificHeat';
 
 const initMolarMass = () => {
   const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {
@@ -94,6 +95,7 @@ const initDilution = () => {
   const m2Units = document.querySelector('#dilutionM2Units');
   const v2Units = document.querySelector('#dilutionV2Units');
   const inputs = [m1, v1, m2, v2];
+  const units = [m1Units, v1Units, m2Units, v2Units];
 
   let computeTarget = v2;
   const recomputeTarget = debounce(() => {
@@ -123,15 +125,11 @@ const initDilution = () => {
     recomputeTarget.now();
 
     try {
-      const computed = computeDilution(
-        { m1, v1, m2, v2 },
-        {
-          m1Units: m1Units.value,
-          v1Units: v1Units.value,
-          m2Units: m2Units.value,
-          v2Units: v2Units.value,
-        },
-        computeTarget
+      const computed = compute(
+        inputs,
+        units.map(unit => unit.value),
+        inputs.indexOf(computeTarget),
+        computeDilution
       );
       computeTarget.value = computed;
     } catch (ex) {
@@ -150,6 +148,7 @@ const initIdealGasLaw = () => {
   const nUnits = document.querySelector('#idealGasLawNUnits');
   const tUnits = document.querySelector('#idealGasLawTUnits');
   const inputs = [p, v, n, t];
+  const units = [pUnits, vUnits, nUnits, tUnits];
 
   let computeTarget = t;
   const recomputeTarget = debounce(() => {
@@ -179,10 +178,11 @@ const initIdealGasLaw = () => {
     recomputeTarget.now();
 
     try {
-      const computed = computeIdealGasLaw(
-        { p, v, n, t },
-        { pUnits: pUnits.value, vUnits: vUnits.value, nUnits: nUnits.value, tUnits: tUnits.value },
-        computeTarget
+      const computed = compute(
+        inputs,
+        units.map(unit => unit.value),
+        inputs.indexOf(computeTarget),
+        computeIdealGasLaw
       );
       computeTarget.value = computed;
     } catch (ex) {
@@ -201,6 +201,7 @@ const initSpecificHeat = () => {
   const cpUnits = document.querySelector('#specificHeatCpUnits');
   const tUnits = document.querySelector('#specificHeatTUnits');
   const inputs = [q, m, cp, t];
+  const units = [qUnits, mUnits, cpUnits, tUnits];
 
   let computeTarget = t;
   const recomputeTarget = debounce(() => {
@@ -230,15 +231,11 @@ const initSpecificHeat = () => {
     recomputeTarget.now();
 
     try {
-      const computed = computeSpecificHeat(
-        { q, m, cp, t },
-        {
-          qUnits: qUnits.value,
-          mUnits: mUnits.value,
-          cpUnits: cpUnits.value,
-          tUnits: tUnits.value,
-        },
-        computeTarget
+      const computed = compute(
+        inputs,
+        units.map(unit => unit.value),
+        inputs.indexOf(computeTarget),
+        computeSpecificHeat
       );
       computeTarget.value = computed;
     } catch (ex) {
