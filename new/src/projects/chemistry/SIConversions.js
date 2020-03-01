@@ -21,11 +21,22 @@ const conversions = {
   kg: { from: value => value / 1000, to: value => value * 1000 },
   JgK: { from: value => value, to: value => value },
   JkgK: { from: value => value * 1000, to: value => value / 1000 },
-  JgC: { from: value => value, to: value => value },
-  JkgC: { from: value => value * 1000, to: value => value / 1000 },
 };
 
-const fromSI = (value, unit) => conversions[unit].from(value);
-const toSI = (value, unit) => conversions[unit].to(value);
+const fromSI = (value, unit) => {
+  if (!Object.prototype.hasOwnProperty.call(conversions, unit)) {
+    throw new Error(`Unrecognized unit: ${unit}`);
+  }
+
+  return conversions[unit].from(value);
+};
+
+const toSI = (value, unit) => {
+  if (!Object.prototype.hasOwnProperty.call(conversions, unit)) {
+    throw new Error(`Unrecognized unit: ${unit}`);
+  }
+
+  return conversions[unit].to(value);
+};
 
 export { fromSI, toSI };
