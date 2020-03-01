@@ -14,6 +14,6 @@ mixin breadcrumbs(...items)
       li: span= item
 
 mixin container(breadcrumbItems)
-  .uk-container.uk-margin-top
+  .uk-container.uk-margin-top.uk-margin-bottom
     +breadcrumbs(...breadcrumbItems)
     block
