@@ -13,6 +13,11 @@ mixin breadcrumbs(...items)
     each item in items
       li: span= item
 
+mixin floating-breadcrumbs(...items)
+  .floating-header.uk-position-absolute.uk-position-top.uk-position-medium(class=block && ['uk-flex', 'uk-flex-wrap'])&attributes(attributes)
+    +breadcrumbs(...items)(class={"uk-flex-auto": block})
+    block
+
 mixin container(breadcrumbItems)
   .uk-container.uk-margin-top.uk-margin-bottom
     +breadcrumbs(...breadcrumbItems)

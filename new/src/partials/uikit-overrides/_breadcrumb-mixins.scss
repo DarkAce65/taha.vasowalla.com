@@ -1,5 +1,17 @@
 @import 'variables';
 
+@mixin hook-breadcrumb-item-hover() {
+  &:not(a) {
+    color: $breadcrumb-item-color;
+  }
+}
+
+@mixin hook-breadcrumb-item-active() {
+  &:not(a) {
+    color: $breadcrumb-item-active-color;
+  }
+}
+
 @mixin hook-breadcrumb-divider() {
   $breadcrumb-divider-offset: ($breadcrumb-item-font-size - 1) / 1.5;
 

@@ -10,9 +10,8 @@ html
     link(rel="stylesheet" type="text/css" href="style.css")
 
   body
-    #header.uk-flex.uk-flex-wrap(uk-margin)
-      +breadcrumbs("experiments", "webaudio3d")(class="uk-flex-auto")
-      .uk-flex-none(style="text-align: right;")
+    +floating-breadcrumbs("experiments", "webaudio3d")(uk-margin)
+      #controls.uk-flex-none
         .uk-button-group
           button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-audio] Upload audio file
             input#fileInput(type="file" accept="audio/*")

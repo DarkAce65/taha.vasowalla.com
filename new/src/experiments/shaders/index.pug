@@ -10,8 +10,7 @@ html
     link(rel="stylesheet" type="text/css" href="style.css")
 
   body
-    #header.uk-flex.uk-flex-wrap(uk-margin)
-      +breadcrumbs("experiments", "shaders")(class="uk-flex-auto")
+    +floating-breadcrumbs("experiments", "shaders")
       .uk-flex-none
         button.uk-button.uk-button-default.uk-button-small(style="background: black;") Camera #[span(uk-icon="triangle-down")]
         div(uk-dropdown="mode: click")

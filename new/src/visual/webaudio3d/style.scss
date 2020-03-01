@@ -13,12 +13,12 @@ body {
   background: black;
 }
 
-#header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: $global-margin;
+#controls {
+  text-align: right;
+
+  &.uk-first-column {
+    text-align: left;
+  }
 }
 
 #name {
