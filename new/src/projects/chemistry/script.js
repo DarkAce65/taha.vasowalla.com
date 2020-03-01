@@ -113,7 +113,7 @@ const initDilution = () => {
     });
 
     input.addEventListener('blur', () => {
-      if (input.checkValidity && !input.checkValidity()) {
+      if (input.checkValidity && !input.checkValidity() && input.reportValidity) {
         input.reportValidity();
       } else {
         input.value = input.value; // eslint-disable-line no-self-assign
@@ -166,7 +166,7 @@ const initIdealGasLaw = () => {
     });
 
     input.addEventListener('blur', () => {
-      if (input.checkValidity && !input.checkValidity()) {
+      if (input.checkValidity && !input.checkValidity() && input.reportValidity) {
         input.reportValidity();
       } else {
         input.value = input.value; // eslint-disable-line no-self-assign
@@ -219,7 +219,7 @@ const initSpecificHeat = () => {
     });
 
     input.addEventListener('blur', () => {
-      if (input.checkValidity && !input.checkValidity()) {
+      if (input.checkValidity && !input.checkValidity() && input.reportValidity) {
         input.reportValidity();
       } else {
         input.value = input.value; // eslint-disable-line no-self-assign
