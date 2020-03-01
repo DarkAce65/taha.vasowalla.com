@@ -19,7 +19,7 @@ export default (inputs, units, computeTargetIndex, equation) => {
     }
 
     parsedInputs[i] = parseFloat(inputs[i].value);
-    if (isNaN(parsedInputs[i]) || parsedInputs[i] <= 0) {
+    if (isNaN(parsedInputs[i])) {
       throw new Error(`Invalid values in equation: inputs[${i}] = ${inputs[i].value}`);
     }
     parsedInputs[i] = toSI(parsedInputs[i], units[i]);

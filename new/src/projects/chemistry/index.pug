@@ -51,24 +51,24 @@ html
               p The #[a.uk-link(href="https://en.wikipedia.org/wiki/Dilution_(equation)" target="_blank") Dilution] equation calculates a required value to achieve the specified concentration. This calculator uses the formula #[span(data-katex-expr="\\textstyle M_1 \\times V_1 = M_2 \\times V_2")] where #[span(data-katex-expr="M_1")] and #[span(data-katex-expr="M_2")] are the molarity of the solutions and #[span(data-katex-expr="V_1")] and #[span(data-katex-expr="V_2")] are the volumes of the solutions. The highlighted input will be computed when "Calculate" is clicked.
               p.uk-text-center(data-katex-expr="\\displaystyle M_1 \\times V_1 = M_2 \\times V_2")
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionM1.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Molarity (M1)")
+                input#dilutionM1.uk-input.uk-flex-1(type="number" step="any" placeholder="Molarity (M1)")
                 select#dilutionM1Units.uk-select.uk-form-width-small
                   option(value="M") molar
                   option(value="mM") millimolar
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionV1.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Volume (V1)")
+                input#dilutionV1.uk-input.uk-flex-1(type="number" step="any" placeholder="Volume (V1)")
                 select#dilutionV1Units.uk-select.uk-form-width-small
                   option(value="L") L
                   option(value="mL") mL
                   option(value="m3") m&sup3;
                   option(value="cm3") cm&sup3;
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionM2.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Molarity (M2)")
+                input#dilutionM2.uk-input.uk-flex-1(type="number" step="any" placeholder="Molarity (M2)")
                 select#dilutionM2Units.uk-select.uk-form-width-small
                   option(value="M") molar
                   option(value="mM") millimolar
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionV2.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Volume (V2)")
+                input#dilutionV2.uk-input.uk-flex-1(type="number" step="any" placeholder="Volume (V2)")
                 select#dilutionV2Units.uk-select.uk-form-width-small
                   option(value="L") L
                   option(value="mL") mL
@@ -84,7 +84,7 @@ html
               p.uk-text-center(data-katex-expr="\\displaystyle PV = nRT")
               p.uk-text-center Gas Constant #[span(data-katex-expr="\\left(R\\right) = 0.0820573 \\frac{L \\times atm}{mol \\times K} = 8.3144621 \\frac{J}{mol \\times K}")]
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawP.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Pressure (P)")
+                input#idealGasLawP.uk-input.uk-flex-1(type="number" step="any" placeholder="Pressure (P)")
                 select#idealGasLawPUnits.uk-select.uk-form-width-small
                   option(value="atm") atm
                   option(value="mmHg") mmHg
@@ -92,19 +92,19 @@ html
                   option(value="kPa") kPa
                   option(value="torr") torr
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawV.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Volume (V)")
+                input#idealGasLawV.uk-input.uk-flex-1(type="number" step="any" placeholder="Volume (V)")
                 select#idealGasLawVUnits.uk-select.uk-form-width-small
                   option(value="L") L
                   option(value="mL") mL
                   option(value="m3") m&sup3;
                   option(value="cm3") cm&sup3;
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawN.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Moles (n)")
+                input#idealGasLawN.uk-input.uk-flex-1(type="number" step="any" placeholder="Moles (n)")
                 select#idealGasLawNUnits.uk-select.uk-form-width-small
                   option(value="mol") mole
                   option(value="mmol") millimole
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawT.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Temperature (T)")
+                input#idealGasLawT.uk-input.uk-flex-1(type="number" step="any" placeholder="Temperature (T)")
                 select#idealGasLawTUnits.uk-select.uk-form-width-small
                   option(value="K") K
                   option(value="C") C&#176;
@@ -118,17 +118,17 @@ html
               p The #[a.uk-link(href="https://en.wikipedia.org/wiki/Heat_capacity" target="_blank") specific heat capacity] of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation #[span(data-katex-expr="Q = mC_p\\Delta T")] where #[span(data-katex-expr="Q")] is the amount of energy, #[span(data-katex-expr="m")] is the mass of the substance, #[span(data-katex-expr="C_p")] is the specific heat capacity, and #[span(data-katex-expr="\\Delta T")] is the change in temperature. The highlighted input will be computed when "Calculate" is clicked.
               p.uk-text-center(data-katex-expr="\\displaystyle Q = mC_p\\Delta T")
               .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatQ.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Energy (Q)")
+                input#specificHeatQ.uk-input.uk-flex-1(type="number" step="any" placeholder="Energy (Q)")
                 select#specificHeatQUnits.uk-select.uk-form-width-small
                   option(value="J") Joules
                   option(value="cal") Calories
               .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatM.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Mass (m)")
+                input#specificHeatM.uk-input.uk-flex-1(type="number" step="any" placeholder="Mass (m)")
                 select#specificHeatMUnits.uk-select.uk-form-width-small
                   option(value="g") grams
                   option(value="kg") kilograms
               .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatCp.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Specific Heat (Cp)")
+                input#specificHeatCp.uk-input.uk-flex-1(type="number" step="any" placeholder="Specific Heat (Cp)")
                 select#specificHeatCpUnits.uk-select.uk-form-width-small
                   option(value="JgK") J/g&#8901;K
                   option(value="JkgK") J/kg&#8901;K
