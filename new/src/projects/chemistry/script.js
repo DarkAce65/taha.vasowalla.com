@@ -86,9 +86,13 @@ const initDilution = () => {
   const v1 = document.querySelector('#dilutionV1');
   const m2 = document.querySelector('#dilutionM2');
   const v2 = document.querySelector('#dilutionV2');
+  const m1Units = document.querySelector('#dilutionM1Units');
+  const v1Units = document.querySelector('#dilutionV1Units');
+  const m2Units = document.querySelector('#dilutionM2Units');
+  const v2Units = document.querySelector('#dilutionV2Units');
   const inputs = [m1, v1, m2, v2];
-  let computeTarget = v2;
 
+  let computeTarget = v2;
   const recomputeTarget = debounce(() => {
     const newComputeTarget = getComputeTarget(inputs);
     if (newComputeTarget !== null) {
@@ -116,7 +120,19 @@ const initDilution = () => {
     recomputeTarget.now();
 
     try {
-      const computed = compute(m1, v1, m2, v2, computeTarget);
+      const computed = compute(
+        {
+          m1,
+          v1,
+          m2,
+          v2,
+          m1Units: m1Units.value,
+          v1Units: v1Units.value,
+          m2Units: m2Units.value,
+          v2Units: v2Units.value,
+        },
+        computeTarget
+      );
       computeTarget.value = computed;
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
