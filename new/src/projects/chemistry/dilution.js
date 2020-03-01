@@ -1,6 +1,6 @@
 import { fromSI, toSI } from './SIConversions';
 
-const compute = ({ m1, v1, m2, v2, m1Units, v1Units, m2Units, v2Units }, computeTarget) => {
+const compute = ({ m1, v1, m2, v2 }, { m1Units, v1Units, m2Units, v2Units }, computeTarget) => {
   if (
     (m1 !== computeTarget && m1.value.length === 0) ||
     (v1 !== computeTarget && v1.value.length === 0) ||

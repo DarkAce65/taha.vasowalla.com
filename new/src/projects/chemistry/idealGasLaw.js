@@ -2,7 +2,7 @@ import { fromSI, toSI } from './SIConversions';
 
 const R = 0.0820573; // (L * atm) / (K * mol)
 
-const compute = ({ p, v, n, t, pUnits, vUnits, nUnits, tUnits }, computeTarget) => {
+const compute = ({ p, v, n, t }, { pUnits, vUnits, nUnits, tUnits }, computeTarget) => {
   if (
     (p !== computeTarget && p.value.length === 0) ||
     (v !== computeTarget && v.value.length === 0) ||

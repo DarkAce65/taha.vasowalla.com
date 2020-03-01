@@ -123,11 +123,8 @@ const initDilution = () => {
 
     try {
       const computed = computeDilution(
+        { m1, v1, m2, v2 },
         {
-          m1,
-          v1,
-          m2,
-          v2,
           m1Units: m1Units.value,
           v1Units: v1Units.value,
           m2Units: m2Units.value,
@@ -182,16 +179,8 @@ const initIdealGasLaw = () => {
 
     try {
       const computed = computeIdealGasLaw(
-        {
-          p,
-          v,
-          n,
-          t,
-          pUnits: pUnits.value,
-          vUnits: vUnits.value,
-          nUnits: nUnits.value,
-          tUnits: tUnits.value,
-        },
+        { p, v, n, t },
+        { pUnits: pUnits.value, vUnits: vUnits.value, nUnits: nUnits.value, tUnits: tUnits.value },
         computeTarget
       );
       computeTarget.value = computed;
