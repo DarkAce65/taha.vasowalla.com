@@ -32,11 +32,11 @@ const compute = ({ q, m, cp, t }, { qUnits, mUnits, cpUnits, tUnits }, computeTa
   if (computeTarget === q) {
     return fromSI(mValue * cpValue * tValue, qUnits);
   } else if (computeTarget === m) {
-    return fromSI((cpValue * tValue) / qValue, mUnits);
+    return fromSI(qValue / cpValue / tValue, mUnits);
   } else if (computeTarget === cp) {
-    return fromSI((mValue * tValue) / qValue, cpUnits);
+    return fromSI(qValue / mValue / tValue, cpUnits);
   } else if (computeTarget === t) {
-    return fromSI((cpValue * mValue) / qValue, tUnits);
+    return fromSI(qValue / cpValue / mValue, tUnits);
   }
 
   throw new Error('Unrecognized compute target');
