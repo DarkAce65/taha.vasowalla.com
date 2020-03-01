@@ -4,7 +4,9 @@ import katex from 'katex';
 
 import renderLaTeX from '../../lib/renderLaTeX';
 import makeToggleWrapper from '../../lib/makeToggleWrapper';
+import debounce from '../../lib/debounce';
 import { formulaToLatex, parseFormula } from './molarMass';
+import { compute, getComputeTarget } from './dilution';
 
 const initMolarMass = () => {
   const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {
@@ -79,9 +81,53 @@ const initMolarMass = () => {
   document.querySelector('#molarMassInput a').addEventListener('click', reset);
 };
 
+const initDilution = () => {
+  const m1 = document.querySelector('#dilutionM1');
+  const v1 = document.querySelector('#dilutionV1');
+  const m2 = document.querySelector('#dilutionM2');
+  const v2 = document.querySelector('#dilutionV2');
+  const inputs = [m1, v1, m2, v2];
+  let computeTarget = v2;
+
+  const recomputeTarget = debounce(() => {
+    const newComputeTarget = getComputeTarget(inputs);
+    if (newComputeTarget !== null) {
+      computeTarget.parentElement.classList.remove('uk-form-highlight');
+      newComputeTarget.parentElement.classList.add('uk-form-highlight');
+      computeTarget = newComputeTarget;
+    }
+  });
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      recomputeTarget();
+    });
+
+    input.addEventListener('blur', () => {
+      if (input.checkValidity && !input.checkValidity()) {
+        input.reportValidity();
+      } else {
+        input.value = input.value; // eslint-disable-line no-self-assign
+      }
+    });
+  });
+
+  document.querySelector('#dilutionCalculate').addEventListener('click', () => {
+    recomputeTarget.now();
+
+    try {
+      const computed = compute(m1, v1, m2, v2, computeTarget);
+      computeTarget.value = computed;
+    } catch (ex) {
+      UIkit.notification(ex.message, { status: 'danger' });
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
   renderLaTeX();
 
   initMolarMass();
+  initDilution();
 });

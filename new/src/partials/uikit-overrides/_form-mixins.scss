@@ -31,6 +31,12 @@
 }
 
 @mixin hook-form-misc() {
+  .uk-form-highlight,
+  .uk-form-highlight:focus {
+    color: $form-highlight-color;
+    border-color: $form-highlight-border;
+  }
+
   .uk-input,
   .uk-textarea {
     &:disabled::placeholder {
@@ -61,6 +67,10 @@
 
     &.uk-form-success > * {
       @extend .uk-form-success;
+    }
+
+    &.uk-form-highlight > * {
+      @extend .uk-form-highlight;
     }
   }
 }
