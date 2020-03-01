@@ -9,6 +9,8 @@ export default (parsedInputs, computeTargetIndex) => {
     case 3:
       return (parsedInputs[0] * parsedInputs[1]) / parsedInputs[2];
     default:
-      throw new Error(`Invalid compute target index: ${computeTargetIndex}`);
+      break;
   }
+
+  throw new Error(`Invalid compute target index: ${computeTargetIndex}`);
 };

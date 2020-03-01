@@ -191,15 +191,34 @@ const initIdealGasLaw = () => {
   });
 };
 
+const copyToArray = (src, dest) => {
+  while (dest.length < src.length) {
+    dest.push(0);
+  }
+  while (dest.length > src.length) {
+    dest.pop();
+  }
+
+  for (let i = 0; i < src.length; i++) {
+    if (dest[i] !== src[i]) {
+      dest[i] = src[i];
+    }
+  }
+};
+
 const initSpecificHeat = () => {
   const q = document.querySelector('#specificHeatQ');
   const m = document.querySelector('#specificHeatM');
   const cp = document.querySelector('#specificHeatCp');
   const t = document.querySelector('#specificHeatT');
+  const tf = document.querySelector('#specificHeatTf');
+  const ti = document.querySelector('#specificHeatTi');
   const qUnits = document.querySelector('#specificHeatQUnits');
   const mUnits = document.querySelector('#specificHeatMUnits');
   const cpUnits = document.querySelector('#specificHeatCpUnits');
   const tUnits = document.querySelector('#specificHeatTUnits');
+  const tfUnits = document.querySelector('#specificHeatTfUnits');
+  const tiUnits = document.querySelector('#specificHeatTiUnits');
   const inputs = [q, m, cp, t];
   const units = [qUnits, mUnits, cpUnits, tUnits];
 
@@ -213,7 +232,29 @@ const initSpecificHeat = () => {
     }
   });
 
-  inputs.forEach(input => {
+  let tempInputMethod = 'deltaT';
+  document.querySelector('#specificHeatDeltaTTab').addEventListener('shown', () => {
+    t.value = '';
+    copyToArray([q, m, cp, t], inputs);
+    copyToArray([qUnits, mUnits, cpUnits, tUnits], units);
+    tempInputMethod = 'deltaT';
+    computeTarget.parentElement.classList.remove('uk-form-highlight');
+    recomputeTarget.now();
+  });
+  document.querySelector('#specificHeatDiffTTab').addEventListener('shown', () => {
+    tf.value = '';
+    ti.value = '';
+    copyToArray([q, m, cp, tf, ti], inputs);
+    copyToArray([qUnits, mUnits, cpUnits, tfUnits, tiUnits], units);
+    tempInputMethod = 'diffT';
+    computeTarget.parentElement.classList.remove('uk-form-highlight');
+    recomputeTarget.now();
+    if (computeTarget === t) {
+      computeTarget = ti;
+    }
+  });
+
+  [q, m, cp, t, tf, ti].forEach(input => {
     input.addEventListener('input', () => {
       recomputeTarget();
     });
@@ -235,7 +276,7 @@ const initSpecificHeat = () => {
         inputs,
         units.map(unit => unit.value),
         inputs.indexOf(computeTarget),
-        computeSpecificHeat
+        computeSpecificHeat.bind(this, tempInputMethod)
       );
       computeTarget.value = computed;
     } catch (ex) {

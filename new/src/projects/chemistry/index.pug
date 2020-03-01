@@ -116,7 +116,9 @@ html
             div
               h3 Specific heat calculator
               p The #[a.uk-link(href="https://en.wikipedia.org/wiki/Heat_capacity" target="_blank") specific heat capacity] of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation #[span(data-katex-expr="Q = mC_p\\Delta T")] where #[span(data-katex-expr="Q")] is the amount of energy, #[span(data-katex-expr="m")] is the mass of the substance, #[span(data-katex-expr="C_p")] is the specific heat capacity, and #[span(data-katex-expr="\\Delta T")] is the change in temperature. The highlighted input will be computed when "Calculate" is clicked.
-              p.uk-text-center(data-katex-expr="\\displaystyle Q = mC_p\\Delta T")
+              ul.uk-subnav.uk-subnav-pill.uk-margin.uk-flex-center(uk-switcher="connect: #specificHeatTempSwitcher")
+                li: a(href="#" data-katex-expr="\\displaystyle Q = mC_p\\Delta T")
+                li: a(href="#" data-katex-expr="\\displaystyle Q = mC_p\\left(T_f - T_i\\right)")
               .uk-form-group.uk-flex.uk-margin-small
                 input#specificHeatQ.uk-input.uk-flex-1(type="number" step="any" placeholder="Energy (Q)")
                 select#specificHeatQUnits.uk-select.uk-form-width-small
@@ -132,12 +134,26 @@ html
                 select#specificHeatCpUnits.uk-select.uk-form-width-small
                   option(value="JgK") J/g&#8901;K
                   option(value="JkgK") J/kg&#8901;K
-              .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatT.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Temperature (T)")
-                select#specificHeatTUnits.uk-select.uk-form-width-small
-                  option(value="K") K
-                  option(value="C") C&#176;
-                  option(value="F") F&#176;
+              #specificHeatTempSwitcher.uk-switcher
+                #specificHeatDeltaTTab.uk-form-group.uk-flex.uk-margin-small
+                  input#specificHeatT.uk-input.uk-flex-1(type="number" step="any" placeholder!="Change in Temperature (&#916;T)")
+                  select#specificHeatTUnits.uk-select.uk-form-width-small
+                    option(value="K") K
+                    option(value="C") C&#176;
+                    option(value="F") F&#176;
+                #specificHeatDiffTTab
+                  .uk-form-group.uk-flex.uk-margin-small
+                    input#specificHeatTf.uk-input.uk-flex-1(type="number" step="any" placeholder="Final Temperature (Tf)")
+                    select#specificHeatTfUnits.uk-select.uk-form-width-small
+                      option(value="K") K
+                      option(value="C") C&#176;
+                      option(value="F") F&#176;
+                  .uk-form-group.uk-flex.uk-margin-small
+                    input#specificHeatTi.uk-input.uk-flex-1(type="number" step="any" placeholder="Initial Temperature (Ti)")
+                    select#specificHeatTiUnits.uk-select.uk-form-width-small
+                      option(value="K") K
+                      option(value="C") C&#176;
+                      option(value="F") F&#176;
               .uk-margin.uk-text-right
                 button#specificHeatCalculate.uk-button.uk-button-primary Calculate
                 = ' '
