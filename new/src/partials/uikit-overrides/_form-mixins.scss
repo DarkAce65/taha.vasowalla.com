@@ -2,7 +2,7 @@
 
 @mixin hook-form() {
   border: $global-border-width solid $form-border;
-  transition: 0.2s ease-in-out;
+  transition: $transition-duration ease-in-out;
 }
 
 @mixin hook-form-focus() {
@@ -38,6 +38,10 @@
     }
   }
 
+  .uk-select {
+    cursor: pointer;
+  }
+
   .uk-form-group {
     margin-left: $global-border-width;
 
@@ -49,6 +53,14 @@
       &.uk-active {
         z-index: 1;
       }
+    }
+
+    &.uk-form-danger > * {
+      @extend .uk-form-danger;
+    }
+
+    &.uk-form-success > * {
+      @extend .uk-form-success;
     }
   }
 }
