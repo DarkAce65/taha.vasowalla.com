@@ -15,7 +15,7 @@ html
         div(class="uk-width-medium@m")
           ul.uk-tab-left.uk-tab-stacked(uk-tab uk-sticky="offset: 40; media: @m" uk-switcher="connect: #switcher; animation: uk-animation-fade")
             li: a(href="#") Molar Mass
-            li.uk-active: a(href="#") Dilution
+            li: a(href="#") Dilution
             li.uk-disabled: a(href="#") Ideal Gas Law
             li.uk-disabled: a(href="#") Specific Heat Capacity
         .uk-width-expand.uk-margin-remove-top
@@ -50,24 +50,24 @@ html
               h3 Dilution calculator
               p The #[a.uk-link(href="https://en.wikipedia.org/wiki/Dilution_(equation)" target="_blank") Dilution] equation calculates a required value to achieve the specified concentration. This calculator uses the formula #[span(data-katex-expr="\\textstyle M_1 \\times V_1 = M_2 \\times V_2")] where #[span(data-katex-expr="M_1")] and #[span(data-katex-expr="M_2")] are the molarity of the solutions and #[span(data-katex-expr="V_1")] and #[span(data-katex-expr="V_2")] are the volumes of the solutions. The highlighted input will be computed.
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionM1.uk-input.uk-flex-1(type="number" min="0" placeholder="Molarity (M1)")
+                input#dilutionM1.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Molarity (M1)")
                 select#dilutionM1Units.uk-select.uk-form-width-small
                   option(value="M") molar
                   option(value="mM") millimolar
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionV1.uk-input.uk-flex-1(type="number" min="0" placeholder="Volume (V1)")
+                input#dilutionV1.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Volume (V1)")
                 select#dilutionV1Units.uk-select.uk-form-width-small
                   option(value="L") L
                   option(value="mL") mL
                   option(value="m3") m&sup3;
                   option(value="cm3") cm&sup3;
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionM2.uk-input.uk-flex-1(type="number" min="0" placeholder="Molarity (M2)")
+                input#dilutionM2.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Molarity (M2)")
                 select#dilutionM2Units.uk-select.uk-form-width-small
                   option(value="M") molar
                   option(value="mM") millimolar
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionV2.uk-input.uk-flex-1(type="number" min="0" placeholder="Volume (V2)")
+                input#dilutionV2.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Volume (V2)")
                 select#dilutionV2Units.uk-select.uk-form-width-small
                   option(value="L") L
                   option(value="mL") mL
