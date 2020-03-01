@@ -6,18 +6,18 @@
 }
 
 @mixin hook-button-hover() {
-  box-shadow: inset 0 0 0 $button-inset-width currentColor;
+  box-shadow: inset 0 0 0 $focus-inset-width currentColor;
   transition-duration: 0s;
 }
 
 @mixin hook-button-focus() {
-  box-shadow: inset 0 0 0 $button-inset-width currentColor;
+  box-shadow: inset 0 0 0 $focus-inset-width currentColor;
   transition-duration: $transition-duration;
 }
 
 @mixin hook-button-active() {
   border-color: currentColor;
-  box-shadow: inset 0 0 0 $button-inset-width currentColor;
+  box-shadow: inset 0 0 0 $focus-inset-width currentColor;
   transition-duration: 0s;
 }
 

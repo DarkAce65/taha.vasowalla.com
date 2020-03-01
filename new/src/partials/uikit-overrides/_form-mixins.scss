@@ -30,6 +30,15 @@
   border-bottom-color: $form-blank-focus-border;
 }
 
+@mixin hook-form-radio() {
+  border: 1px solid transparent;
+}
+
+@mixin hook-form-radio-focus() {
+  background-color: $darkgray;
+  box-shadow: inset 0 0 0 $focus-inset-width currentColor;
+}
+
 @mixin hook-form-misc() {
   .uk-form-highlight,
   .uk-form-highlight:focus {
