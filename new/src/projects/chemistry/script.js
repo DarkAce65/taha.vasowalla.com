@@ -9,6 +9,7 @@ import { formulaToLatex, parseFormula } from './molarMass';
 import getComputeTarget from './getComputeTarget';
 import { compute as computeDilution } from './dilution';
 import { compute as computeIdealGasLaw } from './idealGasLaw';
+import { compute as computeSpecificHeat } from './specificHeat';
 
 const initMolarMass = () => {
   const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {
@@ -190,6 +191,62 @@ const initIdealGasLaw = () => {
   });
 };
 
+const initSpecificHeat = () => {
+  const q = document.querySelector('#specificHeatQ');
+  const m = document.querySelector('#specificHeatM');
+  const cp = document.querySelector('#specificHeatCp');
+  const t = document.querySelector('#specificHeatT');
+  const qUnits = document.querySelector('#specificHeatQUnits');
+  const mUnits = document.querySelector('#specificHeatMUnits');
+  const cpUnits = document.querySelector('#specificHeatCpUnits');
+  const tUnits = document.querySelector('#specificHeatTUnits');
+  const inputs = [q, m, cp, t];
+
+  let computeTarget = t;
+  const recomputeTarget = debounce(() => {
+    const newComputeTarget = getComputeTarget(inputs);
+    if (newComputeTarget !== null) {
+      computeTarget.parentElement.classList.remove('uk-form-highlight');
+      newComputeTarget.parentElement.classList.add('uk-form-highlight');
+      computeTarget = newComputeTarget;
+    }
+  });
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      recomputeTarget();
+    });
+
+    input.addEventListener('blur', () => {
+      if (input.checkValidity && !input.checkValidity()) {
+        input.reportValidity();
+      } else {
+        input.value = input.value; // eslint-disable-line no-self-assign
+      }
+    });
+  });
+
+  document.querySelector('#specificHeatCalculate').addEventListener('click', () => {
+    recomputeTarget.now();
+
+    try {
+      const computed = computeSpecificHeat(
+        { q, m, cp, t },
+        {
+          qUnits: qUnits.value,
+          mUnits: mUnits.value,
+          cpUnits: cpUnits.value,
+          tUnits: tUnits.value,
+        },
+        computeTarget
+      );
+      computeTarget.value = computed;
+    } catch (ex) {
+      UIkit.notification(ex.message, { status: 'danger' });
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
   renderLaTeX();
@@ -197,4 +254,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initMolarMass();
   initDilution();
   initIdealGasLaw();
+  initSpecificHeat();
 });

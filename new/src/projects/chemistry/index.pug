@@ -17,7 +17,7 @@ html
             li: a(href="#") Molar Mass
             li: a(href="#") Dilution
             li: a(href="#") Ideal Gas Law
-            li.uk-disabled: a(href="#") Specific Heat Capacity
+            li: a(href="#") Specific Heat Capacity
         .uk-width-expand.uk-margin-remove-top
           #switcher.uk-switcher
             div
@@ -115,4 +115,35 @@ html
                 |
                 |
                 button.uk-button.uk-button-default Clear
-            div Under construction
+            div
+              h3 Specific heat calculator
+              p The #[a.uk-link(href="https://en.wikipedia.org/wiki/Heat_capacity" target="_blank") specific heat capacity] of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation #[span(data-katex-expr="Q = mC_p\\Delta T")] where #[span(data-katex-expr="Q")] is the amount of energy, #[span(data-katex-expr="m")] is the mass of the substance, #[span(data-katex-expr="C_p")] is the specific heat capacity, and #[span(data-katex-expr="\\Delta T")] is the change in temperature.
+              p.uk-text-center(data-katex-expr="\\displaystyle Q = mC_p\\Delta T")
+              .uk-form-group.uk-flex.uk-margin-small
+                input#specificHeatQ.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Energy (Q)")
+                select#specificHeatQUnits.uk-select.uk-form-width-small
+                  option(value="J") Joules
+                  option(value="cal") Calories
+              .uk-form-group.uk-flex.uk-margin-small
+                input#specificHeatM.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Mass (m)")
+                select#specificHeatMUnits.uk-select.uk-form-width-small
+                  option(value="g") grams
+                  option(value="kg") kilograms
+              .uk-form-group.uk-flex.uk-margin-small
+                input#specificHeatCp.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Specific Heat (Cp)")
+                select#specificHeatCpUnits.uk-select.uk-form-width-small
+                  option(value="JgK") J/g&#8901;K
+                  option(value="JkgK") J/kg&#8901;K
+                  option(value="JgC") J/g&#8901;C&deg;
+                  option(value="JkgC") J/kg&#8901;C&deg;
+              .uk-form-group.uk-flex.uk-margin-small
+                input#specificHeatT.uk-input.uk-flex-1(type="number" min="0" step="any" placeholder="Temperature (T)")
+                select#specificHeatTUnits.uk-select.uk-form-width-small
+                  option(value="K") K
+                  option(value="C") C&#176;
+                  option(value="F") F&#176;
+              .uk-margin.uk-text-right
+                button#specificHeatCalculate.uk-button.uk-button-primary Calculate
+                |
+                |
+                button.uk-button.uk-button-default Clear
