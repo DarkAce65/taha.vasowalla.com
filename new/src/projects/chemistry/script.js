@@ -136,6 +136,12 @@ const initDilution = () => {
       UIkit.notification(ex.message, { status: 'danger' });
     }
   });
+
+  document.querySelector('#dilutionClear').addEventListener('click', () => {
+    inputs.forEach(input => {
+      input.value = '';
+    });
+  });
 };
 
 const initIdealGasLaw = () => {
@@ -188,6 +194,12 @@ const initIdealGasLaw = () => {
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
+  });
+
+  document.querySelector('#idealGasLawClear').addEventListener('click', () => {
+    inputs.forEach(input => {
+      input.value = '';
+    });
   });
 };
 
@@ -282,6 +294,12 @@ const initSpecificHeat = () => {
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
+  });
+
+  document.querySelector('#specificHeatClear').addEventListener('click', () => {
+    inputs.forEach(input => {
+      input.value = '';
+    });
   });
 };
 
