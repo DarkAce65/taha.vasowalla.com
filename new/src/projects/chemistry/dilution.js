@@ -1,20 +1,5 @@
 import { fromSI, toSI } from './SIConversions';
 
-const getComputeTarget = inputs => {
-  let computeTarget = null;
-  for (let i = 0; i < inputs.length; i++) {
-    if (inputs[i].value.length === 0) {
-      if (computeTarget === null) {
-        computeTarget = inputs[i];
-      } else {
-        return null;
-      }
-    }
-  }
-
-  return computeTarget;
-};
-
 const compute = ({ m1, v1, m2, v2, m1Units, v1Units, m2Units, v2Units }, computeTarget) => {
   if (
     (m1 !== computeTarget && m1.value.length === 0) ||
@@ -57,4 +42,4 @@ const compute = ({ m1, v1, m2, v2, m1Units, v1Units, m2Units, v2Units }, compute
   throw new Error('Unrecognized compute target');
 };
 
-export { getComputeTarget, compute };
+export { compute };

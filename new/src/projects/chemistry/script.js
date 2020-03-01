@@ -6,7 +6,9 @@ import renderLaTeX from '../../lib/renderLaTeX';
 import makeToggleWrapper from '../../lib/makeToggleWrapper';
 import debounce from '../../lib/debounce';
 import { formulaToLatex, parseFormula } from './molarMass';
-import { compute, getComputeTarget } from './dilution';
+import getComputeTarget from './getComputeTarget';
+import { compute as computeDilution } from './dilution';
+import { compute as computeIdealGasLaw } from './idealGasLaw';
 
 const initMolarMass = () => {
   const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {
@@ -120,7 +122,7 @@ const initDilution = () => {
     recomputeTarget.now();
 
     try {
-      const computed = compute(
+      const computed = computeDilution(
         {
           m1,
           v1,
@@ -140,10 +142,70 @@ const initDilution = () => {
   });
 };
 
+const initIdealGasLaw = () => {
+  const p = document.querySelector('#idealGasLawP');
+  const v = document.querySelector('#idealGasLawV');
+  const n = document.querySelector('#idealGasLawN');
+  const t = document.querySelector('#idealGasLawT');
+  const pUnits = document.querySelector('#idealGasLawPUnits');
+  const vUnits = document.querySelector('#idealGasLawVUnits');
+  const nUnits = document.querySelector('#idealGasLawNUnits');
+  const tUnits = document.querySelector('#idealGasLawTUnits');
+  const inputs = [p, v, n, t];
+
+  let computeTarget = t;
+  const recomputeTarget = debounce(() => {
+    const newComputeTarget = getComputeTarget(inputs);
+    if (newComputeTarget !== null) {
+      computeTarget.parentElement.classList.remove('uk-form-highlight');
+      newComputeTarget.parentElement.classList.add('uk-form-highlight');
+      computeTarget = newComputeTarget;
+    }
+  });
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      recomputeTarget();
+    });
+
+    input.addEventListener('blur', () => {
+      if (input.checkValidity && !input.checkValidity()) {
+        input.reportValidity();
+      } else {
+        input.value = input.value; // eslint-disable-line no-self-assign
+      }
+    });
+  });
+
+  document.querySelector('#idealGasLawCalculate').addEventListener('click', () => {
+    recomputeTarget.now();
+
+    try {
+      const computed = computeIdealGasLaw(
+        {
+          p,
+          v,
+          n,
+          t,
+          pUnits: pUnits.value,
+          vUnits: vUnits.value,
+          nUnits: nUnits.value,
+          tUnits: tUnits.value,
+        },
+        computeTarget
+      );
+      computeTarget.value = computed;
+    } catch (ex) {
+      UIkit.notification(ex.message, { status: 'danger' });
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
   renderLaTeX();
 
   initMolarMass();
   initDilution();
+  initIdealGasLaw();
 });
