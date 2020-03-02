@@ -1,0 +1,23 @@
+@import '../../partials/colors';
+@import '../../partials/uikit-overrides/variables';
+
+$day: #c0cfe2;
+$night: darken($day, 70);
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: $day;
+  transition: background-color 5s;
+
+  &.night {
+    background-color: $night;
+  }
+}
