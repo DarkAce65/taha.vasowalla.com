@@ -24,6 +24,7 @@ import {
   PlaneGeometry,
   PointLight,
   Scene,
+  ShaderLib,
   ShaderMaterial,
   SpotLight,
   UniformsLib,
@@ -37,8 +38,6 @@ import gsap from 'gsap';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
 import waveVertexShader from './wave_vert.glsl';
-import waveFragmentShader from './wave_frag.glsl';
-import wireFragmentShader from './wire_frag.glsl';
 import beamVertexShader from './beam_vert.glsl';
 import beamFragmentShader from './beam_frag.glsl';
 
@@ -78,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     UniformsLib['phong'],
     {
       diffuse: { type: 'c', value: new Color(0x5f93d3) },
-      // envMap: { type: 't', value: waterCamera.renderTarget.texture },
       opacity: { type: 'f', value: 0.7 },
       u_time: { type: 'f', value: 0 },
       u_intensity: { type: 'f', value: 0 },
@@ -90,19 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const waveShaderMaterial = new ShaderMaterial({
     transparent: true,
     lights: true,
-    defines: { FLAT_SHADED: '' },
+    defines: { PHONG: '', FLAT_SHADED: '' },
     extensions: { derivatives: true },
     uniforms,
     vertexShader: waveVertexShader,
-    fragmentShader: waveFragmentShader,
-    side: DoubleSide,
-  });
-  const wireShaderMaterial = new ShaderMaterial({
-    transparent: true,
-    wireframe: true,
-    uniforms,
-    vertexShader: waveVertexShader,
-    fragmentShader: wireFragmentShader,
+    fragmentShader: ShaderLib['phong'].fragmentShader,
     side: DoubleSide,
   });
   const faceMaterial = new MeshPhongMaterial({
@@ -115,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const wsize = uniforms.u_wavesize.value;
   const wseg = uniforms.u_wavesegments.value;
   water.add(new Mesh(new PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial));
-  water.add(new Mesh(new PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), wireShaderMaterial));
   water.add(new Mesh(new PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial));
   water.rotation.x = Math.PI / 2;
   scene.add(water);
@@ -218,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new CylinderGeometry(1, 15, wsize.x / 1.8, 16, 1, true),
     lightShaderMaterial
   );
+  lhLightBeam.visible = false;
   lhLightBeam.position.z = wsize.x / 3.6 - 0.5;
   lhLightBeam.rotation.x = -Math.PI / 2;
   lighthouse.children[4].add(lhLightFixture);
@@ -283,9 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
         value: 1,
         onStart() {
           lighthouseOn = true;
+          lhLightBeam.visible = true;
         },
         onReverseComplete() {
           lighthouseOn = false;
+          lhLightBeam.visible = false;
         },
         onUpdate() {
           lhSpotLight.intensity = uniforms.u_intensity.value;

@@ -3,11 +3,26 @@ uniform float u_time;
 uniform vec2 u_wavesize;
 uniform vec2 u_wavesegments;
 
-varying vec3 vViewPosition;
 varying vec3 noise;
 
-// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
+varying vec3 vViewPosition;
+#ifndef FLAT_SHADED
+  varying vec3 vNormal;
+#endif
+#include <common>
+#include <uv_pars_vertex>
+#include <uv2_pars_vertex>
+#include <displacementmap_pars_vertex>
+#include <envmap_pars_vertex>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+#include <morphtarget_pars_vertex>
+#include <skinning_pars_vertex>
+#include <shadowmap_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>
 
+// Credit for Perlin noise function goes to https://github.com/ashima/webgl-noise
 vec3 mod289(vec3 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
@@ -110,17 +125,34 @@ vec3 f(float u, float v) {
   return y;
 }
 
-vec3 displacePosition(vec3 noise, vec3 pos) {
-  vec2 drift = 0.1 * noise.xy * u_wavesize.xy / u_wavesegments.xy;
-  return vec3(pos.xy + drift, pos.z - length(noise));
-}
-
 void main() {
+  #include <uv_vertex>
+  #include <uv2_vertex>
+  #include <color_vertex>
+  #include <beginnormal_vertex>
+  #include <morphnormal_vertex>
+  #include <skinbase_vertex>
+  #include <skinnormal_vertex>
+  #include <defaultnormal_vertex>
+#ifndef FLAT_SHADED
+  vNormal = normalize( transformedNormal );
+#endif
+  #include <begin_vertex>
+
   vec2 st = uv * u_wavesize / 100.0;
   noise = f(st.x, st.y);
-  vec3 transformed = displacePosition(noise, position);
+  vec2 drift = 0.1 * noise.xy * u_wavesize.xy / u_wavesegments.xy;
+  transformed += vec3(drift, -length(noise));
 
-  vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
-  vViewPosition = -mvPosition.xyz;
-  gl_Position = projectionMatrix * mvPosition;
+  #include <morphtarget_vertex>
+  #include <skinning_vertex>
+  #include <displacementmap_vertex>
+  #include <project_vertex>
+  #include <logdepthbuf_vertex>
+  #include <clipping_planes_vertex>
+  vViewPosition = - mvPosition.xyz;
+  #include <worldpos_vertex>
+  #include <envmap_vertex>
+  #include <shadowmap_vertex>
+  #include <fog_vertex>
 }
