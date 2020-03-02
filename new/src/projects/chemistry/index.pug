@@ -13,7 +13,7 @@ html
     +container(["projects", "chemistry"])
       div(uk-grid)
         div(class="uk-width-medium@m")
-          ul.uk-tab-left.uk-tab-stacked(uk-tab uk-sticky="offset: 40; media: @m" uk-switcher="connect: #switcher; animation: uk-animation-fade")
+          ul.uk-tab-left.uk-tab-stacked(uk-tab uk-sticky="offset: 40; media: @m" uk-switcher="connect: #switcher; swiping: false; animation: uk-animation-fade")
             li: a(href="#") Molar Mass
             li: a(href="#") Dilution
             li: a(href="#") Ideal Gas Law
@@ -116,7 +116,7 @@ html
             div
               h3 Specific heat calculator
               p The #[a.uk-link(href="https://en.wikipedia.org/wiki/Heat_capacity" target="_blank") specific heat capacity] of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation #[span(data-katex-expr="Q = mC_p\\Delta T")] where #[span(data-katex-expr="Q")] is the amount of energy, #[span(data-katex-expr="m")] is the mass of the substance, #[span(data-katex-expr="C_p")] is the specific heat capacity, and #[span(data-katex-expr="\\Delta T")] is the change in temperature. The highlighted input will be computed when "Calculate" is clicked.
-              ul.uk-subnav.uk-subnav-pill.uk-margin.uk-flex-center(uk-switcher="connect: #specificHeatTempSwitcher")
+              ul.uk-subnav.uk-subnav-pill.uk-margin.uk-flex-center(uk-switcher="connect: #specificHeatTempSwitcher; swiping: false")
                 li: a(href="#" data-katex-expr="\\displaystyle Q = mC_p\\Delta T")
                 li: a(href="#" data-katex-expr="\\displaystyle Q = mC_p\\left(T_f - T_i\\right)")
               .uk-form-group.uk-flex.uk-margin-small
