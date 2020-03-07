@@ -14,13 +14,15 @@ html
       p Rules and instructions can be found #[a.uk-link(href="https://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe" target="_blank") here].
       p Programmed and designed as a group effort by #[a.uk-link(href="https://gukovsky.com/" target="_blank") Eli Gukovsky] and myself. Rewritten by myself in 2020. Original source code #[a.uk-link(href="https://github.com/DarkAce65/UltimateTTT" target="_blank") here].
 
+      .uk-text-center
+        p It is #[span#turn.red red's] turn
       .uk-overflow-auto
         table#board.uk-margin-auto: tbody
           - for (let outerR = 0; outerR < 3; outerR++)
             tr
               - for (let outerC = 0; outerC < 3; outerC++)
                 td
-                  table: tbody
+                  table.subBoard(data-board-column=outerC data-board-row=outerR): tbody
                     - for (let r = 0; r < 3; r++)
                       tr
                         - for (let c = 0; c < 3; c++)

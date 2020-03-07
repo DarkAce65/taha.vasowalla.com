@@ -15,6 +15,22 @@ $cell-gutter-small: 4px;
 $outer-board-border: 3px;
 $inner-board-border: 2px;
 
+#turn {
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 3px;
+
+  &.red {
+    color: $black;
+    background: $red-color;
+  }
+
+  &.blue {
+    color: $white;
+    background: $blue-color;
+  }
+}
+
 #board td {
   box-sizing: content-box;
 }
@@ -24,7 +40,7 @@ table {
   table-layout: fixed;
   width: $cell-size * 9 + $board-gutter * 6 + $outer-board-border * 2 + $inner-board-border * 6;
 
-  table {
+  table.subBoard {
     margin: $board-gutter;
     width: auto;
 
@@ -49,16 +65,6 @@ table {
   }
 }
 
-.possible {
-  cursor: pointer;
-
-  &::after {
-    background-color: #fff98c;
-    transform: scale(1);
-    animation: blink 2s infinite;
-  }
-}
-
 @keyframes blink {
   0% {
     opacity: 1;
@@ -71,22 +77,32 @@ table {
   }
 }
 
-.red::after {
+.cell.possible {
+  cursor: pointer;
+
+  &::after {
+    background-color: $lightgray;
+    transform: scale(1);
+    animation: blink 2s infinite;
+  }
+}
+
+.cell.red::after {
   background-color: $red-color;
   transform: scale(1);
 }
 
-.blue::after {
+.cell.blue::after {
   background-color: $blue-color;
   transform: scale(1);
 }
 
-table.red {
+.subBoard.red {
   background-color: lighten($red-color, 17);
   border-radius: 5px;
 }
 
-table.blue {
+.subBoard.blue {
   background-color: lighten($blue-color, 17);
   border-radius: 5px;
 }
@@ -116,7 +132,7 @@ table.blue {
     width: $cell-size-small * 9 + $board-gutter-small * 6 + $outer-board-border * 2 +
       $inner-board-border * 6;
 
-    table {
+    table.subBoard {
       margin: $board-gutter-small;
 
       td {
