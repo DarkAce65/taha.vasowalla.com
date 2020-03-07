@@ -1,0 +1,135 @@
+@import '../../partials/colors';
+@import '../../partials/uikit-overrides/variables';
+
+$red-color: #ff7b64;
+$blue-color: #647bff;
+
+$board-gutter: 10px;
+$board-gutter-small: 5px;
+
+$cell-size: 60px;
+$cell-gutter: 6px;
+$cell-size-small: 36px;
+$cell-gutter-small: 4px;
+
+$outer-board-border: 3px;
+$inner-board-border: 2px;
+
+#board td {
+  box-sizing: content-box;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: $cell-size * 9 + $board-gutter * 6 + $outer-board-border * 2 + $inner-board-border * 6;
+
+  table {
+    margin: $board-gutter;
+    width: auto;
+
+    td {
+      height: $cell-size;
+      width: $cell-size;
+      position: relative;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: $cell-gutter;
+        left: $cell-gutter;
+        width: $cell-size - $cell-gutter * 2;
+        height: $cell-size - $cell-gutter * 2;
+        border-radius: 2px;
+        transition-duration: $transition-duration;
+        transform: scale(0);
+      }
+    }
+  }
+}
+
+.possible {
+  cursor: pointer;
+
+  &::after {
+    background-color: #fff98c;
+    transform: scale(1);
+    animation: blink 2s infinite;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.red::after {
+  background-color: $red-color;
+  transform: scale(1);
+}
+
+.blue::after {
+  background-color: $blue-color;
+  transform: scale(1);
+}
+
+table.red {
+  background-color: lighten($red-color, 17);
+  border-radius: 5px;
+}
+
+table.blue {
+  background-color: lighten($blue-color, 17);
+  border-radius: 5px;
+}
+
+#board tr > td:nth-child(2) {
+  border-left: $outer-board-border solid $darkgray;
+  border-right: $outer-board-border solid $darkgray;
+}
+
+#board tr:nth-child(2) > td {
+  border-top: $outer-board-border solid $darkgray;
+  border-bottom: $outer-board-border solid $darkgray;
+}
+
+#board table td:nth-child(2) {
+  border-left-width: $inner-board-border;
+  border-right-width: $inner-board-border;
+}
+
+#board table tr:nth-child(2) > td {
+  border-top-width: $inner-board-border;
+  border-bottom-width: $inner-board-border;
+}
+
+@media (max-width: $breakpoint-small) {
+  table {
+    width: $cell-size-small * 9 + $board-gutter-small * 6 + $outer-board-border * 2 +
+      $inner-board-border * 6;
+
+    table {
+      margin: $board-gutter-small;
+
+      td {
+        height: $cell-size-small;
+        width: $cell-size-small;
+
+        &::after {
+          top: $cell-gutter-small;
+          left: $cell-gutter-small;
+          width: $cell-size-small - $cell-gutter-small * 2;
+          height: $cell-size-small - $cell-gutter-small * 2;
+        }
+      }
+    }
+  }
+}
