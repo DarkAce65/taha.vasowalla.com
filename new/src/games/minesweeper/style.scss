@@ -1,0 +1,140 @@
+@import '../../partials/colors';
+@import '../../partials/uikit-overrides/variables';
+
+$scale: 2;
+
+#secret {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  background-color: white;
+}
+
+#controls {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#highscores {
+  margin-bottom: 10px;
+}
+
+#game {
+  display: inline-block;
+  padding: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: lightgray;
+
+  #gridContainer {
+    border: 3px solid white;
+    border-color: gray white white gray;
+  }
+
+  #grid {
+    width: 0;
+    table-layout: fixed;
+    margin: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+}
+
+#display {
+  min-width: 150px;
+  margin: 0 auto 5px;
+  border: 2px solid white;
+  border-color: gray white white gray;
+  padding: 4px;
+
+  .number {
+    display: inline-block;
+    width: 13px * $scale;
+    height: 23px * $scale;
+    vertical-align: middle;
+    background-color: black;
+    background-image: url(spritesheet.png);
+    background-size: (144px * $scale) (81px * $scale);
+
+    @for $i from 0 through 9 {
+      &.n#{$i} {
+        background-position: ($i * -13px * $scale) (-32px * $scale);
+      }
+    }
+
+    &.dash {
+      background-position: (10 * -13px * $scale) (-32px * $scale);
+    }
+  }
+
+  #minesLeft,
+  #timer {
+    border: 1px solid white;
+    border-color: gray white white gray;
+    line-height: 1;
+  }
+
+  #face {
+    width: 26px * $scale;
+    height: 26px * $scale;
+    background-color: silver;
+    background-image: url(spritesheet.png);
+    background-size: (144px * $scale) (81px * $scale);
+    background-position: (-26px * $scale) (-55px * $scale);
+
+    &.surprise {
+      background-position: (2 * -26px * $scale) (-55px * $scale);
+    }
+    &.win {
+      background-position: (4 * -26px * $scale) (-55px * $scale);
+    }
+    &.lose {
+      background-position: (3 * -26px * $scale) (-55px * $scale);
+    }
+    &:active {
+      background-position: 0 (-55px * $scale);
+    }
+  }
+}
+
+.cell {
+  width: 16px * $scale;
+  height: 16px * $scale;
+  background-color: silver;
+  background-image: url(spritesheet.png);
+  background-size: (144px * $scale) (81px * $scale);
+
+  &.closed {
+    background-position: (5 * -16px * $scale) (-16px * $scale);
+
+    &:active {
+      background-position: 0 0;
+    }
+  }
+
+  &.mine {
+    background-position: 0 (-16px * $scale);
+  }
+  &.redmine {
+    background-position: (2 * -16px * $scale) (-16px * $scale);
+  }
+  &.xmine {
+    background-position: (-16px * $scale) (-16px * $scale);
+  }
+
+  &.flag {
+    background-position: (4 * -16px * $scale) (-16px * $scale);
+  }
+  &.mark {
+    background-position: (3 * -16px * $scale) (-16px * $scale);
+  }
+
+  @for $i from 0 through 8 {
+    &.open#{$i} {
+      background-position: ($i * -16px * $scale) 0;
+    }
+  }
+}
