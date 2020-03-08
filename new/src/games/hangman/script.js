@@ -1,9 +1,10 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
 import gsap from 'gsap';
 
-import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
 import ValidatedInput from '../../lib/ValidatedInput';
+import makeDashOffsetParams from '../../lib/makeDashOffsetParams';
 
 let hangmanWord = '';
 let guessedLetters = [];

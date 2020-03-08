@@ -1,10 +1,10 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
+
 import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import * as mm from 'music-metadata-browser';
 import gsap from 'gsap';
+import * as mm from 'music-metadata-browser';
 import {
   AmbientLight,
   BufferAttribute,
@@ -27,6 +27,7 @@ import {
   VertexColors,
   WebGLRenderer,
 } from 'three';
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
 import enableFAIcons from '../../lib/enableFAIcons';
 import requestAnimationFrame from '../../lib/requestAnimationFrame';

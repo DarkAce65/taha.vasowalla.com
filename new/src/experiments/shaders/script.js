@@ -1,5 +1,7 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
+import gsap from 'gsap';
 import {
   BackSide,
   BoxGeometry,
@@ -16,9 +18,9 @@ import {
   WebGLRenderer,
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
-import gsap from 'gsap';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
+
 import {
   matrixFragmentShader,
   noiseFragmentShader,

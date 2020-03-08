@@ -1,8 +1,9 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
 import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
-import WaveSurfer from 'wavesurfer.js';
 import * as mm from 'music-metadata-browser';
+import WaveSurfer from 'wavesurfer.js';
 
 import enableFAIcons from '../../lib/enableFAIcons';
 import requestAnimationFrame from '../../lib/requestAnimationFrame';

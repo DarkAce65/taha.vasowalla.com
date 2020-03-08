@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const { Duplex } = require('stream');
-const Vinyl = require('vinyl');
-const through2 = require('through2');
+
 const sassGraph = require('sass-graph');
+const through2 = require('through2');
+const Vinyl = require('vinyl');
 
 const endStream = function() {
   this.emit('end');

@@ -1,3 +1,4 @@
+import SimplexNoise from 'simplex-noise';
 import {
   BufferGeometry,
   DoubleSide,
@@ -12,7 +13,6 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
-import SimplexNoise from 'simplex-noise';
 
 import { ParticleEmitter } from './lib/ParticleEmitter';
 import requestAnimationFrame from './lib/requestAnimationFrame';

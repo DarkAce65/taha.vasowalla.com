@@ -1,5 +1,7 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
+import gsap from 'gsap';
 import {
   AmbientLight,
   BoxBufferGeometry,
@@ -34,12 +36,12 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import gsap from 'gsap';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
-import waveVertexShader from './wave_vert.glsl';
-import beamVertexShader from './beam_vert.glsl';
+
 import beamFragmentShader from './beam_frag.glsl';
+import beamVertexShader from './beam_vert.glsl';
+import waveVertexShader from './wave_vert.glsl';
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);

@@ -29,7 +29,10 @@ module.exports = {
       'warn',
       {
         'newlines-between': 'always',
-        groups: [['builtin', 'external'], 'internal', ['sibling', 'parent'], 'index'],
+        groups: ['builtin', ['external', 'internal'], 'parent', 'sibling', 'index'],
+        pathGroups: [{ pattern: '{uikit,uikit/**}', group: 'external', position: 'before' }],
+        pathGroupsExcludedImportTypes: ['uikit'],
+        alphabetize: { order: 'asc', caseInsensitive: false },
       },
     ],
   },

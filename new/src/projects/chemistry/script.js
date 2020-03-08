@@ -1,16 +1,18 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
 import katex from 'katex';
 
-import renderLaTeX from '../../lib/renderLaTeX';
-import makeToggleWrapper from '../../lib/makeToggleWrapper';
 import debounce from '../../lib/debounce';
-import { formulaToLatex, parseFormula } from './molarMass';
-import getComputeTarget from './getComputeTarget';
+import makeToggleWrapper from '../../lib/makeToggleWrapper';
+import renderLaTeX from '../../lib/renderLaTeX';
+
 import compute from './compute';
 import computeDilution from './computeDilution';
 import computeIdealGasLaw from './computeIdealGasLaw';
 import computeSpecificHeat from './computeSpecificHeat';
+import getComputeTarget from './getComputeTarget';
+import { formulaToLatex, parseFormula } from './molarMass';
 
 const initMolarMass = () => {
   const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {

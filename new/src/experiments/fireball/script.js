@@ -1,5 +1,6 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
 import {
   Clock,
   Color,
@@ -15,6 +16,7 @@ import {
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
+
 import { fireballFragmentShader, fireballVertexShader } from './shaders';
 
 const uniforms = {
