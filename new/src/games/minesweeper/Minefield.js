@@ -22,22 +22,37 @@ const presets = {
   },
 };
 
+const getCoordinatesFromDataset = cell => ({
+  row: parseInt(cell.dataset.row, 10),
+  col: parseInt(cell.dataset.col, 10),
+});
+
 class Minefield {
   constructor({ target, minesLeftEl, timerEl }) {
     this._clock = new Clock();
     this._clock.callback = time => setNumberDisplay(timerEl, time);
 
     this._grid = [];
-    this._rows = 0;
-    this._cols = 0;
+    this._gameOptions = { rows: 0, cols: 0, mines: 0 };
     this._openedCells = 0;
-    this._numMines = 0;
-    this._minesLeft = 0;
+    this.minesLeft = 0;
+
     this._domTarget = target ? getEl(target) : null;
     this._minesLeftEl = minesLeftEl;
 
-    this._gameOptions = null;
     this.initialize('intermediate');
+  }
+
+  set minesLeft(minesLeft) {
+    this._minesLeft = minesLeft;
+
+    if (this._minesLeftEl) {
+      setNumberDisplay(this._minesLeftEl, minesLeft);
+    }
+  }
+
+  get minesLeft() {
+    return this._minesLeft;
   }
 
   initialize(options = this._gameOptions) {
@@ -51,8 +66,6 @@ class Minefield {
 
     const { rows, cols, mines } = options;
     this._gameOptions = options;
-    this._rows = rows;
-    this._cols = cols;
 
     this._grid = [];
     for (let r = 0; r < rows; r++) {
@@ -66,10 +79,9 @@ class Minefield {
       }
     }
 
-    this._openedCells = 0;
-    this._numMines = 0;
+    this._gameOptions.mines = 0;
     this._minesLeft = 0;
-    setNumberDisplay(this._minesLeftEl, this._minesLeft);
+    this._openedCells = 0;
     this._clock.stop();
     this.addMines(mines);
     this.bindToDOM();
@@ -83,8 +95,8 @@ class Minefield {
     }
 
     const possibleLocations = [];
-    for (let r = 0; r < this._rows; r++) {
-      for (let c = 0; c < this._cols; c++) {
+    for (let r = 0; r < this._gameOptions.rows; r++) {
+      for (let c = 0; c < this._gameOptions.cols; c++) {
         if (!avoid.has(`${r}${c}`) && this._grid[r][c].value >= 0) {
           possibleLocations.push({ r, c });
         }
@@ -97,16 +109,15 @@ class Minefield {
       this._grid[r][c].value -= 9;
       this.updateNeighbors(r, c, 1);
     }
-    this._numMines += mineLocations.length;
-    this._minesLeft += mineLocations.length;
-    setNumberDisplay(this._minesLeftEl, this._minesLeft);
+    this._gameOptions.mines += mineLocations.length;
+    this.minesLeft += mineLocations.length;
   }
 
   updateNeighbors(row, col, delta) {
     const rowStart = Math.max(0, row - 1);
-    const rowEnd = Math.min(this._rows - 1, row + 1);
+    const rowEnd = Math.min(this._gameOptions.rows - 1, row + 1);
     const colStart = Math.max(0, col - 1);
-    const colEnd = Math.min(this._cols - 1, col + 1);
+    const colEnd = Math.min(this._gameOptions.cols - 1, col + 1);
     for (let r = rowStart; r <= rowEnd; r++) {
       for (let c = colStart; c <= colEnd; c++) {
         if (r === row && c === col) {
@@ -122,9 +133,9 @@ class Minefield {
     let minesRemoved = 0;
     const avoidLocations = [];
     const rowStart = Math.max(0, row - 1);
-    const rowEnd = Math.min(this._rows - 1, row + 1);
+    const rowEnd = Math.min(this._gameOptions.rows - 1, row + 1);
     const colStart = Math.max(0, col - 1);
-    const colEnd = Math.min(this._cols - 1, col + 1);
+    const colEnd = Math.min(this._gameOptions.cols - 1, col + 1);
     for (let r = rowStart; r <= rowEnd; r++) {
       for (let c = colStart; c <= colEnd; c++) {
         avoidLocations.push({ r, c });
@@ -136,8 +147,8 @@ class Minefield {
       }
     }
 
-    this._numMines -= minesRemoved;
-    this._minesLeft -= minesRemoved;
+    this._gameOptions.mines -= minesRemoved;
+    this.minesLeft -= minesRemoved;
     this.addMines(minesRemoved, avoidLocations);
   }
 
@@ -158,33 +169,35 @@ class Minefield {
     }
 
     const rows = [...tbody.querySelectorAll('tr')];
-    while (rows.length < this._rows) {
+    while (rows.length < this._gameOptions.rows) {
       rows.push(document.createElement('tr'));
     }
-    if (rows.length >= this._rows) {
-      rows.splice(0, rows.length - this._rows).forEach(row => row.remove());
+    if (rows.length >= this._gameOptions.rows) {
+      rows.splice(0, rows.length - this._gameOptions.rows).forEach(row => row.remove());
     }
 
-    for (let r = 0; r < this._rows; r++) {
+    for (let r = 0; r < this._gameOptions.rows; r++) {
       const row = rows[r];
 
       const cols = [...row.querySelectorAll('td')];
-      while (cols.length < this._cols) {
+      while (cols.length < this._gameOptions.cols) {
         const cell = document.createElement('td');
         cols.push(cell);
         cell.addEventListener('click', () => {
-          this.openCell(parseInt(cell.dataset.row, 10), parseInt(cell.dataset.col, 10));
+          const coords = getCoordinatesFromDataset(cell);
+          this.handleCellClick(coords.row, coords.col);
         });
         cell.addEventListener('contextmenu', ev => {
           ev.preventDefault();
-          this.openCell(parseInt(cell.dataset.row, 10), parseInt(cell.dataset.col, 10));
+          const coords = getCoordinatesFromDataset(cell);
+          this.handleCellRightClick(coords.row, coords.col);
         });
       }
-      if (cols.length >= this._cols) {
-        cols.splice(0, cols.length - this._cols).forEach(col => col.remove());
+      if (cols.length >= this._gameOptions.cols) {
+        cols.splice(0, cols.length - this._gameOptions.cols).forEach(col => col.remove());
       }
 
-      for (let c = 0; c < this._cols; c++) {
+      for (let c = 0; c < this._gameOptions.cols; c++) {
         const cell = cols[c];
         cell.dataset['row'] = r;
         cell.dataset['col'] = c;
@@ -200,9 +213,9 @@ class Minefield {
 
   openNeighbors(row, col) {
     const rowStart = Math.max(0, row - 1);
-    const rowEnd = Math.min(this._rows - 1, row + 1);
+    const rowEnd = Math.min(this._gameOptions.rows - 1, row + 1);
     const colStart = Math.max(0, col - 1);
-    const colEnd = Math.min(this._cols - 1, col + 1);
+    const colEnd = Math.min(this._gameOptions.cols - 1, col + 1);
     for (let r = rowStart; r <= rowEnd; r++) {
       for (let c = colStart; c <= colEnd; c++) {
         if (!(r === row && c === col) && this._grid[r][c].state === 'closed') {
@@ -227,7 +240,10 @@ class Minefield {
       cell.classList.add('redmine');
       // endGame();
     } else {
-      if (this._openedCells + this._numMines === this._rows * this._cols) {
+      if (
+        this._openedCells + this._gameOptions.mines ===
+        this._gameOptions.rows * this._gameOptions.cols
+      ) {
         // winGame();
       }
       if (value === 0) {
@@ -240,6 +256,43 @@ class Minefield {
     if (this.openCellCallback) {
       this.openCellCallback();
     }
+  }
+
+  toggleFlag(row, col) {
+    const cell = this._grid[row][col];
+    switch (cell.state) {
+      case 'closed':
+        cell.state = 'flag';
+        cell.element.classList.remove('closed');
+        cell.element.classList.add('flag');
+        this.minesLeft--;
+        break;
+      case 'flag':
+        cell.state = 'closed';
+        cell.element.classList.remove('flag');
+        cell.element.classList.add('closed');
+        this.minesLeft++;
+        break;
+    }
+  }
+
+  handleCellClick(row, col) {
+    switch (this._grid[row][col].state) {
+      case 'closed':
+        this.openCell(row, col);
+        break;
+      case 'open':
+        this.chord(row, col);
+        break;
+    }
+  }
+
+  handleCellRightClick(row, col) {
+    if (this._openedCells <= 0) {
+      return;
+    }
+
+    this.toggleFlag(row, col);
   }
 }
 
