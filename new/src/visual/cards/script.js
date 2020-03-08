@@ -2,6 +2,8 @@ import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 import gsap from 'gsap';
 
+import shuffle from '../../lib/shuffle';
+
 let height;
 let width;
 let cardHeight;
@@ -176,20 +178,6 @@ const randomPosition = elements => {
     rotationY: randomAngle,
     rotationZ: randomAngle,
   });
-};
-
-const shuffle = array => {
-  // Fisher–Yates Shuffle
-  let m = array.length;
-  let t;
-  let i;
-  while (m) {
-    i = Math.floor(Math.random() * m--);
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-  }
-  return array;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
