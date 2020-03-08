@@ -19,6 +19,7 @@ const staticFiles = {
     img: '../img/*',
     icons: '../img/icons/**/*',
     textures: 'assets/textures/**/*',
+    spritesheets: 'assets/spritesheets/**/*',
   },
 };
 const styleSources = 'src/**/*.scss';

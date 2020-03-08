@@ -2,6 +2,7 @@
 @import '../../partials/uikit-overrides/variables';
 
 $scale: 2;
+$spritesheet-url: '../../assets/spritesheets/minesweeper.png';
 
 #secret {
   position: fixed;
@@ -56,7 +57,7 @@ $scale: 2;
     height: 23px * $scale;
     vertical-align: middle;
     background-color: black;
-    background-image: url(spritesheet.png);
+    background-image: url($spritesheet-url);
     background-size: (144px * $scale) (81px * $scale);
 
     @for $i from 0 through 9 {
@@ -81,7 +82,7 @@ $scale: 2;
     width: 26px * $scale;
     height: 26px * $scale;
     background-color: silver;
-    background-image: url(spritesheet.png);
+    background-image: url($spritesheet-url);
     background-size: (144px * $scale) (81px * $scale);
     background-position: (-26px * $scale) (-55px * $scale);
 
@@ -104,7 +105,7 @@ $scale: 2;
   width: 16px * $scale;
   height: 16px * $scale;
   background-color: silver;
-  background-image: url(spritesheet.png);
+  background-image: url($spritesheet-url);
   background-size: (144px * $scale) (81px * $scale);
 
   &.closed {
