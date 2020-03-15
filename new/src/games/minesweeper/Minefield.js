@@ -173,14 +173,8 @@ class Minefield {
     this.addMines(minesRemoved, avoidLocations);
   }
 
-  bindToDOM(target) {
-    if (target) {
-      this._domTarget = getEl(target);
-    }
-
-    if (!this._domTarget) {
-      return;
-    }
+  bindToDOM() {
+    this._faceEl.classList.remove('surprise', 'win', 'lose');
 
     const table = this._domTarget;
     let tbody = table.querySelector('tbody');
@@ -235,6 +229,7 @@ class Minefield {
   winGame() {
     this._active = false;
     this._clock.pause();
+    this._faceEl.classList.add('win');
 
     for (let row = 0; row < this._gameOptions.rows; row++) {
       for (let col = 0; col < this._gameOptions.cols; col++) {
@@ -255,6 +250,7 @@ class Minefield {
   endGame() {
     this._active = false;
     this._clock.pause();
+    this._faceEl.classList.add('lose');
 
     for (let row = 0; row < this._gameOptions.rows; row++) {
       for (let col = 0; col < this._gameOptions.cols; col++) {
