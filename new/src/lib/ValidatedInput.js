@@ -9,6 +9,8 @@ class ValidatedInput {
     this.input = getElOrThrow(inputElement);
 
     this._state = 'default';
+    this._listener = null;
+    this._boundBlurListener = this._blurListener.bind(this, stateCallback);
 
     if (validationMessageElement) {
       this._validationMessage = getElOrThrow(validationMessageElement);
@@ -22,10 +24,11 @@ class ValidatedInput {
       animation: 'uk-animation-slide-top-small',
       mode: null,
     });
-    this._listener = null;
 
     if (validator) {
       this.setValidation(validator, { stateCallback, inputCallback });
+    } else {
+      this.input.addEventListener('blur', this._boundBlurListener);
     }
   }
 
@@ -69,35 +72,55 @@ class ValidatedInput {
     return this._state;
   }
 
+  _blurListener(stateCallback) {
+    if (this.input.checkValidity && this.input.reportValidity) {
+      if (!this.input.checkValidity()) {
+        this.input.reportValidity();
+        this._setState('error', stateCallback);
+      }
+    } else {
+      this.input.value = this.input.value; // eslint-disable-line no-self-assign
+    }
+  }
+
   removeValidation() {
     if (this._listener !== null) {
       this.input.removeEventListener('input', this._listener);
       this._listener = null;
+    }
+    if (this._boundBlurListener !== null) {
+      this.input.removeEventListener('blur', this._boundBlurListener);
+      this._boundBlurListener = null;
     }
   }
 
   setValidation(validator, { stateCallback, inputCallback } = {}) {
     this.removeValidation();
     this._listener = () => {
-      const validation = validator(this.getValue());
-
-      if (!validation) {
-        this._setState('default', stateCallback);
-        this._validationMessageToggle.hide();
-      } else if (typeof validation === 'string') {
+      if (this.input.checkValidity && this.input.reportValidity && !this.input.checkValidity()) {
         this._setState('error', stateCallback);
-        this._validationMessage.textContent = validation;
-        this._validationMessageToggle.show();
+        this._validationMessageToggle.hide();
       } else {
-        this._setState(validation.type, stateCallback);
-        if (validation.message) {
-          this._validationMessage.textContent = validation.message;
-        }
+        const validation = validator(this.getValue());
 
-        if (validation.type && this._validationMessage.textContent) {
+        if (!validation) {
+          this._setState('default', stateCallback);
+          this._validationMessageToggle.hide();
+        } else if (typeof validation === 'string') {
+          this._setState('error', stateCallback);
+          this._validationMessage.textContent = validation;
           this._validationMessageToggle.show();
         } else {
-          this._validationMessageToggle.hide();
+          this._setState(validation.type, stateCallback);
+          if (validation.message) {
+            this._validationMessage.textContent = validation.message;
+          }
+
+          if (validation.type && this._validationMessage.textContent) {
+            this._validationMessageToggle.show();
+          } else {
+            this._validationMessageToggle.hide();
+          }
         }
       }
 
@@ -105,8 +128,10 @@ class ValidatedInput {
         inputCallback(this.getValue(), this.getState());
       }
     };
+    this._boundBlurListener = this._blurListener.bind(this, stateCallback);
 
     this.input.addEventListener('input', this._listener);
+    this.input.addEventListener('blur', this._boundBlurListener);
   }
 
   reset() {
