@@ -4,7 +4,7 @@ import shuffle from '../../lib/shuffle';
 import Clock from './Clock';
 import setNumberDisplay from './setNumberDisplay';
 
-const presets = {
+export const presets = {
   beginner: {
     rows: 9,
     cols: 9,
@@ -29,6 +29,8 @@ const getCoordinatesFromDataset = cell => ({
 
 class Minefield {
   constructor({ target, minesLeftEl, timerEl }) {
+    this._active = false;
+
     this._clock = new Clock();
     this._clock.callback = time => setNumberDisplay(timerEl, time);
 
@@ -79,6 +81,7 @@ class Minefield {
       }
     }
 
+    this._active = true;
     this._gameOptions.mines = 0;
     this._minesLeft = 0;
     this._openedCells = 0;
@@ -211,6 +214,46 @@ class Minefield {
     }
   }
 
+  winGame() {
+    this._active = false;
+    this._clock.pause();
+
+    for (let row = 0; row < this._gameOptions.rows; row++) {
+      for (let col = 0; col < this._gameOptions.cols; col++) {
+        const cell = this._grid[row][col];
+        if (cell.state === 'closed' && cell.value < 0) {
+          cell.state = 'open';
+          cell.element.classList.remove('closed');
+          cell.element.classList.add('mine');
+        } else if (cell.state === 'flag' && cell.value >= 0) {
+          cell.state = 'open';
+          cell.element.classList.remove('flag');
+          cell.element.classList.add('xmine');
+        }
+      }
+    }
+  }
+
+  endGame() {
+    this._active = false;
+    this._clock.pause();
+
+    for (let row = 0; row < this._gameOptions.rows; row++) {
+      for (let col = 0; col < this._gameOptions.cols; col++) {
+        const cell = this._grid[row][col];
+        if (cell.state === 'closed' && cell.value < 0) {
+          cell.state = 'open';
+          cell.element.classList.remove('closed');
+          cell.element.classList.add('mine');
+        } else if (cell.state === 'flag' && cell.value >= 0) {
+          cell.state = 'open';
+          cell.element.classList.remove('flag');
+          cell.element.classList.add('xmine');
+        }
+      }
+    }
+  }
+
   openNeighbors(row, col) {
     const rowStart = Math.max(0, row - 1);
     const rowEnd = Math.min(this._gameOptions.rows - 1, row + 1);
@@ -238,13 +281,13 @@ class Minefield {
     if (value < 0) {
       cell.classList.remove('closed');
       cell.classList.add('redmine');
-      // endGame();
+      this.endGame();
     } else {
       if (
         this._openedCells + this._gameOptions.mines ===
         this._gameOptions.rows * this._gameOptions.cols
       ) {
-        // winGame();
+        this.winGame();
       }
       if (value === 0) {
         this.openNeighbors(row, col);
@@ -276,7 +319,34 @@ class Minefield {
     }
   }
 
+  surroundingMinesFlagged(row, col) {
+    const rowStart = Math.max(0, row - 1);
+    const rowEnd = Math.min(this._gameOptions.rows - 1, row + 1);
+    const colStart = Math.max(0, col - 1);
+    const colEnd = Math.min(this._gameOptions.cols - 1, col + 1);
+    let flags = 0;
+    for (let r = rowStart; r <= rowEnd; r++) {
+      for (let c = colStart; c <= colEnd; c++) {
+        if (this._grid[r][c].state === 'flag') {
+          flags++;
+        }
+      }
+    }
+
+    return this._grid[row][col].value === flags;
+  }
+
+  chord(row, col) {
+    if (this._grid[row][col].state === 'open' && this.surroundingMinesFlagged(row, col)) {
+      this.openNeighbors(row, col);
+    }
+  }
+
   handleCellClick(row, col) {
+    if (!this._active) {
+      return;
+    }
+
     switch (this._grid[row][col].state) {
       case 'closed':
         this.openCell(row, col);
@@ -288,6 +358,10 @@ class Minefield {
   }
 
   handleCellRightClick(row, col) {
+    if (!this._active) {
+      return;
+    }
+
     if (this._openedCells <= 0) {
       return;
     }
