@@ -14,10 +14,11 @@ html
       div(uk-grid)
         div(class="uk-width-medium@m")
           div(uk-sticky="offset: 40; media: @m")
-            ul.uk-tab-left(uk-tab uk-switcher="connect: #switcher; swiping: false; animation: uk-animation-fade")
+            ul.uk-tab-left.uk-tab-stacked(uk-tab uk-switcher="connect: #highscores; swiping: false;")
               li.uk-active: a(href="#") Beginner
               li: a(href="#") Intermediate
               li: a(href="#") Expert
+              li: a(href="#") Custom
             .uk-text-center.uk-text-muted.uk-text-uppercase.uk-text-small
               div(uk-form-custom="target: > * > #scaleLabel")
                 select#scale
@@ -39,12 +40,25 @@ html
                     #timer
                   #gridContainer
                     table#grid
-            .uk-width-expand(style={'min-width': '200px'})
-              .uk-overflow-auto
-                table#highscores.uk-table.uk-table-divider.uk-table-small
-                  thead
-                    tr
-                      th Name
-                      th Difficulty
-                      th Time
-                  tbody
+            .uk-width-expand(style={'min-width': '300px'})
+              #highscores.uk-switcher
+                each difficulty in ['beginner', 'intermediate', 'expert']
+                  .uk-overflow-auto
+                    table.uk-table.uk-table-divider.uk-table-small(id='highscores-' + difficulty)
+                      thead
+                        tr
+                          th.uk-table-expand Name
+                          th Time
+                      tbody
+                div
+    #customGameModal(uk-modal)
+      .uk-modal-dialog
+        button.uk-modal-close-default(uk-close)
+        .uk-modal-header
+          h2.uk-modal-title Custom game
+        .uk-modal-body
+          input#rows.uk-input(type="number")
+          input#cols.uk-input(type="number")
+          input#mines.uk-input(type="number")
+        .uk-modal-footer.uk-text-right
+          button#initialize.uk-button.uk-button-primary(disabled) Ok

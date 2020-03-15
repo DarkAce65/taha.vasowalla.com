@@ -1,9 +1,89 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 
+import ValidatedInput from '../../lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '../../lib/breakpoints';
 
 import Minefield from './Minefield';
+
+const initCustomGameModal = () => {
+  let rows = null;
+  let cols = null;
+  let mines = null;
+
+  const initializeCustomButton = document.querySelector('#initialize');
+  const minesInput = new ValidatedInput('#mines', {
+    validator: input => {
+      const parsedMines = Math.floor(parseFloat(input));
+      if (parsedMines < 10) {
+        return { type: 'error', message: 'Number of mines must be at least 10' };
+      }
+      if (rows !== null && cols !== null && parsedMines > rows * cols) {
+        return {
+          type: 'error',
+          message: `Number of mines must be at less than the number of tiles (${rows * cols})`,
+        };
+      }
+
+      return false;
+    },
+    inputCallback: (input, state) => {
+      if (state === 'default') {
+        mines = Math.floor(parseFloat(input));
+      } else {
+        mines = null;
+      }
+
+      initializeCustomButton.disabled = rows === null || cols === null || mines === null;
+    },
+  });
+  const rowsInput = new ValidatedInput('#rows', {
+    validator: input => {
+      const parsedRows = Math.floor(parseFloat(input));
+      if (parsedRows < 9 || 24 < parsedRows) {
+        return { type: 'error', message: 'Number of rows must be between 9 and 24' };
+      }
+
+      return false;
+    },
+    inputCallback: (input, state) => {
+      if (state === 'default') {
+        rows = Math.floor(parseFloat(input));
+
+        if (cols !== null) {
+          minesInput.input.dispatchEvent(new InputEvent('input'));
+        }
+      } else {
+        rows = null;
+      }
+
+      initializeCustomButton.disabled = rows === null || cols === null || mines === null;
+    },
+  });
+  const colsInput = new ValidatedInput('#cols', {
+    validator: input => {
+      const parsedCols = Math.floor(parseFloat(input));
+      if (parsedCols < 9 || 30 < parsedCols) {
+        return { type: 'error', message: 'Number of cols must be between 9 and 30' };
+      }
+
+      return false;
+    },
+    inputCallback: (input, state) => {
+      if (state === 'default') {
+        cols = Math.floor(parseFloat(input));
+
+        if (cols !== null) {
+          minesInput.input.dispatchEvent(new InputEvent('input'));
+        }
+      } else {
+        cols = null;
+      }
+
+      initializeCustomButton.disabled = rows === null || cols === null || mines === null;
+    },
+  });
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
@@ -14,6 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     faceEl: '#face',
     timerEl: '#timer',
   });
+
+  initCustomGameModal();
 
   minefield.initialize('beginner');
 
