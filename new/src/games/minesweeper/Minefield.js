@@ -28,19 +28,39 @@ const getCoordinatesFromDataset = cell => ({
 });
 
 class Minefield {
-  constructor({ target, minesLeftEl, timerEl }) {
+  constructor({ target, minesLeftEl, faceEl, timerEl }) {
     this._active = false;
 
-    this._clock = new Clock();
-    this._clock.callback = time => setNumberDisplay(timerEl, time);
+    this._domTarget = getEl(target);
+    this._minesLeftEl = getEl(minesLeftEl);
+    this._faceEl = getEl(faceEl);
+    this._timerEl = getEl(timerEl);
+
+    if (!this._domTarget) {
+      throw new Error(`Selector matched no element: target: ${target}`);
+    }
+    if (!this._minesLeftEl) {
+      throw new Error(`Selector matched no element: minesLeftEl: ${minesLeftEl}`);
+    }
+    if (!this._faceEl) {
+      throw new Error(`Selector matched no element: faceEl: ${faceEl}`);
+    }
+    if (!this._timerEl) {
+      throw new Error(`Selector matched no element: timerEl: ${timerEl}`);
+    }
 
     this._grid = [];
     this._gameOptions = { rows: 0, cols: 0, mines: 0 };
     this._openedCells = 0;
     this.minesLeft = 0;
+    this._clock = new Clock();
+    this._clock.callback = time => setNumberDisplay(this._timerEl, time);
 
-    this._domTarget = target ? getEl(target) : null;
-    this._minesLeftEl = minesLeftEl;
+    this._faceEl.addEventListener('click', () => this.initialize());
+    this._domTarget.addEventListener('mousedown', () => this._faceEl.classList.add('surprise'));
+    ['mouseup', 'mouseleave'].forEach(ev =>
+      this._domTarget.addEventListener(ev, () => this._faceEl.classList.remove('surprise'))
+    );
 
     this.initialize('intermediate');
   }
@@ -48,9 +68,7 @@ class Minefield {
   set minesLeft(minesLeft) {
     this._minesLeft = minesLeft;
 
-    if (this._minesLeftEl) {
-      setNumberDisplay(this._minesLeftEl, minesLeft);
-    }
+    setNumberDisplay(this._minesLeftEl, minesLeft);
   }
 
   get minesLeft() {
@@ -179,7 +197,7 @@ class Minefield {
       rows.splice(0, rows.length - this._gameOptions.rows).forEach(row => row.remove());
     }
 
-    for (let r = 0; r < this._gameOptions.rows; r++) {
+    for (let r = 0; r < rows.length; r++) {
       const row = rows[r];
 
       const cols = [...row.querySelectorAll('td')];
@@ -200,7 +218,7 @@ class Minefield {
         cols.splice(0, cols.length - this._gameOptions.cols).forEach(col => col.remove());
       }
 
-      for (let c = 0; c < this._gameOptions.cols; c++) {
+      for (let c = 0; c < cols.length; c++) {
         const cell = cols[c];
         cell.dataset['row'] = r;
         cell.dataset['col'] = c;

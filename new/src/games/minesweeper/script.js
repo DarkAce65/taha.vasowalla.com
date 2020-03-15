@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const minefield = new Minefield({
     target: 'table#grid',
     minesLeftEl: '#minesLeft',
+    faceEl: '#face',
     timerEl: '#timer',
   });
 
-  document.querySelector('#face').addEventListener('click', () => minefield.initialize());
+  minefield.initialize('beginner');
 });
