@@ -11,11 +11,28 @@ html
 
   body
     +container(["games", "minesweeper"])
-      .uk-overflow-auto
-        #game
-          #display.uk-flex.uk-flex-between.uk-flex-middle
-            #minesLeft
-            #face
-            #timer
-          #gridContainer
-            table#grid
+      div(uk-grid)
+        div(class="uk-width-medium@m")
+          ul.uk-tab-left(uk-tab uk-sticky="offset: 40; media: @m" uk-switcher="connect: #switcher; swiping: false; animation: uk-animation-fade")
+            li.uk-active: a(href="#") Beginner
+            li: a(href="#") Intermediate
+            li: a(href="#") Expert
+        .uk-width-expand
+          div(uk-grid)
+            .uk-width-auto
+              .uk-overflow-auto
+                #game
+                  #display.uk-flex.uk-flex-between.uk-flex-middle
+                    #minesLeft
+                    #face
+                    #timer
+                  #gridContainer
+                    table#grid
+            .uk-width-expand
+              table#highscores.uk-table.uk-table-divider.uk-table-small
+                thead
+                  tr
+                    th Name
+                    th Difficulty
+                    th Time
+                tbody
