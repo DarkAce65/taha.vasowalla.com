@@ -28,7 +28,7 @@ const getCoordinatesFromDataset = cell => ({
 });
 
 class Minefield {
-  constructor({ target, minesLeftEl, faceEl, timerEl }) {
+  constructor({ target, minesLeftEl, faceEl, timerEl, finishCallback }) {
     this._active = false;
 
     this._domTarget = getElOrThrow(target);
@@ -42,6 +42,8 @@ class Minefield {
     this.minesLeft = 0;
     this._clock = new Clock();
     this._clock.callback = time => setNumberDisplay(this._timerEl, time);
+
+    this._finishCallback = finishCallback;
 
     this._faceEl.addEventListener('click', () => this.initialize());
     this._domTarget.addEventListener('mousedown', () => this._faceEl.classList.add('surprise'));
@@ -213,10 +215,14 @@ class Minefield {
     }
   }
 
-  winGame() {
+  finishGame(won) {
     this._active = false;
     this._clock.pause();
-    this._faceEl.classList.add('win');
+    if (won) {
+      this._faceEl.classList.add('win');
+    } else {
+      this._faceEl.classList.add('lose');
+    }
 
     for (let row = 0; row < this._gameOptions.rows; row++) {
       for (let col = 0; col < this._gameOptions.cols; col++) {
@@ -232,26 +238,9 @@ class Minefield {
         }
       }
     }
-  }
 
-  endGame() {
-    this._active = false;
-    this._clock.pause();
-    this._faceEl.classList.add('lose');
-
-    for (let row = 0; row < this._gameOptions.rows; row++) {
-      for (let col = 0; col < this._gameOptions.cols; col++) {
-        const cell = this._grid[row][col];
-        if (cell.state === 'closed' && cell.value < 0) {
-          cell.state = 'open';
-          cell.element.classList.remove('closed');
-          cell.element.classList.add('mine');
-        } else if (cell.state === 'flag' && cell.value >= 0) {
-          cell.state = 'open';
-          cell.element.classList.remove('flag');
-          cell.element.classList.add('xmine');
-        }
-      }
+    if (this._finishCallback) {
+      this._finishCallback(won ? 'win' : 'lose');
     }
   }
 
@@ -282,13 +271,13 @@ class Minefield {
     if (value < 0) {
       cell.classList.remove('closed');
       cell.classList.add('redmine');
-      this.endGame();
+      this.finishGame(false);
     } else {
       if (
         this._openedCells + this._gameOptions.mines ===
         this._gameOptions.rows * this._gameOptions.cols
       ) {
-        this.winGame();
+        this.finishGame(true);
       }
       if (value === 0) {
         this.openNeighbors(row, col);
