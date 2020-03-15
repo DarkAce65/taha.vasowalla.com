@@ -14,7 +14,7 @@ html
       div(uk-grid)
         div(class="uk-width-medium@m")
           div(uk-sticky="offset: 40; media: @m")
-            ul.uk-tab-left.uk-tab-stacked(uk-tab uk-switcher="connect: #highscores; swiping: false;")
+            ul.uk-tab-left.uk-tab-stacked(uk-tab="connect: #highscores; swiping: false;")
               li.uk-active: a(href="#") Beginner
               li: a(href="#") Intermediate
               li: a(href="#") Expert
@@ -41,6 +41,7 @@ html
                   #gridContainer
                     table#grid
             .uk-width-expand(style={'min-width': '300px'})
+              h3 Highscores
               #highscores.uk-switcher
                 each difficulty in ['beginner', 'intermediate', 'expert']
                   .uk-overflow-auto
