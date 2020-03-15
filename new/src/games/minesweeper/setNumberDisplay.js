@@ -1,10 +1,7 @@
-import getEl from '../../lib/getEl';
+import { getElOrThrow } from '../../lib/getEl';
 
 export default (selector, num) => {
-  const element = getEl(selector);
-  if (!element) {
-    throw new Error(`Missing element: ${selector}`);
-  }
+  const element = getElOrThrow(selector);
 
   const display = [];
   const isNegative = num < 0;

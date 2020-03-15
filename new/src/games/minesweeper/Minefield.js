@@ -1,4 +1,4 @@
-import getEl from '../../lib/getEl';
+import { getElOrThrow } from '../../lib/getEl';
 import shuffle from '../../lib/shuffle';
 
 import Clock from './Clock';
@@ -31,23 +31,10 @@ class Minefield {
   constructor({ target, minesLeftEl, faceEl, timerEl }) {
     this._active = false;
 
-    this._domTarget = getEl(target);
-    this._minesLeftEl = getEl(minesLeftEl);
-    this._faceEl = getEl(faceEl);
-    this._timerEl = getEl(timerEl);
-
-    if (!this._domTarget) {
-      throw new Error(`Selector matched no element: target: ${target}`);
-    }
-    if (!this._minesLeftEl) {
-      throw new Error(`Selector matched no element: minesLeftEl: ${minesLeftEl}`);
-    }
-    if (!this._faceEl) {
-      throw new Error(`Selector matched no element: faceEl: ${faceEl}`);
-    }
-    if (!this._timerEl) {
-      throw new Error(`Selector matched no element: timerEl: ${timerEl}`);
-    }
+    this._domTarget = getElOrThrow(target);
+    this._minesLeftEl = getElOrThrow(minesLeftEl);
+    this._faceEl = getElOrThrow(faceEl);
+    this._timerEl = getElOrThrow(timerEl);
 
     this._grid = [];
     this._gameOptions = { rows: 0, cols: 0, mines: 0 };

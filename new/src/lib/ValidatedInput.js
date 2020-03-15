@@ -1,4 +1,4 @@
-import getEl from './getEl';
+import { getElOrThrow } from './getEl';
 import makeToggleWrapper from './makeToggleWrapper';
 
 class ValidatedInput {
@@ -6,18 +6,12 @@ class ValidatedInput {
     inputElement,
     { validationMessageElement, validator, stateCallback, inputCallback } = {}
   ) {
-    this.input = getEl(inputElement);
-    if (this.input === null) {
-      throw new Error(`Cannot find element matching: ${inputElement}`);
-    }
+    this.input = getElOrThrow(inputElement);
 
     this._state = 'default';
 
     if (validationMessageElement) {
-      this._validationMessage = getEl(validationMessageElement);
-      if (this._validationMessage === null) {
-        throw new Error(`Cannot find element matching: ${validationMessageElement}`);
-      }
+      this._validationMessage = getElOrThrow(validationMessageElement);
     } else {
       this._validationMessage = document.createElement('div');
       this.input.insertAdjacentElement('afterend', this._validationMessage);
