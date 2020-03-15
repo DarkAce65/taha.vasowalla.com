@@ -1,8 +1,9 @@
+$base-cell-size: 16px;
 $spritesheet-url: '../../assets/spritesheets/minesweeper.png';
 $scales: (
-  'small': 1,
-  'medium': 1.5,
-  'large': 2,
+  'small': 20px / $base-cell-size,
+  'medium': 30px / $base-cell-size,
+  'large': 40px / $base-cell-size,
 );
 
 $white: white;
@@ -126,12 +127,12 @@ $inset-border-color: $gray $white $white $gray;
     }
 
     .cell {
-      width: 16px * $scale;
-      height: 16px * $scale;
+      width: $base-cell-size * $scale;
+      height: $base-cell-size * $scale;
       background-size: (144px * $scale) (81px * $scale);
 
       &.closed {
-        background-position: (5 * -16px * $scale) (-16px * $scale);
+        background-position: (5 * -$base-cell-size * $scale) (-$base-cell-size * $scale);
 
         &:active {
           background-position: 0 0;
@@ -139,28 +140,28 @@ $inset-border-color: $gray $white $white $gray;
       }
 
       &.mine {
-        background-position: 0 (-16px * $scale);
+        background-position: 0 (-$base-cell-size * $scale);
       }
 
       &.redmine {
-        background-position: (2 * -16px * $scale) (-16px * $scale);
+        background-position: (2 * -$base-cell-size * $scale) (-$base-cell-size * $scale);
       }
 
       &.xmine {
-        background-position: (-16px * $scale) (-16px * $scale);
+        background-position: (-$base-cell-size * $scale) (-$base-cell-size * $scale);
       }
 
       &.flag {
-        background-position: (4 * -16px * $scale) (-16px * $scale);
+        background-position: (4 * -$base-cell-size * $scale) (-$base-cell-size * $scale);
       }
 
       &.mark {
-        background-position: (3 * -16px * $scale) (-16px * $scale);
+        background-position: (3 * -$base-cell-size * $scale) (-$base-cell-size * $scale);
       }
 
       @for $i from 0 through 8 {
         &.open#{$i} {
-          background-position: ($i * -16px * $scale) 0;
+          background-position: ($i * -$base-cell-size * $scale) 0;
         }
       }
     }

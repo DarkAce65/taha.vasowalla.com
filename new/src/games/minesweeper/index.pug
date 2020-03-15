@@ -13,12 +13,23 @@ html
     +container(["games", "minesweeper"])
       div(uk-grid)
         div(class="uk-width-medium@m")
-          ul.uk-tab-left(uk-tab uk-sticky="offset: 40; media: @m" uk-switcher="connect: #switcher; swiping: false; animation: uk-animation-fade")
-            li.uk-active: a(href="#") Beginner
-            li: a(href="#") Intermediate
-            li: a(href="#") Expert
+          div(uk-sticky="offset: 40; media: @m")
+            ul.uk-tab-left(uk-tab uk-switcher="connect: #switcher; swiping: false; animation: uk-animation-fade")
+              li.uk-active: a(href="#") Beginner
+              li: a(href="#") Intermediate
+              li: a(href="#") Expert
+            .uk-text-center.uk-text-muted.uk-text-uppercase.uk-text-small
+              div(uk-form-custom="target: > * > #scaleLabel")
+                select#scale
+                  option(value="small") Small
+                  option(value="medium") Medium
+                  option(value="large") Large
+                div Scale:
+                  = ' '
+                  span#scaleLabel
+                  span(uk-icon="icon: triangle-down")
         .uk-width-expand
-          div(uk-grid)
+          .uk-flex-center(uk-grid)
             .uk-width-auto
               .uk-overflow-auto
                 #game.size-small
@@ -28,11 +39,12 @@ html
                     #timer
                   #gridContainer
                     table#grid
-            .uk-width-expand
-              table#highscores.uk-table.uk-table-divider.uk-table-small
-                thead
-                  tr
-                    th Name
-                    th Difficulty
-                    th Time
-                tbody
+            .uk-width-expand(style={'min-width': '200px'})
+              .uk-overflow-auto
+                table#highscores.uk-table.uk-table-divider.uk-table-small
+                  thead
+                    tr
+                      th Name
+                      th Difficulty
+                      th Time
+                  tbody
