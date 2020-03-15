@@ -83,6 +83,26 @@ const initCustomGameModal = () => {
       initializeCustomButton.disabled = rows === null || cols === null || mines === null;
     },
   });
+
+  return () =>
+    new Promise(resolve => {
+      const onClick = () => {
+        if (rows !== null && cols !== null && mines !== null) {
+          initializeCustomButton.removeEventListener('click', onClick);
+          UIkit.modal('#customGameModal').hide();
+          rowsInput.reset();
+          colsInput.reset();
+          minesInput.reset();
+
+          resolve({ rows, cols, mines });
+
+          rows = null;
+          cols = null;
+          mines = null;
+        }
+      };
+      initializeCustomButton.addEventListener('click', onClick);
+    });
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,9 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
     timerEl: '#timer',
   });
 
-  initCustomGameModal();
+  const makeOptionsPromise = initCustomGameModal();
 
   minefield.initialize('beginner');
+
+  document.querySelector('#highscores').addEventListener('show', async ev => {
+    const index = ev.detail[0].index();
+    let options;
+    if (index === 3) {
+      UIkit.modal('#customGameModal').show();
+      options = await makeOptionsPromise();
+    } else {
+      options = Object.keys(presets)[index];
+    }
+
+    minefield.initialize(options);
+  });
 
   const game = document.querySelector('#game');
   const resize = size => {
