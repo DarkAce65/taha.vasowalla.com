@@ -1,5 +1,9 @@
-$scale: 2;
 $spritesheet-url: '../../assets/spritesheets/minesweeper.png';
+$scales: (
+  'small': 1,
+  'medium': 1.5,
+  'large': 2,
+);
 
 $white: white;
 $lightgray: lightgray;
@@ -55,22 +59,9 @@ $inset-border-color: $gray $white $white $gray;
 
   .number {
     display: inline-block;
-    width: 13px * $scale;
-    height: 23px * $scale;
     vertical-align: middle;
     background-color: black;
     background-image: url($spritesheet-url);
-    background-size: (144px * $scale) (81px * $scale);
-
-    @for $i from 0 through 9 {
-      &.n#{$i} {
-        background-position: ($i * -13px * $scale) (-32px * $scale);
-      }
-    }
-
-    &.dash {
-      background-position: (10 * -13px * $scale) (-32px * $scale);
-    }
   }
 
   #minesLeft,
@@ -81,69 +72,97 @@ $inset-border-color: $gray $white $white $gray;
   }
 
   #face {
-    width: 26px * $scale;
-    height: 26px * $scale;
     background-color: silver;
     background-image: url($spritesheet-url);
-    background-size: (144px * $scale) (81px * $scale);
-    background-position: (-26px * $scale) (-55px * $scale);
-
-    &.surprise {
-      background-position: (2 * -26px * $scale) (-55px * $scale);
-    }
-
-    &.win {
-      background-position: (4 * -26px * $scale) (-55px * $scale);
-    }
-
-    &.lose {
-      background-position: (3 * -26px * $scale) (-55px * $scale);
-    }
-
-    &:active {
-      background-position: 0 (-55px * $scale);
-    }
   }
 }
 
 .cell {
-  width: 16px * $scale;
-  height: 16px * $scale;
   background-color: silver;
   background-image: url($spritesheet-url);
-  background-size: (144px * $scale) (81px * $scale);
+}
 
-  &.closed {
-    background-position: (5 * -16px * $scale) (-16px * $scale);
+@each $name, $scale in $scales {
+  #game.size-#{$name} {
+    #display {
+      .number {
+        width: 13px * $scale;
+        height: 23px * $scale;
+        background-size: (144px * $scale) (81px * $scale);
 
-    &:active {
-      background-position: 0 0;
+        @for $i from 0 through 9 {
+          &.n#{$i} {
+            background-position: ($i * -13px * $scale) (-32px * $scale);
+          }
+        }
+
+        &.dash {
+          background-position: (10 * -13px * $scale) (-32px * $scale);
+        }
+      }
+
+      #face {
+        width: 26px * $scale;
+        height: 26px * $scale;
+        background-size: (144px * $scale) (81px * $scale);
+        background-position: (-26px * $scale) (-55px * $scale);
+
+        &.surprise {
+          background-position: (2 * -26px * $scale) (-55px * $scale);
+        }
+
+        &.win {
+          background-position: (4 * -26px * $scale) (-55px * $scale);
+        }
+
+        &.lose {
+          background-position: (3 * -26px * $scale) (-55px * $scale);
+        }
+
+        &:active {
+          background-position: 0 (-55px * $scale);
+        }
+      }
     }
-  }
 
-  &.mine {
-    background-position: 0 (-16px * $scale);
-  }
+    .cell {
+      width: 16px * $scale;
+      height: 16px * $scale;
+      background-size: (144px * $scale) (81px * $scale);
 
-  &.redmine {
-    background-position: (2 * -16px * $scale) (-16px * $scale);
-  }
+      &.closed {
+        background-position: (5 * -16px * $scale) (-16px * $scale);
 
-  &.xmine {
-    background-position: (-16px * $scale) (-16px * $scale);
-  }
+        &:active {
+          background-position: 0 0;
+        }
+      }
 
-  &.flag {
-    background-position: (4 * -16px * $scale) (-16px * $scale);
-  }
+      &.mine {
+        background-position: 0 (-16px * $scale);
+      }
 
-  &.mark {
-    background-position: (3 * -16px * $scale) (-16px * $scale);
-  }
+      &.redmine {
+        background-position: (2 * -16px * $scale) (-16px * $scale);
+      }
 
-  @for $i from 0 through 8 {
-    &.open#{$i} {
-      background-position: ($i * -16px * $scale) 0;
+      &.xmine {
+        background-position: (-16px * $scale) (-16px * $scale);
+      }
+
+      &.flag {
+        background-position: (4 * -16px * $scale) (-16px * $scale);
+      }
+
+      &.mark {
+        background-position: (3 * -16px * $scale) (-16px * $scale);
+      }
+
+      @for $i from 0 through 8 {
+        &.open#{$i} {
+          background-position: ($i * -16px * $scale) 0;
+        }
+      }
     }
   }
 }
