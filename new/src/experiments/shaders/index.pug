@@ -12,7 +12,7 @@ html
   body
     +floating-breadcrumbs("experiments", "shaders")
       .uk-flex-none
-        button.uk-button.uk-button-default.uk-button-small(style="background: black;") Camera #[span(uk-icon="triangle-down")]
+        button.uk-button.uk-button-default.uk-button-small(style={'background': 'black'}) Camera #[span(uk-icon="triangle-down")]
         div(uk-dropdown="mode: click")
           ul#cubeDropdown.uk-nav.uk-dropdown-nav
             li: a#overview.view(href="javascript:void(0)") Overview
