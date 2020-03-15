@@ -29,6 +29,7 @@
 
 @mixin hook-button-disabled() {
   border-color: $button-default-border;
+  box-shadow: none !important;
 }
 
 @mixin hook-button-default() {
