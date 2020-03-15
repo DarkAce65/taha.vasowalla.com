@@ -73,7 +73,7 @@ const initCustomGameModal = () => {
       if (state === 'default') {
         cols = Math.floor(parseFloat(input));
 
-        if (cols !== null) {
+        if (rows !== null) {
           minesInput.input.dispatchEvent(new InputEvent('input'));
         }
       } else {
