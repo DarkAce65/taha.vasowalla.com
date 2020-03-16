@@ -240,7 +240,7 @@ class Minefield {
     }
 
     if (this._finishCallback) {
-      this._finishCallback(won ? 'win' : 'lose');
+      this._finishCallback(won ? 'win' : 'lose', this._clock.value);
     }
   }
 
