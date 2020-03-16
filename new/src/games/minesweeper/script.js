@@ -11,6 +11,7 @@ const initCustomGameModal = () => {
   let cols = null;
   let mines = null;
 
+  const modal = document.querySelector('#customGameModal');
   const initializeCustomButton = document.querySelector('#initialize');
   const minesInput = new ValidatedInput('#mines', {
     validator: input => {
@@ -84,24 +85,39 @@ const initCustomGameModal = () => {
     },
   });
 
+  const reset = () => {
+    rowsInput.reset();
+    colsInput.reset();
+    minesInput.reset();
+
+    rows = null;
+    cols = null;
+    mines = null;
+  };
+
   return () =>
-    new Promise(resolve => {
-      const onClick = () => {
+    new Promise((resolve, reject) => {
+      function onSubmit() {
         if (rows !== null && cols !== null && mines !== null) {
-          initializeCustomButton.removeEventListener('click', onClick);
+          initializeCustomButton.removeEventListener('click', onSubmit);
+          modal.removeEventListener('click', onHide);
           UIkit.modal('#customGameModal').hide();
-          rowsInput.reset();
-          colsInput.reset();
-          minesInput.reset();
 
           resolve({ rows, cols, mines });
-
-          rows = null;
-          cols = null;
-          mines = null;
+          reset();
         }
-      };
-      initializeCustomButton.addEventListener('click', onClick);
+      }
+
+      function onHide() {
+        initializeCustomButton.removeEventListener('click', onSubmit);
+        modal.removeEventListener('click', onHide);
+
+        reject();
+        reset();
+      }
+
+      initializeCustomButton.addEventListener('click', onSubmit);
+      modal.addEventListener('hide', onHide);
     });
 };
 
@@ -119,17 +135,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   minefield.initialize('beginner');
 
-  document.querySelector('#highscores').addEventListener('show', async ev => {
-    const index = ev.detail[0].index();
-    let options;
-    if (index === 3) {
-      UIkit.modal('#customGameModal').show();
-      options = await makeOptionsPromise();
-    } else {
-      options = Object.keys(presets)[index];
+  const tab = UIkit.tab('#highscoreTabs');
+  document.querySelector('#customTab').addEventListener('click', ev => {
+    if (tab.index() === 3) {
+      return;
     }
 
-    minefield.initialize(options);
+    ev.stopPropagation();
+
+    UIkit.modal('#customGameModal').show();
+    makeOptionsPromise()
+      .then(options => {
+        tab.show(3);
+        minefield.initialize(options);
+      })
+      .catch(() => {});
+  });
+  document.querySelector('#highscores').addEventListener('show', ev => {
+    const { difficulty } = ev.target.dataset;
+    if (difficulty === 'custom') {
+      return;
+    }
+
+    minefield.initialize(difficulty);
   });
 
   const game = document.querySelector('#game');
