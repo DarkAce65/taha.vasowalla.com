@@ -67,7 +67,7 @@ const initCustomGameModal = () => {
     validator: input => {
       const parsedCols = Math.floor(parseFloat(input));
       if (parsedCols < 9 || 30 < parsedCols) {
-        return { type: 'error', message: 'Number of cols must be between 9 and 30' };
+        return { type: 'error', message: 'Number of columns must be between 9 and 30' };
       }
 
       return false;

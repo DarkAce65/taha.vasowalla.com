@@ -58,8 +58,15 @@ html
         .uk-modal-header
           h2.uk-modal-title Custom game
         .uk-modal-body
-          input#rows.uk-input(type="number")
-          input#cols.uk-input(type="number")
-          input#mines.uk-input(type="number")
+          .uk-form-horizontal
+            .uk-margin
+              label.uk-form-label Rows
+              .uk-form-controls: input#rows.uk-input(type="number" placeholder="Enter a value between 9 and 24")
+            .uk-margin
+              label.uk-form-label Columns
+              .uk-form-controls: input#cols.uk-input(type="number" placeholder=" Enter a value between 9 and 30")
+            .uk-margin
+              label.uk-form-label Mines
+              .uk-form-controls: input#mines.uk-input(type="number" placeholder=" At least 10")
         .uk-modal-footer.uk-text-right
           button#initialize.uk-button.uk-button-primary(disabled) Ok
