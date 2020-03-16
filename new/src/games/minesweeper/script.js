@@ -1,6 +1,8 @@
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 
+import Cookie from 'js-cookie';
+
 import ValidatedInput from '../../lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '../../lib/breakpoints';
 
@@ -100,7 +102,7 @@ const initCustomGameModal = () => {
       function onSubmit() {
         if (rows !== null && cols !== null && mines !== null) {
           initializeCustomButton.removeEventListener('click', onSubmit);
-          modal.removeEventListener('click', onHide);
+          modal.removeEventListener('hide', onHide);
           UIkit.modal('#customGameModal').hide();
 
           resolve({ rows, cols, mines });
@@ -110,7 +112,7 @@ const initCustomGameModal = () => {
 
       function onHide() {
         initializeCustomButton.removeEventListener('click', onSubmit);
-        modal.removeEventListener('click', onHide);
+        modal.removeEventListener('hide', onHide);
 
         reject();
         reset();
@@ -175,13 +177,23 @@ document.addEventListener('DOMContentLoaded', () => {
         game.classList.remove('size-small', 'size-medium');
         game.classList.add('size-large');
         break;
+      default:
+        throw new Error(`Invalid size: ${size}`);
     }
+
+    Cookie.set('scale', size);
   };
 
   document.querySelector('#scale').addEventListener('change', ev => resize(ev.target.value));
 
-  if (window.innerWidth < BREAKPOINT_SMALL) {
-    document.querySelector('#scale').value = 'medium';
-    resize('medium');
+  let scale = Cookie.get('scale');
+  if (['small', 'medium', 'large'].indexOf(scale) === -1) {
+    if (window.innerWidth < BREAKPOINT_SMALL) {
+      scale = 'medium';
+    } else {
+      scale = 'small';
+    }
   }
+  document.querySelector('#scale').value = scale;
+  resize(scale);
 });
