@@ -6,7 +6,7 @@ import Cookie from 'js-cookie';
 import ValidatedInput from '../../lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '../../lib/breakpoints';
 
-import Minefield from './Minefield';
+import Minefield, { presets } from './Minefield';
 
 const initCustomGameModal = () => {
   let rows = null;
@@ -123,19 +123,58 @@ const initCustomGameModal = () => {
     });
 };
 
+const buildHighscoreTable = (difficulty, scores) => {
+  const table = document.querySelector(`.scoreTable[data-difficulty=${difficulty}] tbody`);
+  table.innerHTML = '';
+
+  scores
+    .sort((a, b) => a.time - b.time)
+    .forEach(({ name, time }) => {
+      const scoreRow = document.createElement('tr');
+      const nameCell = document.createElement('td');
+      nameCell.textContent = name;
+      scoreRow.appendChild(nameCell);
+      const timeCell = document.createElement('td');
+      timeCell.textContent = time;
+      scoreRow.appendChild(timeCell);
+
+      table.appendChild(scoreRow);
+    });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
+  const scores = Cookie.getJSON('scores');
+  if (scores) {
+    Object.keys(presets).forEach(difficulty => {
+      if (Object.prototype.hasOwnProperty.call(scores, difficulty)) {
+        buildHighscoreTable(difficulty, scores[difficulty]);
+      }
+    });
+  }
+
+  let currentDifficulty = 'beginner';
   const minefield = new Minefield({
     target: 'table#grid',
     minesLeftEl: '#minesLeft',
     faceEl: '#face',
     timerEl: '#timer',
+    finishCallback: (state, time) => {
+      if (currentDifficulty !== 'custom' && state === 'won') {
+        if (!Object.prototype.hasOwnProperty.call(scores, currentDifficulty)) {
+          scores[currentDifficulty] = [];
+        }
+        scores[currentDifficulty].push({ name: 'TEMP', time });
+        buildHighscoreTable(currentDifficulty, scores[currentDifficulty]);
+        Cookie.set('scores', scores);
+      }
+    },
   });
 
   const makeOptionsPromise = initCustomGameModal();
 
-  minefield.initialize('beginner');
+  minefield.initialize(currentDifficulty);
 
   const tab = UIkit.tab('#highscoreTabs');
   document.querySelector('#customTab').addEventListener('click', ev => {
@@ -149,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     makeOptionsPromise()
       .then(options => {
         tab.show(3);
+        currentDifficulty = 'custom';
         minefield.initialize(options);
       })
       .catch(() => {});
@@ -159,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    currentDifficulty = difficulty;
     minefield.initialize(difficulty);
   });
 
