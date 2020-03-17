@@ -7,12 +7,8 @@ const getEl = (selector, parent = document) =>
 
 export const getElOrThrow = (selector, parent) => {
   let parentEl;
-  if (parent) {
-    if (isString(selector)) {
-      parentEl = getElOrThrow(parent);
-    } else {
-      console.warn('Argument is not a selector - passing a parent has no effect');
-    }
+  if (parent && isString(selector)) {
+    parentEl = getElOrThrow(parent);
   }
 
   const el = getEl(selector, parentEl);
