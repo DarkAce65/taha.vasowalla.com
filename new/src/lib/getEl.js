@@ -8,12 +8,24 @@ const getEl = (selector, parent = document) =>
 export const getElOrThrow = (selector, parent) => {
   let parentEl;
   if (parent) {
-    parentEl = getElOrThrow(parent);
+    if (isString(selector)) {
+      parentEl = getElOrThrow(parent);
+    } else {
+      console.warn('Argument is not a selector - passing a parent has no effect');
+    }
   }
 
   const el = getEl(selector, parentEl);
   if (!el) {
-    throw new Error(`Selector "${selector}" matched no element`);
+    if (parent) {
+      throw new Error(
+        `Selector "${selector}" matched no element for parent${
+          isString(parent) ? ` "${parent}"` : ''
+        }`
+      );
+    } else {
+      throw new Error(`Selector "${selector}" matched no element`);
+    }
   }
 
   return el;
