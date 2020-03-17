@@ -128,6 +128,7 @@ const buildHighscoreTable = (difficulty, scores) => {
   table.innerHTML = '';
 
   scores
+    .slice(0)
     .sort((a, b) => a.time - b.time)
     .forEach(({ name, time }) => {
       const scoreRow = document.createElement('tr');
@@ -145,7 +146,7 @@ const buildHighscoreTable = (difficulty, scores) => {
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
-  const scores = Cookie.getJSON('scores');
+  const scores = Cookie.getJSON('scores') || {};
   if (scores) {
     Object.keys(presets).forEach(difficulty => {
       if (Object.prototype.hasOwnProperty.call(scores, difficulty)) {
@@ -161,10 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
     faceEl: '#face',
     timerEl: '#timer',
     finishCallback: (state, time) => {
-      if (currentDifficulty !== 'custom' && state === 'won') {
+      if (currentDifficulty !== 'custom' && state === 'win') {
         if (!Object.prototype.hasOwnProperty.call(scores, currentDifficulty)) {
           scores[currentDifficulty] = [];
         }
+
         scores[currentDifficulty].push({ name: 'TEMP', time });
         buildHighscoreTable(currentDifficulty, scores[currentDifficulty]);
         Cookie.set('scores', scores);
