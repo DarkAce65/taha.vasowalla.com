@@ -5,6 +5,7 @@ import Cookie from 'js-cookie';
 
 import ValidatedInput from '../../lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '../../lib/breakpoints';
+import getModalValues from '../../lib/getModalValues';
 
 import Minefield, { presets } from './Minefield';
 
@@ -13,7 +14,6 @@ const initCustomGameModal = () => {
   let cols = null;
   let mines = null;
 
-  const modal = document.querySelector('#customGameModal');
   const initializeCustomButton = document.querySelector('#initialize');
   const minesInput = new ValidatedInput('#mines', {
     validator: input => {
@@ -98,29 +98,9 @@ const initCustomGameModal = () => {
   };
 
   return () =>
-    new Promise((resolve, reject) => {
-      function onSubmit() {
-        if (rows !== null && cols !== null && mines !== null) {
-          initializeCustomButton.removeEventListener('click', onSubmit);
-          modal.removeEventListener('hide', onHide);
-          UIkit.modal('#customGameModal').hide();
-
-          resolve({ rows, cols, mines });
-          reset();
-        }
-      }
-
-      function onHide() {
-        initializeCustomButton.removeEventListener('click', onSubmit);
-        modal.removeEventListener('hide', onHide);
-
-        reject();
-        reset();
-      }
-
-      initializeCustomButton.addEventListener('click', onSubmit);
-      modal.addEventListener('hide', onHide);
-    });
+    getModalValues('#customGameModal', { submitButton: initializeCustomButton })
+      .then(() => ({ rows, cols, mines }))
+      .finally(reset);
 };
 
 const buildHighscoreTable = (difficulty, scores) => {
