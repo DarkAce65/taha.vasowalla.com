@@ -265,12 +265,11 @@ class Minefield {
     }
 
     this._openedCells += 1;
-    this._grid[row][col].state = 'open';
-    const value = this._grid[row][col].value;
-    const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-    if (value < 0) {
-      cell.classList.remove('closed');
-      cell.classList.add('redmine');
+    const cell = this._grid[row][col];
+    cell.state = 'open';
+    if (cell.value < 0) {
+      cell.element.classList.remove('closed');
+      cell.element.classList.add('redmine');
       this.finishGame(false);
     } else {
       if (
@@ -279,11 +278,11 @@ class Minefield {
       ) {
         this.finishGame(true);
       }
-      if (value === 0) {
+      if (cell.value === 0) {
         this.openNeighbors(row, col);
       }
-      cell.classList.remove('closed');
-      cell.classList.add(`open${value}`);
+      cell.element.classList.remove('closed');
+      cell.element.classList.add(`open${cell.value}`);
     }
 
     if (this.openCellCallback) {
@@ -348,11 +347,7 @@ class Minefield {
   }
 
   handleCellRightClick(row, col) {
-    if (!this._active) {
-      return;
-    }
-
-    if (this._openedCells <= 0) {
+    if (!this._active || this._openedCells <= 0) {
       return;
     }
 
