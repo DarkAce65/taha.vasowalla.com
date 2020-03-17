@@ -5,7 +5,7 @@ import { getElOrThrow } from './getEl';
 
 const MODAL_FETCHER_ACTIVE = 'MODAL_FETCHER_ACTIVE';
 
-const getModalValues = (modalEl, { submitButton, inputEls }) => {
+const getModalValues = (modalEl, submitButton, inputEls) => {
   const resolvedModalEl = getElOrThrow(modalEl);
   if (resolvedModalEl.dataset[MODAL_FETCHER_ACTIVE]) {
     throw new Error(`${modalEl} is already in use by another value fetcher`);

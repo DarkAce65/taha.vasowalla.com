@@ -98,7 +98,7 @@ const initCustomGameModal = () => {
   };
 
   return () =>
-    getModalValues('#customGameModal', { submitButton: initializeCustomButton })
+    getModalValues('#customGameModal', initializeCustomButton)
       .then(() => ({ rows, cols, mines }))
       .finally(reset);
 };
