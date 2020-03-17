@@ -52,6 +52,16 @@ html
                           th Time
                       tbody
                 .scoreTable(data-difficulty="custom")
+    #highscoreModal(uk-modal="esc-close: false;")
+      .uk-modal-dialog
+        button.uk-modal-close-default(uk-close)
+        .uk-modal-body
+          .uk-form-stacked
+            .uk-margin
+              label.uk-form-label Enter your name to save your highscore:
+              .uk-form-controls: input.uk-input(placeholder="Name")
+          .uk-text-right
+            button#submit.uk-button.uk-button-primary(disabled) OK
     #customGameModal(uk-modal)
       .uk-modal-dialog
         button.uk-modal-close-default(uk-close)

@@ -5,6 +5,7 @@ import Cookie from 'js-cookie';
 
 import ValidatedInput from '../../lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '../../lib/breakpoints';
+import getEl from '../../lib/getEl';
 import getModalValues from '../../lib/getModalValues';
 
 import Minefield, { presets } from './Minefield';
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const highscoreNameInput = getEl('#highscoreModal input');
   let currentDifficulty = 'beginner';
   const minefield = new Minefield({
     target: 'table#grid',
@@ -147,14 +149,23 @@ document.addEventListener('DOMContentLoaded', () => {
           scores[currentDifficulty] = [];
         }
 
-        scores[currentDifficulty].push({ name: 'TEMP', time });
-        buildHighscoreTable(currentDifficulty, scores[currentDifficulty]);
-        Cookie.set('scores', scores);
+        getModalValues('#highscoreModal', '#submit', [highscoreNameInput])
+          .then(([name]) => {
+            scores[currentDifficulty].push({ name: name.trim(), time });
+            buildHighscoreTable(currentDifficulty, scores[currentDifficulty]);
+            Cookie.set('scores', scores);
+          })
+          .catch(() => {});
       }
     },
   });
 
   const makeOptionsPromise = initCustomGameModal();
+  document.querySelector;
+  highscoreNameInput.addEventListener('input', () => {
+    document.querySelector('#highscoreModal #submit').disabled =
+      highscoreNameInput.value.trim().length === 0;
+  });
 
   minefield.initialize(currentDifficulty);
 
