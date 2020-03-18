@@ -177,7 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ev.stopPropagation();
 
-    UIkit.modal('#customGameModal').show();
     makeOptionsPromise()
       .then(options => {
         tab.show(3);
