@@ -41,17 +41,19 @@ html
                   #gridContainer
                     table#grid
             .uk-width-expand(style={'min-width': '300px'})
-              h3 Highscores
               #highscores.uk-switcher
                 each difficulty in ['beginner', 'intermediate', 'expert']
-                  .scoreTable.uk-overflow-auto(data-difficulty=difficulty)
-                    table.uk-table.uk-table-divider.uk-table-small
-                      thead
-                        tr
-                          th.uk-table-expand Name
-                          th Time
-                      tbody
-                .scoreTable(data-difficulty="custom")
+                  .scoreTable(data-difficulty=difficulty)
+                    h3 Highscores
+                    .uk-overflow-auto
+                      table.uk-table.uk-table-divider.uk-table-small
+                        thead
+                          tr
+                            th.uk-table-expand Name
+                            th Time
+                        tbody
+                .uk-text-center(data-difficulty="custom")
+                  button#recustomizeGame.uk-button.uk-button-default Re-customize game
     #highscoreModal(uk-modal="esc-close: false;")
       .uk-modal-dialog
         button.uk-modal-close-default(uk-close)

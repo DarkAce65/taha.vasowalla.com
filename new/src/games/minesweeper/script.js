@@ -219,6 +219,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#scale').addEventListener('change', ev => resize(ev.target.value));
 
+  document.querySelector('#recustomizeGame').addEventListener('click', () =>
+    makeOptionsPromise()
+      .then(options => {
+        currentDifficulty = 'custom';
+        minefield.initialize(options);
+      })
+      .catch(() => {})
+  );
+
   let scale = Cookie.get('scale');
   if (['small', 'medium', 'large'].indexOf(scale) === -1) {
     if (window.innerWidth < BREAKPOINT_SMALL) {
