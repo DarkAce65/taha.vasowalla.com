@@ -44,9 +44,9 @@ html
               #highscores.uk-switcher
                 each difficulty in ['beginner', 'intermediate', 'expert']
                   .scoreTable(data-difficulty=difficulty)
-                    h3 Highscores
+                    h3 Highscores #[button.clear.uk-button.uk-button-text.uk-text-small.uk-float-right clear]
                     .uk-overflow-auto
-                      table.uk-table.uk-table-divider.uk-table-small
+                      table.uk-table.uk-table-divider.uk-table-small.uk-table-justify
                         thead
                           tr
                             th.uk-table-expand Name

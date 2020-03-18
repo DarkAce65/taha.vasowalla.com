@@ -219,6 +219,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#scale').addEventListener('change', ev => resize(ev.target.value));
 
+  Object.keys(presets).forEach(difficulty =>
+    document
+      .querySelector(`.scoreTable[data-difficulty="${difficulty}"] .clear`)
+      .addEventListener('click', () => {
+        delete scores[difficulty];
+        buildHighscoreTable(difficulty, scores[difficulty]);
+        Cookie.set('scores', scores);
+      })
+  );
+
   document.querySelector('#recustomizeGame').addEventListener('click', () =>
     makeOptionsPromise()
       .then(options => {

@@ -83,6 +83,11 @@ $inset-border-color: $gray $white $white $gray;
   background-image: url($spritesheet-url);
 }
 
+.scoreTable th:last-child,
+.scoreTable td:last-child {
+  text-align: right;
+}
+
 @each $name, $scale in $scales {
   #game.size-#{$name} {
     #display {
