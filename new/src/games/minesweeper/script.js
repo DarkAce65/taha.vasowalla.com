@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const highscoreNameInput = getEl('#highscoreModal input');
+  const highscoreNameInput = getEl('#highscoreModal #name');
   let currentDifficulty = 'beginner';
   const minefield = new Minefield({
     target: 'table#grid',

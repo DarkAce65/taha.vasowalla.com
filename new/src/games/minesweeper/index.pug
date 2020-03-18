@@ -58,8 +58,8 @@ html
         .uk-modal-body
           .uk-form-stacked
             .uk-margin
-              label.uk-form-label Enter your name to save your highscore:
-              .uk-form-controls: input.uk-input(placeholder="Name")
+              label.uk-form-label(for="name") Enter your name to save your highscore:
+              .uk-form-controls: input#name.uk-input(placeholder="Name")
           .uk-text-right
             button#submit.uk-button.uk-button-primary(disabled) OK
     #customGameModal(uk-modal)
@@ -70,13 +70,13 @@ html
         .uk-modal-body
           .uk-form-horizontal
             .uk-margin
-              label.uk-form-label Rows
+              label.uk-form-label(for="rows") Rows
               .uk-form-controls: input#rows.uk-input(type="number" placeholder="Enter a value between 9 and 24")
             .uk-margin
-              label.uk-form-label Columns
+              label.uk-form-label(for="cols") Columns
               .uk-form-controls: input#cols.uk-input(type="number" placeholder=" Enter a value between 9 and 30")
             .uk-margin
-              label.uk-form-label Mines
+              label.uk-form-label(for="mines") Mines
               .uk-form-controls: input#mines.uk-input(type="number" placeholder=" At least 10")
         .uk-modal-footer.uk-text-right
           button#initialize.uk-button.uk-button-primary(disabled) OK
