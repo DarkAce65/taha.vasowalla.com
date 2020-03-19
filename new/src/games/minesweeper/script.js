@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   Object.keys(presets).forEach(difficulty =>
     document
-      .querySelector(`.scoreTable[data-difficulty="${difficulty}"] .clear`)
+      .querySelector(`.scoreTable[data-difficulty="${difficulty}"] .reset`)
       .addEventListener('click', () => {
         delete scores[difficulty];
         buildHighscoreTable(difficulty, scores[difficulty]);
