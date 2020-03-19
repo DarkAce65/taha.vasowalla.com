@@ -123,6 +123,14 @@ const buildHighscoreTable = (difficulty, scores) => {
 
         table.appendChild(scoreRow);
       });
+  } else {
+    const row = document.createElement('tr');
+    const emptyCell = document.createElement('td');
+    emptyCell.colSpan = 2;
+    emptyCell.textContent = 'No highscores yet';
+
+    row.appendChild(emptyCell);
+    table.appendChild(row);
   }
 };
 
@@ -130,13 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
   const scores = Cookie.getJSON('scores') || {};
-  if (scores) {
-    Object.keys(presets).forEach(difficulty => {
-      if (Object.prototype.hasOwnProperty.call(scores, difficulty)) {
-        buildHighscoreTable(difficulty, scores[difficulty]);
-      }
-    });
-  }
+  Object.keys(presets).forEach(difficulty => buildHighscoreTable(difficulty, scores[difficulty]));
 
   const highscoreNameInput = getEl('#highscoreModal #name');
   let currentDifficulty = 'beginner';
