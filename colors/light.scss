@@ -1,8 +1,7 @@
-@import "../bourbon/bourbon";
 @import "colors";
 
 body {
-	@include selection {
+	::selection {
 		background-color: $dark-color;
 		color: $light-color;
 	}

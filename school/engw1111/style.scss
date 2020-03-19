@@ -1,5 +1,3 @@
-@import "../../bourbon/bourbon";
-
 $dark: #121212;
 $primary: #5fef52;
 
@@ -85,7 +83,7 @@ body {
 					left: 50%;
 					color: $dark;
 					font-size: 100px;
-					@include transform(translate(-50%, -50%));
+					transform: translate(-50%, -50%);
 				}
 			}
 		}
@@ -102,7 +100,7 @@ body {
 }
 
 #tree, #sidebar {
-	@include transition(width 0.75s, height 0.75s);
+	transition: width 0.75s, height 0.75s;
 }
 
 .node {
