@@ -45,7 +45,7 @@ html
                 each difficulty in ['beginner', 'intermediate', 'expert']
                   .scoreTable(data-difficulty=difficulty)
                     h3.uk-flex.uk-flex-middle Highscores
-                      button.clear.uk-button.uk-button-text.uk-button-small.uk-margin-left clear
+                      button.clear.uk-button.uk-button-text.uk-margin-left clear
                     .uk-overflow-auto
                       table.uk-table.uk-table-divider.uk-table-small
                         thead
@@ -55,7 +55,7 @@ html
                         tbody
                 .uk-text-center(data-difficulty="custom")
                   button#recustomizeGame.uk-button.uk-button-default Re-customize game
-    #highscoreModal(uk-modal="esc-close: false;")
+    #highscoreModal(uk-modal="esc-close: false; bg-close: false;")
       .uk-modal-dialog
         button.uk-modal-close-default(uk-close)
         .uk-modal-body
