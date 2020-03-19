@@ -108,20 +108,22 @@ const buildHighscoreTable = (difficulty, scores) => {
   const table = document.querySelector(`.scoreTable[data-difficulty=${difficulty}] tbody`);
   table.innerHTML = '';
 
-  scores
-    .slice(0)
-    .sort((a, b) => a.time - b.time)
-    .forEach(({ name, time }) => {
-      const scoreRow = document.createElement('tr');
-      const nameCell = document.createElement('td');
-      nameCell.textContent = name;
-      scoreRow.appendChild(nameCell);
-      const timeCell = document.createElement('td');
-      timeCell.textContent = time;
-      scoreRow.appendChild(timeCell);
+  if (scores) {
+    scores
+      .slice(0)
+      .sort((a, b) => a.time - b.time)
+      .forEach(({ name, time }) => {
+        const scoreRow = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        nameCell.textContent = name;
+        scoreRow.appendChild(nameCell);
+        const timeCell = document.createElement('td');
+        timeCell.textContent = time;
+        scoreRow.appendChild(timeCell);
 
-      table.appendChild(scoreRow);
-    });
+        table.appendChild(scoreRow);
+      });
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
