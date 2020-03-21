@@ -12,7 +12,8 @@ void main() {
   vUv = uv;
 
   vWorldPosition = modelMatrix * vec4(position, 1.0);
-  float d = fract(length(vWorldPosition.xyz - vec3(0.0, 100.0, 0.0)) / 50.0 - u_time / 10.0);
+  float d = fract(length(vWorldPosition.xyz - vec3(0.0, 100.0, 0.0)) / 10.0 - u_time / 10.0);
+  d = smoothstep(0.0, 0.8, d) - smoothstep(0.8, 1.0, d);
   vec2 bl = smoothstep(vec2(0.0), vec2(0.1), uv);
   vec2 tr = smoothstep(vec2(0.0), vec2(0.1), 1.0 - uv);
   vColor = vec3(d);
