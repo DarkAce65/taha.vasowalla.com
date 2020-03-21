@@ -21,15 +21,13 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
-import {
-  matrixFragmentShader,
-  noiseFragmentShader,
-  noiseVertexShader,
-  pulseFragmentShader,
-  pulseVertexShader,
-  staticVertexShader,
-  transparentFragmentShader,
-} from './shaders';
+import matrixFragmentShader from './shaders/matrix_frag.glsl';
+import noiseFragmentShader from './shaders/noise_frag.glsl';
+import noiseVertexShader from './shaders/noise_vert.glsl';
+import pulseFragmentShader from './shaders/pulse_frag.glsl';
+import pulseVertexShader from './shaders/pulse_vert.glsl';
+import staticVertexShader from './shaders/static_vert.glsl';
+import transparentFragmentShader from './shaders/transparent_frag.glsl';
 
 const uniforms = {
   u_time: { type: 'f', value: 0 },

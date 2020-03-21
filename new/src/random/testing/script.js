@@ -39,9 +39,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
-import beamFragmentShader from './beam_frag.glsl';
-import beamVertexShader from './beam_vert.glsl';
-import waveVertexShader from './wave_vert.glsl';
+import beamFragmentShader from './shaders/beam_frag.glsl';
+import beamVertexShader from './shaders/beam_vert.glsl';
+import waveVertexShader from './shaders/wave_vert.glsl';
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);

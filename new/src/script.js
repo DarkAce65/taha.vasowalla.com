@@ -14,7 +14,7 @@ import {
   WebGLRenderer,
 } from 'three';
 
-import { ParticleEmitter } from './lib/ParticleEmitter';
+import ParticleEmitter from './lib/particles/ParticleEmitter';
 import requestAnimationFrame from './lib/requestAnimationFrame';
 
 document.addEventListener('DOMContentLoaded', function() {
