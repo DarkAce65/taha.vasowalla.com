@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const pages = [
   { entry: 'index', dir: '' },
+  { entry: 'about', dir: 'about' },
   { entry: 'hangman', dir: 'games/hangman' },
   { entry: 'minesweeper', dir: 'games/minesweeper' },
   { entry: 'ultimatettt', dir: 'games/ultimatettt' },

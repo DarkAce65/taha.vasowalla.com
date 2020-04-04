@@ -1,0 +1,77 @@
+include ../partials/mixins
+
+doctype html
+html
+  head
+    +head("About Me")
+    link(rel="shortcut icon" href="../assets/icons/tv.png")
+    link(rel="stylesheet" type="text/css" href="../uikit.css")
+    link(rel="stylesheet" type="text/css" href="../global.css")
+    link(rel="stylesheet" type="text/css" href="style.css")
+
+  body
+    +container(["about"])
+      .uk-card.uk-card-default.uk-grid-collapse.uk-flex-center.uk-margin(uk-grid).uk-grid-match
+        .uk-card-media-left(class="uk-width-medium uk-width-1-3@s uk-width-1-4@m")
+          img(data-src="../assets/img/profile.jpg" data-width="528" data-height="528" style={width: "100%"} uk-img)
+        .uk-card-body(class="uk-width-expand@s uk-text-center uk-text-left@s")
+          h1.uk-card-title Taha Vasowalla
+          a.uk-link(href=require("./Resume - Taha Vasowalla.pdf")) Resume.pdf
+          p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum minus impedit ipsa quasi nesciunt animi delectus, dignissimos deleniti iusto aliquam amet sapiente, eum optio odit! Sapiente officia ullam fugiat? Saepe.
+      #timeline
+        .event Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt voluptatum est rerum qui beatae, corrupti necessitatibus porro laudantium aut dolor at, quibusdam, odit neque! Error facere ipsa recusandae consequuntur laboriosam!
+        .connector: .branch.join
+        .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. A nam consequatur consectetur eum sapiente nulla cumque ipsam ratione illum, molestias nesciunt nostrum vitae, qui cupiditate aspernatur, ipsum necessitatibus quia veritatis.
+        .event: .connector Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sed ducimus natus quaerat reprehenderit totam excepturi, maiores fuga voluptate nobis adipisci, impedit officiis debitis quasi repellendus aspernatur exercitationem magni dolorum.
+        .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sed ducimus natus quaerat reprehenderit totam excepturi, maiores fuga voluptate nobis adipisci, impedit officiis debitis quasi repellendus aspernatur exercitationem magni dolorum.
+        .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sed ducimus natus quaerat reprehenderit totam excepturi, maiores fuga voluptate nobis adipisci, impedit officiis debitis quasi repellendus aspernatur exercitationem magni dolorum.
+        .connector: .branch.join.deep: .connector
+        .connector: .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur eaque cupiditate corrupti perferendis minima labore voluptatem voluptates aperiam magnam? Recusandae qui temporibus ab provident eius quaerat necessitatibus, soluta iure iste.
+        .connector: .branch.split.deep: .connector
+        .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sed ducimus natus quaerat reprehenderit totam excepturi, maiores fuga voluptate nobis adipisci, impedit officiis debitis quasi repellendus aspernatur exercitationem magni dolorum.
+        .connector: .connector: .branch.join.deep
+        .connector: .connector: .branch.join: .empty: .connector
+        .event: .connector: .connector: .connector Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla soluta explicabo, impedit necessitatibus distinctio sit quis consequuntur. Adipisci esse, qui, impedit, sit quia cumque architecto eius sunt a dolor atque?
+        .connector: .connector: .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur eaque cupiditate corrupti perferendis minima labore voluptatem voluptates aperiam magnam? Recusandae qui temporibus ab provident eius quaerat necessitatibus, soluta iure iste.
+        .connector: .connector: .branch.split.deep: .connector
+        .connector: .connector: .event Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo perspiciatis mollitia ex nisi cumque expedita sed tenetur ipsum, qui ad ut delectus accusamus dignissimos temporibus voluptatum consequuntur itaque molestiae obcaecati?
+        .connector: .event: .connector Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla soluta explicabo, impedit necessitatibus distinctio sit quis consequuntur. Adipisci esse, qui, impedit, sit quia cumque architecto eius sunt a dolor atque?
+        .connector: .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, itaque fugiat velit temporibus, obcaecati saepe adipisci eligendi similique assumenda minima voluptatum veritatis, quos maiores nobis! Maiores voluptates modi accusantium illum.
+        .connector: .connector: .branch.split
+        .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, vel iusto reiciendis consectetur amet similique veniam reprehenderit nostrum voluptate, hic explicabo soluta ad perspiciatis ipsum! Fuga mollitia enim nulla distinctio.
+        .connector: .event Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ullam odio beatae facere enim, aliquid expedita error blanditiis, id omnis, aperiam sunt! Pariatur architecto doloribus et harum vitae iusto veniam.
+        .connector: .branch.split
+        .event Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt voluptatum est rerum qui beatae, corrupti necessitatibus porro laudantium aut dolor at, quibusdam, odit neque! Error facere ipsa recusandae consequuntur laboriosam!
+      div(uk-grid class="uk-child-width-1-2@m")
+        div
+          #knowledge.uk-tile.uk-tile-muted.uk-padding-small
+            h4 Programming Experience
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right(class="uk-width-1-2 uk-width-medium@s") Confident in
+              .uk-width-expand
+                div JavaScript
+                div Java
+                div C
+                div Rust
+                div CSS, Sass/SCSS, Less
+                div Responsive design
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right(class="uk-width-1-2 uk-width-medium@s") Comfortable with
+              .uk-width-expand
+                div C++ (and Arduino)
+                div Processing
+                div Shell scripting
+                div GLSL Shaders
+                div LaTeX
+                div Android and iOS development
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right(class="uk-width-1-2 uk-width-medium@s") Learning
+              .uk-width-expand Unity (C#)
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right(class="uk-width-1-2 uk-width-medium@s") Worked briefly with
+              .uk-width-expand
+                div Objective-C
+                div Visual Basic
+                div MATLAB
+                div PHP
+                div Ruby
