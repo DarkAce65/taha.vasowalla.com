@@ -19,26 +19,26 @@ body {
 }
 
 body {
-  font-size: 16px;
+  font-size: $base-font-size;
   font-family: $base-font-stack;
   background: black;
 }
 
 #overlayContainer {
   position: absolute;
-  bottom: 0;
+  bottom: 1em;
   right: 0;
   text-align: center;
 }
 
 #banner {
-  font-size: 4em;
+  font-size: 2.75em;
   font-family: $serif-font-stack;
   color: $dim-text-color;
 }
 
 #menu {
-  font-size: 18px;
+  font-size: 1.35em;
 
   a {
     text-decoration: none;
@@ -46,8 +46,7 @@ body {
 
   #primary,
   #secondary {
-    height: 32px;
-    margin-bottom: 8px;
+    height: calc(2em + 1px);
 
     .menu-item {
       @include vertical-align;
@@ -88,11 +87,6 @@ body {
       &.active > span {
         color: $bright-text-color;
         border-color: $red;
-        padding: 0 50px;
-
-        &::after {
-          opacity: 0;
-        }
       }
     }
   }
@@ -140,41 +134,31 @@ body {
   }
 }
 
-@media (min-width: $breakpoint-medium) {
-  #menu {
-    font-size: 20px;
-  }
-
-  #menu #primary,
-  #menu #secondary {
-    height: 36px;
-  }
-}
-
-@media (max-width: $breakpoint-small-max) {
+@media (min-width: $breakpoint-small) {
   #overlayContainer {
-    bottom: 10px;
+    bottom: 0;
   }
 
   #banner {
-    font-size: 2.625em;
+    font-size: 4em;
   }
 
   #menu #primary,
   #menu #secondary {
-    height: 40px;
+    height: calc(1.2em + 1px);
+    margin-bottom: 0.5em;
   }
 
   #menu #primary .menu-item.active span {
-    padding: 0;
+    padding: 0 50px;
 
     &::after {
-      opacity: 1;
+      opacity: 0;
     }
   }
 }
 
-@media (max-width: $breakpoint-xsmall-max) {
+@media (max-width: $breakpoint-small-max) {
   #overlayContainer {
     left: 0;
   }
