@@ -8,14 +8,22 @@ $timeline-gap: 20px;
 $timeline-width: 2px;
 $timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
+$timeline-background: $muted;
+
+#timeline {
+  z-index: 1;
+}
 
 .padding-bottom {
-  padding-bottom: $global-small-margin;
+  padding-bottom: $global-margin;
+}
+
+.spacer {
+  min-height: $global-margin;
 }
 
 .empty {
   position: relative;
-  min-height: $timeline-no-content-height;
   height: 100%;
   padding-left: $timeline-gap;
   border-left: $timeline-width solid transparent;
@@ -28,6 +36,7 @@ $timeline-no-content-height: $timeline-gap + $timeline-width;
 
 .trail {
   @extend .connector;
+  min-height: $timeline-no-content-height;
   border-left-style: dashed;
 }
 
@@ -42,8 +51,8 @@ $timeline-no-content-height: $timeline-gap + $timeline-width;
     width: $timeline-event-size * 4;
     height: $timeline-event-size;
     background: $white;
-    border-top: $timeline-event-size solid $black;
-    border-bottom: $timeline-event-size solid $black;
+    border-top: $timeline-event-size solid $timeline-background;
+    border-bottom: $timeline-event-size solid $timeline-background;
   }
 }
 
