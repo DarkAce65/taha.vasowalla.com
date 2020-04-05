@@ -105,6 +105,7 @@ module.exports = {
         loader: 'file-loader',
         options: { name: 'lib/assets/[name].[ext]', esModule: false },
       },
+      { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
       { test: /\.(glsl|txt)$/, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
