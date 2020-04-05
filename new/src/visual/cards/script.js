@@ -26,7 +26,7 @@ const resize = () => {
   cardHeight = Math.min(90, Math.floor(((height - 20) * 3) / 20));
   cardWidth = Math.min(50, Math.floor(width / 20));
 
-  document.querySelectorAll('.card').forEach(element => {
+  document.querySelectorAll('.card').forEach((element) => {
     element.style.height = `${cardHeight}px`;
     element.style.width = `${cardWidth}px`;
     element.style.marginTop = `${-cardHeight / 2}px`;
@@ -42,7 +42,7 @@ const pile = (elements, offset = 0) => {
     duration: 1,
     stagger: delay,
     x: width / 4,
-    y: index => height - (index + offset) / 2,
+    y: (index) => height - (index + offset) / 2,
     z: 0,
     rotationX: 90,
     rotationY: 0,
@@ -134,7 +134,7 @@ const fan = (elements, offset = 0) => {
 };
 
 // Drop to floor
-const drop = elements => {
+const drop = (elements) => {
   current = 'drop';
 
   gsap.to(elements, {
@@ -163,7 +163,7 @@ const drop = elements => {
 };
 
 // Random orientation
-const randomPosition = elements => {
+const randomPosition = (elements) => {
   current = 'random';
 
   const s = (width - cardHeight * 2) / 2;
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.to('.card', { overwrite: 'auto', duration: 2, opacity: cardOpacity });
   });
 
-  document.querySelectorAll('a#add, button#add').forEach(element => {
+  document.querySelectorAll('a#add, button#add').forEach((element) => {
     element.addEventListener('click', () => {
       // Add 30 cards
       cardCount += 30;
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to('.card:not(.dead)', {
           duration: 1,
           stagger: 0.01,
-          backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
+          backgroundColor: (i) => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
         })
       );
 
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('a#remove, button#remove').forEach(removeButton =>
+  document.querySelectorAll('a#remove, button#remove').forEach((removeButton) =>
     removeButton.addEventListener('click', () => {
       // Remove 30 cards
       if (cardCount > 60) {
@@ -272,17 +272,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const killedElements = shuffle(
           Array.from(document.querySelectorAll('.card:not(.dead)'))
         ).slice(0, 30);
-        killedElements.forEach(el => el.classList.add('dead'));
+        killedElements.forEach((el) => el.classList.add('dead'));
         gsap
           .to(killedElements, { duration: 0.6, rotationX: 0, rotationY: 0, rotationZ: 0 })
           .then(() => gsap.to(killedElements, { duration: 1, ease: 'power1.in', y: 0, opacity: 0 }))
           .then(() => {
-            killedElements.forEach(el => el.parentNode.removeChild(el));
+            killedElements.forEach((el) => el.parentNode.removeChild(el));
             document.querySelector('#cardCount').innerHTML = cardCount;
             gsap.to('.card:not(.dead)', {
               duration: 1,
               stagger: 0.01,
-              backgroundColor: i => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
+              backgroundColor: (i) => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
             });
           });
 
@@ -309,35 +309,35 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   );
 
-  document.querySelectorAll('a#pile, button#pile').forEach(pileButton =>
+  document.querySelectorAll('a#pile, button#pile').forEach((pileButton) =>
     pileButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       pile(document.querySelectorAll('.card:not(.dead)')); // Position cards
     })
   );
 
-  document.querySelectorAll('a#cylinder, button#cylinder').forEach(cylinderButton =>
+  document.querySelectorAll('a#cylinder, button#cylinder').forEach((cylinderButton) =>
     cylinderButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       cylinder(document.querySelectorAll('.card:not(.dead)'));
     })
   );
 
-  document.querySelectorAll('a#sphere, button#sphere').forEach(sphereButton =>
+  document.querySelectorAll('a#sphere, button#sphere').forEach((sphereButton) =>
     sphereButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       sphere(document.querySelectorAll('.card:not(.dead)'));
     })
   );
 
-  document.querySelectorAll('a#fan, button#fan').forEach(fanButton =>
+  document.querySelectorAll('a#fan, button#fan').forEach((fanButton) =>
     fanButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       fan(document.querySelectorAll('.card:not(.dead)'));
     })
   );
 
-  document.querySelectorAll('a#drop, button#drop').forEach(dropButton =>
+  document.querySelectorAll('a#drop, button#drop').forEach((dropButton) =>
     dropButton.addEventListener('click', () => {
       if (current !== 'drop') {
         gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   );
 
-  document.querySelectorAll('a#random, button#random').forEach(randomButton =>
+  document.querySelectorAll('a#random, button#random').forEach((randomButton) =>
     randomButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       randomPosition(shuffle(Array.from(document.querySelectorAll('.card:not(.dead)'))));

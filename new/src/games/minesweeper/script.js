@@ -17,7 +17,7 @@ const initCustomGameModal = () => {
 
   const initializeCustomButton = document.querySelector('#initialize');
   const minesInput = new ValidatedInput('#mines', {
-    validator: input => {
+    validator: (input) => {
       const parsedMines = Math.floor(parseFloat(input));
       if (parsedMines < 10) {
         return { type: 'error', message: 'Number of mines must be at least 10' };
@@ -42,7 +42,7 @@ const initCustomGameModal = () => {
     },
   });
   const rowsInput = new ValidatedInput('#rows', {
-    validator: input => {
+    validator: (input) => {
       const parsedRows = Math.floor(parseFloat(input));
       if (parsedRows < 9 || 24 < parsedRows) {
         return { type: 'error', message: 'Number of rows must be between 9 and 24' };
@@ -65,7 +65,7 @@ const initCustomGameModal = () => {
     },
   });
   const colsInput = new ValidatedInput('#cols', {
-    validator: input => {
+    validator: (input) => {
       const parsedCols = Math.floor(parseFloat(input));
       if (parsedCols < 9 || 30 < parsedCols) {
         return { type: 'error', message: 'Number of columns must be between 9 and 30' };
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
   const scores = Cookie.getJSON('scores') || {};
-  Object.keys(presets).forEach(difficulty => buildHighscoreTable(difficulty, scores[difficulty]));
+  Object.keys(presets).forEach((difficulty) => buildHighscoreTable(difficulty, scores[difficulty]));
 
   const highscoreNameInput = getEl('#highscoreModal #name');
   let currentDifficulty = 'beginner';
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   minefield.initialize(currentDifficulty);
 
   const tab = UIkit.tab('#highscoreTabs');
-  document.querySelector('#customTab').addEventListener('click', ev => {
+  document.querySelector('#customTab').addEventListener('click', (ev) => {
     if (tab.index() === 3) {
       return;
     }
@@ -182,14 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ev.stopPropagation();
 
     makeOptionsPromise()
-      .then(options => {
+      .then((options) => {
         tab.show(3);
         currentDifficulty = 'custom';
         minefield.initialize(options);
       })
       .catch(() => {});
   });
-  document.querySelector('#highscores').addEventListener('show', ev => {
+  document.querySelector('#highscores').addEventListener('show', (ev) => {
     const { difficulty } = ev.target.dataset;
     if (difficulty === 'custom') {
       return;
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const game = document.querySelector('#game');
-  const resize = size => {
+  const resize = (size) => {
     switch (size) {
       case 'small':
         game.classList.remove('size-medium', 'size-large');
@@ -221,9 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
     Cookie.set('scale', size);
   };
 
-  document.querySelector('#scale').addEventListener('change', ev => resize(ev.target.value));
+  document.querySelector('#scale').addEventListener('change', (ev) => resize(ev.target.value));
 
-  Object.keys(presets).forEach(difficulty =>
+  Object.keys(presets).forEach((difficulty) =>
     document
       .querySelector(`.scoreTable[data-difficulty="${difficulty}"] .reset`)
       .addEventListener('click', () => {
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#recustomizeGame').addEventListener('click', () =>
     makeOptionsPromise()
-      .then(options => {
+      .then((options) => {
         currentDifficulty = 'custom';
         minefield.initialize(options);
       })

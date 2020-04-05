@@ -19,7 +19,7 @@ const getModalValues = (modalEl, submitButton, inputEls) => {
   const onSubmit = () => {
     removeListeners();
     if (inputEls) {
-      const inputValues = inputEls.map(input => getElOrThrow(input, modalEl).value);
+      const inputValues = inputEls.map((input) => getElOrThrow(input, modalEl).value);
       deferred.resolve(inputValues);
     } else {
       deferred.resolve();

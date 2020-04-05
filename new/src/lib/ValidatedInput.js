@@ -25,8 +25,8 @@ class ValidatedInput {
       mode: null,
     });
 
-    ['beforeshow', 'show', 'shown', 'beforehide', 'hide', 'hidden'].forEach(eventType =>
-      this._validationMessage.addEventListener(eventType, ev => {
+    ['beforeshow', 'show', 'shown', 'beforehide', 'hide', 'hidden'].forEach((eventType) =>
+      this._validationMessage.addEventListener(eventType, (ev) => {
         if (ev.target === this._validationMessage) {
           ev.stopPropagation();
         }

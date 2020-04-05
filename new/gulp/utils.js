@@ -6,7 +6,7 @@ const sassGraph = require('sass-graph');
 const through2 = require('through2');
 const Vinyl = require('vinyl');
 
-const endStream = function() {
+const endStream = function () {
   this.emit('end');
 };
 
@@ -21,7 +21,7 @@ const flattenObject = (object, root = '') =>
     return obj;
   }, {});
 
-const debounceStream = ({ delay = 100, cacheKeyFn = file => file.path } = {}) => {
+const debounceStream = ({ delay = 100, cacheKeyFn = (file) => file.path } = {}) => {
   const cache = {};
 
   return new Duplex({
@@ -56,7 +56,7 @@ const debounceStream = ({ delay = 100, cacheKeyFn = file => file.path } = {}) =>
 };
 
 const handleSassImports = ({ firstRun } = {}) =>
-  through2.obj(function(file, _, callback) {
+  through2.obj(function (file, _, callback) {
     // Skip dependency traversal for first run
     if (firstRun) {
       if (/^_/.test(file.basename)) {
@@ -85,11 +85,11 @@ const handleSassImports = ({ firstRun } = {}) =>
         paths.push(activePath);
       }
 
-      workingPaths.push(...imports.filter(p => !processedPaths.has(p)));
+      workingPaths.push(...imports.filter((p) => !processedPaths.has(p)));
       processedPaths.add(activePath);
     }
 
-    paths.forEach(p => {
+    paths.forEach((p) => {
       const stat = fs.statSync(p);
       const contents = fs.readFileSync(p);
 

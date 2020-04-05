@@ -54,16 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const object = new Mesh(objectGeometry, material);
   scene.add(object);
 
-  function render() {
+  const render = () => {
     renderer.render(scene, camera);
     controls.update();
 
     const delta = clock.getDelta();
     uniforms.u_time.value += delta * 0.6;
     requestAnimationFrame(render);
-  }
+  };
 
-  loader.load('../../assets/textures/fireball.png', texture => {
+  loader.load('../../assets/textures/fireball.png', (texture) => {
     uniforms.u_textureMap.value = texture;
   });
   render();

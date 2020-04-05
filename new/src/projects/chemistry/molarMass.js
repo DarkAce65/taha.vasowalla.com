@@ -8,7 +8,7 @@ const molarMassTable = periodicTable.elements.reduce(
   {}
 );
 
-const validateFormula = formula => {
+const validateFormula = (formula) => {
   if (formula.length === 0) {
     return;
   }
@@ -45,7 +45,7 @@ const validateFormula = formula => {
   }
 
   const invalidElements = elements.filter(
-    value => !Object.prototype.hasOwnProperty.call(molarMassTable, value)
+    (value) => !Object.prototype.hasOwnProperty.call(molarMassTable, value)
   );
   if (invalidElements.length === 1) {
     throw new Error(`Unknown elements. ${invalidElements[0]} is not a recognized element symbol.`);
@@ -62,13 +62,10 @@ const validateFormula = formula => {
   }
 };
 
-const formulaToLatex = formula =>
-  formula
-    .replace(/\(/g, '\\left(')
-    .replace(/\)/g, '\\right)')
-    .replace(/(\d+)/g, '_{$1}');
+const formulaToLatex = (formula) =>
+  formula.replace(/\(/g, '\\left(').replace(/\)/g, '\\right)').replace(/(\d+)/g, '_{$1}');
 
-const parseFormula = formula => {
+const parseFormula = (formula) => {
   validateFormula(formula);
 
   const tokens = formula.match(/([A-Z][a-z]*|\d+|\(|\))/g);
@@ -124,7 +121,7 @@ const parseFormula = formula => {
 
   return {
     elements: elements
-      .map(element => {
+      .map((element) => {
         element.massPercent = (element.massInFormula / totalMass) * 100;
         return element;
       })

@@ -35,7 +35,7 @@ const initMolarMass = () => {
     formulaAndError.show();
   };
 
-  input.addEventListener('input', function() {
+  input.addEventListener('input', function () {
     const formula = this.value.replace(/\s+/g, '');
     if (formula.length === 0) {
       reset();
@@ -109,7 +109,7 @@ const initDilution = () => {
     }
   });
 
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.addEventListener('input', () => {
       recomputeTarget();
     });
@@ -129,7 +129,7 @@ const initDilution = () => {
     try {
       const computed = compute(
         inputs,
-        units.map(unit => unit.value),
+        units.map((unit) => unit.value),
         inputs.indexOf(computeTarget),
         computeDilution
       );
@@ -140,7 +140,7 @@ const initDilution = () => {
   });
 
   document.querySelector('#dilutionClear').addEventListener('click', () => {
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.value = '';
     });
   });
@@ -168,7 +168,7 @@ const initIdealGasLaw = () => {
     }
   });
 
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.addEventListener('input', () => {
       recomputeTarget();
     });
@@ -188,7 +188,7 @@ const initIdealGasLaw = () => {
     try {
       const computed = compute(
         inputs,
-        units.map(unit => unit.value),
+        units.map((unit) => unit.value),
         inputs.indexOf(computeTarget),
         computeIdealGasLaw
       );
@@ -199,7 +199,7 @@ const initIdealGasLaw = () => {
   });
 
   document.querySelector('#idealGasLawClear').addEventListener('click', () => {
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.value = '';
     });
   });
@@ -268,7 +268,7 @@ const initSpecificHeat = () => {
     }
   });
 
-  [q, m, cp, t, tf, ti].forEach(input => {
+  [q, m, cp, t, tf, ti].forEach((input) => {
     input.addEventListener('input', () => {
       recomputeTarget();
     });
@@ -288,7 +288,7 @@ const initSpecificHeat = () => {
     try {
       const computed = compute(
         inputs,
-        units.map(unit => unit.value),
+        units.map((unit) => unit.value),
         inputs.indexOf(computeTarget),
         computeSpecificHeat.bind(this, tempInputMethod)
       );
@@ -299,7 +299,7 @@ const initSpecificHeat = () => {
   });
 
   document.querySelector('#specificHeatClear').addEventListener('click', () => {
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.value = '';
     });
   });

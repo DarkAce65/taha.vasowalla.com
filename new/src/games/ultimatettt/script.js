@@ -20,7 +20,7 @@ for (let boardRow = 0; boardRow < 3; boardRow++) {
   }
 }
 
-const isBoardWon = board => {
+const isBoardWon = (board) => {
   for (let i = 0; i < 3; i++) {
     const firstOfRow = board[i][0];
     const firstOfColumn = board[0][i];
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     turnIndicator.classList.remove(player2Class, player1Class);
     turnIndicator.classList.add(player === 0 ? player1Class : player2Class);
 
-    cells.forEach(cell => cell.classList.add('possible'));
+    cells.forEach((cell) => cell.classList.add('possible'));
   };
 
   const pickCell = (p, { boardRow, boardCol, row, col }) => {
@@ -111,10 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .classList.add(p === 0 ? player1Class : player2Class);
     }
 
-    if (isBoardWon(state.map(stateRow => stateRow.map(stateCol => stateCol.wonBy)))) {
+    if (isBoardWon(state.map((stateRow) => stateRow.map((stateCol) => stateCol.wonBy)))) {
       document
         .querySelectorAll('.cell.possible')
-        .forEach(element => element.classList.remove('possible'));
+        .forEach((element) => element.classList.remove('possible'));
       winner = p;
       UIkit.notification(`${winner === 0 ? 'Red' : 'Blue'} has won!`, 'success');
       return;
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .querySelectorAll(
           `.cell.possible, .cell[data-board-row="${row}"][data-board-column="${col}"]`
         )
-        .forEach(element => {
+        .forEach((element) => {
           if (
             element.dataset.boardRow === `${row}` &&
             element.dataset.boardColumn === `${col}` &&
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
     } else {
-      document.querySelectorAll('.cell').forEach(cell => {
+      document.querySelectorAll('.cell').forEach((cell) => {
         let { boardRow: boardR, boardColumn: boardC, row: r, column: c } = cell.dataset;
         boardR = parseInt(boardR, 10);
         boardC = parseInt(boardC, 10);
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   resetState();
 
-  cells.forEach(cell => {
+  cells.forEach((cell) => {
     cell.addEventListener('click', () => {
       let { boardRow, boardColumn: boardCol, row, column: col } = cell.dataset;
       if (

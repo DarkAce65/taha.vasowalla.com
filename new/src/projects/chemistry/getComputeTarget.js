@@ -1,4 +1,4 @@
-export default inputs => {
+export default (inputs) => {
   let computeTarget = null;
   for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].value.length === 0) {

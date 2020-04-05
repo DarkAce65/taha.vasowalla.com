@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const wordInput = new ValidatedInput('#wordInput', {
     validationMessageElement: '#error',
-    validator: input => {
+    validator: (input) => {
       const word = input.trim();
       if (/[^A-Za-z]/.test(word)) {
         return { type: 'error' };
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   });
 
-  const setWord = word => {
+  const setWord = (word) => {
     hangmanWord = word.toUpperCase(); // Convert word to uppercase
     guessedLetters = []; // Clear guessed letters
     guessesLeft = 6; // Set 6 guesses
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wordDisplayEl.innerHTML = '';
     wordDisplayEl.classList.remove('lost');
     guessedLettersEl.innerHTML = '';
-    document.querySelectorAll('.letter-tile').forEach(guessXs => {
+    document.querySelectorAll('.letter-tile').forEach((guessXs) => {
       guessXs.classList.remove('correct', 'incorrect');
     });
     for (let i = 0; i < word.length; i++) {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .to('#man path, #eyes path', { duration: 0.3, ...makeDashOffsetParams({ progress: 0 }) });
   };
 
-  const guess = letter => {
+  const guess = (letter) => {
     guessInput.value = '';
     if (letter.match(/[^A-Za-z]/)) {
       // Invalid guess
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   import(/* webpackChunkName: "wordlist" */ './wordlist.txt').then(({ default: words }) => {
-    randomWords = words.split('\n').map(word => word.trim());
+    randomWords = words.split('\n').map((word) => word.trim());
   });
 
   gsap.fromTo('#base, #gallows', makeDashOffsetParams({ progress: 0 }), {
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ...makeDashOffsetParams({ progress: 1 }),
   });
 
-  document.addEventListener('keypress', evt => {
+  document.addEventListener('keypress', (evt) => {
     const key = evt.key || evt.keyCode;
     // Shift + R sets random word
     if (key === 'R' || (key === 82 && evt.shiftKey)) {
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  wordInput.input.addEventListener('keypress', evt => {
+  wordInput.input.addEventListener('keypress', (evt) => {
     const key = evt.key || evt.keyCode;
     if (key === 'Enter' || key === 13) {
       // Enter key triggers submit button
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     evt.stopPropagation();
   });
 
-  guessInput.addEventListener('keypress', evt => {
+  guessInput.addEventListener('keypress', (evt) => {
     const key = evt.key || evt.keyCode;
     if (key === 'Enter' || key === 13) {
       // Enter key triggers submit button
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.querySelectorAll('.letter-tile').forEach(letterTile => {
+  document.querySelectorAll('.letter-tile').forEach((letterTile) => {
     letterTile.addEventListener('click', () => {
       const classList = letterTile.classList;
       if (

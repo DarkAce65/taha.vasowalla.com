@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
   viewportBounds.maxX += 50;
   viewportBounds.maxY += 50;
 
-  const setCamera = position => {
+  const setCamera = (position) => {
     let x = 0;
     let y = 0;
     let z = 0;
@@ -185,8 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
   render();
   setCamera('overview');
 
-  document.querySelectorAll('.view').forEach(view =>
-    view.addEventListener('click', e => {
+  document.querySelectorAll('.view').forEach((view) =>
+    view.addEventListener('click', (e) => {
       setCamera(e.target.id);
     })
   );

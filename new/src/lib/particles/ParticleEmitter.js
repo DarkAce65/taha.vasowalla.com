@@ -73,7 +73,9 @@ class ParticleEmitter extends Object3D {
   makeParticleColorArray() {
     const { r, g, b } = this.color;
 
-    return [r, g, b].map(v => _Math.clamp(v + (Math.random() - 0.5) * this.colorRandomness, 0, 1));
+    return [r, g, b].map((v) =>
+      _Math.clamp(v + (Math.random() - 0.5) * this.colorRandomness, 0, 1)
+    );
   }
 
   update(timeElapsed = 0) {
