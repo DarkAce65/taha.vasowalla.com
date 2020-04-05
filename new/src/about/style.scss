@@ -1,12 +1,17 @@
 @import '../partials/colors';
+@import '../partials/uikit-overrides/variables';
 
 $rt2: 1.41421356237;
 $rt5: 2.2360679775;
 
 $timeline-gap: 20px;
 $timeline-width: 2px;
-$timeline-event-size: 6px;
+$timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
+
+.padding-bottom {
+  padding-bottom: $global-small-margin;
+}
 
 .empty {
   position: relative;
@@ -22,7 +27,7 @@ $timeline-no-content-height: $timeline-gap + $timeline-width;
 
 .trail {
   @extend .connector;
-  height: $timeline-no-content-height;
+  min-height: $timeline-no-content-height;
   border-left-style: dashed;
 }
 
@@ -33,10 +38,12 @@ $timeline-no-content-height: $timeline-gap + $timeline-width;
     content: '';
     position: absolute;
     top: 0.5em;
-    left: -$timeline-width / 2 - $timeline-event-size / 2;
+    left: -$timeline-width / 2 - $timeline-event-size;
+    width: $timeline-event-size * 4;
+    height: $timeline-event-size;
     background: $white;
-    width: $timeline-event-size * 2;
-    height: $timeline-event-size / 2;
+    border-top: $timeline-event-size solid $black;
+    border-bottom: $timeline-event-size solid $black;
   }
 }
 
