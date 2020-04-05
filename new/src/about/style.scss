@@ -6,7 +6,7 @@ $rt5: 2.2360679775;
 $timeline-gap: 20px;
 $timeline-width: 2px;
 $timeline-event-size: 6px;
-$timeline-width-and-gap: $timeline-gap + $timeline-width;
+$timeline-no-content-height: $timeline-gap + $timeline-width;
 
 .empty {
   position: relative;
@@ -17,13 +17,19 @@ $timeline-width-and-gap: $timeline-gap + $timeline-width;
 
 .connector {
   @extend .empty;
-  border-color: $red;
+  border-left-color: $red;
+}
+
+.trail {
+  @extend .connector;
+  height: $timeline-no-content-height;
+  border-left-style: dashed;
 }
 
 .event {
   @extend .connector;
 
-  &::after {
+  &::before {
     content: '';
     position: absolute;
     top: 0.5em;
@@ -36,9 +42,9 @@ $timeline-width-and-gap: $timeline-gap + $timeline-width;
 
 .branch {
   position: relative;
-  height: $timeline-width-and-gap;
-  margin-left: -$timeline-width-and-gap;
-  padding-left: $timeline-width-and-gap;
+  height: $timeline-no-content-height;
+  margin-left: -$timeline-no-content-height;
+  padding-left: $timeline-no-content-height;
 
   &::before {
     content: '';
@@ -46,7 +52,7 @@ $timeline-width-and-gap: $timeline-gap + $timeline-width;
     left: 0;
     background: $red;
     width: max(1px, ceil($timeline-width / 1.5));
-    height: $timeline-width-and-gap * $rt2 + $timeline-width/2;
+    height: $timeline-no-content-height * $rt2 + $timeline-width / 2;
   }
 
   &.split::before {
@@ -63,7 +69,7 @@ $timeline-width-and-gap: $timeline-gap + $timeline-width;
 
   &.deep {
     &::before {
-      height: $timeline-width-and-gap * $rt5 + $timeline-width/2;
+      height: $timeline-no-content-height * $rt5 + $timeline-width / 2;
     }
 
     &.split::before {
