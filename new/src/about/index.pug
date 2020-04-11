@@ -11,17 +11,17 @@ html
 
   body
     +container(["about"])
-      .uk-card.uk-card-default.uk-grid-collapse.uk-flex-center.uk-margin(uk-grid).uk-grid-match
-        .uk-card-media-left(class="uk-width-medium uk-width-1-3@s uk-width-1-4@m")
+      .uk-flex-center(uk-grid class="uk-child-width-1-2@m")
+        div(class="uk-width-large uk-width-1-3@s uk-width-1-4@m")
           img(data-src="../assets/img/profile.jpg" data-width="528" data-height="528" style={width: "100%"} uk-img)
-        div(class="uk-width-expand@s")
-          .uk-card-body(class="uk-width-expand@s uk-text-center uk-text-left@s")
-            h1.uk-card-title Taha Vasowalla
+        .uk-grid-item-match(class="uk-width-expand@s")
+          .uk-card.uk-card-small.uk-card-body.uk-card-default(class="uk-width-expand@s uk-text-center uk-text-left@s")
+            h2 Taha Vasowalla
             a.uk-link(href=require("./Resume - Taha Vasowalla.pdf")) Resume.pdf
             p A self-taught software developer with a strong background in web based programming languages and a passion to learn. Very patient and willing to work out robust solutions for challenging problems.
       div(uk-grid class="uk-child-width-1-2@m")
-        div
-          #knowledge.uk-tile.uk-tile-muted.uk-padding-small
+        .uk-grid-item-match
+          #knowledge.uk-card.uk-card-small.uk-card-body.uk-card-default
             h4 Programming Experience
             .uk-grid-small.uk-grid-divider(uk-grid)
               .uk-text-right(class="uk-width-1-2 uk-width-medium@s") Confident in
@@ -52,8 +52,15 @@ html
                 div MATLAB
                 div PHP
                 div Ruby
+        .uk-grid-item-match
+          #other.uk-card.uk-card-small.uk-card-body.uk-card-default
+            h4 Other interests
+            ul.uk-list
+              li Piano
+              li Violin
+              li Origami
         .uk-width-1-1
-          #timeline.uk-tile.uk-tile-muted.uk-padding-small
+          #timeline.uk-card.uk-card-small.uk-card-body.uk-card-default
             .trail: .trail(data-category="education")
 
             .connector: .event(data-category="education"): .padding-bottom
