@@ -8,10 +8,24 @@ $timeline-gap: 20px;
 $timeline-width: 2px;
 $timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
+
 $timeline-background: $muted;
+$timeline-color: $lightgray;
+$timeline-root-color: $darkgray;
+$timeline-work-color: $purple;
+$timeline-education-color: $red;
 
 #timeline {
   z-index: 1;
+
+  & > .connector,
+  & > .event {
+    border-left-color: $timeline-root-color;
+  }
+
+  & > .branch {
+    color: $timeline-root-color;
+  }
 }
 
 .padding-bottom {
@@ -31,7 +45,15 @@ $timeline-background: $muted;
 
 .connector {
   @extend .empty;
-  border-left-color: $red;
+  border-left-color: $timeline-color;
+
+  &[data-category='education'] {
+    border-left-color: $timeline-education-color;
+  }
+
+  &[data-category='work'] {
+    border-left-color: $timeline-work-color;
+  }
 }
 
 .trail {
@@ -62,7 +84,15 @@ $timeline-background: $muted;
   height: $timeline-no-content-height;
   margin-left: -$timeline-no-content-height;
   padding-left: $timeline-no-content-height;
-  color: $red;
+  color: $timeline-color;
+
+  &[data-category='education'] {
+    color: $timeline-education-color;
+  }
+
+  &[data-category='work'] {
+    color: $timeline-work-color;
+  }
 
   &::before {
     content: '';

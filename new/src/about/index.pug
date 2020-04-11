@@ -54,69 +54,90 @@ html
                 div Ruby
         .uk-width-1-1
           #timeline.uk-tile.uk-tile-muted.uk-padding-small
-            .trail
+            .trail: .trail(data-category="education")
 
-            .connector: .branch.join
-            .connector: .event
+            .connector: .event(data-category="education"): .padding-bottom
+              .uk-text-small Fall, 2017
+              | Founded the #[a.uk-link(href="https://nuvr.github.io/" target="_blank") Virtual Reality club]
+
+            .connector: .connector(data-category="education"): .padding-bottom.uk-text-emphasis 2017
+
+            .connector: .event(data-category="education")
+              .uk-text-small September, 2016
+              | Enrolled at Northeastern University
+            .connector: .branch.split(data-category="education")
+
+            .connector: .branch.join(data-category="education")
+            .connector: .event(data-category="education")
               .uk-text-small June 6th, 2016
               | Graduated Andover High School
-            .connector: .connector: .branch.join
-            .connector: .connector: .event: .padding-bottom
+            .connector: .connector(data-category="education"): .branch.join(data-category="education")
+            .connector: .connector(data-category="education"): .event(data-category="education"): .padding-bottom
               .uk-text-small May 25th, 2016
               | Presented the SARndbox at the international #[a.uk-link(href="http://linc2016.mit.edu/" target="_blank") LINC Conference] hosted by MIT and became the first high school students to be invited to the LINC Conference
-            .connector: .connector: .event: .padding-bottom
+            .connector: .connector(data-category="education"): .event(data-category="education"): .padding-bottom
               .uk-text-small April 16th, 2016
               | Presented the SARndbox at the #[a.uk-link(href="https://www.cambridgesciencefestival.org/" target="_blank") Cambridge Science Festival]
-            .connector: .connector: .event
+            .connector: .connector(data-category="education"): .event(data-category="education")
               .uk-text-small January 22nd, 2016
-              | Participated in the #[a.uk-link(href="http://learnlaunch.org/conference-2016/classroomofthefuture/" target="_blank") LearnLaunch] conference co-hosted by Harvard with the Andover Innovation Lab and our build of the SARndbox
-            .connector: .connector: .branch.split
+              | Participated in the #[a.uk-link(href="http://learnlaunch.org/conference-2016/classroomofthefuture/" target="_blank") LearnLaunch] conference co-hosted by Harvard with the Andover Innovation Lab and our build of the #[a.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/" target="_blank") SARndbox]
+            .connector: .connector(data-category="education"): .branch.split(data-category="education")
 
-            .connector: .branch.join.deep: .connector
-            .connector: .connector: .event
-              .uk-text-small July - August, 2015
-              | Worked as an iOS developer at HHBrown
-            .connector: .branch.split.deep: .connector
+            .connector: .connector(data-category="education"): .uk-text-emphasis 2016
 
-            .connector: .connector: .trail
-            .connector: .connector: .event
+            .connector: .branch.join.deep(data-category="work"): .connector(data-category="education")
+
+            .connector: .connector(data-category="education"): .connector(data-category="work"): .trail
+            .connector: .connector(data-category="education"): .connector(data-category="work"): .event
               .uk-text-small July 16th, 2015
               | Attained rank of Eagle Scout
-            .connector: .connector: .trail
-            .connector: .connector: .spacer
+            .connector: .connector(data-category="education"): .connector(data-category="work"): .trail
+            .connector: .connector(data-category="education"): .connector(data-category="work"): .spacer
 
-            .connector: .event: .padding-bottom
+            .connector: .connector(data-category="education"): .event(data-category="work")
+              .uk-text-small Summer, 2015
+              | Worked as an iOS developer at HHBrown
+            .connector: .branch.split.deep(data-category="work"): .connector(data-category="education")
+
+            .connector: .connector(data-category="education"): .padding-bottom.uk-text-emphasis 2015
+
+            .connector: .event(data-category="education"): .padding-bottom
               .uk-text-small November 5th, 2014
               | Inducted into the National Honor Society
-            .event: .connector
+            .event: .connector(data-category="education")
               .uk-text-small August 9th, 2014
               | Won Best Web App Award with Eli Gukovsky at a hackathon hosted by HHBrown
 
-            .connector: .branch.join.deep: .connector
-            .connector: .connector: .event
+            .connector: .branch.join.deep(data-category="work"): .connector(data-category="education")
+            .connector: .connector(data-category="education"): .event(data-category="work")
               .uk-text-small June, 2014
               div Volunteered at Andover Historical Society
               | Helped complete historical research on artifacts in the Historical Society's inventory
-            .connector: .branch.split.deep: .connector
+            .connector: .branch.split.deep(data-category="work"): .connector(data-category="education")
 
-            .connector: .event: .padding-bottom
+            .connector: .connector(data-category="education"): .padding-bottom.uk-text-emphasis 2013-2014
+
+            .connector: .event(data-category="education"): .padding-bottom
               .uk-text-small September, 2012
-              | Founded the Origami Club at Andover High School
-            .connector: .event
+              | Founded the Origami club
+            .connector: .event(data-category="education")
               .uk-text-small September, 2012
               | Enrolled at Andover High School
-            .connector: .branch.split
+            .connector: .branch.split(data-category="education")
+
+            .connector: .padding-bottom.uk-text-emphasis 2012
 
             .event: .padding-bottom
               .uk-text-small October, 2011
               | Founded the Origami Club at West Middle School
 
-            .connector: .trail
-            .connector: .event
-              .uk-text-small July 2010 - Present
+            .connector: .padding-bottom.uk-text-emphasis 2011
+
+            .connector: .event(data-category="work")
+              .uk-text-small July, 2010 - July, 2016
               div Instructor at Mrs. D's Swim School
               | Former student with Red Cross Level 6 certification and lifeguard training
-            .connector: .branch.split
+            .connector: .branch.split(data-category="work")
 
             .event
               .uk-text-small May 22nd, 2010
