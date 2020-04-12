@@ -3,14 +3,14 @@ import UIkit from 'uikit';
 import DeferredPromise from './DeferredPromise';
 import { getElOrThrow } from './getEl';
 
-const MODAL_FETCHER_ACTIVE = 'MODAL_FETCHER_ACTIVE';
+const activeModalFetcherKey = 'modalFetcherActive';
 
 const getModalValues = (modalEl, submitButton, inputEls) => {
   const resolvedModalEl = getElOrThrow(modalEl);
-  if (resolvedModalEl.dataset[MODAL_FETCHER_ACTIVE]) {
+  if (resolvedModalEl.dataset[activeModalFetcherKey]) {
     throw new Error(`${modalEl} is already in use by another value fetcher`);
   }
-  resolvedModalEl.dataset[MODAL_FETCHER_ACTIVE] = true;
+  resolvedModalEl.dataset[activeModalFetcherKey] = true;
   const resolvedSubmitButton = getElOrThrow(submitButton, modalEl);
 
   const modal = UIkit.modal(modalEl);
@@ -35,7 +35,7 @@ const getModalValues = (modalEl, submitButton, inputEls) => {
   function removeListeners() {
     resolvedSubmitButton.removeEventListener('click', onSubmit);
     resolvedModalEl.removeEventListener('hide', onHide);
-    delete resolvedModalEl.dataset[MODAL_FETCHER_ACTIVE];
+    delete resolvedModalEl.dataset[activeModalFetcherKey];
   }
 
   modal.show();
