@@ -10,22 +10,13 @@ $timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
 
 $timeline-background: $muted;
-$timeline-color: $lightgray;
-$timeline-root-color: $darkgray;
-$timeline-work-color: $purple;
-$timeline-education-color: $red;
+$timeline-color: $darkgray;
+$timeline-school-color: $red;
+$timeline-work-color: $teal;
+$timeline-volunteering-color: $purple;
 
 #timeline {
   z-index: 1;
-
-  & > .connector,
-  & > .event {
-    border-left-color: $timeline-root-color;
-  }
-
-  & > .branch {
-    color: $timeline-root-color;
-  }
 }
 
 .padding-bottom {
@@ -47,12 +38,16 @@ $timeline-education-color: $red;
   @extend .empty;
   border-left-color: $timeline-color;
 
-  &[data-category='education'] {
-    border-left-color: $timeline-education-color;
+  &[data-category='school'] {
+    border-left-color: $timeline-school-color;
   }
 
   &[data-category='work'] {
     border-left-color: $timeline-work-color;
+  }
+
+  &[data-category='volunteering'] {
+    border-left-color: $timeline-volunteering-color;
   }
 }
 
@@ -76,6 +71,41 @@ $timeline-education-color: $red;
     border-top: $timeline-event-size solid $timeline-background;
     border-bottom: $timeline-event-size solid $timeline-background;
   }
+
+  .event-date {
+    font-size: $text-small-font-size;
+    line-height: $text-small-line-height;
+
+    &::after {
+      margin-left: $global-margin/2;
+      padding-left: $global-margin/2;
+      border-left: 1px solid $global-color;
+    }
+  }
+
+  &[data-category='school'] {
+    & > .event-date::after,
+    & > .padding-bottom > .event-date::after {
+      content: 'school';
+      color: $timeline-school-color;
+    }
+  }
+
+  &[data-category='work'] {
+    & > .event-date::after,
+    & > .padding-bottom > .event-date::after {
+      content: 'work';
+      color: $timeline-work-color;
+    }
+  }
+
+  &[data-category='volunteering'] {
+    & > .event-date::after,
+    & > .padding-bottom > .event-date::after {
+      content: 'volunteering';
+      color: $timeline-volunteering-color;
+    }
+  }
 }
 
 .branch {
@@ -86,12 +116,16 @@ $timeline-education-color: $red;
   padding-left: $timeline-no-content-height;
   color: $timeline-color;
 
-  &[data-category='education'] {
-    color: $timeline-education-color;
+  &[data-category='school'] {
+    color: $timeline-school-color;
   }
 
   &[data-category='work'] {
     color: $timeline-work-color;
+  }
+
+  &[data-category='volunteering'] {
+    color: $timeline-volunteering-color;
   }
 
   &::before {
