@@ -154,42 +154,50 @@ const initDilution = () => {
 };
 
 const initIdealGasLaw = () => {
-  const p = document.querySelector('#idealGasLawP');
-  const v = document.querySelector('#idealGasLawV');
-  const n = document.querySelector('#idealGasLawN');
-  const t = document.querySelector('#idealGasLawT');
+  const p = new ValidatedInput('#idealGasLawP');
+  const v = new ValidatedInput('#idealGasLawV');
+  const n = new ValidatedInput('#idealGasLawN');
+  const t = new ValidatedInput('#idealGasLawT');
   const pUnits = document.querySelector('#idealGasLawPUnits');
   const vUnits = document.querySelector('#idealGasLawVUnits');
   const nUnits = document.querySelector('#idealGasLawNUnits');
   const tUnits = document.querySelector('#idealGasLawTUnits');
+  const calculateButton = document.querySelector('#idealGasLawCalculate');
   const inputs = [p, v, n, t];
   const units = [pUnits, vUnits, nUnits, tUnits];
 
-  let computeTarget = t;
+  let computeTarget = null;
   const recomputeTarget = debounce(() => {
     const newComputeTarget = getComputeTarget(inputs);
-    if (newComputeTarget !== null) {
-      computeTarget.parentElement.classList.remove('uk-form-highlight');
-      newComputeTarget.parentElement.classList.add('uk-form-highlight');
-      computeTarget = newComputeTarget;
+    if (computeTarget === newComputeTarget || newComputeTarget === 'old') {
+      calculateButton.disabled = computeTarget === null;
+      return;
+    } else if (newComputeTarget === 'error') {
+      calculateButton.disabled = true;
+      return;
     }
+
+    if (computeTarget !== null) {
+      computeTarget.input.parentElement.classList.remove('uk-form-highlight');
+      computeTarget.enableValidation = true;
+    }
+
+    if (newComputeTarget !== null) {
+      newComputeTarget.input.parentElement.classList.add('uk-form-highlight');
+      newComputeTarget.enableValidation = false;
+    }
+
+    computeTarget = newComputeTarget;
+    calculateButton.disabled = computeTarget === null;
   });
 
-  inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      recomputeTarget();
-    });
+  p.setValidation(null, { stateCallback: recomputeTarget });
+  v.setValidation(null, { stateCallback: recomputeTarget });
+  n.setValidation(null, { stateCallback: recomputeTarget });
+  t.setValidation(null, { stateCallback: recomputeTarget });
+  calculateButton.disabled = computeTarget === null;
 
-    input.addEventListener('blur', () => {
-      if (input.checkValidity && !input.checkValidity() && input.reportValidity) {
-        input.reportValidity();
-      } else {
-        input.value = input.value; // eslint-disable-line no-self-assign
-      }
-    });
-  });
-
-  document.querySelector('#idealGasLawCalculate').addEventListener('click', () => {
+  calculateButton.addEventListener('click', () => {
     recomputeTarget.now();
 
     try {
@@ -199,16 +207,14 @@ const initIdealGasLaw = () => {
         inputs.indexOf(computeTarget),
         computeIdealGasLaw
       );
-      computeTarget.value = computed;
+      computeTarget.setValue(computed);
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
   });
 
   document.querySelector('#idealGasLawClear').addEventListener('click', () => {
-    inputs.forEach((input) => {
-      input.value = '';
-    });
+    inputs.forEach((input) => input.reset());
   });
 };
 
@@ -228,68 +234,73 @@ const copyToArray = (src, dest) => {
 };
 
 const initSpecificHeat = () => {
-  const q = document.querySelector('#specificHeatQ');
-  const m = document.querySelector('#specificHeatM');
-  const cp = document.querySelector('#specificHeatCp');
-  const t = document.querySelector('#specificHeatT');
-  const tf = document.querySelector('#specificHeatTf');
-  const ti = document.querySelector('#specificHeatTi');
+  const q = new ValidatedInput('#specificHeatQ');
+  const m = new ValidatedInput('#specificHeatM');
+  const cp = new ValidatedInput('#specificHeatCp');
+  const t = new ValidatedInput('#specificHeatT');
+  const tf = new ValidatedInput('#specificHeatTf');
+  const ti = new ValidatedInput('#specificHeatTi');
   const qUnits = document.querySelector('#specificHeatQUnits');
   const mUnits = document.querySelector('#specificHeatMUnits');
   const cpUnits = document.querySelector('#specificHeatCpUnits');
   const tUnits = document.querySelector('#specificHeatTUnits');
   const tfUnits = document.querySelector('#specificHeatTfUnits');
   const tiUnits = document.querySelector('#specificHeatTiUnits');
+  const calculateButton = document.querySelector('#specificHeatCalculate');
   const inputs = [q, m, cp, t];
   const units = [qUnits, mUnits, cpUnits, tUnits];
 
-  let computeTarget = t;
+  let computeTarget = null;
   const recomputeTarget = debounce(() => {
     const newComputeTarget = getComputeTarget(inputs);
-    if (newComputeTarget !== null) {
-      computeTarget.parentElement.classList.remove('uk-form-highlight');
-      newComputeTarget.parentElement.classList.add('uk-form-highlight');
-      computeTarget = newComputeTarget;
+    if (computeTarget === newComputeTarget || newComputeTarget === 'old') {
+      calculateButton.disabled = computeTarget === null;
+      return;
+    } else if (newComputeTarget === 'error') {
+      calculateButton.disabled = true;
+      return;
     }
+
+    if (computeTarget !== null) {
+      computeTarget.input.parentElement.classList.remove('uk-form-highlight');
+      computeTarget.enableValidation = true;
+    }
+
+    if (newComputeTarget !== null) {
+      newComputeTarget.input.parentElement.classList.add('uk-form-highlight');
+      newComputeTarget.enableValidation = false;
+    }
+
+    computeTarget = newComputeTarget;
+    calculateButton.disabled = computeTarget === null;
   });
 
   let tempInputMethod = 'deltaT';
   document.querySelector('#specificHeatDeltaTTab').addEventListener('shown', () => {
-    t.value = '';
+    t.reset();
     copyToArray([q, m, cp, t], inputs);
     copyToArray([qUnits, mUnits, cpUnits, tUnits], units);
     tempInputMethod = 'deltaT';
-    computeTarget.parentElement.classList.remove('uk-form-highlight');
     recomputeTarget.now();
   });
   document.querySelector('#specificHeatDiffTTab').addEventListener('shown', () => {
-    tf.value = '';
-    ti.value = '';
+    tf.reset();
+    ti.reset();
     copyToArray([q, m, cp, tf, ti], inputs);
     copyToArray([qUnits, mUnits, cpUnits, tfUnits, tiUnits], units);
     tempInputMethod = 'diffT';
-    computeTarget.parentElement.classList.remove('uk-form-highlight');
     recomputeTarget.now();
-    if (computeTarget === t) {
-      computeTarget = ti;
-    }
   });
 
-  [q, m, cp, t, tf, ti].forEach((input) => {
-    input.addEventListener('input', () => {
-      recomputeTarget();
-    });
+  q.setValidation(null, { stateCallback: recomputeTarget });
+  m.setValidation(null, { stateCallback: recomputeTarget });
+  cp.setValidation(null, { stateCallback: recomputeTarget });
+  t.setValidation(null, { stateCallback: recomputeTarget });
+  tf.setValidation(null, { stateCallback: recomputeTarget });
+  ti.setValidation(null, { stateCallback: recomputeTarget });
+  calculateButton.disabled = computeTarget === null;
 
-    input.addEventListener('blur', () => {
-      if (input.checkValidity && !input.checkValidity() && input.reportValidity) {
-        input.reportValidity();
-      } else {
-        input.value = input.value; // eslint-disable-line no-self-assign
-      }
-    });
-  });
-
-  document.querySelector('#specificHeatCalculate').addEventListener('click', () => {
+  calculateButton.addEventListener('click', () => {
     recomputeTarget.now();
 
     try {
@@ -299,16 +310,14 @@ const initSpecificHeat = () => {
         inputs.indexOf(computeTarget),
         computeSpecificHeat.bind(this, tempInputMethod)
       );
-      computeTarget.value = computed;
+      computeTarget.setValue(computed);
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
   });
 
   document.querySelector('#specificHeatClear').addEventListener('click', () => {
-    inputs.forEach((input) => {
-      input.value = '';
-    });
+    inputs.forEach((input) => input.reset());
   });
 };
 
@@ -318,6 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initMolarMass();
   initDilution();
-  // initIdealGasLaw();
-  // initSpecificHeat();
+  initIdealGasLaw();
+  initSpecificHeat();
 });
