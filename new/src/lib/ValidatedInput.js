@@ -7,8 +7,8 @@ class ValidatedInput {
     { validationMessageElement, validator, stateCallback, inputCallback } = {}
   ) {
     this.input = getElOrThrow(inputElement);
-    this.enableValidation = true;
 
+    this._enableValidation = true;
     this._state = 'empty';
     this._listener = null;
     this._boundBlurListener = this._blurListener.bind(this, stateCallback);
@@ -35,6 +35,24 @@ class ValidatedInput {
     );
 
     this.setValidation(validator, { stateCallback, inputCallback });
+  }
+
+  get enableValidation() {
+    return this._enableValidation;
+  }
+
+  set enableValidation(value) {
+    this._enableValidation = value;
+    this.revalidate();
+  }
+
+  getValue() {
+    return this.input.value;
+  }
+
+  setValue(value) {
+    this.input.value = value;
+    this.revalidate();
   }
 
   getState() {
@@ -78,17 +96,8 @@ class ValidatedInput {
     }
   }
 
-  getValue() {
-    return this.input.value;
-  }
-
-  setValue(value) {
-    this.input.value = value;
-    this.revalidate();
-  }
-
   _blurListener(stateCallback) {
-    if (!this.enableValidation) {
+    if (!this._enableValidation) {
       return;
     }
 
@@ -117,7 +126,7 @@ class ValidatedInput {
     this.removeValidation();
     this._listener = () => {
       if (
-        this.enableValidation &&
+        this._enableValidation &&
         this.input.checkValidity &&
         this.input.reportValidity &&
         !this.input.checkValidity()
@@ -125,7 +134,7 @@ class ValidatedInput {
         this._setState('error', stateCallback);
         this._validationMessageToggle.hide();
       } else {
-        const validation = this.enableValidation && validator ? validator(this.getValue()) : false;
+        const validation = this._enableValidation && validator ? validator(this.getValue()) : false;
 
         if (!validation) {
           this._setState(this.getValue().length === 0 ? 'empty' : 'default', stateCallback);

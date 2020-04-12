@@ -3,6 +3,7 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 import katex from 'katex';
 
+import ValidatedInput from '../../lib/ValidatedInput';
 import debounce from '../../lib/debounce';
 import makeToggleWrapper from '../../lib/makeToggleWrapper';
 import renderLaTeX from '../../lib/renderLaTeX';
@@ -88,42 +89,50 @@ const initMolarMass = () => {
 };
 
 const initDilution = () => {
-  const m1 = document.querySelector('#dilutionM1');
-  const v1 = document.querySelector('#dilutionV1');
-  const m2 = document.querySelector('#dilutionM2');
-  const v2 = document.querySelector('#dilutionV2');
+  const m1 = new ValidatedInput('#dilutionM1');
+  const v1 = new ValidatedInput('#dilutionV1');
+  const m2 = new ValidatedInput('#dilutionM2');
+  const v2 = new ValidatedInput('#dilutionV2');
   const m1Units = document.querySelector('#dilutionM1Units');
   const v1Units = document.querySelector('#dilutionV1Units');
   const m2Units = document.querySelector('#dilutionM2Units');
   const v2Units = document.querySelector('#dilutionV2Units');
+  const calculateButton = document.querySelector('#dilutionCalculate');
   const inputs = [m1, v1, m2, v2];
   const units = [m1Units, v1Units, m2Units, v2Units];
 
-  let computeTarget = v2;
+  let computeTarget = null;
   const recomputeTarget = debounce(() => {
     const newComputeTarget = getComputeTarget(inputs);
-    if (newComputeTarget !== null) {
-      computeTarget.parentElement.classList.remove('uk-form-highlight');
-      newComputeTarget.parentElement.classList.add('uk-form-highlight');
-      computeTarget = newComputeTarget;
+    if (computeTarget === newComputeTarget || newComputeTarget === 'old') {
+      calculateButton.disabled = computeTarget === null;
+      return;
+    } else if (newComputeTarget === 'error') {
+      calculateButton.disabled = true;
+      return;
     }
+
+    if (computeTarget !== null) {
+      computeTarget.input.parentElement.classList.remove('uk-form-highlight');
+      computeTarget.enableValidation = true;
+    }
+
+    if (newComputeTarget !== null) {
+      newComputeTarget.input.parentElement.classList.add('uk-form-highlight');
+      newComputeTarget.enableValidation = false;
+    }
+
+    computeTarget = newComputeTarget;
+    calculateButton.disabled = computeTarget === null;
   });
 
-  inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      recomputeTarget();
-    });
+  m1.setValidation(null, { stateCallback: recomputeTarget });
+  v1.setValidation(null, { stateCallback: recomputeTarget });
+  m2.setValidation(null, { stateCallback: recomputeTarget });
+  v2.setValidation(null, { stateCallback: recomputeTarget });
+  calculateButton.disabled = computeTarget === null;
 
-    input.addEventListener('blur', () => {
-      if (input.checkValidity && !input.checkValidity() && input.reportValidity) {
-        input.reportValidity();
-      } else {
-        input.value = input.value; // eslint-disable-line no-self-assign
-      }
-    });
-  });
-
-  document.querySelector('#dilutionCalculate').addEventListener('click', () => {
+  calculateButton.addEventListener('click', () => {
     recomputeTarget.now();
 
     try {
@@ -133,16 +142,14 @@ const initDilution = () => {
         inputs.indexOf(computeTarget),
         computeDilution
       );
-      computeTarget.value = computed;
+      computeTarget.setValue(computed);
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
   });
 
   document.querySelector('#dilutionClear').addEventListener('click', () => {
-    inputs.forEach((input) => {
-      input.value = '';
-    });
+    inputs.forEach((input) => input.reset());
   });
 };
 
@@ -311,6 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initMolarMass();
   initDilution();
-  initIdealGasLaw();
-  initSpecificHeat();
+  // initIdealGasLaw();
+  // initSpecificHeat();
 });
