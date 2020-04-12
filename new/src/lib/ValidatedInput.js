@@ -36,6 +36,10 @@ class ValidatedInput {
     this.setValidation(validator, { stateCallback, inputCallback });
   }
 
+  getState() {
+    return this._state;
+  }
+
   _setState(state, stateCallback = false) {
     if (state === this._state) {
       return;
@@ -77,8 +81,9 @@ class ValidatedInput {
     return this.input.value;
   }
 
-  getState() {
-    return this._state;
+  setValue(value) {
+    this.input.value = value;
+    this.revalidate();
   }
 
   _blurListener(stateCallback) {
@@ -88,7 +93,7 @@ class ValidatedInput {
         this._setState('error', stateCallback);
       }
     } else {
-      this.input.value = this.getValue();
+      this.setValue(this.getValue());
     }
   }
 
@@ -148,8 +153,7 @@ class ValidatedInput {
   }
 
   reset() {
-    this.input.value = '';
-    this._setState('empty');
+    this.setValue('');
   }
 }
 
