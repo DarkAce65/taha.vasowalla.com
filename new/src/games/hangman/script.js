@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return false;
     },
-    inputCallback: (input, state) => {
-      setWordButton.disabled = state === 'error' || input.length === 0;
+    stateCallback: (state) => {
+      setWordButton.disabled = state === 'empty' || state === 'error';
     },
   });
 

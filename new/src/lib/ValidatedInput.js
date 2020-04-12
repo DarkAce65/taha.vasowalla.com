@@ -88,7 +88,7 @@ class ValidatedInput {
         this._setState('error', stateCallback);
       }
     } else {
-      this.input.value = this.input.value; // eslint-disable-line no-self-assign
+      this.input.value = this.getValue();
     }
   }
 
@@ -141,6 +141,10 @@ class ValidatedInput {
 
     this.input.addEventListener('input', this._listener);
     this.input.addEventListener('blur', this._boundBlurListener);
+  }
+
+  revalidate() {
+    this._listener();
   }
 
   reset() {

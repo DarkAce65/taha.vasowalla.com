@@ -32,7 +32,7 @@ const initCustomGameModal = () => {
       return false;
     },
     inputCallback: (input, state) => {
-      if (input.length > 0 && state === 'default') {
+      if (state === 'default') {
         mines = Math.floor(parseFloat(input));
       } else {
         mines = null;
@@ -51,11 +51,11 @@ const initCustomGameModal = () => {
       return false;
     },
     inputCallback: (input, state) => {
-      if (input.length > 0 && state === 'default') {
+      if (state === 'default') {
         rows = Math.floor(parseFloat(input));
 
         if (cols !== null) {
-          minesInput.input.dispatchEvent(new InputEvent('input'));
+          minesInput.revalidate();
         }
       } else {
         rows = null;
@@ -78,7 +78,7 @@ const initCustomGameModal = () => {
         cols = Math.floor(parseFloat(input));
 
         if (rows !== null) {
-          minesInput.input.dispatchEvent(new InputEvent('input'));
+          minesInput.revalidate();
         }
       } else {
         cols = null;
