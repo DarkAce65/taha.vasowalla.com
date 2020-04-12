@@ -8,7 +8,7 @@ class ValidatedInput {
   ) {
     this.input = getElOrThrow(inputElement);
 
-    this._state = 'default';
+    this._state = 'empty';
     this._listener = null;
     this._boundBlurListener = this._blurListener.bind(this, stateCallback);
 
@@ -33,11 +33,7 @@ class ValidatedInput {
       })
     );
 
-    if (validator) {
-      this.setValidation(validator, { stateCallback, inputCallback });
-    } else {
-      this.input.addEventListener('blur', this._boundBlurListener);
-    }
+    this.setValidation(validator, { stateCallback, inputCallback });
   }
 
   _setState(state, stateCallback = false) {
@@ -59,6 +55,11 @@ class ValidatedInput {
         this._validationMessage.classList.remove('uk-text-danger');
         this.input.classList.add('uk-form-success');
         this._validationMessage.classList.add('uk-text-success');
+        break;
+      case 'empty':
+        this._state = 'empty';
+        this.input.classList.remove('uk-form-success', 'uk-form-danger');
+        this._validationMessage.classList.remove('uk-text-success', 'uk-text-danger');
         break;
       default:
         this._state = 'default';
@@ -109,10 +110,10 @@ class ValidatedInput {
         this._setState('error', stateCallback);
         this._validationMessageToggle.hide();
       } else {
-        const validation = validator(this.getValue());
+        const validation = validator ? validator(this.getValue()) : false;
 
         if (!validation) {
-          this._setState('default', stateCallback);
+          this._setState(this.getValue().length === 0 ? 'empty' : 'default', stateCallback);
           this._validationMessageToggle.hide();
         } else if (typeof validation === 'string') {
           this._setState('error', stateCallback);
@@ -124,7 +125,7 @@ class ValidatedInput {
             this._validationMessage.textContent = validation.message;
           }
 
-          if (validation.type && this._validationMessage.textContent) {
+          if (this._validationMessage.textContent) {
             this._validationMessageToggle.show();
           } else {
             this._validationMessageToggle.hide();
@@ -144,7 +145,7 @@ class ValidatedInput {
 
   reset() {
     this.input.value = '';
-    this._setState('default');
+    this._setState('empty');
   }
 }
 
