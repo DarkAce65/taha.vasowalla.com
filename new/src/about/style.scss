@@ -10,7 +10,7 @@ $timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
 
 $timeline-background: $muted;
-$timeline-color: $darkgray;
+$timeline-color: $gray;
 $timeline-school-color: $red;
 $timeline-work-color: $teal;
 $timeline-volunteering-color: $purple;
@@ -46,7 +46,25 @@ $timeline-volunteering-color: $purple;
     border-left-color: $timeline-work-color;
   }
 
-  &[data-category='volunteering'] {
+  &[data-category='volunteering'],
+  &[data-category='club'] {
+    border-left-color: $timeline-volunteering-color;
+  }
+
+  &.base-override {
+    border-left-color: $timeline-color;
+  }
+
+  &.school-override {
+    border-left-color: $timeline-school-color;
+  }
+
+  &.work-override {
+    border-left-color: $timeline-work-color;
+  }
+
+  &.volunteering-override,
+  &.club-override {
     border-left-color: $timeline-volunteering-color;
   }
 }
@@ -81,29 +99,37 @@ $timeline-volunteering-color: $purple;
       padding-left: $global-margin/2;
       border-left: 1px solid $global-color;
     }
+
+    .event-duration {
+      white-space: nowrap;
+    }
   }
 
   &[data-category='school'] {
-    & > .event-date::after,
-    & > .padding-bottom > .event-date::after {
+    & .event-date::after {
       content: 'school';
       color: $timeline-school-color;
     }
   }
 
   &[data-category='work'] {
-    & > .event-date::after,
-    & > .padding-bottom > .event-date::after {
+    & .event-date::after {
       content: 'work';
       color: $timeline-work-color;
     }
   }
 
-  &[data-category='volunteering'] {
-    & > .event-date::after,
-    & > .padding-bottom > .event-date::after {
+  &[data-category='volunteering'],
+  &[data-category='club'] {
+    & .event-date::after {
       content: 'volunteering';
       color: $timeline-volunteering-color;
+    }
+  }
+
+  &[data-category='club'] {
+    & .event-date::after {
+      content: 'club';
     }
   }
 }
@@ -124,12 +150,14 @@ $timeline-volunteering-color: $purple;
     color: $timeline-work-color;
   }
 
-  &[data-category='volunteering'] {
+  &[data-category='volunteering'],
+  &[data-category='club'] {
     color: $timeline-volunteering-color;
   }
 
   &::before {
     content: '';
+    z-index: 1;
     position: absolute;
     left: 0;
     background: currentColor;
