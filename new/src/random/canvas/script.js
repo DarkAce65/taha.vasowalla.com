@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  document.querySelector('#rainToggle').addEventListener('click', function() {
+  document.querySelector('#rainToggle').addEventListener('click', function () {
     animateRain = !animateRain;
 
     if (animateRain) {
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateRain();
   });
 
-  document.querySelector('#bubbleToggle').addEventListener('click', function() {
+  document.querySelector('#bubbleToggle').addEventListener('click', function () {
     animateBubbles = !animateBubbles;
 
     if (animateBubbles) {

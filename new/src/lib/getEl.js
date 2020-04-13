@@ -1,6 +1,6 @@
-const isString = value => typeof value === 'string';
+const isString = (value) => typeof value === 'string';
 
-const isNode = obj => obj !== null && typeof obj === 'object' && obj.nodeType >= 1;
+const isNode = (obj) => obj !== null && typeof obj === 'object' && obj.nodeType >= 1;
 
 const getEl = (selector, parent = document) =>
   isString(selector) ? getEl(parent).querySelector(selector) : isNode(selector) ? selector : null;

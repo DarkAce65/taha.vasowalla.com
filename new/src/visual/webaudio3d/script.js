@@ -37,7 +37,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const toLog = (i, max) => Math.pow(max, i / (max - 1)) - 1;
 const lerp = (a, b, t) => (1 - t) * a + t * b;
 
-const toHHMMSS = number => {
+const toHHMMSS = (number) => {
   const date = new Date(0, 0, 0);
   date.setSeconds(Math.round(number));
   let hours = date.getHours();
@@ -65,7 +65,7 @@ const makeLogarithmicMapper = (maxDomain, maxRange) => {
     mapped[i] = toLog((i * maxRange) / maxDomain, maxRange);
   }
 
-  return i => mapped[i];
+  return (i) => mapped[i];
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.updateProjectionMatrix();
   };
 
-  const createBars = numBars => {
+  const createBars = (numBars) => {
     for (let i = 0; i < bars.length; i++) {
       scene.remove(bars[i]);
     }
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startOffset = 0;
   };
 
-  const setCamera = position => {
+  const setCamera = (position) => {
     let x = 0;
     let y = 0;
     let z = 0;
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setCamera('side');
   };
 
-  const handleAudioBuffer = async dataBuffer => {
+  const handleAudioBuffer = async (dataBuffer) => {
     reset();
     source = audioContext.createBufferSource();
     source.buffer = dataBuffer;
@@ -308,18 +308,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const fileInput = document.getElementById('fileInput');
 
-  ['dragenter', 'dragover'].forEach(event => {
+  ['dragenter', 'dragover'].forEach((event) => {
     fileInput.addEventListener(event, () => {
       fileInput.parentNode.classList.add('uk-active');
     });
   });
-  ['dragleave', 'dragend', 'drop'].forEach(event => {
+  ['dragleave', 'dragend', 'drop'].forEach((event) => {
     fileInput.addEventListener(event, () => {
       fileInput.parentNode.classList.remove('uk-active');
     });
   });
 
-  fileInput.addEventListener('change', ev => {
+  fileInput.addEventListener('change', (ev) => {
     const { files } = ev.target;
     if (files.length !== 0) {
       const reader = new FileReader();
@@ -335,10 +335,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         audioContext
           .decodeAudioData(contents)
-          .then(buffer => {
+          .then((buffer) => {
             const name = document.getElementById('name');
             mm.parseBlob(files[0])
-              .then(metadata => {
+              .then((metadata) => {
                 name.textContent = `${metadata.common.title}\n${metadata.common.artist}`;
               })
               .catch(() => {
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('duration').innerHTML = toHHMMSS(duration);
             document.getElementById('details').classList.remove('uk-hidden');
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
 
             notification.close();

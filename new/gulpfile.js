@@ -31,7 +31,7 @@ const sassOptions = {
 };
 
 const cleanStatic = () =>
-  del(Object.keys(flattenObject(staticFiles)).map(staticDir => `dist/${staticDir}`));
+  del(Object.keys(flattenObject(staticFiles)).map((staticDir) => `dist/${staticDir}`));
 cleanStatic.displayName = 'clean:static';
 
 const copyStatic = gulp.series(

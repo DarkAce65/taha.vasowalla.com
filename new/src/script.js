@@ -14,10 +14,10 @@ import {
   WebGLRenderer,
 } from 'three';
 
-import { ParticleEmitter } from './lib/ParticleEmitter';
+import ParticleEmitter from './lib/particles/ParticleEmitter';
 import requestAnimationFrame from './lib/requestAnimationFrame';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => document.body.classList.remove('loading'), 500);
 
   const simplex = new SimplexNoise();
@@ -166,18 +166,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const newScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
     if (satelliteScale !== newScale) {
       satelliteScale = newScale;
-      satellites.forEach(function(satellite) {
-        satellite.scale.setScalar(newScale);
-      });
+      satellites.forEach((satellite) => satellite.scale.setScalar(newScale));
     }
   });
 
   let activeMenuElement = null;
-  const toggleSubmenu = menuElement => {
+  const toggleSubmenu = (menuElement) => {
     if (menuElement.isSameNode(activeMenuElement)) {
       menuElement.classList.remove('active');
       document.querySelector('#secondary').classList.add('closed');
-      document.querySelectorAll('.submenu.active').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.submenu.active').forEach((el) => el.classList.remove('active'));
       activeMenuElement = null;
       return;
     }
@@ -193,13 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector(menuElement.dataset.menu).classList.add('active');
   };
 
-  document.querySelectorAll('#primary .menu-item').forEach(menuElement => {
+  document.querySelectorAll('#primary .menu-item').forEach((menuElement) => {
     if (menuElement.dataset.menu) {
       const span = menuElement.querySelector('span');
-      span.addEventListener('click', toggleSubmenu.bind(this, menuElement));
+      span.addEventListener('click', () => toggleSubmenu(menuElement));
       span.addEventListener(
         'keydown',
-        e => [' ', 'Enter'].indexOf(e.key) !== -1 && toggleSubmenu(menuElement)
+        (e) => [' ', 'Enter'].indexOf(e.key) !== -1 && toggleSubmenu(menuElement)
       );
     }
   });

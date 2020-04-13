@@ -7,6 +7,7 @@ html
     link(rel="shortcut icon" href="assets/icons/tv.png")
     link(rel="stylesheet" type="text/css" href="global.css")
     link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo&display=swap")
 
   body.loading
     #rendererContainer
@@ -14,50 +15,25 @@ html
       #banner Hi, I'm Taha
       nav#menu
         #primary
-          .menu-item
-            a(href="about/") about
-          .menu-item(data-menu="#projects")
-            span(tabindex=0) projects
-          .menu-item(data-menu="#visual")
-            span(tabindex=0) visual
-          .menu-item(data-menu="#games")
-            span(tabindex=0) games
-          .menu-item(data-menu="#experiments")
-            span(tabindex=0) experiments
+          .menu-item: a(href="about/") about
+          .menu-item(data-menu="#projects"): span(tabindex=0) projects
+          .menu-item(data-menu="#ventures"): span(tabindex=0) ventures
+          .menu-item(data-menu="#games"): span(tabindex=0) games
+          .menu-item(data-menu="#random"): span(tabindex=0) random
         #secondary.closed
           #projects.submenu
-            .menu-item
-              a(href="projects/chemistry/") chemistry calculators
-            .menu-item
-              a(href="../projects/financial/") financial tools
-            .menu-item
-              a(href="../projects/clock/") clock + weather
-            .menu-item
-              a(href="../projects/xkcd/") xkcd search engine
-          #visual.submenu
-            .menu-item
-              a(href="../visual/deviantart/") DeviantArt
-            .menu-item
-              a(href="visual/webaudio2d/") 2D audio
-            .menu-item
-              a(href="visual/webaudio3d/") 3D audio
-            .menu-item
-              a(href="visual/cards/") cards
+            .menu-item: a(href="projects/chemistry/") chemistry calculators
+            .menu-item: a(href="visual/webaudio2d/") 2D audio
+            .menu-item: a(href="visual/webaudio3d/") 3D audio
+            .menu-item: a(href="visual/cards/") cards
+          #ventures.submenu
+            .menu-item coming soon
           #games.submenu
-            .menu-item
-              a(href="games/minesweeper/") minesweeper
-            .menu-item
-              a(href="games/ultimatettt/") ultimate tic tac toe
-            .menu-item
-              a(href="games/hangman/") hangman
-            .menu-item
-              a(href="../games/quantumchess/") quantum chess
-          #experiments.submenu
-            .menu-item
-              a(href="experiments/canvas/") html5 canvas
-            .menu-item
-              a(href="experiments/shaders/") glsl shaders
-            .menu-item
-              a(href="experiments/fireball/") fireball
-            .menu-item
-              a(href="experiments/testing/") testing lab
+            .menu-item: a(href="games/minesweeper/") minesweeper
+            .menu-item: a(href="games/ultimatettt/") ultimate tic tac toe
+            .menu-item: a(href="games/hangman/") hangman
+          #random.submenu
+            .menu-item: a(href="random/canvas/") html5 canvas
+            .menu-item: a(href="random/shaders/") glsl shaders
+            .menu-item: a(href="random/fireball/") fireball
+            .menu-item: a(href="random/testing/") testing lab

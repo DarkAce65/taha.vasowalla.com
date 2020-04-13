@@ -1,0 +1,199 @@
+@import '../partials/colors';
+@import '../partials/uikit-overrides/variables';
+
+$rt2: 1.41421356237;
+$rt5: 2.2360679775;
+
+$timeline-gap: 20px;
+$timeline-width: 2px;
+$timeline-event-size: 3px;
+$timeline-no-content-height: $timeline-gap + $timeline-width;
+
+$timeline-background: $muted;
+$timeline-color: $gray;
+$timeline-school-color: $red;
+$timeline-work-color: $teal;
+$timeline-volunteering-color: $purple;
+
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $global-margin;
+}
+
+#timeline {
+  z-index: 1;
+}
+
+.padding-bottom {
+  padding-bottom: $global-margin;
+}
+
+.spacer {
+  min-height: $global-margin;
+}
+
+.empty {
+  position: relative;
+  height: 100%;
+  padding-left: $timeline-gap;
+  border-left: $timeline-width solid transparent;
+}
+
+.connector {
+  @extend .empty;
+  border-left-color: $timeline-color;
+
+  &[data-category='school'] {
+    border-left-color: $timeline-school-color;
+  }
+
+  &[data-category='work'] {
+    border-left-color: $timeline-work-color;
+  }
+
+  &[data-category='volunteering'],
+  &[data-category='club'] {
+    border-left-color: $timeline-volunteering-color;
+  }
+
+  &.base-override {
+    border-left-color: $timeline-color;
+  }
+
+  &.school-override {
+    border-left-color: $timeline-school-color;
+  }
+
+  &.work-override {
+    border-left-color: $timeline-work-color;
+  }
+
+  &.volunteering-override,
+  &.club-override {
+    border-left-color: $timeline-volunteering-color;
+  }
+}
+
+.trail {
+  @extend .connector;
+  min-height: $timeline-no-content-height;
+  border-left-style: dashed;
+}
+
+.event {
+  @extend .connector;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.5em;
+    left: -$timeline-width / 2 - $timeline-event-size;
+    width: $timeline-event-size * 4;
+    height: $timeline-event-size;
+    background: $white;
+    border-top: $timeline-event-size solid $timeline-background;
+    border-bottom: $timeline-event-size solid $timeline-background;
+  }
+
+  .event-date {
+    font-size: $text-small-font-size;
+    line-height: $text-small-line-height;
+
+    &::after {
+      margin-left: $global-margin/2;
+      padding-left: $global-margin/2;
+      border-left: 1px solid $global-color;
+    }
+
+    .event-duration {
+      white-space: nowrap;
+    }
+  }
+
+  &[data-category='school'] {
+    & .event-date::after {
+      content: 'school';
+      color: $timeline-school-color;
+    }
+  }
+
+  &[data-category='work'] {
+    & .event-date::after {
+      content: 'work';
+      color: $timeline-work-color;
+    }
+  }
+
+  &[data-category='volunteering'],
+  &[data-category='club'] {
+    & .event-date::after {
+      content: 'volunteering';
+      color: $timeline-volunteering-color;
+    }
+  }
+
+  &[data-category='club'] {
+    & .event-date::after {
+      content: 'club';
+    }
+  }
+}
+
+.branch {
+  position: relative;
+  z-index: -1;
+  height: $timeline-no-content-height;
+  margin-left: -$timeline-no-content-height;
+  padding-left: $timeline-no-content-height;
+  color: $timeline-color;
+
+  &[data-category='school'] {
+    color: $timeline-school-color;
+  }
+
+  &[data-category='work'] {
+    color: $timeline-work-color;
+  }
+
+  &[data-category='volunteering'],
+  &[data-category='club'] {
+    color: $timeline-volunteering-color;
+  }
+
+  &::before {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    background: currentColor;
+    width: max(1px, ceil($timeline-width / 1.5));
+    height: $timeline-no-content-height * $rt2 + $timeline-width / 2;
+  }
+
+  &.split::before {
+    bottom: 0;
+    transform: rotate(45deg);
+    transform-origin: bottom;
+  }
+
+  &.join::before {
+    top: 0;
+    transform: rotate(-45deg);
+    transform-origin: top;
+  }
+
+  &.deep {
+    &::before {
+      height: $timeline-no-content-height * $rt5 + $timeline-width / 2;
+    }
+
+    &.split::before {
+      transform: rotate(63.435deg);
+    }
+
+    &.join::before {
+      transform: rotate(-63.435deg);
+    }
+  }
+}

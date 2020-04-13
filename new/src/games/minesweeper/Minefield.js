@@ -22,7 +22,7 @@ export const presets = {
   },
 };
 
-const getCoordinatesFromDataset = cell => ({
+const getCoordinatesFromDataset = (cell) => ({
   row: parseInt(cell.dataset.row, 10),
   col: parseInt(cell.dataset.col, 10),
 });
@@ -41,13 +41,13 @@ class Minefield {
     this._openedCells = 0;
     this.minesLeft = 0;
     this._clock = new Clock();
-    this._clock.callback = time => setNumberDisplay(this._timerEl, time);
+    this._clock.callback = (time) => setNumberDisplay(this._timerEl, time);
 
     this._finishCallback = finishCallback;
 
     this._faceEl.addEventListener('click', () => this.initialize());
     this._domTarget.addEventListener('mousedown', () => this._faceEl.classList.add('surprise'));
-    ['mouseup', 'mouseleave'].forEach(ev =>
+    ['mouseup', 'mouseleave'].forEach((ev) =>
       this._domTarget.addEventListener(ev, () => this._faceEl.classList.remove('surprise'))
     );
 
@@ -177,7 +177,7 @@ class Minefield {
       rows.push(document.createElement('tr'));
     }
     if (rows.length >= this._gameOptions.rows) {
-      rows.splice(0, rows.length - this._gameOptions.rows).forEach(row => row.remove());
+      rows.splice(0, rows.length - this._gameOptions.rows).forEach((row) => row.remove());
     }
 
     for (let r = 0; r < rows.length; r++) {
@@ -191,14 +191,14 @@ class Minefield {
           const coords = getCoordinatesFromDataset(cell);
           this.handleCellClick(coords.row, coords.col);
         });
-        cell.addEventListener('contextmenu', ev => {
+        cell.addEventListener('contextmenu', (ev) => {
           ev.preventDefault();
           const coords = getCoordinatesFromDataset(cell);
           this.handleCellRightClick(coords.row, coords.col);
         });
       }
       if (cols.length >= this._gameOptions.cols) {
-        cols.splice(0, cols.length - this._gameOptions.cols).forEach(col => col.remove());
+        cols.splice(0, cols.length - this._gameOptions.cols).forEach((col) => col.remove());
       }
 
       for (let c = 0; c < cols.length; c++) {

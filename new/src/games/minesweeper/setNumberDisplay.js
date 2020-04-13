@@ -19,5 +19,5 @@ export default (selector, num) => {
   }
 
   element.innerHTML = '';
-  display.forEach(number => element.appendChild(number));
+  display.forEach((number) => element.appendChild(number));
 };

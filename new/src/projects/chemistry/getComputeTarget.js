@@ -1,8 +1,13 @@
-export default inputs => {
-  let computeTarget = null;
+export default (inputs) => {
+  let computeTarget = 'old';
   for (let i = 0; i < inputs.length; i++) {
-    if (inputs[i].value.length === 0) {
-      if (computeTarget === null) {
+    const state = inputs[i].getState();
+    if (state === 'error') {
+      return 'error';
+    }
+
+    if (state === 'empty') {
+      if (computeTarget === 'old') {
         computeTarget = inputs[i];
       } else {
         return null;

@@ -19,17 +19,16 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
+import capitalize from '../../lib/capitalize';
 import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
-import {
-  matrixFragmentShader,
-  noiseFragmentShader,
-  noiseVertexShader,
-  pulseFragmentShader,
-  pulseVertexShader,
-  staticVertexShader,
-  transparentFragmentShader,
-} from './shaders';
+import matrixFragmentShader from './shaders/matrix_frag.glsl';
+import noiseFragmentShader from './shaders/noise_frag.glsl';
+import noiseVertexShader from './shaders/noise_vert.glsl';
+import pulseFragmentShader from './shaders/pulse_frag.glsl';
+import pulseVertexShader from './shaders/pulse_vert.glsl';
+import staticVertexShader from './shaders/static_vert.glsl';
+import transparentFragmentShader from './shaders/transparent_frag.glsl';
 
 const uniforms = {
   u_time: { type: 'f', value: 0 },
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fragmentShader: noiseFragmentShader,
   });
   material.side = DoubleSide;
-  cubes['Noise'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
+  cubes['noise'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
 
   material = new ShaderMaterial({
     uniforms,
@@ -75,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   material.transparent = true;
   material.side = DoubleSide;
-  cubes['Pulse'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
+  cubes['pulse'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
 
   material = new ShaderMaterial({
     uniforms,
@@ -83,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fragmentShader: matrixFragmentShader,
   });
   material.side = DoubleSide;
-  cubes['Matrix'] = new Mesh(cubeGeometry, material);
+  cubes['matrix'] = new Mesh(cubeGeometry, material);
 
   material = new ShaderMaterial({
     uniforms,
@@ -105,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const transparentCube = new Object3D();
   transparentCube.add(new Mesh(cubeGeometry, material));
   transparentCube.add(mesh);
-  cubes['Transparent'] = transparentCube;
+  cubes['transparent'] = transparentCube;
 
   const viewportBounds = { maxX: 0, maxY: 0 };
   const cubeKeys = Object.keys(cubes);
@@ -121,13 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('#cubeDropdown')
       .insertAdjacentHTML(
         'beforeend',
-        `<li><a id="${key}" class="view" href="javascript:void(0)">${key} Cube</a></li>`
+        `<li><a id="${key}" class="view" href="javascript:void(0)">${capitalize(key)} cube</a></li>`
       );
   });
   viewportBounds.maxX += 50;
   viewportBounds.maxY += 50;
 
-  const setCamera = position => {
+  const setCamera = (position) => {
     let x = 0;
     let y = 0;
     let z = 0;
@@ -184,10 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   render();
-  setCamera('Overview');
+  setCamera('overview');
 
-  document.querySelectorAll('.view').forEach(view =>
-    view.addEventListener('click', e => {
+  document.querySelectorAll('.view').forEach((view) =>
+    view.addEventListener('click', (e) => {
       setCamera(e.target.id);
     })
   );

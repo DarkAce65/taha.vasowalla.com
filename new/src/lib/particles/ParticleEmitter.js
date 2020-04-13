@@ -11,43 +11,8 @@ import {
   Math as _Math,
 } from 'three';
 
-const ParticleShader = {
-  vertexShader: [
-    'uniform float time;',
-    'uniform float size;',
-    'uniform float lifetime;',
-
-    'attribute float spawnTime;',
-    'attribute vec3 velocity;',
-    'attribute vec3 particleColor;',
-
-    'varying float vRemainingLifetime;',
-    'varying vec3 vParticleColor;',
-
-    'float rand(float n) {',
-    '  return fract(sin(n) * 43758.5453123);',
-    '}',
-
-    'void main() {',
-    '  vRemainingLifetime = max(0.0, spawnTime + lifetime - time);',
-    '  vParticleColor = particleColor;',
-
-    '  vec4 mvPosition = modelViewMatrix * vec4(position + velocity * (time - spawnTime), 1.0);',
-    '  gl_PointSize = size * (spawnTime + lifetime - time) / lifetime;',
-    '  gl_Position = projectionMatrix * mvPosition;',
-    '}',
-  ].join('\n'),
-  fragmentShader: [
-    'uniform float lifetime;',
-
-    'varying float vRemainingLifetime;',
-    'varying vec3 vParticleColor;',
-
-    'void main() {',
-    '  gl_FragColor = vec4(vParticleColor, vRemainingLifetime / lifetime * (0.5 - distance(gl_PointCoord, vec2(0.5))));',
-    '}',
-  ].join('\n'),
-};
+import fragmentShader from './particle_frag.glsl';
+import vertexShader from './particle_vert.glsl';
 
 class ParticleEmitter extends Object3D {
   constructor({ color = 0xffffff, colorRandomness = 0.1, lifetime = 5, size = 15, count = 1000 }) {
@@ -69,8 +34,8 @@ class ParticleEmitter extends Object3D {
 
     this.material = new ShaderMaterial({
       uniforms: this.uniforms,
-      vertexShader: ParticleShader.vertexShader,
-      fragmentShader: ParticleShader.fragmentShader,
+      vertexShader,
+      fragmentShader,
       blending: AdditiveBlending,
       depthWrite: false,
       transparent: true,
@@ -108,7 +73,9 @@ class ParticleEmitter extends Object3D {
   makeParticleColorArray() {
     const { r, g, b } = this.color;
 
-    return [r, g, b].map(v => _Math.clamp(v + (Math.random() - 0.5) * this.colorRandomness, 0, 1));
+    return [r, g, b].map((v) =>
+      _Math.clamp(v + (Math.random() - 0.5) * this.colorRandomness, 0, 1)
+    );
   }
 
   update(timeElapsed = 0) {
@@ -164,4 +131,4 @@ class ParticleEmitter extends Object3D {
   }
 }
 
-export { ParticleEmitter };
+export default ParticleEmitter;

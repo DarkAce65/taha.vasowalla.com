@@ -1,6 +1,6 @@
 // Fisher–Yates Shuffle
 
-export default array => {
+export default (array) => {
   let m = array.length;
   let t;
   let i;
