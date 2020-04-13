@@ -4,8 +4,8 @@ export default (inputs, units, computeTargetIndex, equation) => {
   if (inputs.length !== units.length) {
     throw new Error('Mismatched number of inputs and units');
   }
-  if (computeTargetIndex < 0 || inputs.length <= computeTargetIndex) {
-    throw new Error(`Invalid compute target: ${computeTargetIndex}`);
+  if (computeTargetIndex === -1) {
+    throw new Error('Too many unknowns');
   }
 
   const parsedInputs = [];
