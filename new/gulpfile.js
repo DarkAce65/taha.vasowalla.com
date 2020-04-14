@@ -18,8 +18,8 @@ const webpackConfig = require('./webpack.config.js');
 
 const staticFiles = {
   assets: {
-    img: '../img/*',
-    icons: '../img/icons/**/*',
+    img: 'assets/*',
+    icons: 'assets/icons/**/*',
     textures: 'assets/textures/**/*',
     spritesheets: 'assets/spritesheets/**/*',
   },
