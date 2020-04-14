@@ -1,25 +1,23 @@
 .DS_Store
 
-# bower components
-bower_components/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# bourbon files
-bourbon/
-
-# sass cache files
-.sass-cache/
-
-# source map files
-*.css.map
-*.js.map
-
-# atom files
-.atom*
-
-# compiled css files
-global.css
-photography/photoicons.css
-style.css
-
+# Dependency directories
 node_modules/
-yarn.lock
+
+# Optional npm cache directory
+.npm
+
+# Yarn Integrity file
+.yarn-integrity
+
+# compiled files
+dist/
+
+# sourcemaps
+maps/

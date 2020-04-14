@@ -1,0 +1,25 @@
+.DS_Store
+
+# bower components
+bower_components/
+
+# bourbon files
+bourbon/
+
+# sass cache files
+.sass-cache/
+
+# source map files
+*.css.map
+*.js.map
+
+# atom files
+.atom*
+
+# compiled css files
+global.css
+photography/photoicons.css
+style.css
+
+node_modules/
+yarn.lock
