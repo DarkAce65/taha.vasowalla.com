@@ -17,6 +17,7 @@ const { endStream, flattenObject, debounceStream, handleSassImports } = require(
 const webpackConfig = require('./webpack.config.js');
 
 const staticFiles = {
+  '.htaccess': '.htaccess',
   assets: {
     img: 'assets/*',
     icons: 'assets/icons/**/*',

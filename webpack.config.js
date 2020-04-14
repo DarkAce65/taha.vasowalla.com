@@ -26,7 +26,7 @@ const entrypoints = pages.reduce(
   {}
 );
 
-const plugins = pages.map(({ entry, dir, chunks = [entry] }) => {
+const pagePlugins = pages.map(({ entry, dir, chunks = [entry] }) => {
   return new HtmlWebpackPlugin({
     inject: 'head',
     filename: path.join(dir, 'index.html'),
@@ -112,5 +112,17 @@ module.exports = {
     ],
   },
 
-  plugins,
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: '403.html',
+      template: path.join(__dirname, 'src', '403.pug'),
+      chunks: [],
+    }),
+    new HtmlWebpackPlugin({
+      filename: '404.html',
+      template: path.join(__dirname, 'src', '404.pug'),
+      chunks: [],
+    }),
+    ...pagePlugins,
+  ],
 };
