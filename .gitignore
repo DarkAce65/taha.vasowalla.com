@@ -20,3 +20,6 @@ bourbon/
 global.css
 photography/photoicons.css
 style.css
+
+node_modules/
+yarn.lock

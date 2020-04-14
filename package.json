@@ -1,0 +1,11 @@
+{
+  "name": "taha.vasowalla.com",
+  "private": true,
+  "scripts": {
+    "compile": "node ./_compile"
+  },
+  "devDependencies": {
+    "glob": "^7.1.6",
+    "node-sass": "^4.5"
+  }
+}
