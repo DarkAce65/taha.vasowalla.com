@@ -18,13 +18,14 @@ html
           .uk-card.uk-card-small.uk-card-body.uk-card-default(class="uk-width-expand@s uk-text-center uk-text-left@s")
             h2 Taha Vasowalla
             p A self-taught software developer with a strong background in web development and a passion to learn. Very patient and willing to work out robust solutions for challenging problems.
-            a.uk-link(href=require("./Resume - Taha Vasowalla.pdf")) Resume.pdf
       div(uk-grid class="uk-child-width-1-2@m")
         .uk-grid-item-match
           .uk-flex-column(uk-grid)
             .uk-flex-none
               .uk-card.uk-card-small.uk-card-body.uk-card-default
                 .uk-text-center.grid-2col
+                  div(style={"grid-column": "1 / 3"})
+                    a.uk-link(href=require("./Resume - Taha Vasowalla.pdf")) Resume.pdf
                   a(href="https://www.linkedin.com/in/TahaVasowalla" target="_blank") #[span.uk-margin-small-right(uk-icon="linkedin")] LinkedIn
                   a(href="https://github.com/DarkAce65" target="_blank") #[span.uk-margin-small-right(uk-icon="github")] GitHub
                   a(href="https://instagram.com/darkace65/" target="_blank") #[span.uk-margin-small-right(uk-icon="instagram")] Instagram
@@ -51,6 +52,7 @@ html
                 div Shell scripting
                 div GLSL Shaders
                 div LaTeX
+                div Python
                 div Android and iOS development
             .uk-grid-small.uk-grid-divider(uk-grid)
               .uk-text-right(class="uk-width-1-2 uk-width-medium@s") Learning
