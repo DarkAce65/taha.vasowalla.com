@@ -10,16 +10,50 @@ const endStream = function () {
   this.emit('end');
 };
 
-const flattenObject = (object, root = '') =>
-  Object.entries(object).reduce((obj, [key, value]) => {
-    const base = root === '' ? '' : `${root}/`;
-    if (!Array.isArray(value) && typeof value === 'object') {
-      return { ...obj, ...flattenObject(value, `${base}${key}`) };
+// Flattens an object into filesystem paths collecting values for duplicate paths as arrays
+const flattenPaths = (object, root = '') => {
+  const base = root.length === 0 ? '/' : `${root}/`;
+
+  return Object.entries(object).reduce((obj, [key, value]) => {
+    key = path.posix.normalize(key);
+    if (key.indexOf('..') !== -1) {
+      throw new Error(
+        `Key "${key}" under "${path.posix.normalize(
+          base
+        )}" is attempting to access a parent directory`
+      );
     }
 
-    obj[`${base}${key}`] = value;
+    const currentPath = path.posix.join(base, key, path.posix.sep); // Ensure trailing separator to bundle paths
+
+    if (!Array.isArray(value) && typeof value === 'object') {
+      const subObject = flattenPaths(value, currentPath);
+      for (const subObjectPath in subObject) {
+        if (
+          Object.prototype.hasOwnProperty.call(subObject, subObjectPath) &&
+          Object.prototype.hasOwnProperty.call(obj, subObjectPath)
+        ) {
+          obj[subObjectPath] = obj[subObjectPath].push(...subObject[subObjectPath]);
+          delete subObject[subObjectPath];
+        }
+      }
+
+      return { ...obj, ...subObject };
+    }
+
+    if (!Object.prototype.hasOwnProperty.call(obj, currentPath)) {
+      obj[currentPath] = [];
+    }
+
+    if (Array.isArray(value)) {
+      obj[currentPath].push(...value);
+    } else {
+      obj[currentPath].push(value);
+    }
+
     return obj;
   }, {});
+};
 
 const debounceStream = ({ delay = 100, cacheKeyFn = (file) => file.path } = {}) => {
   const cache = {};
@@ -99,4 +133,4 @@ const handleSassImports = ({ firstRun } = {}) =>
     callback();
   });
 
-module.exports = { endStream, flattenObject, debounceStream, handleSassImports };
+module.exports = { endStream, flattenPaths, debounceStream, handleSassImports };

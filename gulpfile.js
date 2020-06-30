@@ -1,5 +1,6 @@
 /* eslint-disable import/order */
 
+const path = require('path');
 const gulp = require('gulp');
 // Utils
 const using = require('gulp-using');
@@ -13,11 +14,13 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const { endStream, flattenObject, debounceStream, handleSassImports } = require('./gulp/utils');
+const { endStream, flattenPaths, debounceStream, handleSassImports } = require('./gulp/utils');
 const webpackConfig = require('./webpack.config.js');
 
+const DEST_DIR = 'dist';
+
 const staticFiles = {
-  '.htaccess': '.htaccess',
+  '/': '.htaccess',
   assets: {
     img: 'assets/*',
     icons: 'assets/icons/**/*',
@@ -31,20 +34,27 @@ const sassOptions = {
   includePaths: ['node_modules/'],
 };
 
-const cleanStatic = () =>
-  del(Object.keys(flattenObject(staticFiles)).map((staticDir) => `dist/${staticDir}`));
+const flattenedStaticFiles = flattenPaths(staticFiles, DEST_DIR);
+
+const cleanStatic = () => {
+  const normalizedDistDir = path.posix.join(DEST_DIR, path.posix.sep);
+
+  return del(
+    Object.keys(flattenedStaticFiles).filter((staticPath) => staticPath !== normalizedDistDir)
+  );
+};
 cleanStatic.displayName = 'clean:static';
 
 const copyStatic = gulp.series(
   cleanStatic,
   gulp.parallel(
-    ...Object.entries(flattenObject(staticFiles)).map(([destPath, source]) => {
+    ...Object.entries(flattenedStaticFiles).map(([destPath, source]) => {
       const copyStaticFiles = () =>
         gulp
           .src(source)
-          .pipe(gulp.dest(`dist/${destPath}`))
+          .pipe(gulp.dest(destPath))
           .pipe(using({ prefix: 'Writing', filesize: true }));
-      copyStaticFiles.displayName = `copy:${destPath.replace(/\//g, ':')}`;
+      copyStaticFiles.displayName = 'copy:static:subtask';
 
       return copyStaticFiles;
     })
@@ -57,7 +67,7 @@ const compileScriptsAndHTML = () =>
     .src(Object.values(webpackConfig.entry))
     .pipe(using({ prefix: 'Compiling' }))
     .pipe(webpackStream(webpackConfig, webpack).on('error', endStream))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest(DEST_DIR));
 compileScriptsAndHTML.displayName = 'scripts_html';
 
 const devServer = () => {
@@ -79,7 +89,7 @@ const compileStyles = () => {
     .pipe(debounceStream())
     .pipe(sass.sync(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
-    .pipe(gulp.dest('dist', { sourcemaps: 'maps' }))
+    .pipe(gulp.dest(DEST_DIR, { sourcemaps: 'maps' }))
     .pipe(using({ prefix: 'Writing', filesize: true }));
 };
 compileStyles.displayName = 'styles';
