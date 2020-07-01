@@ -2,6 +2,8 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const { DEST_DIR } = require('./build.config');
+
 const pages = [
   { entry: 'index', dir: '' },
   { entry: 'about', dir: 'about' },

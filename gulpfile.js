@@ -14,27 +14,13 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const { endStream, flattenPaths, debounceStream, handleSassImports } = require('./gulp/utils');
+const { DEST_DIR, flattenedStaticFiles } = require('./build.config');
+const { endStream, debounceStream, handleSassImports } = require('./gulp/utils');
 const webpackConfig = require('./webpack.config.js');
 
-const DEST_DIR = 'dist';
-
-const staticFiles = {
-  '/': '.htaccess',
-  assets: {
-    img: 'assets/*',
-    icons: 'assets/icons/**/*',
-    textures: 'assets/textures/**/*',
-    spritesheets: 'assets/spritesheets/**/*',
-  },
-};
 const styleSources = 'src/**/*.scss';
 
-const sassOptions = {
-  includePaths: ['node_modules/'],
-};
-
-const flattenedStaticFiles = flattenPaths(staticFiles, DEST_DIR);
+const sassOptions = { includePaths: ['node_modules/'] };
 
 const cleanStatic = () => {
   const normalizedDistDir = path.posix.join(DEST_DIR, path.posix.sep);
