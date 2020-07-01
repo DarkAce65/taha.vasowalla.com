@@ -31,7 +31,7 @@ const entrypoints = pages.reduce(
 const pagePlugins = pages.map(({ entry, dir, chunks = [entry] }) => {
   return new HtmlWebpackPlugin({
     inject: 'head',
-    filename: path.join(dir, 'index.html'),
+    filename: path.posix.join(dir, 'index.html'),
     template: path.join(process.cwd(), 'src', dir, 'index.pug'),
     chunks,
   });
@@ -72,9 +72,9 @@ module.exports = {
   entry: entrypoints,
 
   output: {
-    publicPath: path.normalize(process.env.PUBLIC_PATH || '/'),
+    publicPath: process.env.PUBLIC_PATH || '/',
     filename: '[name].[contenthash:5].js',
-    sourceMapFilename: path.normalize('maps/[name].js.map'),
+    sourceMapFilename: 'maps/[name].js.map',
   },
 
   optimization: {
@@ -97,10 +97,7 @@ module.exports = {
         test: /\.css$/,
         include: /node_modules/,
         use: [
-          {
-            loader: 'file-loader',
-            options: { name: path.normalize('lib/css/[name].[ext]') },
-          },
+          { loader: 'file-loader', options: { name: 'lib/css/[name].[ext]' } },
           'extract-loader',
           'css-loader',
         ],
@@ -109,7 +106,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|png|svg|jpg|gif)$/,
         include: /node_modules/,
         loader: 'file-loader',
-        options: { name: path.normalize('lib/assets/[name].[ext]'), esModule: false },
+        options: { name: 'lib/assets/[name].[ext]', esModule: false },
       },
       { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
       { test: /\.(glsl|txt)$/, use: 'raw-loader' },
