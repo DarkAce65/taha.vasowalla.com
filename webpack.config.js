@@ -21,7 +21,7 @@ const pages = [
 const entrypoints = pages.reduce(
   (acc, { entry, dir }) => ({
     ...acc,
-    [entry]: path.join(__dirname, 'src', dir, 'script.js'),
+    [entry]: path.join(process.cwd(), 'src', dir, 'script.js'),
   }),
   {}
 );
@@ -30,7 +30,7 @@ const pagePlugins = pages.map(({ entry, dir, chunks = [entry] }) => {
   return new HtmlWebpackPlugin({
     inject: 'head',
     filename: path.join(dir, 'index.html'),
-    template: path.join(__dirname, 'src', dir, 'index.pug'),
+    template: path.join(process.cwd(), 'src', dir, 'index.pug'),
     chunks,
   });
 });
@@ -49,7 +49,7 @@ module.exports = {
     publicPath: '/',
     host: '0.0.0.0',
     port: 5000,
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(process.cwd(), DEST_DIR),
     watchContentBase: true,
     stats: {
       assetsSort: 'chunks',
@@ -72,7 +72,7 @@ module.exports = {
   output: {
     publicPath: process.env.PUBLIC_PATH || '/',
     filename: '[name].js',
-    sourceMapFilename: 'maps/[name].js.map',
+    sourceMapFilename: path.normalize('maps/[name].js.map'),
   },
 
   optimization: {
@@ -94,7 +94,10 @@ module.exports = {
         test: /\.css$/,
         include: /node_modules/,
         use: [
-          { loader: 'file-loader', options: { name: 'lib/css/[name].[ext]' } },
+          {
+            loader: 'file-loader',
+            options: { name: path.normalize('lib/css/[name].[ext]') },
+          },
           'extract-loader',
           'css-loader',
         ],
@@ -103,7 +106,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|png|svg|jpg|gif)$/,
         include: /node_modules/,
         loader: 'file-loader',
-        options: { name: 'lib/assets/[name].[ext]', esModule: false },
+        options: { name: path.normalize('lib/assets/[name].[ext]'), esModule: false },
       },
       { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
       { test: /\.(glsl|txt)$/, use: 'raw-loader' },
@@ -115,12 +118,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: '403.html',
-      template: path.join(__dirname, 'src', '403.pug'),
+      template: path.join(process.cwd(), 'src', '403.pug'),
       chunks: [],
     }),
     new HtmlWebpackPlugin({
       filename: '404.html',
-      template: path.join(__dirname, 'src', '404.pug'),
+      template: path.join(process.cwd(), 'src', '404.pug'),
       chunks: [],
     }),
     ...pagePlugins,
