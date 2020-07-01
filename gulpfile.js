@@ -1,8 +1,9 @@
 /* eslint-disable import/order */
-
 const path = require('path');
 const gulp = require('gulp');
 // Utils
+const log = require('fancy-log');
+const chalk = require('chalk');
 const using = require('gulp-using');
 const gulpif = require('gulp-if');
 // Build tools
@@ -14,7 +15,7 @@ const sass = require('gulp-sass');
 sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const { DEST_DIR, flattenedStaticFiles } = require('./build.config');
+const { DEST_DIR, STATIC_FILE_GLOBS } = require('./build.config');
 const { endStream, debounceStream, handleSassImports } = require('./gulp/utils');
 const webpackConfig = require('./webpack.config.js');
 
@@ -22,29 +23,23 @@ const styleSources = 'src/**/*.scss';
 
 const sassOptions = { includePaths: ['node_modules/'] };
 
-const cleanStatic = () => {
-  const normalizedDistDir = path.posix.join(DEST_DIR, path.posix.sep);
-
-  return del(
-    Object.keys(flattenedStaticFiles).filter((staticPath) => staticPath !== normalizedDistDir)
+const cleanDest = () =>
+  del([path.posix.join(DEST_DIR, '**/*'), path.posix.join(DEST_DIR, '**/.*')]).then(() =>
+    log(`Cleaning output directory ${chalk.magenta(DEST_DIR)}`)
   );
-};
-cleanStatic.displayName = 'clean:static';
+cleanDest.displayName = 'clean:dest';
 
-const copyStatic = gulp.series(
-  cleanStatic,
-  gulp.parallel(
-    ...Object.entries(flattenedStaticFiles).map(([destPath, source]) => {
-      const copyStaticFiles = () =>
-        gulp
-          .src(source)
-          .pipe(gulp.dest(destPath))
-          .pipe(using({ prefix: 'Writing', filesize: true }));
-      copyStaticFiles.displayName = 'copy:static:subtask';
+const copyStatic = gulp.parallel(
+  ...Object.entries(STATIC_FILE_GLOBS).map(([destPath, source]) => {
+    const copyStaticFiles = () =>
+      gulp
+        .src(source)
+        .pipe(gulp.dest(destPath))
+        .pipe(using({ prefix: 'Writing', filesize: true }));
+    copyStaticFiles.displayName = 'copy:static:subtask';
 
-      return copyStaticFiles;
-    })
-  )
+    return copyStaticFiles;
+  })
 );
 copyStatic.displayName = 'copy:static';
 
@@ -54,7 +49,7 @@ const compileScriptsAndHTML = () =>
     .pipe(using({ prefix: 'Compiling' }))
     .pipe(webpackStream(webpackConfig, webpack).on('error', endStream))
     .pipe(gulp.dest(DEST_DIR));
-compileScriptsAndHTML.displayName = 'scripts_html';
+compileScriptsAndHTML.displayName = 'compile:markup_scripts';
 
 const devServer = () => {
   const {
@@ -86,6 +81,15 @@ watchStyles.displayName = 'watch:styles';
 exports.copyStatic = copyStatic;
 exports.scripts = compileScriptsAndHTML;
 exports.styles = compileStyles;
-exports.watch = gulp.series(copyStatic, compileStyles, gulp.parallel(devServer, watchStyles));
+exports.watch = gulp.series(
+  cleanDest,
+  copyStatic,
+  compileStyles,
+  gulp.parallel(devServer, watchStyles)
+);
 
-exports.default = gulp.series(copyStatic, gulp.parallel(compileScriptsAndHTML, compileStyles));
+exports.default = gulp.series(
+  cleanDest,
+  copyStatic,
+  gulp.parallel(compileScriptsAndHTML, compileStyles)
+);

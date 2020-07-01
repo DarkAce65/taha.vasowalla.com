@@ -55,7 +55,7 @@ module.exports = {
     watchContentBase: true,
     stats: {
       assetsSort: 'chunks',
-      excludeAssets: /(^lib\/|.map$)/,
+      excludeAssets: /(^lib|.map$)/,
       colors: true,
       version: false,
       hash: false,
@@ -72,12 +72,13 @@ module.exports = {
   entry: entrypoints,
 
   output: {
-    publicPath: process.env.PUBLIC_PATH || '/',
-    filename: '[name].js',
+    publicPath: path.normalize(process.env.PUBLIC_PATH || '/'),
+    filename: '[name].[contenthash:5].js',
     sourceMapFilename: path.normalize('maps/[name].js.map'),
   },
 
   optimization: {
+    moduleIds: 'hashed',
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',

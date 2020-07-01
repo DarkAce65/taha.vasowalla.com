@@ -2,16 +2,17 @@ const { flattenPaths } = require('./gulp/utils');
 
 const DEST_DIR = 'dist';
 
-const staticFiles = {
-  '/': '.htaccess',
-  assets: {
-    img: 'assets/*',
-    icons: 'assets/icons/**/*',
-    textures: 'assets/textures/**/*',
-    spritesheets: 'assets/spritesheets/**/*',
+const STATIC_FILE_GLOBS = flattenPaths(
+  {
+    '/': '.htaccess',
+    assets: {
+      img: 'assets/*',
+      icons: 'assets/icons/**/*',
+      textures: 'assets/textures/**/*',
+      spritesheets: 'assets/spritesheets/**/*',
+    },
   },
-};
+  DEST_DIR
+);
 
-const flattenedStaticFiles = flattenPaths(staticFiles, DEST_DIR);
-
-module.exports = { DEST_DIR, flattenedStaticFiles };
+module.exports = { DEST_DIR, STATIC_FILE_GLOBS };
