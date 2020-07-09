@@ -5,7 +5,6 @@ const gulp = require('gulp');
 const log = require('fancy-log');
 const chalk = require('chalk');
 const using = require('gulp-using');
-const gulpif = require('gulp-if');
 // Build tools
 const del = require('del');
 const webpackStream = require('webpack-stream');
@@ -16,7 +15,7 @@ sass.compiler = require('sass');
 const autoprefixer = require('gulp-autoprefixer');
 
 const { DEST_DIR, STATIC_FILE_GLOBS } = require('./build.config');
-const { endStream, debounceStream, handleSassImports } = require('./gulp/utils');
+const { endStream, addSassDependents } = require('./gulp/utils');
 const webpackConfig = require('./webpack.config.js');
 
 const styleSources = 'src/**/*.scss';
@@ -65,9 +64,7 @@ const compileStyles = () => {
 
   return gulp
     .src(styleSources, { sourcemaps: true, since })
-    .pipe(gulpif(!firstRun && /_[^/]*$/, using({ prefix: 'Compiling dependents of' })))
-    .pipe(handleSassImports({ firstRun }))
-    .pipe(debounceStream())
+    .pipe(addSassDependents({ skipDependents: firstRun }))
     .pipe(sass.sync(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest(DEST_DIR, { sourcemaps: 'maps' }))

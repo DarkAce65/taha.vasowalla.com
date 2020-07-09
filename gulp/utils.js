@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { Duplex } = require('stream');
 
+const chalk = require('chalk');
+const log = require('fancy-log');
 const sassGraph = require('sass-graph');
-const through2 = require('through2');
 const Vinyl = require('vinyl');
 
 const endStream = function () {
@@ -55,82 +56,83 @@ const flattenPaths = (object, root = '') => {
   }, {});
 };
 
-const debounceStream = ({ delay = 100, cacheKeyFn = (file) => file.path } = {}) => {
-  const cache = {};
+const addSassDependents = ({ skipDependents } = {}) => {
+  const delay = 200;
+  let graph = null;
+  let cache = {};
 
   return new Duplex({
     objectMode: true,
     read() {},
     write(file, _, done) {
-      const cacheKey = cacheKeyFn(file);
-      if (Object.prototype.hasOwnProperty.call(cache, cacheKey)) {
-        clearTimeout(cache[cacheKey].timeout);
-      } else {
-        cache[cacheKey] = {};
+      // Skip dependency traversal for first run
+      if (skipDependents) {
+        // Skip partials
+        if (!/^_/.test(file.basename)) {
+          this.push(file);
+        }
+
+        done();
+        return;
       }
 
-      cache[cacheKey].file = file;
-      cache[cacheKey].timeout = setTimeout(() => {
-        this.push(file);
-        delete cache[cacheKey];
-      }, delay);
+      if (!graph) {
+        graph = sassGraph.parseDir('src');
+      }
+
+      const { cwd, base } = file;
+
+      const workingPaths = [file.path];
+      const processedPaths = new Set();
+      while (workingPaths.length > 0) {
+        const currentPath = workingPaths.shift();
+        if (processedPaths.has(currentPath)) {
+          continue;
+        }
+
+        const imports = graph.index[currentPath].importedBy;
+        if (currentPath === file.path && imports.length > 0) {
+          log(`Compiling dependents of ${chalk.magenta(path.relative(cwd, file.path))}`);
+        }
+
+        if (!/^_/.test(path.basename(currentPath))) {
+          const cacheKey = currentPath;
+          if (Object.prototype.hasOwnProperty.call(cache, cacheKey)) {
+            clearTimeout(cache[cacheKey].timeout);
+          } else {
+            cache[cacheKey] = {};
+          }
+
+          const stat = fs.statSync(currentPath);
+          const contents = fs.readFileSync(currentPath);
+          const currentFile = new Vinyl({ cwd, base, path: currentPath, stat, contents });
+
+          cache[cacheKey].file = currentFile;
+          cache[cacheKey].timeout = setTimeout(() => {
+            this.push(cache[cacheKey].file);
+            delete cache[cacheKey];
+          }, delay);
+        }
+
+        workingPaths.push(...imports.filter((p) => !processedPaths.has(p)));
+        processedPaths.add(currentPath);
+      }
 
       done();
     },
     final(done) {
-      Object.values(cache).forEach(({ timeout, file }) => {
+      Object.values(cache).forEach(({ file, timeout }) => {
         clearTimeout(timeout);
         this.push(file);
       });
       this.push(null);
+
+      graph = null;
+      cache = {};
 
       done();
     },
   });
 };
 
-const handleSassImports = ({ firstRun } = {}) =>
-  through2.obj(function (file, _, callback) {
-    // Skip dependency traversal for first run
-    if (firstRun) {
-      if (/^_/.test(file.basename)) {
-        callback(); // Skip partials
-      } else {
-        callback(null, file);
-      }
-      return;
-    }
-
-    const { cwd, base } = file;
-    const graph = sassGraph.parseDir('src');
-
-    const workingPaths = [file.path];
-    const processedPaths = new Set();
-    const paths = [];
-    while (workingPaths.length > 0) {
-      const activePath = workingPaths.shift();
-      if (processedPaths.has(activePath)) {
-        continue;
-      }
-
-      const imports = graph.index[activePath].importedBy;
-
-      if (!/^_/.test(path.basename(activePath))) {
-        paths.push(activePath);
-      }
-
-      workingPaths.push(...imports.filter((p) => !processedPaths.has(p)));
-      processedPaths.add(activePath);
-    }
-
-    paths.forEach((p) => {
-      const stat = fs.statSync(p);
-      const contents = fs.readFileSync(p);
-
-      this.push(new Vinyl({ cwd, base, path: p, stat, contents }));
-    });
-
-    callback();
-  });
-
-module.exports = { endStream, flattenPaths, debounceStream, handleSassImports };
+module.exports = { endStream, flattenPaths, addSassDependents };
