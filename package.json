@@ -13,7 +13,7 @@
         "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.js\"",
         "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
         "copy:static": "gulp copy:static --silent",
-        "dev": "gulp watch --silent",
+        "dev": "gulp dev --silent",
         "build": "gulp --silent",
         "build:prod": "cross-env NODE_ENV=production PUBLIC_PATH='/' gulp --silent"
     },

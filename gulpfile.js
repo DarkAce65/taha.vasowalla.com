@@ -78,7 +78,7 @@ watchStyles.displayName = 'watch:styles';
 exports.copyStatic = copyStatic;
 exports.scripts = compileScriptsAndHTML;
 exports.styles = compileStyles;
-exports.watch = gulp.series(
+exports.dev = gulp.series(
   cleanDest,
   copyStatic,
   compileStyles,
