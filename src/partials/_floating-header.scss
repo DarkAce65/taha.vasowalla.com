@@ -1,4 +1,4 @@
-@import 'partials/uikit-overrides/variables';
+@import 'uikit-overrides/variables';
 
 .floating-header {
   margin-top: $global-margin;
@@ -10,13 +10,5 @@
   .floating-header {
     margin-left: $global-gutter;
     margin-right: $global-gutter;
-  }
-}
-
-#e403 {
-  background-color: $red;
-
-  h1 {
-    color: $inverse-global-color;
   }
 }

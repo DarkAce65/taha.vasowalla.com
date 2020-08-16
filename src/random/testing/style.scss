@@ -1,6 +1,8 @@
 @import '../../partials/colors';
 @import '../../partials/uikit-overrides/variables';
 
+@import '../../partials/floating-header';
+
 $day: #c0cfe2;
 $night: darken($day, 70);
 

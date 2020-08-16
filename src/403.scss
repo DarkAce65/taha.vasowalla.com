@@ -1,0 +1,10 @@
+@import 'partials/uikit-overrides/variables';
+
+#e403 {
+  background-color: $red;
+  color: $inverse-global-color;
+
+  h1 {
+    color: $inverse-global-color;
+  }
+}
