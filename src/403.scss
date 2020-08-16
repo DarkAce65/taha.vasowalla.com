@@ -1,8 +1,14 @@
 @import 'partials/uikit-overrides/variables';
 
+html,
+body {
+  height: 100%;
+}
+
 #e403 {
+  overflow: hidden;
   background-color: $red;
-  color: $inverse-global-color;
+  color: $inverse-global-muted-color;
 
   h1 {
     color: $inverse-global-color;
