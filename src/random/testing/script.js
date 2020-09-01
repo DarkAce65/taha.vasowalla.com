@@ -33,6 +33,7 @@ import {
   UniformsUtils,
   Vector2,
   Vector3,
+  WebGLCubeRenderTarget,
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   pointlight.position.set(250, 100, -100);
   scene.add(pointlight);
 
-  const waterCamera = new CubeCamera(0.01, 1000, 16);
+  const waterCamera = new CubeCamera(0.01, 1000, new WebGLCubeRenderTarget(128));
   waterCamera.lookAt(new Vector3(0, 1, 0));
   const uniforms = UniformsUtils.merge([
     UniformsLib['lights'],
