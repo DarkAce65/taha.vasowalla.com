@@ -1,6 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const { DEST_DIR } = require('./build.config');
 
@@ -114,8 +115,22 @@ module.exports = {
       { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
       { test: /\.(glsl|txt)$/, sideEffects: true, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
+      {
+        enforce: 'pre',
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: { configFile: path.resolve(__dirname, '.eslintrc.js') },
+      },
+      { test: /\.tsx?$/, exclude: /node_modules/, use: ['babel-loader', 'ts-loader'] },
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
     ],
+  },
+
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+    modules: [path.resolve(__dirname, 'node_modules')],
+    plugins: [new TsconfigPathsPlugin()],
   },
 
   plugins: [

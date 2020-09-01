@@ -10,8 +10,8 @@
         "tests"
     ],
     "scripts": {
-        "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.js\"",
-        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,scss}\"",
+        "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,ts}\"",
+        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,ts,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "dev": "gulp dev --silent",
         "build": "gulp --silent",
@@ -23,13 +23,15 @@
         }
     },
     "lint-staged": {
-        "*.js!eslintrc.js": "eslint --max-warnings=0",
-        "*.{js,scss}": "prettier --list-different"
+        "*.{js,ts}!eslintrc.js": "eslint --max-warnings=0",
+        "*.{js,ts,scss}": "prettier --list-different"
     },
     "devDependencies": {
         "@babel/core": "^7.11.1",
         "@babel/plugin-transform-strict-mode": "^7.10.4",
         "@babel/preset-env": "^7.11.0",
+        "@typescript-eslint/eslint-plugin": "^4.0.1",
+        "@typescript-eslint/parser": "^4.0.1",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "chalk": "^4.1.0",
@@ -58,6 +60,9 @@
         "sass": "^1.26.10",
         "sass-graph": "^3.0.4",
         "serve": "^11.3.0",
+        "ts-loader": "^8.0.3",
+        "tsconfig-paths-webpack-plugin": "^3.3.0",
+        "typescript": "^4.0.2",
         "webpack": "^4.44.1",
         "webpack-dev-server": "^3.10.3",
         "webpack-stream": "^6.0.0"
