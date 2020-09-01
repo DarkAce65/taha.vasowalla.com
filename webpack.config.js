@@ -78,6 +78,7 @@ module.exports = {
   },
 
   optimization: {
+    usedExports: true,
     moduleIds: 'hashed',
     runtimeChunk: 'single',
     splitChunks: {
@@ -95,6 +96,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        sideEffects: true,
         include: /node_modules/,
         use: [
           { loader: 'file-loader', options: { name: 'lib/css/[name].[ext]' } },
@@ -104,12 +106,13 @@ module.exports = {
       },
       {
         test: /\.(woff2?|eot|ttf|png|svg|jpg|gif)$/,
+        sideEffects: true,
         include: /node_modules/,
         loader: 'file-loader',
         options: { name: 'lib/assets/[name].[ext]', esModule: false },
       },
       { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
-      { test: /\.(glsl|txt)$/, use: 'raw-loader' },
+      { test: /\.(glsl|txt)$/, sideEffects: true, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
     ],
