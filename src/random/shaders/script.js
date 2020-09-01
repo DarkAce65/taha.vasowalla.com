@@ -20,7 +20,6 @@ import {
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
 import capitalize from '../../lib/capitalize';
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
 import matrixFragmentShader from './shaders/matrix_frag.glsl';
 import noiseFragmentShader from './shaders/noise_frag.glsl';

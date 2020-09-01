@@ -28,5 +28,3 @@ export const getElOrThrow = (selector, parent) => {
 };
 
 export default getEl;
-window.getEl = getEl;
-window.getElOrThrow = getElOrThrow;

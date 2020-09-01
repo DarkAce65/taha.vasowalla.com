@@ -38,8 +38,6 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
-
 import beamFragmentShader from './shaders/beam_frag.glsl';
 import beamVertexShader from './shaders/beam_vert.glsl';
 import waveVertexShader from './shaders/wave_vert.glsl';

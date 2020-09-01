@@ -30,7 +30,6 @@ import {
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
 import enableFAIcons from '../../lib/enableFAIcons';
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 

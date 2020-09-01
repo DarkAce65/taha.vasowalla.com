@@ -15,7 +15,6 @@ import {
 } from 'three';
 
 import ParticleEmitter from './lib/particles/ParticleEmitter';
-import requestAnimationFrame from './lib/requestAnimationFrame';
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => document.body.classList.remove('loading'), 500);

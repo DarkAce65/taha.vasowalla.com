@@ -4,8 +4,6 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import gsap from 'gsap';
 import Draggable from 'gsap/Draggable';
 
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
-
 gsap.registerPlugin(Draggable);
 
 let bubblesCanvas;

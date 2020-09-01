@@ -6,7 +6,6 @@ import * as mm from 'music-metadata-browser';
 import WaveSurfer from 'wavesurfer.js';
 
 import enableFAIcons from '../../lib/enableFAIcons';
-import requestAnimationFrame from '../../lib/requestAnimationFrame';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
