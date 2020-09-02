@@ -1,5 +1,5 @@
+import ToggleWrapper from './ToggleWrapper';
 import { getElOrThrow } from './getEl';
-import makeToggleWrapper from './makeToggleWrapper';
 
 class ValidatedInput {
   constructor(
@@ -21,7 +21,7 @@ class ValidatedInput {
     }
 
     this._validationMessage.setAttribute('hidden', '');
-    this._validationMessageToggle = makeToggleWrapper(this._validationMessage, {
+    this._validationMessageToggle = new ToggleWrapper(this._validationMessage, {
       animation: 'uk-animation-slide-top-small',
       mode: null,
     });

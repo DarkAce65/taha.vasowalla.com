@@ -1,9 +1,9 @@
 // Fisher–Yates Shuffle
 
-export default (array) => {
+export default <T>(array: T[]): T[] => {
   let m = array.length;
-  let t;
-  let i;
+  let t: T;
+  let i: number;
   while (m) {
     i = Math.floor(Math.random() * m--);
     t = array[m];

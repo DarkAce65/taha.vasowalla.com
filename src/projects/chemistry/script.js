@@ -3,9 +3,9 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 import katex from 'katex';
 
+import ToggleWrapper from '~/lib/ToggleWrapper';
 import ValidatedInput from '~/lib/ValidatedInput';
 import debounce from '~/lib/debounce';
-import makeToggleWrapper from '~/lib/makeToggleWrapper';
 import renderLaTeX from '~/lib/renderLaTeX';
 
 import compute from './compute';
@@ -16,7 +16,7 @@ import getComputeTarget from './getComputeTarget';
 import { formulaToLatex, parseFormula } from './molarMass';
 
 const initMolarMass = () => {
-  const formulaAndError = makeToggleWrapper('#molarMassFormulaContainer', {
+  const formulaAndError = new ToggleWrapper('#molarMassFormulaContainer', {
     target: '#molarMassFormulaContainer > *',
     animation: 'uk-animation-fade',
     mode: null,
