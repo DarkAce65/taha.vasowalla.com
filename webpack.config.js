@@ -24,7 +24,7 @@ const pages = [
 const entrypoints = pages.reduce(
   (acc, { entry, dir }) => ({
     ...acc,
-    [entry]: path.join(process.cwd(), 'src', dir, 'script.js'),
+    [entry]: path.join(process.cwd(), 'src', dir, 'script'),
   }),
   {}
 );
