@@ -5,7 +5,7 @@ import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
 import * as mm from 'music-metadata-browser';
 import WaveSurfer from 'wavesurfer.js';
 
-import enableFAIcons from '../../lib/enableFAIcons';
+import enableFAIcons from '~/lib/enableFAIcons';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 

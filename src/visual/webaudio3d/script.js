@@ -29,7 +29,7 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import enableFAIcons from '../../lib/enableFAIcons';
+import enableFAIcons from '~/lib/enableFAIcons';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 

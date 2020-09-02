@@ -14,7 +14,7 @@ import {
   WebGLRenderer,
 } from 'three';
 
-import ParticleEmitter from './lib/particles/ParticleEmitter';
+import ParticleEmitter from '~/lib/particles/ParticleEmitter';
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => document.body.classList.remove('loading'), 500);

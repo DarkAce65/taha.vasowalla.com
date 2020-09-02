@@ -19,7 +19,7 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import capitalize from '../../lib/capitalize';
+import capitalize from '~/lib/capitalize';
 
 import matrixFragmentShader from './shaders/matrix_frag.glsl';
 import noiseFragmentShader from './shaders/noise_frag.glsl';

@@ -3,10 +3,10 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 import Cookie from 'js-cookie';
 
-import ValidatedInput from '../../lib/ValidatedInput';
-import { BREAKPOINT_SMALL } from '../../lib/breakpoints';
-import getEl from '../../lib/getEl';
-import getModalValues from '../../lib/getModalValues';
+import ValidatedInput from '~/lib/ValidatedInput';
+import { BREAKPOINT_SMALL } from '~/lib/breakpoints';
+import getEl from '~/lib/getEl';
+import getModalValues from '~/lib/getModalValues';
 
 import Minefield, { presets } from './Minefield';
 

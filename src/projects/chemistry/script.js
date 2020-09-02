@@ -3,10 +3,10 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 import katex from 'katex';
 
-import ValidatedInput from '../../lib/ValidatedInput';
-import debounce from '../../lib/debounce';
-import makeToggleWrapper from '../../lib/makeToggleWrapper';
-import renderLaTeX from '../../lib/renderLaTeX';
+import ValidatedInput from '~/lib/ValidatedInput';
+import debounce from '~/lib/debounce';
+import makeToggleWrapper from '~/lib/makeToggleWrapper';
+import renderLaTeX from '~/lib/renderLaTeX';
 
 import compute from './compute';
 import computeDilution from './computeDilution';

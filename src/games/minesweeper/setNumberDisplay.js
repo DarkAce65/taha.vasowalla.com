@@ -1,4 +1,4 @@
-import { getElOrThrow } from '../../lib/getEl';
+import { getElOrThrow } from '~/lib/getEl';
 
 export default (selector, num) => {
   const element = getElOrThrow(selector);
