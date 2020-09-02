@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
     "outDir": "dist",
 
-    "declaration": false,
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
 
-    "baseUrl": "."
+    "allowJs": true,
+    "declaration": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+
+    "baseUrl": "./"
   },
-  "include": ["src", "node_modules/@types/**/*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "node_modules/@types/**/*.d.ts"]
 }
