@@ -88,7 +88,7 @@ class ParticleEmitter extends Object3D {
       let count = this.particlesToUpdate;
       if (offset < 0) {
         offset = 0;
-        count = -1;
+        count = this.particleCursor;
       }
 
       position.updateRange.offset = offset * position.itemSize;
