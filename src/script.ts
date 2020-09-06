@@ -1,6 +1,7 @@
 import SimplexNoise from 'simplex-noise';
 import {
   BufferGeometry,
+  Color,
   DoubleSide,
   Euler,
   IcosahedronGeometry,
@@ -14,7 +15,11 @@ import {
   WebGLRenderer,
 } from 'three';
 
-import ParticleEmitter from '~/lib/particles/ParticleEmitter';
+import ParticleEmitter, { ParticleEmitterOptions } from '~/lib/particles/ParticleEmitter';
+
+interface Satellite extends Mesh {
+  orbitSpeed?: number;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => document.body.classList.remove('loading'), 500);
@@ -64,7 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const planet = new Mesh(new BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
   scene.add(planet);
 
-  const emitterOptions = { color: 0xf85a3e };
+  const emitterOptions: ParticleEmitterOptions = {
+    color: 0xf85a3e,
+    size: 12 * (window.devicePixelRatio || 1),
+  };
   if (window.innerWidth < 640) {
     emitterOptions.count = 100;
     emitterOptions.lifetime = 2.5;
@@ -72,24 +80,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const emitter = new ParticleEmitter(emitterOptions);
   scene.add(emitter);
 
-  const satelliteMaterial = new MeshPhongMaterial({
-    shininess: 30,
-    color: 0x526464,
-    side: DoubleSide,
-    flatShading: true,
-  });
+  const numSatellites = 100;
+  const satelliteMaterial = planetMaterial.clone();
+  const cometMaterial = satelliteMaterial.clone();
+  cometMaterial.emissive = new Color(emitterOptions.color);
+
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
-  const satellites = [];
-  for (let i = 0; i < 100; i++) {
-    const radius = i === 50 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
-    const detail = radius > 2.5 ? 1 : 0;
-    const satelliteGeometry = new IcosahedronGeometry(radius, detail);
-    if (radius > 2.5) {
+  const satellites: Satellite[] = [];
+  for (let i = 0; i < numSatellites; i++) {
+    const satelliteRadius = i === 0 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
+    const satelliteGeometry = new IcosahedronGeometry(
+      satelliteRadius,
+      satelliteRadius > 2.5 ? 1 : 0
+    );
+    if (satelliteRadius > 2.5) {
       displaceSatelliteGeometry(satelliteGeometry);
     }
-    const positionR = 80 + Math.random() * 30;
-    const c = positionR * Math.cos((i * Math.PI) / 50);
-    const s = positionR * Math.sin((i * Math.PI) / 50);
+
+    const orbitRadius = 80 + Math.random() * 30;
+    const angle = (i / numSatellites) * 2 * Math.PI + Math.PI;
+    const c = orbitRadius * Math.cos(angle);
+    const s = orbitRadius * Math.sin(angle);
     const h = Math.random() * 30 - 15;
     satelliteGeometry.applyMatrix4(
       new Matrix4().makeRotationFromEuler(
@@ -97,26 +108,17 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     );
 
-    const satellite = new Mesh(
+    const satellite: Satellite = new Mesh(
       new BufferGeometry().fromGeometry(satelliteGeometry),
-      i === 50
-        ? new MeshPhongMaterial({
-            shininess: 30,
-            color: 0x526464,
-            emissive: 0xf85a3e,
-            side: DoubleSide,
-            flatShading: true,
-          })
-        : satelliteMaterial
+      i === 0 ? cometMaterial : satelliteMaterial
     );
     satellite.position.set(c, s, h);
     satellite.scale.setScalar(satelliteScale);
-    satellite.orbitSpeed = 0.08 / radius;
+    satellite.orbitSpeed = 0.08 / satelliteRadius;
 
-    if (i === 50) {
+    if (i === 0) {
       satellite.orbitSpeed *= 3;
-      satellite.add(new PointLight(0xf85a3e, 1, positionR * 1.5, 2));
-      emitter.uniforms.size.value = 12 * (window.devicePixelRatio || 1);
+      satellite.add(new PointLight(0xf85a3e, 1, orbitRadius * 1.5, 2));
     }
 
     scene.add(satellite);
@@ -135,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       satellites[i].position.applyAxisAngle(new Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
     }
 
-    const pos = satellites[50].position;
+    const pos = satellites[0].position;
     emitter.emit(pos, { x: pos.y / 10, y: -pos.x / 10 });
     emitter.update(elapsedTime);
   }
@@ -190,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector(menuElement.dataset.menu).classList.add('active');
   };
 
-  document.querySelectorAll('#primary .menu-item').forEach((menuElement) => {
+  document.querySelectorAll<HTMLElement>('#primary .menu-item').forEach((menuElement) => {
     if (menuElement.dataset.menu) {
       const span = menuElement.querySelector('span');
       span.addEventListener('click', () => toggleSubmenu(menuElement));

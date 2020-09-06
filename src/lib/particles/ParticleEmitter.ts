@@ -20,7 +20,7 @@ interface XYZ {
   z?: number;
 }
 
-interface ParticleEmitterOptions {
+export interface ParticleEmitterOptions {
   color?: Color | string | number;
   colorRandomness?: number;
   lifetime?: number;
@@ -150,10 +150,7 @@ class ParticleEmitter extends Object3D {
 
     position.setXYZ(this.particleCursor, x, y, z);
     velocity.setXYZ(this.particleCursor, vx, vy, vz);
-    (particleColor as BufferAttribute).set(
-      this.makeParticleColorArray(),
-      this.particleCursor * particleColor.itemSize
-    );
+    particleColor.set(this.makeParticleColorArray(), this.particleCursor * particleColor.itemSize);
     spawnTime.setX(this.particleCursor, this.uniforms.time.value);
 
     this.particlesToUpdate++;

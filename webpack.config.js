@@ -6,7 +6,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { DEST_DIR } = require('./build.config');
 
 const pages = {
-  index: { dir: '.', entry: './script.js' },
+  index: { dir: '.', entry: './script.ts' },
   about: { dir: 'about', entry: './script.js' },
   hangman: { dir: 'games/hangman', entry: './script.js' },
   minesweeper: { dir: 'games/minesweeper', entry: './script.js' },
