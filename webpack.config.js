@@ -5,31 +5,31 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const { DEST_DIR } = require('./build.config');
 
-const pages = [
-  { entry: 'index', dir: '' },
-  { entry: 'about', dir: 'about' },
-  { entry: 'hangman', dir: 'games/hangman' },
-  { entry: 'minesweeper', dir: 'games/minesweeper' },
-  { entry: 'ultimatettt', dir: 'games/ultimatettt' },
-  { entry: 'canvas', dir: 'random/canvas' },
-  { entry: 'fireball', dir: 'random/fireball' },
-  { entry: 'shaders', dir: 'random/shaders' },
-  { entry: 'testing', dir: 'random/testing' },
-  { entry: 'chemistry', dir: 'projects/chemistry' },
-  { entry: 'cards', dir: 'visual/cards' },
-  { entry: 'webaudio2d', dir: 'visual/webaudio2d' },
-  { entry: 'webaudio3d', dir: 'visual/webaudio3d' },
-];
+const pages = {
+  index: { dir: '.', entry: './script.js' },
+  about: { dir: 'about', entry: './script.js' },
+  hangman: { dir: 'games/hangman', entry: './script.js' },
+  minesweeper: { dir: 'games/minesweeper', entry: './script.js' },
+  ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },
+  canvas: { dir: 'random/canvas', entry: './script.js' },
+  fireball: { dir: 'random/fireball', entry: './script.js' },
+  shaders: { dir: 'random/shaders', entry: './script.js' },
+  testing: { dir: 'random/testing', entry: './script.js' },
+  chemistry: { dir: 'projects/chemistry', entry: './script.js' },
+  cards: { dir: 'visual/cards', entry: './script.js' },
+  webaudio2d: { dir: 'visual/webaudio2d', entry: './script.js' },
+  webaudio3d: { dir: 'visual/webaudio3d', entry: './script.js' },
+};
 
-const entrypoints = pages.reduce(
-  (acc, { entry, dir }) => ({
+const entrypoints = Object.entries(pages).reduce(
+  (acc, [entryName, { dir, entry }]) => ({
     ...acc,
-    [entry]: path.join(__dirname, 'src', dir, 'script'),
+    [entryName]: path.join(__dirname, 'src', dir, entry),
   }),
   {}
 );
 
-const pagePlugins = pages.map(({ entry, dir, chunks = [entry] }) => {
+const pagePlugins = Object.entries(pages).map(([entryName, { dir, chunks = [entryName] }]) => {
   return new HtmlWebpackPlugin({
     inject: 'head',
     filename: path.posix.join(dir, 'index.html'),
