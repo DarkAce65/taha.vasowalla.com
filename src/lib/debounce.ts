@@ -11,15 +11,15 @@ const debounce = <Inputs extends unknown[]>(
   func: (...args: Inputs) => void,
   { delay = 500 }: DebounceOptions = {}
 ): DebouncedFunction<Inputs> => {
-  let timeout = null;
+  let timeout: number;
 
   const debouncedFunction = function (...args: Inputs): void {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.call(this, ...args), delay);
+    window.clearTimeout(timeout);
+    timeout = window.setTimeout(() => func(...args), delay);
   };
   debouncedFunction.now = function (...args: Inputs): void {
-    clearTimeout(timeout);
-    func.call(this, ...args);
+    window.clearTimeout(timeout);
+    func(...args);
   };
 
   return debouncedFunction;

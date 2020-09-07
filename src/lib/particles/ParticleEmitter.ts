@@ -14,12 +14,6 @@ import {
 import fragmentShader from './particle_frag.glsl';
 import vertexShader from './particle_vert.glsl';
 
-interface XYZ {
-  x?: number;
-  y?: number;
-  z?: number;
-}
-
 export interface ParticleEmitterOptions {
   color?: Color | string | number;
   colorRandomness?: number;
@@ -41,10 +35,7 @@ class ParticleEmitter extends Object3D {
   private readonly uniforms: { [uniform: string]: IUniform };
 
   private readonly attributes: {
-    readonly position: BufferAttribute;
-    readonly velocity: BufferAttribute;
-    readonly particleColor: BufferAttribute;
-    readonly spawnTime: BufferAttribute;
+    readonly [attributeName: string]: BufferAttribute;
   };
 
   private points: Points<BufferGeometry, ShaderMaterial>;
@@ -84,10 +75,7 @@ class ParticleEmitter extends Object3D {
       position: new BufferAttribute(new Float32Array(this.particleCount * 3), 3),
       velocity: new BufferAttribute(new Float32Array(this.particleCount * 3), 3),
       particleColor: new BufferAttribute(new Float32Array(this.particleCount * 3), 3),
-      spawnTime: new BufferAttribute(
-        new Float32Array(this.particleCount).fill(-this.uniforms.lifetime.value),
-        1
-      ),
+      spawnTime: new BufferAttribute(new Float32Array(this.particleCount).fill(-lifetime), 1),
     };
 
     for (const attributeName in this.attributes) {
@@ -145,7 +133,10 @@ class ParticleEmitter extends Object3D {
     }
   }
 
-  emit({ x, y, z }: XYZ, { x: vx = 0, y: vy = 0, z: vz = 0 }: XYZ = {}): void {
+  emit(
+    { x, y, z }: { x: number; y: number; z: number },
+    { x: vx = 0, y: vy = 0, z: vz = 0 }: { x?: number; y?: number; z?: number } = {}
+  ): void {
     const { position, velocity, particleColor, spawnTime } = this.attributes;
 
     position.setXYZ(this.particleCursor, x, y, z);

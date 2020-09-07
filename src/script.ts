@@ -4,6 +4,7 @@ import {
   Color,
   DoubleSide,
   Euler,
+  Geometry,
   IcosahedronGeometry,
   Matrix4,
   Mesh,
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const scene = new Scene();
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
-  document.querySelector('#rendererContainer').appendChild(renderer.domElement);
+  document.querySelector('#rendererContainer')!.appendChild(renderer.domElement);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -134,7 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
     elapsedTime += delta;
     planet.rotation.z += delta / 25;
     for (let i = 0; i < satellites.length; i++) {
-      satellites[i].position.applyAxisAngle(new Vector3(0, 0, 1), satellites[i].orbitSpeed * delta);
+      satellites[i].position.applyAxisAngle(
+        new Vector3(0, 0, 1),
+        (satellites[i].orbitSpeed ?? 0) * delta
+      );
     }
 
     const pos = satellites[0].position;
@@ -142,14 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
     emitter.update(elapsedTime);
   }
 
-  function displaceSatelliteGeometry(satelliteGeometry) {
+  function displaceSatelliteGeometry<G extends Geometry>(satelliteGeometry: G): void {
     for (let i = 0; i < satelliteGeometry.vertices.length; i++) {
       const v = satelliteGeometry.vertices[i].clone().setLength(0.4);
       satelliteGeometry.vertices[i].setLength(3 + Math.abs(simplex.noise3D(v.x, v.y, v.z)) * 2);
     }
   }
 
-  function setCamera() {
+  function setCamera(): void {
     const ratio = window.innerWidth / window.innerHeight < 1 ? 1.4 : 1;
 
     camera.position.set(50 * ratio, -300 * ratio, 100 * ratio);
@@ -171,30 +175,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  let activeMenuElement = null;
-  const toggleSubmenu = (menuElement) => {
+  let activeMenuElement: HTMLElement | null = null;
+  const toggleSubmenu = (menuElement: HTMLElement): void => {
     if (menuElement.isSameNode(activeMenuElement)) {
       menuElement.classList.remove('active');
-      document.querySelector('#secondary').classList.add('closed');
+      document.querySelector('#secondary')!.classList.add('closed');
       document.querySelectorAll('.submenu.active').forEach((el) => el.classList.remove('active'));
       activeMenuElement = null;
       return;
     }
 
     if (activeMenuElement === null) {
-      document.querySelector('#secondary').classList.remove('closed');
+      document.querySelector('#secondary')!.classList.remove('closed');
     } else {
       activeMenuElement.classList.remove('active');
-      document.querySelector(activeMenuElement.dataset.menu).classList.remove('active');
+      document.querySelector(activeMenuElement.dataset.menu!)!.classList.remove('active');
     }
     activeMenuElement = menuElement;
     menuElement.classList.add('active');
-    document.querySelector(menuElement.dataset.menu).classList.add('active');
+    document.querySelector(menuElement.dataset.menu!)!.classList.add('active');
   };
 
   document.querySelectorAll<HTMLElement>('#primary .menu-item').forEach((menuElement) => {
     if (menuElement.dataset.menu) {
-      const span = menuElement.querySelector('span');
+      const span = menuElement.querySelector('span')!;
       span.addEventListener('click', () => toggleSubmenu(menuElement));
       span.addEventListener(
         'keydown',

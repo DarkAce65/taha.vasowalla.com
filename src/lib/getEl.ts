@@ -3,16 +3,23 @@ type Selector = string | Document | Element;
 const isNode = (obj: unknown): obj is Node =>
   obj !== null && typeof obj === 'object' && obj instanceof Node && obj.nodeType >= 1;
 
-const getEl = (selector: Selector, parent?: Selector): Document | Element =>
-  typeof selector === 'string'
-    ? getEl(parent ?? document).querySelector(selector)
+const getEl = (selector: Selector, parent?: Selector): Document | Element | null => {
+  if (typeof selector !== 'string' && parent) {
+    console.warn(
+      'Passing an element as a selector will not select from the supplied parent. Remove the parent from this call'
+    );
+  }
+
+  return typeof selector === 'string'
+    ? getEl(parent ?? document)?.querySelector(selector) ?? null
     : isNode(selector)
     ? selector
     : null;
+};
 
 export const getElOrThrow = (selector: Selector, parent?: Selector): Document | Element => {
-  let el: string | Document | Element;
-  if (parent && typeof selector === 'string') {
+  let el: Document | Element | null;
+  if (parent) {
     const parentEl = getElOrThrow(parent);
     el = getEl(selector, parentEl);
   } else {

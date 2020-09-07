@@ -11,7 +11,7 @@
     ],
     "scripts": {
         "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,ts}\"",
-        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,ts,scss}\"",
+        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"tsconfig.json\" \"gulp/**/*.js\" \"src/**/*.{js,ts,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "dev": "gulp dev --silent",
         "build": "gulp --silent",
