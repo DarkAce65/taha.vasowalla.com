@@ -5,7 +5,6 @@ import Cookie from 'js-cookie';
 
 import ValidatedInput from '~/lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '~/lib/breakpoints';
-import getEl from '~/lib/getEl';
 import getModalValues from '~/lib/getModalValues';
 
 import Minefield, { presets } from './Minefield';
@@ -140,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scores = Cookie.getJSON('scores') || {};
   Object.keys(presets).forEach((difficulty) => buildHighscoreTable(difficulty, scores[difficulty]));
 
-  const highscoreNameInput = getEl('#highscoreModal #name');
+  const highscoreNameInput = document.querySelector('#highscoreModal #name');
   let currentDifficulty = 'beginner';
   const minefield = new Minefield({
     target: 'table#grid',
