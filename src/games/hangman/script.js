@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitGuessButton = document.querySelector('#submitGuess');
 
   const wordInput = new ValidatedInput('#wordInput', {
-    validationMessageElement: '#error',
-    validator: (input) => {
+    customValidator: (input) => {
       const word = input.trim();
       if (/[^A-Za-z]/.test(word)) {
         return { type: 'error' };
@@ -34,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return false;
     },
+    validationMessageElement: '#error',
     stateCallback: (state) => {
       setWordButton.disabled = state === 'empty' || state === 'error';
     },
@@ -185,8 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   setWordButton.addEventListener('click', async () => {
-    const word = wordInput.getValue().trim();
-    if (wordInput.getState() === 'error' || word.length === 0) {
+    const word = wordInput.value.trim();
+    if (wordInput.state === 'error' || word.length === 0) {
       return;
     }
 

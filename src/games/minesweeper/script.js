@@ -16,7 +16,7 @@ const initCustomGameModal = () => {
 
   const initializeCustomButton = document.querySelector('#initialize');
   const minesInput = new ValidatedInput('#mines', {
-    validator: (input) => {
+    customValidator: (input) => {
       const parsedMines = Math.floor(parseFloat(input));
       if (parsedMines < 10) {
         return { type: 'error', message: 'Number of mines must be at least 10' };
@@ -41,7 +41,7 @@ const initCustomGameModal = () => {
     },
   });
   const rowsInput = new ValidatedInput('#rows', {
-    validator: (input) => {
+    customValidator: (input) => {
       const parsedRows = Math.floor(parseFloat(input));
       if (parsedRows < 9 || 24 < parsedRows) {
         return { type: 'error', message: 'Number of rows must be between 9 and 24' };
@@ -64,7 +64,7 @@ const initCustomGameModal = () => {
     },
   });
   const colsInput = new ValidatedInput('#cols', {
-    validator: (input) => {
+    customValidator: (input) => {
       const parsedCols = Math.floor(parseFloat(input));
       if (parsedCols < 9 || 30 < parsedCols) {
         return { type: 'error', message: 'Number of columns must be between 9 and 30' };

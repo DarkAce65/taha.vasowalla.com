@@ -14,11 +14,11 @@ export default (inputs, units, computeTargetIndex, equation) => {
       continue;
     }
 
-    if (inputs[i].getState() === 'empty') {
+    if (inputs[i].state === 'empty') {
       throw new Error('Too many unknowns');
     }
 
-    parsedInputs[i] = parseFloat(inputs[i].getValue());
+    parsedInputs[i] = parseFloat(inputs[i].value);
     if (isNaN(parsedInputs[i])) {
       throw new Error(`Invalid values in equation`);
     }
