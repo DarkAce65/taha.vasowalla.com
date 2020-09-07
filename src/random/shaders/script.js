@@ -19,8 +19,6 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import capitalize from '~/lib/capitalize';
-
 import matrixFragmentShader from './shaders/matrix_frag.glsl';
 import noiseFragmentShader from './shaders/noise_frag.glsl';
 import noiseVertexShader from './shaders/noise_vert.glsl';
@@ -64,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fragmentShader: noiseFragmentShader,
   });
   material.side = DoubleSide;
-  cubes['noise'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
+  cubes['Noise'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
 
   material = new ShaderMaterial({
     uniforms,
@@ -73,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   material.transparent = true;
   material.side = DoubleSide;
-  cubes['pulse'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
+  cubes['Pulse'] = new Mesh(new BoxGeometry(70, 70, 70, 70, 70, 70), material);
 
   material = new ShaderMaterial({
     uniforms,
@@ -81,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fragmentShader: matrixFragmentShader,
   });
   material.side = DoubleSide;
-  cubes['matrix'] = new Mesh(cubeGeometry, material);
+  cubes['Matrix'] = new Mesh(cubeGeometry, material);
 
   material = new ShaderMaterial({
     uniforms,
@@ -103,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const transparentCube = new Object3D();
   transparentCube.add(new Mesh(cubeGeometry, material));
   transparentCube.add(mesh);
-  cubes['transparent'] = transparentCube;
+  cubes['Transparent'] = transparentCube;
 
   const viewportBounds = { maxX: 0, maxY: 0 };
   const cubeKeys = Object.keys(cubes);
@@ -119,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('#cubeDropdown')
       .insertAdjacentHTML(
         'beforeend',
-        `<li><a id="${key}" class="view" href="javascript:void(0)">${capitalize(key)} cube</a></li>`
+        `<li><a id="${key}" class="view" href="javascript:void(0)">${key} cube</a></li>`
       );
   });
   viewportBounds.maxX += 50;
