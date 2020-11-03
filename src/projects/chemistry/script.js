@@ -142,7 +142,7 @@ const initDilution = () => {
         inputs.indexOf(computeTarget),
         computeDilution
       );
-      computeTarget.setValue(computed);
+      computeTarget.value = computed;
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
@@ -207,7 +207,7 @@ const initIdealGasLaw = () => {
         inputs.indexOf(computeTarget),
         computeIdealGasLaw
       );
-      computeTarget.setValue(computed);
+      computeTarget.value = computed;
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
@@ -310,7 +310,7 @@ const initSpecificHeat = () => {
         inputs.indexOf(computeTarget),
         computeSpecificHeat.bind(this, tempInputMethod)
       );
-      computeTarget.setValue(computed);
+      computeTarget.value = computed;
     } catch (ex) {
       UIkit.notification(ex.message, { status: 'danger' });
     }
