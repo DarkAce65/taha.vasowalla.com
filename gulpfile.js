@@ -32,7 +32,7 @@ const copyStatic = gulp.parallel(
   ...Object.entries(STATIC_FILE_GLOBS).map(([destPath, source]) => {
     const copyStaticFiles = () =>
       gulp
-        .src(source)
+        .src(source, { nodir: true })
         .pipe(gulp.dest(destPath))
         .pipe(using({ prefix: 'Writing', filesize: true }));
     copyStaticFiles.displayName = 'copy:static:subtask';
