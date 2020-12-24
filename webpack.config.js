@@ -1,7 +1,9 @@
 const path = require('path');
 
+const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { ProvidePlugin } = require('webpack');
 
 const { DEST_DIR } = require('./build.config');
 
@@ -38,49 +40,46 @@ const pagePlugins = Object.entries(pages).map(([entryName, { dir, chunks = [entr
   });
 });
 
+/** @type {import('webpack').Configuration} */
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   devtool: 'source-map',
 
   stats: {
-    assetsSort: 'chunks',
+    assetsSort: 'name',
+    assetsSpace: 20,
+    cached: false,
+    cachedAssets: false,
+    cachedModules: false,
+    chunks: false,
+    colors: true,
+    excludeAssets: /(^lib|.map$)/,
+    modules: false,
     version: false,
-    entrypoints: false,
   },
 
   devServer: {
-    publicPath: '/',
+    hot: false,
     host: '0.0.0.0',
     port: 5000,
-    contentBase: path.join(__dirname, DEST_DIR),
-    watchContentBase: true,
-    stats: {
-      assetsSort: 'chunks',
-      excludeAssets: /(^lib|.map$)/,
-      colors: true,
-      version: false,
-      hash: false,
-      timings: false,
-      cached: false,
-      cachedAssets: false,
-      chunkModules: false,
-      chunks: false,
-      entrypoints: false,
-      modules: false,
+    static: {
+      directory: path.join(__dirname, DEST_DIR),
+      watch: true,
     },
   },
 
   entry: entrypoints,
+  context: path.resolve(__dirname, 'src'),
 
   output: {
     publicPath: process.env.PUBLIC_PATH || '/',
     filename: '[name].[contenthash:5].js',
-    sourceMapFilename: 'maps/[name].js.map',
+    sourceMapFilename: 'maps/[file].map[query]',
   },
 
   optimization: {
     usedExports: true,
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
@@ -115,15 +114,8 @@ module.exports = {
       { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
       { test: /\.(glsl|txt)$/, sideEffects: true, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
-      {
-        enforce: 'pre',
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: { configFile: path.resolve(__dirname, '.eslintrc.js') },
-      },
       { test: /\.tsx?$/, exclude: /node_modules/, use: ['babel-loader', 'ts-loader'] },
-      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
+      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
     ],
   },
 
@@ -135,6 +127,11 @@ module.exports = {
   },
 
   plugins: [
+    new ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+      process: 'process/browser',
+    }),
+    new ESLintPlugin({ extensions: ['js', 'ts'] }),
     new HtmlWebpackPlugin({
       filename: '403.html',
       template: path.join(__dirname, 'src', '403.pug'),

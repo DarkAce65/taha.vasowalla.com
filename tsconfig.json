@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "paths": { "~/*": ["./src/*"] },
 
-    "target": "es6",
+    "target": "esnext",
     "moduleResolution": "node",
 
     "allowJs": true,
@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": true
+    "strict": false
   },
   "include": ["src/**/*", "node_modules/@types/**/*.d.ts"]
 }
