@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     side: DoubleSide,
     flatShading: true,
   });
-  const planetGeometry = new IcosahedronGeometry(50, 3);
+  const planetGeometry = new IcosahedronGeometry(50, 6);
   for (let i = 0; i < planetGeometry.vertices.length; i++) {
     planetGeometry.vertices[i].x += Math.random() * 6 - 3;
     planetGeometry.vertices[i].y += Math.random() * 6 - 3;

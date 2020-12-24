@@ -31,8 +31,6 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 
 import enableFAIcons from '~/lib/enableFAIcons';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-
 const toLog = (i, max) => Math.pow(max, i / (max - 1)) - 1;
 const lerp = (a, b, t) => (1 - t) * a + t * b;
 

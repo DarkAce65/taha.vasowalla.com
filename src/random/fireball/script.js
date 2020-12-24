@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fragmentShader: fireballFragmentShader,
     side: DoubleSide,
   });
-  const objectGeometry = new IcosahedronGeometry(20, 4);
+  const objectGeometry = new IcosahedronGeometry(20, 10);
   const object = new Mesh(objectGeometry, material);
   scene.add(object);
 
