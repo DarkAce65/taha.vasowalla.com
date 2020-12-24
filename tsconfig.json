@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": false
+    "strict": true
   },
   "include": ["src/**/*", "node_modules/@types/**/*.d.ts"]
 }

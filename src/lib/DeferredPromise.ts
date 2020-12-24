@@ -4,7 +4,7 @@ class DeferredPromise<T> {
   resolved = false;
 
   readonly promise: Promise<T>;
-  private resolvePromise?: (value?: T) => void;
+  private resolvePromise?: (value: T | PromiseLike<T>) => void;
   private rejectPromise?: (reason?: any) => void;
 
   constructor() {
@@ -15,7 +15,7 @@ class DeferredPromise<T> {
     });
   }
 
-  resolve(value?: T): void {
+  resolve(value: T | PromiseLike<T>): void {
     if (!this.resolvePromise) {
       throw new Error('Promise not initialized');
     }
