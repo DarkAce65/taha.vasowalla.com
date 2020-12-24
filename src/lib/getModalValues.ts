@@ -1,28 +1,32 @@
 import UIkit from 'uikit';
 
 import DeferredPromise from './DeferredPromise';
-import { getElOrThrow } from './getEl';
+import { Selector, getElOrThrow } from './getEl';
 
-const activeModalFetcherKey = 'modalFetcherActive';
+const MODEL_FETCHER_ACTIVE_KEY = 'MODAL_FETCHER_ACTIVE';
 
-const getModalValues = (modalEl, submitButton, inputEls) => {
+const getModalValues = (
+  modalEl: Selector,
+  submitButton: Selector<HTMLButtonElement>,
+  inputEls: HTMLInputElement[]
+): Promise<string[]> => {
   const resolvedModalEl = getElOrThrow(modalEl);
-  if (resolvedModalEl.dataset[activeModalFetcherKey]) {
+  if (resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY]) {
     throw new Error(`${modalEl} is already in use by another value fetcher`);
   }
-  resolvedModalEl.dataset[activeModalFetcherKey] = true;
+  resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY] = 'true';
   const resolvedSubmitButton = getElOrThrow(submitButton, modalEl);
 
   const modal = UIkit.modal(modalEl);
-  const deferred = new DeferredPromise();
+  const deferred = new DeferredPromise<string[]>();
 
   const onSubmit = () => {
     removeListeners();
     if (inputEls) {
-      const inputValues = inputEls.map((input) => getElOrThrow(input, modalEl).value);
+      const inputValues = inputEls.map((input) => getElOrThrow(input).value);
       deferred.resolve(inputValues);
     } else {
-      deferred.resolve();
+      deferred.resolve([]);
     }
     modal.hide();
   };
@@ -35,7 +39,7 @@ const getModalValues = (modalEl, submitButton, inputEls) => {
   function removeListeners() {
     resolvedSubmitButton.removeEventListener('click', onSubmit);
     resolvedModalEl.removeEventListener('hide', onHide);
-    delete resolvedModalEl.dataset[activeModalFetcherKey];
+    delete resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY];
   }
 
   modal.show();

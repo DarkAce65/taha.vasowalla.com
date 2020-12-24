@@ -1,12 +1,18 @@
 import gsap from 'gsap';
 
-export default ({ progress = 0, onUpdate }) => ({
-  strokeDashoffset: (_, element) => (1 - progress) * (element.getTotalLength() + 1),
+interface DashOffsetAnimationParams {
+  progress: number;
+  onUpdate?: () => void;
+}
+
+export default ({ progress = 0, onUpdate }: DashOffsetAnimationParams): gsap.AnimationVars => ({
+  strokeDashoffset: (_: number, element: SVGPathElement): number =>
+    (1 - progress) * (element.getTotalLength() + 1),
   onUpdate() {
     if (this.ratio === 0 || this.ratio === 1) {
       gsap.set(this._targets, {
-        strokeDasharray: (_, element) => {
-          const offset = gsap.getProperty(element, 'strokeDashoffset');
+        strokeDasharray: (_: number, element: SVGPathElement): string => {
+          const offset = gsap.getProperty(element, 'strokeDashoffset') as number;
           const pathLength = element.getTotalLength();
           return offset < 0.001
             ? 'none'
@@ -17,7 +23,7 @@ export default ({ progress = 0, onUpdate }) => ({
       });
     } else {
       gsap.set(this._targets, {
-        strokeDasharray: (_, element) => {
+        strokeDasharray: (_: number, element: SVGPathElement): string => {
           const pathLength = element.getTotalLength();
           return `${pathLength} ${pathLength + 5}`;
         },
