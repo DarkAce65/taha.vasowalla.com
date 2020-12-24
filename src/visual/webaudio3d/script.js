@@ -204,10 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
     }
 
-    gsap.to(camera.position, { duration: 2, ease: 'power2.inOut', x, y, z });
+    gsap.to(camera.position, { duration: 2, ease: 'power3.inOut', x, y, z });
     gsap.to(controls.target, {
       duration: 2,
-      ease: 'power2.out',
+      ease: 'power3.out',
       x: 0,
       y: 0,
       z: 0,
