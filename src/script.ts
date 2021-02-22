@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const numSatellites = 100;
   const satelliteMaterial = planetMaterial.clone() as MeshPhongMaterial;
   const cometMaterial = satelliteMaterial.clone() as MeshPhongMaterial;
-  cometMaterial.emissive = new Color(0xf85a3e);
+  const currentHour = new Date().getHours();
+  cometMaterial.emissive = new Color(21 < currentHour || currentHour < 9 ? 0x3e5af8 : 0xf85a3e);
 
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites: Satellite[] = [];
@@ -128,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const emitterOptions: ParticleEmitterOptions = {
     color: cometMaterial.emissive,
-    size: 12 * (window.devicePixelRatio || 1),
+    size: 15 * (window.devicePixelRatio || 1),
   };
   if (window.innerWidth < 640) {
     emitterOptions.count = 100;

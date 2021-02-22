@@ -57,7 +57,7 @@ class ParticleEmitter extends Object3D {
     this.colorRandomness = colorRandomness;
     this.uniforms = {
       time: { value: 0 },
-      size: { value: size * (window.devicePixelRatio || 1) },
+      size: { value: size },
       lifetime: { value: lifetime },
     };
 
