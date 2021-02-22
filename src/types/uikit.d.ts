@@ -1,1 +1,9 @@
-export type UIkitElement = object | HTMLElement | string; // eslint-disable-line @typescript-eslint/ban-types
+import 'uikit';
+
+declare module 'uikit' {
+  namespace UIkit {
+    interface UIkitToggleElement {
+      isToggled(): boolean;
+    }
+  }
+}
