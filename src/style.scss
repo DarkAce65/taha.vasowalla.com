@@ -92,6 +92,13 @@ body {
   #secondary {
     transition: height 0.3s, margin 0.3s;
 
+    .menu-item {
+      & > a,
+      & > span {
+        border-bottom: 1px solid currentColor;
+      }
+    }
+
     &.closed {
       height: 0;
       margin-bottom: 0;
