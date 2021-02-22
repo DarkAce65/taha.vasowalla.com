@@ -11,9 +11,9 @@ import {
   BufferGeometry,
   Color,
   DoubleSide,
+  DynamicDrawUsage,
   EdgesGeometry,
   EllipseCurve,
-  Geometry,
   IcosahedronGeometry,
   Line,
   LineBasicMaterial,
@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   scene.add(volumeObject);
 
   let circle;
+  /** @type{Line[]} */
   let bars = [];
   let points;
 
@@ -151,12 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
       colors[i * 3 + 1] = color.g;
       colors[i * 3 + 2] = color.b;
 
-      const lineGeometry = new Geometry();
       const vertex = new Vector3(points[i].x, points[i].y, 0);
       const vertex2 = vertex.clone();
-      lineGeometry.vertices.push(vertex, vertex2);
+      const lineGeometry = new BufferGeometry().setFromPoints([vertex, vertex2]);
+      lineGeometry.attributes.position.setUsage(DynamicDrawUsage);
       const line = new Line(lineGeometry, new LineBasicMaterial({ color }));
-      lineGeometry.verticesNeedUpdate = true;
       bars.push(line);
       scene.add(line);
     }
@@ -234,9 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
       const scalar = 1 + ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
 
-      bars[i].geometry.vertices[1].x = scalar * points[i].x;
-      bars[i].geometry.vertices[1].y = scalar * points[i].y;
-      bars[i].geometry.verticesNeedUpdate = true;
+      bars[i].geometry.attributes.position.setXY(1, scalar * points[i].x, scalar * points[i].y);
+      bars[i].geometry.attributes.position.needsUpdate = true;
     }
 
     targetVolume = 0;

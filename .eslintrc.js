@@ -47,10 +47,12 @@ module.exports = {
       extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
-        'prettier/@typescript-eslint',
+        'prettier',
+        'plugin:prettier/recommended',
       ],
       parserOptions: { ecmaVersion: 6, sourceType: 'module' },
       rules: {
+        'prettier/prettier': ['warn', prettierConfig],
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         '@typescript-eslint/no-non-null-assertion': 'off',
       },

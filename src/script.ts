@@ -4,7 +4,6 @@ import {
   Color,
   DoubleSide,
   Euler,
-  Geometry,
   IcosahedronGeometry,
   Matrix4,
   Mesh,
@@ -58,33 +57,34 @@ document.addEventListener('DOMContentLoaded', () => {
     flatShading: true,
   });
   const planetGeometry = new IcosahedronGeometry(50, 6);
-  for (let i = 0; i < planetGeometry.vertices.length; i++) {
-    planetGeometry.vertices[i].x += Math.random() * 6 - 3;
-    planetGeometry.vertices[i].y += Math.random() * 6 - 3;
-    if (Math.random() < 0.1) {
-      planetGeometry.vertices[i].setLength(45 + Math.random() * 10);
+  const planetVertices = planetGeometry.attributes.position;
+  for (let i = 0; i < planetVertices.count; i++) {
+    const vertex = new Vector3(
+      planetVertices.getX(i),
+      planetVertices.getY(i),
+      planetVertices.getZ(i)
+    );
+    const dv = vertex.clone().setLength(10);
+    const jitter = Math.abs(simplex.noise3D(dv.x, dv.y, dv.z));
+    vertex.x += jitter * 9 - 3;
+    vertex.z += jitter * 9 - 3;
+    dv.setLength(50);
+    const noise = Math.abs(simplex.noise3D(dv.x, dv.y, dv.z));
+    if (noise > 0.6) {
+      vertex.setLength(45 + noise * 10);
     } else {
-      planetGeometry.vertices[i].setLength(49 + Math.random() * 2);
+      vertex.setLength(49 + noise * 3);
     }
+
+    planetVertices.setXYZ(i, vertex.x, vertex.y, vertex.z);
   }
-  const planet = new Mesh(new BufferGeometry().fromGeometry(planetGeometry), planetMaterial);
+  const planet = new Mesh(planetGeometry, planetMaterial);
   scene.add(planet);
 
-  const emitterOptions: ParticleEmitterOptions = {
-    color: 0xf85a3e,
-    size: 12 * (window.devicePixelRatio || 1),
-  };
-  if (window.innerWidth < 640) {
-    emitterOptions.count = 100;
-    emitterOptions.lifetime = 2.5;
-  }
-  const emitter = new ParticleEmitter(emitterOptions);
-  scene.add(emitter);
-
   const numSatellites = 100;
-  const satelliteMaterial = planetMaterial.clone();
-  const cometMaterial = satelliteMaterial.clone();
-  cometMaterial.emissive = new Color(emitterOptions.color);
+  const satelliteMaterial = planetMaterial.clone() as MeshPhongMaterial;
+  const cometMaterial = satelliteMaterial.clone() as MeshPhongMaterial;
+  cometMaterial.emissive = new Color(0xf85a3e);
 
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites: Satellite[] = [];
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     const satellite: Satellite = new Mesh(
-      new BufferGeometry().fromGeometry(satelliteGeometry),
+      satelliteGeometry,
       i === 0 ? cometMaterial : satelliteMaterial
     );
     satellite.position.set(c, s, h);
@@ -119,12 +119,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (i === 0) {
       satellite.orbitSpeed *= 3;
-      satellite.add(new PointLight(0xf85a3e, 1, orbitRadius * 1.5, 2));
+      satellite.add(new PointLight(cometMaterial.emissive, 1, orbitRadius * 1.5, 2));
     }
 
     scene.add(satellite);
     satellites.push(satellite);
   }
+
+  const emitterOptions: ParticleEmitterOptions = {
+    color: cometMaterial.emissive,
+    size: 12 * (window.devicePixelRatio || 1),
+  };
+  if (window.innerWidth < 640) {
+    emitterOptions.count = 100;
+    emitterOptions.lifetime = 2.5;
+  }
+  const emitter = new ParticleEmitter(emitterOptions);
+  scene.add(emitter);
 
   let elapsedTime = 0;
   function render() {
@@ -146,10 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
     emitter.update(elapsedTime);
   }
 
-  function displaceSatelliteGeometry<G extends Geometry>(satelliteGeometry: G): void {
-    for (let i = 0; i < satelliteGeometry.vertices.length; i++) {
-      const v = satelliteGeometry.vertices[i].clone().setLength(0.4);
-      satelliteGeometry.vertices[i].setLength(3 + Math.abs(simplex.noise3D(v.x, v.y, v.z)) * 2);
+  function displaceSatelliteGeometry<G extends BufferGeometry>(satelliteGeometry: G): void {
+    const vertices = satelliteGeometry.attributes.position;
+
+    for (let i = 0; i < vertices.count; i++) {
+      const vertex = new Vector3(vertices.getX(i), vertices.getY(i), vertices.getZ(i));
+
+      const dv = vertex.clone().setLength(0.4);
+      vertex.setLength(3 + Math.abs(simplex.noise3D(dv.x, dv.y, dv.z)) * 2);
+
+      vertices.setXYZ(i, vertex.x, vertex.y, vertex.z);
     }
   }
 

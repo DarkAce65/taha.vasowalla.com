@@ -38,7 +38,7 @@ class ParticleEmitter extends Object3D {
     readonly [attributeName: string]: BufferAttribute;
   };
 
-  private points: Points<BufferGeometry, ShaderMaterial>;
+  private points: Points;
 
   constructor({
     color = 0xffffff,
@@ -134,7 +134,7 @@ class ParticleEmitter extends Object3D {
   }
 
   emit(
-    { x, y, z }: { x: number; y: number; z: number },
+    { x, y, z }: { x: number; y: number; z: number } = this.position,
     { x: vx = 0, y: vy = 0, z: vz = 0 }: { x?: number; y?: number; z?: number } = {}
   ): void {
     const { position, velocity, particleColor, spawnTime } = this.attributes;

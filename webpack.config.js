@@ -99,7 +99,14 @@ module.exports = {
         sideEffects: true,
         include: /node_modules/,
         use: [
-          { loader: 'file-loader', options: { name: 'lib/css/[name].[ext]' } },
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'lib/css',
+              name: '[name].[ext]',
+              esModule: false,
+            },
+          },
           'extract-loader',
           'css-loader',
         ],
@@ -109,9 +116,17 @@ module.exports = {
         sideEffects: true,
         include: /node_modules/,
         loader: 'file-loader',
-        options: { name: 'lib/assets/[name].[ext]', esModule: false },
+        options: {
+          outputPath: '/lib/assets',
+          name: '[name].[ext]',
+          esModule: false,
+        },
       },
-      { test: /\.pdf$/, loader: 'file-loader', options: { name: '[name].[ext]', esModule: false } },
+      {
+        test: /\.pdf$/,
+        loader: 'file-loader',
+        options: { name: '[path][name].[ext]', esModule: false },
+      },
       { test: /\.(glsl|txt)$/, sideEffects: true, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
       { test: /\.tsx?$/, exclude: /node_modules/, use: ['babel-loader', 'ts-loader'] },
