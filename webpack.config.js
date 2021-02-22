@@ -13,7 +13,7 @@ const pages = {
   hangman: { dir: 'games/hangman', entry: './script.js' },
   minesweeper: { dir: 'games/minesweeper', entry: './script.js' },
   ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },
-  canvas: { dir: 'random/canvas', entry: './script.js' },
+  animation: { dir: 'random/animation', entry: './script.js' },
   fireball: { dir: 'random/fireball', entry: './script.js' },
   shaders: { dir: 'random/shaders', entry: './script.js' },
   testing: { dir: 'random/testing', entry: './script.js' },

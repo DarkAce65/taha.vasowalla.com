@@ -3,13 +3,13 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("Canvas")
+    +head("Animations")
     link(rel="shortcut icon" href="../../assets/icons/HTML5.png")
     link(rel="stylesheet" type="text/css" href="../../uikit.css")
     link(rel="stylesheet" type="text/css" href="style.css")
 
   body
-    +container(["random", "canvas"])
+    +container(["random", "animation"])
       div(uk-grid)
         div(class="uk-width-2-3@s")
           canvas#rain
