@@ -10,17 +10,13 @@
         "tests"
     ],
     "scripts": {
+        "postinstall": "husky install",
         "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,ts}\"",
         "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"tsconfig.json\" \"gulp/**/*.js\" \"src/**/*.{js,ts,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "dev": "gulp dev --silent",
         "build": "gulp --silent",
         "build:prod": "cross-env NODE_ENV=production PUBLIC_PATH='/' gulp --silent"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
     },
     "lint-staged": {
         "*.{js,ts}!eslintrc.js": "eslint --max-warnings=0",
