@@ -1,11 +1,10 @@
 import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
 
 import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
 import * as mm from 'music-metadata-browser';
 import WaveSurfer from 'wavesurfer.js';
 
-import enableFAIcons from '~/lib/enableFAIcons';
+import enableIcons from '~/lib/enableIcons';
 
 const toLog = (i, max) => Math.pow(max, i / (max - 1)) - 1;
 const lerp = (a, b, t) => (1 - t) * a + t * b;
@@ -42,8 +41,7 @@ const makeLogarithmicMapper = (maxDomain, maxRange) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  UIkit.use(Icons);
-  enableFAIcons(faFileAudio);
+  enableIcons({ uikit: true, faIcons: [faFileAudio] });
 
   let visualizerWidth = 800;
   let visualizerHeight = 400;
