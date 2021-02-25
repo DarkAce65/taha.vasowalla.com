@@ -1,0 +1,27 @@
+diff --git a/node_modules/@types/uikit/index.d.ts b/node_modules/@types/uikit/index.d.ts
+index b1886e9..3103478 100644
+--- a/node_modules/@types/uikit/index.d.ts
++++ b/node_modules/@types/uikit/index.d.ts
+@@ -12,16 +12,16 @@ type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
+ type UIkitNode = Node;
+ 
+ export namespace UIkit {
+-    const util: object;
+-    const component: object;
++    const util: unknown;
++    const component: (name: string, options?: unknown) => unknown;
+     const data: string;
+     const prefix: string;
+     const options: object;
+     const version: string;
+-    const use: object;
+-    const mixin: object;
+-    const extend: object;
+-    const update: object;
++    const use: (plugin: unknown) => unknown;
++    const mixin: (mixin: object, component: string | ReturnType<typeof UIkit.component>) => void;
++    const extend: (options: object) => unknown;
++    const update: (element: UIkitElement, e: unknown) => void;
+ 
+     interface UIkitAccordionOptions {
+         active?: number;
