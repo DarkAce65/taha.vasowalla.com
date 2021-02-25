@@ -1,5 +1,4 @@
 import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
 
 import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
@@ -23,41 +22,46 @@ import {
   Object3D,
   PerspectiveCamera,
   Scene,
+  Vector2,
   Vector3,
-  VertexColors,
   WebGLRenderer,
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import enableFAIcons from '~/lib/enableFAIcons';
+import enableIcons from '~/lib/enableIcons';
 
-const toLog = (i, max) => Math.pow(max, i / (max - 1)) - 1;
-const lerp = (a, b, t) => (1 - t) * a + t * b;
+const toLog = (i: number, max: number): number => Math.pow(max, i / (max - 1)) - 1;
+const lerp = (a: number, b: number, t: number): number => (1 - t) * a + t * b;
 
-const toHHMMSS = (number) => {
+const toHHMMSS = (number: number): string => {
   const date = new Date(0, 0, 0);
   date.setSeconds(Math.round(number));
-  let hours = date.getHours();
+  const hours = date.getHours();
   const minutes = date.getMinutes();
-  let seconds = date.getSeconds();
+  const seconds = date.getSeconds();
 
-  if (hours === 0) {
-    hours = '';
-  } else if (minutes < 10) {
-    hours += ':0';
-  } else {
-    hours += ':';
+  let hourMinuteSeparator = '';
+  if (hours !== 0) {
+    if (minutes < 10) {
+      hourMinuteSeparator = ':0';
+    } else {
+      hourMinuteSeparator = ':';
+    }
   }
 
+  let minuteSecondSeparator = ':';
   if (seconds < 10) {
-    seconds = `0${seconds}`;
+    minuteSecondSeparator += '0';
   }
 
-  return `${hours}${minutes}:${seconds}`;
+  return `${hours}${hourMinuteSeparator}${minutes}${minuteSecondSeparator}${seconds}`;
 };
 
-const makeLogarithmicMapper = (maxDomain, maxRange) => {
-  const mapped = [];
+const makeLogarithmicMapper = (
+  maxDomain: number,
+  maxRange: number
+): ((index: number) => number) => {
+  const mapped: number[] = [];
   for (let i = 0; i < maxDomain; i++) {
     mapped[i] = toLog((i * maxRange) / maxDomain, maxRange);
   }
@@ -66,12 +70,11 @@ const makeLogarithmicMapper = (maxDomain, maxRange) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  UIkit.use(Icons);
-  enableFAIcons(faFileAudio, faVideo);
+  enableIcons({ uikit: true, faIcons: [faFileAudio, faVideo] });
 
   const scene = new Scene();
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
-  document.querySelector('#rendererContainer').appendChild(renderer.domElement);
+  document.querySelector('#rendererContainer')!.appendChild(renderer.domElement);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
 
@@ -95,16 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
   volumeObject.add(new LineSegments(new EdgesGeometry(ballGeometry), lineMaterial));
   scene.add(volumeObject);
 
-  let circle;
-  /** @type{Line[]} */
-  let bars = [];
-  let points;
+  let circle: Line;
+  let bars: Line[] = [];
+  let points: Vector2[];
 
   const fftSize = Math.pow(2, 11);
   const volDecay = 0.1;
 
   const audioContext = new AudioContext();
-  let source;
+  let source: AudioBufferSourceNode | null = null;
   const gainNode = audioContext.createGain();
   const analyser = audioContext.createAnalyser();
   analyser.fftSize = fftSize;
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.updateProjectionMatrix();
   };
 
-  const createBars = (numBars) => {
+  const createBars = (numBars: number): void => {
     for (let i = 0; i < bars.length; i++) {
       scene.remove(bars[i]);
     }
@@ -140,11 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
     mapLogarithmic = makeLogarithmicMapper(numBars, bufferLength);
 
     bars = [];
-    const curve = new EllipseCurve(0, 0, 100, 100, 0, 2 * Math.PI, true);
+    const curve = new EllipseCurve(0, 0, 100, 100, 0, 2 * Math.PI, true, 0);
     points = curve.getPoints(numBars - 1);
 
     const geometry = new BufferGeometry().setFromPoints(points);
-    const material = new LineBasicMaterial({ vertexColors: VertexColors });
+    const material = new LineBasicMaterial({ vertexColors: true });
     const colors = new Float32Array(numBars * 3);
     for (let i = 0; i < numBars; i++) {
       const color = new Color().setHSL(i / numBars, 1, 0.5);
@@ -155,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const vertex = new Vector3(points[i].x, points[i].y, 0);
       const vertex2 = vertex.clone();
       const lineGeometry = new BufferGeometry().setFromPoints([vertex, vertex2]);
-      lineGeometry.attributes.position.setUsage(DynamicDrawUsage);
+      (lineGeometry.attributes.position as BufferAttribute).setUsage(DynamicDrawUsage);
       const line = new Line(lineGeometry, new LineBasicMaterial({ color }));
       bars.push(line);
       scene.add(line);
@@ -172,9 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
       gainNode.disconnect();
       analyser.disconnect();
       source.stop();
-      document.getElementById('name').innerHTML = '';
-      document.getElementById('currentTime').innerHTML = '-:--';
-      document.getElementById('duration').innerHTML = '-:--';
+      document.getElementById('name')!.innerHTML = '';
+      document.getElementById('currentTime')!.innerHTML = '-:--';
+      document.getElementById('duration')!.innerHTML = '-:--';
       source = null;
     }
 
@@ -182,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startOffset = 0;
   };
 
-  const setCamera = (position) => {
+  const setCamera = (position: 'overhead' | 'side'): void => {
     let x = 0;
     let y = 0;
     let z = 0;
@@ -218,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.to(camera.up, { duration: 1, x: 0, y: 1, z: uz });
   };
 
-  const render = () => {
+  const render = (): void => {
     if (playing) {
       analyser.getByteTimeDomainData(volumeData);
       analyser.getByteFrequencyData(frequencyData);
@@ -252,16 +254,16 @@ document.addEventListener('DOMContentLoaded', () => {
     currentVolume = Math.max(0.0001, Math.min(currentVolume, 1));
 
     volumeObject.scale.set(currentVolume, currentVolume, currentVolume);
-    volumeObject.children[0].material.color.setHSL(0, 0.67, currentVolume + 0.1);
-    volumeObject.children[1].material.color.setHSL(0, 0.67, 1.1 - currentVolume);
+    ballMaterial.color.setHSL(0, 0.67, currentVolume + 0.1);
+    lineMaterial.color.setHSL(0, 0.67, 1.1 - currentVolume);
 
     if (playing) {
-      document.getElementById('currentTime').innerHTML = toHHMMSS(
+      document.getElementById('currentTime')!.innerHTML = toHHMMSS(
         audioContext.currentTime - startTime + startOffset
       );
       if (audioContext.currentTime - startTime + startOffset >= duration) {
         reset();
-        document.getElementById('details').classList.add('uk-hidden');
+        document.getElementById('details')!.classList.add('uk-hidden');
       }
     }
 
@@ -273,11 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const play = () => {
     startTime = audioContext.currentTime;
     playing = true;
-    source.start(0, startOffset % duration);
+    source?.start(0, startOffset % duration);
     setCamera('side');
   };
 
-  const handleAudioBuffer = async (dataBuffer) => {
+  const handleAudioBuffer = async (dataBuffer: AudioBuffer): Promise<void> => {
     reset();
     source = audioContext.createBufferSource();
     source.buffer = dataBuffer;
@@ -300,26 +302,27 @@ document.addEventListener('DOMContentLoaded', () => {
   createBars(200);
   render();
 
-  document.getElementById('resetCamera').addEventListener('click', () => setCamera('overhead'));
+  document.getElementById('resetCamera')!.addEventListener('click', () => setCamera('overhead'));
 
-  const fileInput = document.getElementById('fileInput');
+  const fileInput = document.getElementById('fileInput')!;
 
   ['dragenter', 'dragover'].forEach((event) => {
     fileInput.addEventListener(event, () => {
-      fileInput.parentNode.classList.add('uk-active');
+      (fileInput.parentNode! as HTMLButtonElement).classList.add('uk-active');
     });
   });
   ['dragleave', 'dragend', 'drop'].forEach((event) => {
     fileInput.addEventListener(event, () => {
-      fileInput.parentNode.classList.remove('uk-active');
+      (fileInput.parentNode! as HTMLButtonElement).classList.remove('uk-active');
     });
   });
 
-  fileInput.addEventListener('change', (ev) => {
-    const { files } = ev.target;
-    if (files.length !== 0) {
+  fileInput.addEventListener('change', (event) => {
+    const { files } = event.currentTarget as HTMLInputElement;
+    if (files !== null && files.length !== 0) {
       const reader = new FileReader();
-      reader.onload = ({ target: { result: contents } }) => {
+      reader.onload = ({ target }) => {
+        const contents = target?.result as ArrayBuffer;
         UIkit.notification(`${files[0].name} uploaded!`, {
           pos: 'bottom-right',
           status: 'success',
@@ -332,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audioContext
           .decodeAudioData(contents)
           .then((buffer) => {
-            const name = document.getElementById('name');
+            const name = document.getElementById('name')!;
             mm.parseBlob(files[0])
               .then((metadata) => {
                 name.textContent = `${metadata.common.title}\n${metadata.common.artist}`;
@@ -344,19 +347,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return handleAudioBuffer(buffer);
           })
           .then(() => {
-            notification.close();
+            notification.close(false);
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
           })
           .then(() => {
             play();
 
-            document.getElementById('duration').innerHTML = toHHMMSS(duration);
-            document.getElementById('details').classList.remove('uk-hidden');
+            document.getElementById('duration')!.innerHTML = toHHMMSS(duration);
+            document.getElementById('details')!.classList.remove('uk-hidden');
           })
           .catch((error) => {
             console.error(error);
 
-            notification.close();
+            notification.close(false);
             UIkit.notification('Decoding error. Make sure the file is an audio file.', {
               status: 'danger',
               pos: 'bottom-right',

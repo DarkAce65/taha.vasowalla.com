@@ -20,7 +20,7 @@ const pages = {
   chemistry: { dir: 'projects/chemistry', entry: './script.js' },
   cards: { dir: 'visual/cards', entry: './script.js' },
   webaudio2d: { dir: 'visual/webaudio2d', entry: './script.js' },
-  webaudio3d: { dir: 'visual/webaudio3d', entry: './script.js' },
+  webaudio3d: { dir: 'visual/webaudio3d', entry: './script.ts' },
 };
 
 const entrypoints = Object.entries(pages).reduce(
