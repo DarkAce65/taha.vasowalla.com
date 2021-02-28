@@ -23,7 +23,7 @@
   a,
   .uk-link,
   .uk-button-link {
-    transition: 0.3s;
+    transition: $transition-duration;
 
     &:hover,
     &:focus,
