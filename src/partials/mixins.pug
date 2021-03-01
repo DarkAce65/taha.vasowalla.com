@@ -23,3 +23,7 @@ mixin container(breadcrumbItems)
   .uk-container.uk-margin-top.uk-margin-bottom
     +breadcrumbs(...breadcrumbItems)
     block
+
+mixin external(attr)
+  a(target="_blank" rel="noopener noreferrer")&attributes(attributes)
+    block
