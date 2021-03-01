@@ -147,7 +147,7 @@ class ValidatedInput {
     this.removeValidation();
     this.listener = () => {
       if (this.enableValidation) {
-        if (this.input.checkValidity && this.input.reportValidity && !this.input.checkValidity()) {
+        if (this.input.checkValidity && !this.input.checkValidity()) {
           this.setState('error', stateCallback);
           this.validationMessageToggle.hide();
         } else if (validator) {
