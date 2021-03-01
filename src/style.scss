@@ -44,12 +44,10 @@ body {
 
   #primary,
   #secondary {
-    height: calc(2.4em + 1px);
-
     .menu-item {
       @include vertical-align;
       flex: 1 0 auto;
-      padding: 0 8px;
+      padding: 0.5em 0.3em;
 
       & > a,
       & > span {
@@ -74,8 +72,7 @@ body {
 
   #primary {
     display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
+    flex-wrap: wrap;
 
     .menu-item {
       & > a,
@@ -105,14 +102,13 @@ body {
 
     .submenu {
       display: flex;
+      flex-wrap: wrap;
       visibility: hidden;
       height: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
 
       &.active {
         visibility: visible;
-        height: 100%;
+        height: auto;
       }
     }
   }
@@ -153,8 +149,11 @@ body {
 
   #menu #primary,
   #menu #secondary {
-    height: calc(1.2em + 1px);
-    margin-bottom: 0.5em;
+    margin-bottom: 0.75em;
+
+    .menu-item {
+      padding: 0 0.3em;
+    }
   }
 
   #menu #primary .menu-item.active span {

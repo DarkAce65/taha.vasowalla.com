@@ -193,25 +193,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  const secondaryMenuElement = document.querySelector<HTMLDivElement>('#secondary')!;
   let activeMenuElement: HTMLElement | null = null;
+  let collapseAnimationFrameId: number | null = null;
   const toggleSubmenu = (menuElement: HTMLElement): void => {
-    if (menuElement.isSameNode(activeMenuElement)) {
+    if (collapseAnimationFrameId !== null) {
+      cancelAnimationFrame(collapseAnimationFrameId);
+    }
+
+    const targetSubmenuElement = document.querySelector(menuElement.dataset.menu!)!;
+
+    if (activeMenuElement !== null && menuElement.isSameNode(activeMenuElement)) {
+      secondaryMenuElement.style.height = `${targetSubmenuElement.scrollHeight}px`;
+      secondaryMenuElement.classList.add('closed');
       menuElement.classList.remove('active');
-      document.querySelector('#secondary')!.classList.add('closed');
       document.querySelectorAll('.submenu.active').forEach((el) => el.classList.remove('active'));
       activeMenuElement = null;
+
+      collapseAnimationFrameId = requestAnimationFrame(() => {
+        secondaryMenuElement.style.removeProperty('height');
+        collapseAnimationFrameId = null;
+      });
+
       return;
     }
 
-    if (activeMenuElement === null) {
-      document.querySelector('#secondary')!.classList.remove('closed');
-    } else {
-      activeMenuElement.classList.remove('active');
-      document.querySelector(activeMenuElement.dataset.menu!)!.classList.remove('active');
+    const previousMenuElement = activeMenuElement;
+    if (previousMenuElement) {
+      previousMenuElement.classList.remove('active');
+      document.querySelectorAll('.submenu.active').forEach((el) => el.classList.remove('active'));
     }
     activeMenuElement = menuElement;
     menuElement.classList.add('active');
-    document.querySelector(menuElement.dataset.menu!)!.classList.add('active');
+    targetSubmenuElement.classList.add('active');
+
+    collapseAnimationFrameId = requestAnimationFrame(() => {
+      secondaryMenuElement.style.height = `${targetSubmenuElement.scrollHeight}px`;
+
+      if (previousMenuElement === null) {
+        secondaryMenuElement.classList.remove('closed');
+      }
+
+      const resetHeight = () => {
+        secondaryMenuElement.removeEventListener('transitionend', resetHeight);
+        secondaryMenuElement.style.removeProperty('height');
+      };
+      secondaryMenuElement.addEventListener('transitionend', resetHeight);
+    });
   };
 
   document.querySelectorAll<HTMLElement>('#primary .menu-item').forEach((menuElement) => {
