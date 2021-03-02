@@ -196,50 +196,64 @@ document.addEventListener('DOMContentLoaded', () => {
   const secondaryMenuElement = document.querySelector<HTMLDivElement>('#secondary')!;
   let activeMenuElement: HTMLElement | null = null;
   let collapseAnimationFrameId: number | null = null;
+
+  const resetHeight = () => {
+    secondaryMenuElement.removeEventListener('transitionend', resetHeight);
+    secondaryMenuElement.style.removeProperty('height');
+  };
+
   const toggleSubmenu = (menuElement: HTMLElement): void => {
     if (collapseAnimationFrameId !== null) {
-      cancelAnimationFrame(collapseAnimationFrameId);
-    }
-
-    const targetSubmenuElement = document.querySelector(menuElement.dataset.menu!)!;
-
-    if (activeMenuElement !== null && menuElement.isSameNode(activeMenuElement)) {
-      secondaryMenuElement.style.height = `${targetSubmenuElement.scrollHeight}px`;
-      secondaryMenuElement.classList.add('closed');
-      menuElement.classList.remove('active');
-      document.querySelectorAll('.submenu.active').forEach((el) => el.classList.remove('active'));
-      activeMenuElement = null;
-
-      collapseAnimationFrameId = requestAnimationFrame(() => {
-        secondaryMenuElement.style.removeProperty('height');
-        collapseAnimationFrameId = null;
-      });
-
       return;
     }
 
-    const previousMenuElement = activeMenuElement;
-    if (previousMenuElement) {
-      previousMenuElement.classList.remove('active');
-      document.querySelectorAll('.submenu.active').forEach((el) => el.classList.remove('active'));
-    }
-    activeMenuElement = menuElement;
-    menuElement.classList.add('active');
-    targetSubmenuElement.classList.add('active');
+    const targetSubmenuElement = document.querySelector(menuElement.dataset.menu!)!;
+    const previousSubmenuElement =
+      activeMenuElement && document.querySelector(activeMenuElement.dataset.menu!)!;
 
-    collapseAnimationFrameId = requestAnimationFrame(() => {
-      secondaryMenuElement.style.height = `${targetSubmenuElement.scrollHeight}px`;
+    if (activeMenuElement && menuElement.isSameNode(activeMenuElement)) {
+      // Close submenu
+      collapseAnimationFrameId = requestAnimationFrame(() => {
+        secondaryMenuElement.style.height = `${targetSubmenuElement.scrollHeight}px`;
+        secondaryMenuElement.classList.add('closed');
+        menuElement.classList.remove('active');
+        previousSubmenuElement!.classList.remove('active');
+        activeMenuElement = null;
 
-      if (previousMenuElement === null) {
-        secondaryMenuElement.classList.remove('closed');
+        collapseAnimationFrameId = requestAnimationFrame(() => {
+          secondaryMenuElement.style.removeProperty('height');
+          collapseAnimationFrameId = null;
+        });
+      });
+    } else {
+      // Open submenu
+      const previousMenuElement = activeMenuElement;
+      if (previousMenuElement) {
+        // Close previous menu
+        secondaryMenuElement.style.height = `${previousSubmenuElement!.scrollHeight}px`;
+        previousMenuElement.classList.remove('active');
+        previousSubmenuElement!.classList.remove('active');
       }
+      activeMenuElement = menuElement;
+      menuElement.classList.add('active');
+      targetSubmenuElement.classList.add('active');
 
-      const resetHeight = () => {
-        secondaryMenuElement.removeEventListener('transitionend', resetHeight);
+      if (secondaryMenuElement.clientHeight === targetSubmenuElement.scrollHeight) {
         secondaryMenuElement.style.removeProperty('height');
-      };
-      secondaryMenuElement.addEventListener('transitionend', resetHeight);
-    });
+      } else {
+        collapseAnimationFrameId = requestAnimationFrame(() => {
+          secondaryMenuElement.addEventListener('transitionend', resetHeight);
+
+          secondaryMenuElement.style.height = `${targetSubmenuElement.scrollHeight}px`;
+
+          if (previousMenuElement === null) {
+            secondaryMenuElement.classList.remove('closed');
+          }
+
+          collapseAnimationFrameId = null;
+        });
+      }
+    }
   };
 
   document.querySelectorAll<HTMLElement>('#primary .menu-item').forEach((menuElement) => {

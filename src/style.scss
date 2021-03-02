@@ -105,10 +105,13 @@ body {
       flex-wrap: wrap;
       visibility: hidden;
       height: 0;
+      opacity: 0;
+      transition: opacity $transition-duration;
 
       &.active {
         visibility: visible;
         height: auto;
+        opacity: 1;
       }
     }
   }
