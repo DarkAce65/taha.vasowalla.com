@@ -3,7 +3,7 @@
 @import '../partials/colors';
 @import '../partials/uikit-overrides/variables';
 
-$timeline-gap: 20px;
+$timeline-gap: 24px;
 $timeline-width: 2px;
 $timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
@@ -43,34 +43,73 @@ $timeline-volunteering-color: $purple;
   @extend .empty;
   border-left-color: $timeline-color;
 
+  &[data-reminder]::after {
+    content: attr(data-reminder);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    color: $timeline-color;
+    font-size: 0.8em;
+    transform: translate(-50%, -100%) rotate(-90deg);
+    transform-origin: bottom;
+  }
+
   &[data-category='school'] {
     border-left-color: $timeline-school-color;
+
+    &::after {
+      color: $timeline-school-color;
+    }
   }
 
   &[data-category='work'] {
     border-left-color: $timeline-work-color;
+
+    &::after {
+      color: $timeline-work-color;
+    }
   }
 
   &[data-category='volunteering'],
   &[data-category='club'] {
     border-left-color: $timeline-volunteering-color;
+
+    &::after {
+      color: $timeline-volunteering-color;
+    }
   }
 
   &.base-override {
     border-left-color: $timeline-color;
+
+    &::after {
+      color: $timeline-color;
+    }
   }
 
   &.school-override {
     border-left-color: $timeline-school-color;
+
+    &::after {
+      color: $timeline-school-color;
+    }
   }
 
   &.work-override {
     border-left-color: $timeline-work-color;
+
+    &::after {
+      color: $timeline-work-color;
+    }
   }
 
   &.volunteering-override,
   &.club-override {
     border-left-color: $timeline-volunteering-color;
+
+    &::after {
+      color: $timeline-volunteering-color;
+    }
   }
 }
 
