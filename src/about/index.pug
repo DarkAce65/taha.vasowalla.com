@@ -65,22 +65,29 @@ html
                 div Ruby
         .uk-width-1-1
           #timeline.uk-card.uk-card-small.uk-card-body.uk-card-default
-            .trail: .trail(data-category="school")
+            .trail: .trail(data-category="work")
 
-            .connector: .event(data-category="school"): .padding-bottom
-              .event-date September, 2016 - Present
-              | Student at Northeastern University
+            .connector: .event(data-category="work"): .padding-bottom
+              .event-date January, 2021 - Present
+              div Software engineer at HubSpot
+              | CRM Setup Frontend team
 
-            .connector: .connector(data-category="school"): .trail(data-category="club")
-            .connector: .connector(data-category="school"): .event(data-category="club"): .padding-bottom
-              .event-date Fall, 2017 - Present
+            .connector: .connector(data-category="work"): .uk-text-emphasis 2020
+
+            .connector: .branch.join(data-category="school"): .empty: .branch.join(data-category="work")
+            .connector: .event(data-category="school"): .connector(data-category="work")
+              .event-date December 22nd, 2020
+              | Graduated Northeastern University
+
+            .connector: .connector(data-category="school"): .branch.join(data-category="club"): .empty: .branch.join(data-category="work")
+            .connector: .connector(data-category="school"): .event(data-category="club"): .connector(data-category="work"): .padding-bottom
+              .event-date Fall, 2017 - December, 2020 (3 yrs 2 mos)
               | Vice President and Co-founder of the #[a.uk-link(href="https://nuvr.github.io/" target="_blank") Virtual Reality club]
 
-            .connector: .connector(data-category="school"): .connector(data-category="club"): .trail(data-category="work")
             .connector: .connector(data-category="school"): .connector(data-category="club"): .event(data-category="work")
-              .event-date January, 2020 - Present
+              .event-date January, 2020 - January, 2021
               div Software engineering co-op at HubSpot
-              | CRM Backend team
+              | CRM Platform Backend & CRM Records Backend teams
             .connector: .connector(data-category="school"): .branch.split.deep(data-category="work"): .connector(data-category="club")
 
             .connector: .connector(data-category="school"): .connector(data-category="club"): .uk-text-emphasis 2019
