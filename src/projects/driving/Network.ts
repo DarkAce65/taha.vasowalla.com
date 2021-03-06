@@ -122,6 +122,7 @@ class Network {
     const { numInputs, numHiddenNodes, numOutputs } = structure;
 
     ctx.strokeStyle = 'white';
+    ctx.lineWidth = window.devicePixelRatio;
     ctx.fillStyle = 'white';
 
     for (let i = 0; i < numInputs; i++) {
@@ -150,7 +151,7 @@ class Network {
       for (let i = 0; i < numNodes; i++) {
         const p = (i + 0.5) / numNodes;
         ctx.beginPath();
-        ctx.arc(x, p * height, 5, 0, 2 * Math.PI);
+        ctx.arc(x, p * height, width / 40, 0, 2 * Math.PI);
         ctx.fill();
       }
     };
@@ -239,7 +240,7 @@ class Network {
         const w = nodes[i];
         ctx.fillStyle = networkColorScale(w).hex();
         ctx.beginPath();
-        ctx.arc(x, p * height, 5, 0, 2 * Math.PI);
+        ctx.arc(x, p * height, width / 40, 0, 2 * Math.PI);
         ctx.fill();
       }
     };

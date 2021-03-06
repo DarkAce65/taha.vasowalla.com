@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   ctx.scale(1, -1);
   ctx.translate(0, -height);
 
-  const statWidth = 200;
-  const statHeight = 125;
+  const statWidth = 200 * window.devicePixelRatio;
+  const statHeight = 125 * window.devicePixelRatio;
   const netCanvas = document.getElementById('net') as HTMLCanvasElement;
   netCanvas.width = statWidth;
   netCanvas.height = statHeight;
