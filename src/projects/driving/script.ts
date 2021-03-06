@@ -58,9 +58,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const simulator = new Simulator(track, simCanvasParams, netCanvasParams, carStatusCanvasParams);
 
-  document.querySelector('#start')!.addEventListener('click', () => simulator.start());
-  document
-    .querySelector('#kill')!
-    .addEventListener('click', () => simulator.killCurrentSimulation());
-  document.querySelector('#reset')!.addEventListener('click', () => simulator.reset());
+  const startButton = document.querySelector('#start')!;
+  const pauseButton = document.querySelector('#pause')!;
+  const killButton = document.querySelector('#kill')!;
+  const resetButton = document.querySelector('#reset')!;
+
+  const updateState = () => {
+    switch (simulator.getState()) {
+      case 'RUNNING':
+        startButton.classList.add('uk-active');
+        pauseButton.classList.remove('uk-active');
+        break;
+      case 'PAUSED':
+        startButton.classList.remove('uk-active');
+        pauseButton.classList.add('uk-active');
+        break;
+      case 'STOPPED':
+        startButton.classList.remove('uk-active');
+        pauseButton.classList.remove('uk-active');
+        break;
+    }
+  };
+
+  startButton.addEventListener('click', () => {
+    simulator.start();
+    updateState();
+  });
+  pauseButton.addEventListener('click', () => {
+    simulator.pause();
+    updateState();
+  });
+  killButton.addEventListener('click', () => simulator.killCurrentSimulation());
+  resetButton.addEventListener('click', () => {
+    simulator.reset();
+    updateState();
+  });
 });

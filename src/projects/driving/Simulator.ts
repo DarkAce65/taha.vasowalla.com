@@ -43,6 +43,7 @@ const DEFAULT_CONTROLS = {
 
 class Simulator {
   private running = false;
+  private paused = false;
 
   private simulatorControls: SimulatorParams;
   private generationParams: GenerationParams;
@@ -94,8 +95,19 @@ class Simulator {
     };
   }
 
+  getState(): 'RUNNING' | 'PAUSED' | 'STOPPED' {
+    if (this.running) {
+      return 'RUNNING';
+    } else if (this.paused) {
+      return 'PAUSED';
+    }
+
+    return 'STOPPED';
+  }
+
   reset(): void {
     this.running = false;
+    this.paused = false;
     this.resetGenerationParams();
 
     this.generation = 0;
@@ -135,10 +147,22 @@ class Simulator {
     }
 
     this.running = true;
-    this.activeSimulation = this.createNewSimulation();
-    this.activeSimulation.initialize();
+    if (!this.paused) {
+      this.activeSimulation = this.createNewSimulation();
+      this.activeSimulation.initialize();
+    }
+    this.paused = false;
 
     this.run();
+  }
+
+  pause(): void {
+    if (!this.running) {
+      return;
+    }
+
+    this.running = false;
+    this.paused = true;
   }
 
   killCurrentSimulation(): void {
