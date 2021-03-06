@@ -56,7 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   const track = new Track(trackPoints.map((position) => ({ position })));
 
-  const simulator = new Simulator(track, simCanvasParams, netCanvasParams, carStatusCanvasParams);
+  const simulator = new Simulator(track, simCanvasParams, netCanvasParams, carStatusCanvasParams, {
+    generationSize: 30,
+    numBreeders: 3,
+    numRandom: 3,
+    numHiddenNodes: 8,
+  });
 
   const startButton = document.querySelector('#start')!;
   const pauseButton = document.querySelector('#pause')!;
