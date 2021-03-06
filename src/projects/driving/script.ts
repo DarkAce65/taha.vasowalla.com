@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   canvas.width = width;
   canvas.height = height;
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+  const ctx = canvas.getContext('2d')!;
   ctx.scale(1, -1);
   ctx.translate(0, -height);
 
@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const netCanvas = document.getElementById('net') as HTMLCanvasElement;
   netCanvas.width = statWidth;
   netCanvas.height = statHeight;
-  const netCtx = netCanvas.getContext('2d') as CanvasRenderingContext2D;
+  const netCtx = netCanvas.getContext('2d')!;
 
   const carStatusCanvas = document.getElementById('carStatus') as HTMLCanvasElement;
   carStatusCanvas.width = statWidth;
   carStatusCanvas.height = statHeight;
-  const carStatusCtx = carStatusCanvas.getContext('2d') as CanvasRenderingContext2D;
+  const carStatusCtx = carStatusCanvas.getContext('2d')!;
   carStatusCtx.scale(1, -1);
   carStatusCtx.translate(0, -statHeight);
 
