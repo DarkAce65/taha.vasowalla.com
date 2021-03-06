@@ -25,10 +25,10 @@ html
                 .uk-text-center.grid-2col
                   div(style={"grid-column": "1 / 3"})
                     a.uk-link(href=require("./Resume - Taha Vasowalla.pdf")) Resume.pdf
-                  a(href="https://github.com/DarkAce65" target="_blank") #[span.uk-margin-small-right(uk-icon="github")] @DarkAce65
-                  a(href="https://www.linkedin.com/in/TahaVasowalla" target="_blank") #[span.uk-margin-small-right(uk-icon="linkedin")] LinkedIn
-                  a(href="https://instagram.com/darkace65/" target="_blank") #[span.uk-margin-small-right(uk-icon="instagram")] @darkace65
-                  a(href="https://www.facebook.com/taha.vasowalla" target="_blank") #[span.uk-margin-small-right(uk-icon="facebook")] Facebook
+                  +external(href="https://github.com/DarkAce65") #[span.uk-margin-small-right(uk-icon="github")] @DarkAce65
+                  +external(href="https://www.linkedin.com/in/TahaVasowalla") #[span.uk-margin-small-right(uk-icon="linkedin")] LinkedIn
+                  +external(href="https://instagram.com/darkace65/") #[span.uk-margin-small-right(uk-icon="instagram")] @darkace65
+                  +external(href="https://www.facebook.com/taha.vasowalla") #[span.uk-margin-small-right(uk-icon="facebook")] Facebook
             .uk-flex-none(class="uk-visible@m")
               img(uk-img data-src="../assets/img/banner.jpg" data-width="739" data-height="300")
         .uk-grid-item-match(class="uk-flex-first@m")
@@ -83,7 +83,7 @@ html
             .connector: .connector(data-category="school"): .branch.join(data-category="club"): .empty: .branch.join(data-category="work")
             .connector: .connector(data-category="school"): .event(data-category="club"): .connector(data-category="work"): .padding-bottom
               .event-date Fall, 2017 – December, 2020 (3 yrs 2 mos)
-              | Vice President and Co-founder of the #[a.uk-link(href="https://nuvr.github.io/" target="_blank") Virtual Reality club]
+              | Vice President and Co-founder of the #[+external.uk-link(href="https://nuvr.github.io/") Virtual Reality club]
 
             .connector: .connector(data-category="school"): .connector(data-category="club" data-reminder="NUVR"): .event(data-category="work")
               .event-date January, 2020 – January, 2021
@@ -96,7 +96,7 @@ html
             .connector: .connector(data-category="school"): .branch.join(data-category="club"): .empty: .branch.join(data-category="club")
             .connector: .connector(data-category="school"): .event(data-category="club"): .connector(data-category="club")
               .event-date Fall, 2017 – Fall, 2019 #[span.event-duration (2 yrs 4 mos)]
-              | Webmaster of the #[a.uk-link(href="https://neuasa.org/" target="_blank") NUSound club]
+              | Webmaster of the #[+external.uk-link(href="https://neuasa.org/") NUSound club]
 
             .connector: .connector(data-category="school"): .branch.join(data-category="work"): .empty: .branch.join(data-category="club"): .empty: .branch.join(data-category="club")
             .connector: .connector(data-category="school"): .event(data-category="work"): .connector(data-category="club"): .connector(data-category="club")
@@ -118,10 +118,10 @@ html
 
             .connector: .connector(data-category="school"): .event(data-category="club"): .connector(data-category="club"): .padding-bottom
               .event-date Fall, 2017
-              | Joined the #[a.uk-link(href="https://neuasa.org/" target="_blank") NUSound club's] eboard as Webmaster
+              | Joined the #[+external.uk-link(href="https://neuasa.org/") NUSound club's] eboard as Webmaster
             .connector: .connector(data-category="school"): .connector(data-category="club"): .event(data-category="club")
               .event-date Fall, 2017
-              | Founded the #[a.uk-link(href="https://nuvr.github.io/" target="_blank") Virtual Reality club (NUVR)] with #[a.uk-link(href="https://abbondanzo.com/" target="_blank") Peter Abbondanzo]
+              | Founded the #[+external.uk-link(href="https://nuvr.github.io/") Virtual Reality club (NUVR)] with #[+external.uk-link(href="https://abbondanzo.com/") Peter Abbondanzo]
             .connector: .connector(data-category="school"): .branch.split.deep(data-category="club"): .branch.split(data-category="club")
 
             .connector: .connector(data-category="school"): .spacer
@@ -157,13 +157,13 @@ html
             .connector: .connector(data-category="school"): .branch.join
             .connector: .connector(data-category="school"): .event: .padding-bottom
               .event-date May 25th, 2016
-              | Presented the #[a.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/" target="_blank") SARndbox] at the international #[a.uk-link(href="http://linc2016.mit.edu/" target="_blank") LINC Conference] hosted by MIT and became the first high school students to be invited to the LINC Conference
+              | Presented the #[+external.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/") SARndbox] at the international #[+external.uk-link(href="http://linc2016.mit.edu/") LINC Conference] hosted by MIT and became the first high school students to be invited to the LINC Conference
             .connector: .connector(data-category="school"): .event(data-reminder="SARndbox"): .padding-bottom
               .event-date April 16th, 2016
-              | Presented the #[a.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/" target="_blank") SARndbox] at the #[a.uk-link(href="https://www.cambridgesciencefestival.org/" target="_blank") Cambridge Science Festival]
+              | Presented the #[+external.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/") SARndbox] at the #[+external.uk-link(href="https://www.cambridgesciencefestival.org/") Cambridge Science Festival]
             .connector: .connector(data-category="school"): .event
               .event-date January 22nd, 2016
-              | Participated in the #[a.uk-link(href="http://learnlaunch.org/conference-2016/classroomofthefuture/" target="_blank") LearnLaunch] conference co-hosted by Harvard with the Andover Innovation Lab and our build of the #[a.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/" target="_blank") SARndbox]
+              | Participated in the #[+external.uk-link(href="http://learnlaunch.org/conference-2016/classroomofthefuture/") LearnLaunch] conference co-hosted by Harvard with the Andover Innovation Lab and our build of the #[+external.uk-link(href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/") SARndbox]
             .connector: .connector(data-category="school"): .branch.split
 
             .connector: .connector(data-category="school" data-reminder="Andover High School"): .uk-text-emphasis 2015
@@ -188,7 +188,7 @@ html
               | Inducted into the National Honor Society
             .event: .connector(data-category="school")
               .event-date August 9th, 2014
-              | Won Best Web App Award with #[a.uk-link(href="https://gukovsky.com/" target="_blank") Eli Gukovsky] at a hackathon hosted by HHBrown
+              | Won Best Web App Award with #[+external.uk-link(href="https://gukovsky.com/") Eli Gukovsky] at a hackathon hosted by HHBrown
 
             .connector: .branch.join.deep(data-category="volunteering"): .connector(data-category="school")
             .connector: .connector(data-category="school"): .event(data-category="volunteering")
