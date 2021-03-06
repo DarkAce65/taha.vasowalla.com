@@ -1,0 +1,27 @@
+include ../../partials/mixins
+
+doctype html
+html
+  head
+    +head("Driving Simulation", gfonts=["Share", "Inconsolata"])
+    link(rel="shortcut icon" href="../../assets/icons/network.png")
+    link(rel="stylesheet" type="text/css" href="../../uikit.css")
+    link(rel="stylesheet" type="text/css" href="style.css")
+
+  body
+    +container(["projects", "driving"])
+      #statsContainer.uk-flex.uk-flex-middle.uk-margin-bottom
+        div(class="uk-width-1-1 uk-width-auto@m" style="text-align: center;")
+          canvas#net
+        .uk-flex-1(style={'min-width': '45%'})
+          #stats
+            div Generation:&nbsp;#[span#generation.stat 0], Genome:&nbsp;#[span#genome.stat 0]
+            div Best&nbsp;Fitness:&nbsp;#[span#bestFitness.stat 0.00]
+            div Fitness:&nbsp;#[span#fitness.stat 0.00], Avg.&nbsp;Speed:&nbsp;#[span#avgSpeed.stat 0.00]
+            .uk-button-group
+              button#start.uk-button.uk-button-default.uk-button-small Start
+              button#kill.uk-button.uk-button-default.uk-button-small Kill Current Simulation
+              button#reset.uk-button.uk-button-default.uk-button-small Reset
+        div(class="uk-width-1-1 uk-width-auto@m" style="text-align: center;")
+          canvas#carStatus
+      canvas#canvas

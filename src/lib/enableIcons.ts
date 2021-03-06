@@ -9,7 +9,7 @@ interface Params {
   faIcons?: IconDefinitionOrPack[];
 }
 
-export default ({ uikit, faIcons }: Params): void => {
+export default ({ uikit, faIcons }: Params = { uikit: true }): void => {
   if (uikit) {
     UIkit.use(Icons);
   }

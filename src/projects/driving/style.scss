@@ -1,0 +1,34 @@
+@import '../../partials/colors';
+@import '../../partials/uikit-overrides/variables';
+
+canvas {
+  background: $black;
+  border: 1px solid $darkgray;
+}
+
+#canvas {
+  display: block;
+  border-color: white;
+  margin: 0 auto;
+}
+
+#stats {
+  text-align: center;
+  margin: $global-margin;
+
+  .stat {
+    font-family: 'Inconsolata', monospace;
+    white-space: pre;
+  }
+}
+
+@media screen and (max-width: $breakpoint-xsmall-max) {
+  #net,
+  #carStatus {
+    width: 75%;
+  }
+
+  #statsContainer {
+    flex-wrap: wrap;
+  }
+}
