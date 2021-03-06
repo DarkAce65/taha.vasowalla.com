@@ -19,7 +19,10 @@ html
           .menu-item(data-menu="#random"): span(tabindex=0) random
         #secondary.closed
           #projects.submenu
-            .menu-item: +external(href="https://github.com/DarkAce65/raytracer") raytracer
+            .menu-item: +external(href="https://github.com/DarkAce65/raytracer")
+              | raytracer
+              |
+              i.fas.fa-external-link-alt(style={'font-size': '0.6em', 'vertical-align': 'middle'})
             .menu-item: a(href="projects/driving/") driving
             .menu-item: a(href="projects/chemistry/") chemistry calculators
             .menu-item: a(href="visual/webaudio2d/") 2D audio

@@ -1,3 +1,4 @@
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import SimplexNoise from 'simplex-noise';
 import {
   BufferGeometry,
@@ -17,11 +18,15 @@ import {
 
 import ParticleEmitter, { ParticleEmitterOptions } from '~/lib/particles/ParticleEmitter';
 
+import enableIcons from './lib/enableIcons';
+
 interface Satellite extends Mesh {
   orbitSpeed?: number;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  enableIcons({ uikit: false, faIcons: [faExternalLinkAlt] });
+
   setTimeout(() => document.body.classList.remove('loading'), 500);
 
   const simplex = new SimplexNoise();
