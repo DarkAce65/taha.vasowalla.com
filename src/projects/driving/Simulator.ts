@@ -183,7 +183,7 @@ class Simulator {
   private createNewSimulation(): Simulation {
     const { generationSize, numRandom } = this.generationParams;
     const { numHiddenNodes, numSensors, sensorLength, sensorAngle } = this.simulatorControls;
-    const networkStructure = { numInputs: numSensors, numHiddenNodes, numOutputs: 3 };
+    const networkStructure = { numInputs: numSensors + 1, numHiddenNodes, numOutputs: 3 };
 
     let network;
     if (this.bestPerformers.length > 0) {

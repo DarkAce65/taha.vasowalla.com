@@ -9,6 +9,7 @@ import {
   CHECKPOINT_MASK,
   CanvasParams,
   MINIMUM_AVERAGE_SPEED,
+  SPEED_SENSITIVITY,
   TICKS_TO_WAIT_FOR_STOP,
   Vector2,
 } from './constants';
@@ -44,9 +45,9 @@ class Simulation {
     private readonly track: Track,
     private readonly finishCallback: (fitness: number) => void
   ) {
-    if (network.structure.numInputs !== car.numSensors) {
+    if (network.structure.numInputs !== car.numSensors + 1) {
       throw new Error(
-        `Given network has an invalid number of inputs - must match number of sensors of car (${car.numSensors}) but got ${network.structure.numInputs}`
+        `Given network has an invalid number of inputs - must match number of sensors of car (${car.numSensors}) plus 1 but got ${network.structure.numInputs}`
       );
     }
     if (network.structure.numOutputs !== 3) {
@@ -117,16 +118,15 @@ class Simulation {
   }
 
   private fitness(): number {
-    const {
-      position: prevCheckpointPosition,
-      cumulativeDistance: prevCheckpointDistance,
-    } = this.track.checkpoints[wrappedModulo(this.checkpoint - 1, this.track.checkpoints.length)];
+    const prevCheckpoint = this.track.checkpoints[
+      wrappedModulo(this.checkpoint - 1, this.track.checkpoints.length)
+    ];
     const {
       position: nextCheckpointPosition,
       trackSegmentLength: nextCheckpointSegmentLength,
     } = this.track.checkpoints[this.checkpoint];
 
-    const [pt0x, pt0y] = prevCheckpointPosition;
+    const [pt0x, pt0y] = prevCheckpoint.position;
     const [pt1x, pt1y] = this.car.position;
     const [pt2x, pt2y] = nextCheckpointPosition;
 
@@ -138,7 +138,7 @@ class Simulation {
 
     return (
       this.laps * this.track.totalTrackLength +
-      (this.checkpoint === 0 ? 0 : prevCheckpointDistance) +
+      (this.checkpoint === 0 ? 0 : prevCheckpoint.cumulativeDistance) +
       distFromLastCheckpoint
     );
   }
@@ -165,7 +165,10 @@ class Simulation {
     this.drawTrails(ctx, trails);
 
     this.car.computeSensorIntersections(this.world);
-    const inputs = this.car.getNormalizedSensorValues();
+    const inputs = [
+      ...this.car.getNormalizedSensorValues(),
+      this.car.getNormalizedSpeed(SPEED_SENSITIVITY),
+    ];
     const [throttle, brake, steer] = this.network.evaluateAndDraw(inputs, netCanvasParams);
 
     this.car.update(throttle, brake, steer);

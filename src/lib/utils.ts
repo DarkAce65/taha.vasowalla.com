@@ -18,3 +18,5 @@ export const wrappedModulo = (value: number, modulus: number): number =>
 
 export const clamp = (value: number, min: number, max: number): number =>
   Math.max(min, Math.min(value, max));
+
+export const sigmoid = (value: number): number => 1 / (1 + Math.pow(Math.E, -value));

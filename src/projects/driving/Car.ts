@@ -1,5 +1,7 @@
 import p2, { Body, Box, Ray, RaycastResult, TopDownVehicle, WheelConstraint, World } from 'p2';
 
+import { sigmoid } from '~/lib/utils';
+
 import {
   CAR_MASK,
   CHECKPOINT_MASK,
@@ -112,6 +114,10 @@ class Car {
 
   getSpeed(): number {
     return (this.wheels[2].getSpeed() + this.wheels[3].getSpeed()) / 2;
+  }
+
+  getNormalizedSpeed(sensitiveSpeed: number): number {
+    return sigmoid(this.getSpeed() / sensitiveSpeed - 0.5);
   }
 
   getNormalizedSensorValues(): number[] {

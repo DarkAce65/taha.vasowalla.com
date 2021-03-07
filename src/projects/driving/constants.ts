@@ -8,6 +8,7 @@ export interface CanvasParams {
 export const MOVING_AVERAGE_ALPHA = 0.1;
 export const MINIMUM_AVERAGE_SPEED = 1;
 export const TICKS_TO_WAIT_FOR_STOP = 50;
+export const SPEED_SENSITIVITY = 250; // Speed at which neuron is most senstive
 
 export const DEFAULT_TRACK_WIDTH = 80;
 export const WALL_THICKNESS = 5;
