@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const simulator = new Simulator(track, simCanvasParams, netCanvasParams, carStatusCanvasParams, {
     generationSize: 30,
-    numBreeders: 3,
+    numBreeders: 4,
     numRandom: 3,
     numHiddenNodes: 8,
   });
