@@ -1,5 +1,7 @@
+import chroma from 'chroma-js';
 import p2, { World } from 'p2';
 
+import { COLORS } from '~/lib/colors';
 import { wrappedModulo } from '~/lib/utils';
 
 import Car from './Car';
@@ -161,7 +163,6 @@ class Simulation {
     ctx.clearRect(0, 0, width, height);
 
     this.track.draw(ctx);
-
     this.drawTrails(ctx, trails);
 
     this.car.computeSensorIntersections(this.world);
@@ -169,7 +170,7 @@ class Simulation {
       ...this.car.getNormalizedSensorValues(),
       this.car.getNormalizedSpeed(SPEED_SENSITIVITY),
     ];
-    const [throttle, brake, steer] = this.network.evaluateAndDraw(inputs, netCanvasParams);
+    const [throttle, brake, steer] = this.network.computeOutputsAndDraw(inputs, netCanvasParams);
 
     this.car.update(throttle, brake, steer);
     this.car.draw(ctx, steer);
@@ -202,7 +203,7 @@ class Simulation {
         continue;
       }
 
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.strokeStyle = chroma(COLORS.WHITE).alpha(0.15).hex();
       ctx.beginPath();
       ctx.moveTo(trail[0][0], trail[0][1]);
       for (let i = 1; i < trail.length; i++) {
@@ -211,7 +212,7 @@ class Simulation {
       ctx.stroke();
 
       // Draw cross
-      ctx.strokeStyle = '#ff5050';
+      ctx.strokeStyle = COLORS.RED;
       ctx.beginPath();
       ctx.save();
       ctx.translate(trail[trail.length - 1][0], trail[trail.length - 1][1]);
@@ -224,7 +225,7 @@ class Simulation {
     }
 
     const { datapoints } = this.simulationData;
-    ctx.strokeStyle = 'aquamarine';
+    ctx.strokeStyle = COLORS.TEAL;
     ctx.beginPath();
     ctx.moveTo(datapoints[0].position[0], datapoints[0].position[1]);
     for (let i = 1; i < datapoints.length; i++) {
@@ -237,24 +238,24 @@ class Simulation {
   private drawCarStatus({ ctx, width, height }: CanvasParams, [throttle, brake, steer]: number[]) {
     ctx.clearRect(0, 0, width, height);
 
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = COLORS.WHITE;
     ctx.fillRect(Math.min(width / 2, steer * width), 0, Math.abs(steer - 0.5) * width, height / 10);
     ctx.fillRect(width / 9, height / 10, width / 3, (throttle * height * 9) / 10);
-    ctx.fillStyle = '#ff5050';
+    ctx.fillStyle = COLORS.RED;
     ctx.fillRect((width * 5) / 9, height / 10, width / 3, (brake * height * 9) / 10);
 
     const { datapoints } = this.simulationData;
     if (datapoints.length > 0) {
       const { minSpeed, maxSpeed } = this.simulationData;
       if (minSpeed < 0) {
-        ctx.strokeStyle = 'gray';
+        ctx.strokeStyle = COLORS.GRAY;
         ctx.beginPath();
         ctx.moveTo(0, (-minSpeed / (maxSpeed - minSpeed)) * height);
         ctx.lineTo(width, (-minSpeed / (maxSpeed - minSpeed)) * height);
         ctx.stroke();
       }
 
-      ctx.strokeStyle = 'aqua';
+      ctx.strokeStyle = COLORS.TEAL;
       ctx.beginPath();
       ctx.moveTo(0, ((datapoints[0].speed - minSpeed) / (maxSpeed - minSpeed)) * height);
       for (let i = 1; i < datapoints.length; i++) {

@@ -1,5 +1,7 @@
+import chroma from 'chroma-js';
 import p2, { Body, Box, World } from 'p2';
 
+import { COLORS } from '~/lib/colors';
 import { wrappedModulo } from '~/lib/utils';
 
 import {
@@ -145,12 +147,12 @@ class Track {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = COLORS.WHITE;
     for (const wall of this.walls) {
       this.drawWall(ctx, wall);
     }
 
-    ctx.strokeStyle = 'rgba(255, 80, 80, 0.3)';
+    ctx.strokeStyle = chroma(COLORS.RED).alpha(0.3).hex();
     for (const checkpoint of this.checkpoints) {
       this.drawCheckpoint(ctx, checkpoint);
     }

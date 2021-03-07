@@ -1,9 +1,11 @@
 import UIkit from 'uikit';
 
 import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
+import chroma from 'chroma-js';
 import * as mm from 'music-metadata-browser';
 import WaveSurfer from 'wavesurfer.js';
 
+import { COLORS } from '~/lib/colors';
 import enableIcons from '~/lib/enableIcons';
 
 const toLog = (i, max) => Math.pow(max, i / (max - 1)) - 1;
@@ -70,9 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollParent: true,
     hideScrollbar: true,
     height: 100,
-    progressColor: '#ef5350',
-    waveColor: '#632828',
-    cursorColor: '#fff',
+    progressColor: COLORS.RED,
+    waveColor: chroma(COLORS.RED).luminance(0.05).hex(),
+    cursorColor: COLORS.WHITE,
   });
   wavesurfer.setMute(true);
 
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
       const y = ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
 
-      ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, y * y * 70 + 10)}%)`;
+      ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, y * y * 70 + 10)}%)`;
       ctx.fillRect(i, (1 - y) * h, 1, y * h);
     }
 
@@ -155,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentVolume = 1;
     }
 
-    ctx.fillStyle = `hsl(0, 67%, ${Math.min(100, currentVolume * currentVolume * 60 + 40)}%)`;
+    ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, currentVolume * currentVolume * 60 + 40)}%)`;
     const volumeBarWidth = visualizerWidth * currentVolume;
     ctx.fillRect(visualizerWidth / 2 - volumeBarWidth / 2, h, volumeBarWidth, volumeBarHeight);
 

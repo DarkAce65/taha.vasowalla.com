@@ -1,5 +1,6 @@
 import chroma from 'chroma-js';
 
+import { COLORS } from '~/lib/colors';
 import { clamp } from '~/lib/utils';
 
 import { CanvasParams } from './constants';
@@ -14,7 +15,7 @@ interface NetworkValues {
   hiddenLayerWeights: number[];
 }
 
-const networkColorScale = chroma.scale(['aquamarine', '#222222', 'white']).domain([-1, 1]);
+const networkColorScale = chroma.scale([COLORS.TEAL, COLORS.MUTED, COLORS.WHITE]).domain([-1, 1]);
 
 class Network {
   private inputLayerWeights: number[] = [];
@@ -122,9 +123,9 @@ class Network {
 
     const { numInputs, numHiddenNodes, numOutputs } = structure;
 
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = COLORS.WHITE;
     ctx.lineWidth = window.devicePixelRatio;
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = COLORS.WHITE;
 
     for (let i = 0; i < numInputs; i++) {
       const p = (i + 0.5) / numInputs;
@@ -167,7 +168,7 @@ class Network {
     this.hiddenLayerWeights = hidden;
   }
 
-  evaluateAndDraw(inputs: number[], canvasParams: CanvasParams): number[] {
+  computeOutputsAndDraw(inputs: number[], canvasParams: CanvasParams): number[] {
     const [hiddenLayer, outputs] = this.evaluate(inputs);
 
     canvasParams.ctx.clearRect(0, 0, canvasParams.width, canvasParams.height);

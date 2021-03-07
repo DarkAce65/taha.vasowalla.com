@@ -1,5 +1,7 @@
+import chroma from 'chroma-js';
 import p2, { Body, Box, Ray, RaycastResult, TopDownVehicle, WheelConstraint, World } from 'p2';
 
+import { COLORS } from '~/lib/colors';
 import { sigmoid } from '~/lib/utils';
 
 import {
@@ -199,12 +201,11 @@ class Car {
     const h = this.chassis.box.height;
 
     if (Math.abs(this.avgSpeed) > MINIMUM_AVERAGE_SPEED) {
-      ctx.strokeStyle = 'white';
-      ctx.fillStyle = 'rgba(18, 18, 18, 0.8)';
+      ctx.strokeStyle = COLORS.WHITE;
     } else {
-      ctx.strokeStyle = 'gray';
-      ctx.fillStyle = 'rgba(18, 18, 18, 0.8)';
+      ctx.strokeStyle = COLORS.GRAY;
     }
+    ctx.fillStyle = chroma('#111').alpha(0.8).hex();
 
     ctx.translate(-w / 2, -h / 2);
     ctx.fillRect(0, 0, w, h);
@@ -239,7 +240,7 @@ class Car {
     const normalLength = 10;
 
     for (const sensor of this.sensors) {
-      ctx.strokeStyle = '#ff5050';
+      ctx.strokeStyle = COLORS.RED;
       ctx.beginPath();
       ctx.moveTo(sensor.ray.from[0], sensor.ray.from[1]);
       ctx.lineTo(sensor.ray.to[0], sensor.ray.to[1]);
