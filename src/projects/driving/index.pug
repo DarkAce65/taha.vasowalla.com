@@ -10,6 +10,8 @@ html
 
   body
     +container(["projects", "driving"])
+      p A genetic algorithm that teaches itself to navigate a track without bumping into walls.
+      p The car is controlled by a network structure which takes inputs from three sensors and the car's current speed and produces three outputs for acceleration, brakes, and steering. The genetic algorithm selectively chooses network weights for the next generation from the genomes which performed the best in the last generation.
       #stats.uk-margin
         div Generation:&nbsp;#[span#generation.stat 0], Genome:&nbsp;#[span#genome.stat 0]
         div Best&nbsp;Fitness:&nbsp;#[span#bestFitness.stat 0.00]
