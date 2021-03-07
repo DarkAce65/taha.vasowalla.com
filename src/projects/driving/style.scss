@@ -14,21 +14,9 @@ canvas {
 
 #stats {
   text-align: center;
-  margin: $global-margin;
 
   .stat {
     font-family: 'Inconsolata', monospace;
     white-space: pre;
-  }
-}
-
-@media screen and (max-width: $breakpoint-xsmall-max) {
-  #net,
-  #carStatus {
-    width: 75%;
-  }
-
-  #statsContainer {
-    flex-wrap: wrap;
   }
 }

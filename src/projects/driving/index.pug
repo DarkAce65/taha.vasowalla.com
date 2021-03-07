@@ -10,19 +10,18 @@ html
 
   body
     +container(["projects", "driving"])
-      #statsContainer.uk-flex.uk-flex-middle.uk-margin-bottom
-        div(class="uk-width-1-1 uk-width-auto@m" style="text-align: center;")
+      #stats.uk-margin
+        div Generation:&nbsp;#[span#generation.stat 0], Genome:&nbsp;#[span#genome.stat 0]
+        div Best&nbsp;Fitness:&nbsp;#[span#bestFitness.stat 0.00]
+        div Fitness:&nbsp;#[span#fitness.stat 0.00], Avg.&nbsp;Speed:&nbsp;#[span#avgSpeed.stat 0.00]
+        .uk-button-group.uk-margin-small-top
+          button#start.uk-button.uk-button-default.uk-button-small Start
+          button#pause.uk-button.uk-button-default.uk-button-small Pause
+          button#kill.uk-button.uk-button-default.uk-button-small Kill Current
+          button#reset.uk-button.uk-button-default.uk-button-small Reset
+      canvas#canvas.uk-margin-small
+      .uk-margin-small.uk-grid-small.uk-child-width-1-2(uk-grid style={'justify-content': 'center'})
+        div(style={'max-width': '217px'})
           canvas#net
-        .uk-flex-1(style={'min-width': '45%'})
-          #stats
-            div Generation:&nbsp;#[span#generation.stat 0], Genome:&nbsp;#[span#genome.stat 0]
-            div Best&nbsp;Fitness:&nbsp;#[span#bestFitness.stat 0.00]
-            div Fitness:&nbsp;#[span#fitness.stat 0.00], Avg.&nbsp;Speed:&nbsp;#[span#avgSpeed.stat 0.00]
-            .uk-button-group
-              button#start.uk-button.uk-button-default.uk-button-small Start
-              button#pause.uk-button.uk-button-default.uk-button-small Pause
-              button#kill.uk-button.uk-button-default.uk-button-small Kill Current
-              button#reset.uk-button.uk-button-default.uk-button-small Reset
-        div(class="uk-width-1-1 uk-width-auto@m" style="text-align: center;")
+        div(style={'max-width': '217px'})
           canvas#carStatus
-      canvas#canvas
