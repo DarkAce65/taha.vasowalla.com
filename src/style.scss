@@ -47,7 +47,7 @@ body {
     .menu-item {
       @include vertical-align;
       flex: 1 0 auto;
-      padding: 0.5em 0.3em;
+      margin: 0.5em 0.3em;
 
       & > a,
       & > span {
@@ -140,22 +140,19 @@ body {
 @media (min-width: $breakpoint-small) {
   #overlayContainer {
     bottom: 0;
+    min-width: 600px;
   }
 
   #banner {
     font-size: 4em;
   }
 
-  #menu {
-    min-width: 600px;
-  }
-
   #menu #primary,
   #menu #secondary {
-    margin-bottom: 0.75em;
+    margin-bottom: 0.5em;
 
     .menu-item {
-      padding: 0 0.3em;
+      margin: 0.2em 0.3em;
     }
   }
 
@@ -171,5 +168,11 @@ body {
 @media (max-width: $breakpoint-small-max) {
   #overlayContainer {
     left: 0;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  #overlayContainer {
+    max-width: 60%;
   }
 }
