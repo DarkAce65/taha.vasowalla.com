@@ -14,9 +14,9 @@ mixin breadcrumbs(...items)
     each item in items
       li: span= item
 
-mixin floating-breadcrumbs(...items)
+mixin floatingBreadcrumbs(...items)
   .floating-header.uk-position-absolute.uk-position-top.uk-position-medium(class=block && ['uk-flex', 'uk-flex-wrap'])&attributes(attributes)
-    +breadcrumbs(...items)(class={"uk-flex-auto": block})
+    +breadcrumbs(...items)(class={'uk-flex-auto': block})
     block
 
 mixin container(breadcrumbItems)
@@ -24,6 +24,6 @@ mixin container(breadcrumbItems)
     +breadcrumbs(...breadcrumbItems)
     block
 
-mixin external()
+mixin external
   a(target="_blank" rel="noopener noreferrer")&attributes(attributes)
     block
