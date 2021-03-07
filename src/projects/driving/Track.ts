@@ -1,5 +1,7 @@
 import p2, { Body, Box, World } from 'p2';
 
+import { wrappedModulo } from '~/lib/utils';
+
 import {
   CAR_MASK,
   CHECKPOINT_MASK,
@@ -9,7 +11,6 @@ import {
   WALL_MASK,
   WALL_THICKNESS,
 } from './constants';
-import { wrappedModulo } from './utils';
 
 export interface Checkpoint extends Body {
   index: number;

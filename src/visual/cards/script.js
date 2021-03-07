@@ -3,7 +3,7 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 import gsap from 'gsap';
 
-import shuffle from '~/lib/shuffle';
+import { shuffle } from '~/lib/utils';
 
 let height;
 let width;

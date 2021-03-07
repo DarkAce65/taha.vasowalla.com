@@ -1,7 +1,8 @@
 import chroma from 'chroma-js';
 
+import { clamp } from '~/lib/utils';
+
 import { CanvasParams } from './constants';
-import { clamp } from './utils';
 
 interface NetworkStructure {
   numInputs: number;

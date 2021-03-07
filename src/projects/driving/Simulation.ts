@@ -1,5 +1,7 @@
 import p2, { World } from 'p2';
 
+import { wrappedModulo } from '~/lib/utils';
+
 import Car from './Car';
 import Network from './Network';
 import Track, { Checkpoint } from './Track';
@@ -10,7 +12,6 @@ import {
   TICKS_TO_WAIT_FOR_STOP,
   Vector2,
 } from './constants';
-import { wrappedModulo } from './utils';
 
 interface SimulationDataPoint {
   position: Vector2;

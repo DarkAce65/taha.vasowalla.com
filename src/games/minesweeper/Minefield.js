@@ -1,5 +1,5 @@
 import { getElOrThrow } from '~/lib/getEl';
-import shuffle from '~/lib/shuffle';
+import { shuffle } from '~/lib/utils';
 
 import Clock from './Clock';
 import setNumberDisplay from './setNumberDisplay';
