@@ -130,7 +130,7 @@ class Simulator {
     this.track.draw(this.simCanvasParams.ctx);
 
     const { numHiddenNodes, numSensors } = this.simulatorControls;
-    const networkStructure = { numInputs: numSensors, numHiddenNodes, numOutputs: 3 };
+    const networkStructure = { numInputs: numSensors + 1, numHiddenNodes, numOutputs: 3 };
     Network.drawStructure(this.netCanvasParams, networkStructure);
 
     const {
