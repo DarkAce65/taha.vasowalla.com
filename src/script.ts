@@ -16,9 +16,8 @@ import {
   WebGLRenderer,
 } from 'three';
 
-import ParticleEmitter, { ParticleEmitterOptions } from '~/lib/particles/ParticleEmitter';
-
 import enableIcons from './lib/enableIcons';
+import ParticleEmitter, { ParticleEmitterOptions } from './lib/particles/ParticleEmitter';
 
 interface Satellite extends Mesh {
   orbitSpeed?: number;
@@ -90,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const satelliteMaterial = planetMaterial.clone() as MeshPhongMaterial;
   const cometMaterial = satelliteMaterial.clone() as MeshPhongMaterial;
   const currentHour = new Date().getHours();
-  cometMaterial.emissive = new Color(21 < currentHour || currentHour < 9 ? 0x3e5af8 : 0xf85a3e);
+  cometMaterial.emissive = new Color(currentHour < 9 || 21 <= currentHour ? 0x3e5af8 : 0xf85a3e);
 
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites: Satellite[] = [];
