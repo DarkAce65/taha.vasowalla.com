@@ -20,7 +20,7 @@ const pages = {
   shaders: { dir: 'random/shaders', entry: './script.js' },
   testing: { dir: 'random/testing', entry: './script.js' },
   ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },
-  webaudio2d: { dir: 'visual/webaudio2d', entry: './script.js' },
+  webaudio2d: { dir: 'visual/webaudio2d', entry: './script.ts' },
   webaudio3d: { dir: 'visual/webaudio3d', entry: './script.ts' },
 };
 

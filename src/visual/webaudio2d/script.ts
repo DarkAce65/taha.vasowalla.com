@@ -5,42 +5,10 @@ import chroma from 'chroma-js';
 import * as mm from 'music-metadata-browser';
 import WaveSurfer from 'wavesurfer.js';
 
+import { makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
 import { COLORS } from '~/lib/colors';
 import enableIcons from '~/lib/enableIcons';
-
-const toLog = (i, max) => Math.pow(max, i / (max - 1)) - 1;
-const lerp = (a, b, t) => (1 - t) * a + t * b;
-
-const toHHMMSS = (number) => {
-  const date = new Date(0, 0, 0);
-  date.setSeconds(Math.round(number));
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-
-  if (hours === 0) {
-    hours = '';
-  } else if (minutes < 10) {
-    hours += ':0';
-  } else {
-    hours += ':';
-  }
-
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
-
-  return `${hours}${minutes}:${seconds}`;
-};
-
-const makeLogarithmicMapper = (maxDomain, maxRange) => {
-  const mapped = [];
-  for (let i = 0; i < maxDomain; i++) {
-    mapped[i] = toLog((i * maxRange) / maxDomain, maxRange);
-  }
-
-  return (i) => mapped[i];
-};
+import { lerp } from '~/lib/utils';
 
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons({ uikit: true, faIcons: [faFileAudio] });
@@ -49,16 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let visualizerHeight = 400;
   const volumeBarHeight = 10;
 
-  const c = document.getElementById('visualizer');
-  const ctx = c.getContext('2d');
+  const c = document.getElementById('visualizer') as HTMLCanvasElement;
+  const ctx = c.getContext('2d')!;
   c.height = visualizerHeight;
   c.width = visualizerWidth;
 
   const fftSize = Math.pow(2, 11);
-  let mapLogarithmic;
+  let mapLogarithmic: ReturnType<typeof makeLogarithmicMapper>;
 
   const audioContext = new AudioContext();
-  let source;
+  let source: AudioBufferSourceNode | null = null;
   const gainNode = audioContext.createGain();
   const analyser = audioContext.createAnalyser();
   analyser.fftSize = fftSize;
@@ -86,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const volDecay = 0.1;
   let startOffset = 0;
   let startTime = 0;
-  let bufferLength;
-  let volumeData;
-  let frequencyData;
+  let bufferLength: number;
+  let volumeData: Uint8Array;
+  let frequencyData: Uint8Array;
   let duration = 0;
 
   const resize = () => {
-    visualizerWidth = document.getElementById('visualizerContainer').clientWidth;
+    visualizerWidth = document.getElementById('visualizerContainer')!.clientWidth;
     if (window.innerHeight <= 600) {
       visualizerHeight = 200;
     } else {
@@ -112,9 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
       gainNode.disconnect();
       analyser.disconnect();
       source.stop();
-      document.getElementById('name').innerHTML = '';
-      document.getElementById('currentTime').innerHTML = '-:--';
-      document.getElementById('duration').innerHTML = '-:--';
+      document.getElementById('name')!.textContent = '';
+      document.getElementById('currentTime')!.textContent = '-:--';
+      document.getElementById('duration')!.textContent = '-:--';
       source = null;
     }
 
@@ -162,12 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.fillRect(visualizerWidth / 2 - volumeBarWidth / 2, h, volumeBarWidth, volumeBarHeight);
 
     if (playing) {
-      document.getElementById('currentTime').innerHTML = toHHMMSS(
+      document.getElementById('currentTime')!.textContent = toHHMMSS(
         audioContext.currentTime - startTime + startOffset
       );
       if (audioContext.currentTime - startTime + startOffset >= duration) {
         reset();
-        document.getElementById('details').classList.add('uk-hidden');
+        document.getElementById('details')!.classList.add('uk-hidden');
       } else {
         requestAnimationFrame(draw);
       }
@@ -175,6 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const play = () => {
+    if (!source) {
+      return;
+    }
+
     startTime = audioContext.currentTime;
     playing = true;
     source.start(0, startOffset % duration);
@@ -183,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     draw();
   };
 
-  const handleAudioBuffer = async (dataBuffer) => {
+  const handleAudioBuffer = async (dataBuffer: AudioBuffer): Promise<void> => {
     reset();
     source = audioContext.createBufferSource();
     source.buffer = dataBuffer;
@@ -203,24 +175,25 @@ document.addEventListener('DOMContentLoaded', () => {
   resize();
   reset();
 
-  const fileInput = document.getElementById('fileInput');
+  const fileInput = document.getElementById('fileInput')!;
 
   ['dragenter', 'dragover'].forEach((event) => {
     fileInput.addEventListener(event, () => {
-      fileInput.parentNode.classList.add('uk-active');
+      (fileInput.parentNode as HTMLButtonElement).classList.add('uk-active');
     });
   });
   ['dragleave', 'dragend', 'drop'].forEach((event) => {
     fileInput.addEventListener(event, () => {
-      fileInput.parentNode.classList.remove('uk-active');
+      (fileInput.parentNode as HTMLButtonElement).classList.remove('uk-active');
     });
   });
 
-  fileInput.addEventListener('change', (ev) => {
-    const { files } = ev.target;
-    if (files.length !== 0) {
+  fileInput.addEventListener('change', (event) => {
+    const { files } = event.currentTarget as HTMLInputElement;
+    if (files !== null && files.length !== 0) {
       const reader = new FileReader();
-      reader.onload = ({ target: { result: contents } }) => {
+      reader.onload = ({ target }) => {
+        const contents = target?.result as ArrayBuffer;
         UIkit.notification(`${files[0].name} uploaded!`, {
           pos: 'bottom-right',
           status: 'success',
@@ -233,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audioContext
           .decodeAudioData(contents)
           .then((buffer) => {
-            const name = document.getElementById('name');
+            const name = document.getElementById('name')!;
             mm.parseBlob(files[0])
               .then((metadata) => {
                 name.textContent = `${metadata.common.title}\n${metadata.common.artist}`;
@@ -245,19 +218,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return handleAudioBuffer(buffer);
           })
           .then(() => {
-            notification.close();
+            notification.close(false);
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
 
             play();
 
-            document.getElementById('duration').innerHTML = toHHMMSS(duration);
-            document.getElementById('details').classList.remove('uk-hidden');
-            document.getElementById('visualizerContainer').classList.remove('bordered');
+            document.getElementById('duration')!.textContent = toHHMMSS(duration);
+            document.getElementById('details')!.classList.remove('uk-hidden');
+            document.getElementById('visualizerContainer')!.classList.remove('bordered');
           })
           .catch((error) => {
             console.error(error);
 
-            notification.close();
+            notification.close(false);
             UIkit.notification('Decoding error. Make sure the file is an audio file.', {
               status: 'danger',
               pos: 'bottom-right',

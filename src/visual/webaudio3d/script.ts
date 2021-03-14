@@ -28,46 +28,9 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
+import { makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
 import enableIcons from '~/lib/enableIcons';
-
-const toLog = (i: number, max: number): number => Math.pow(max, i / (max - 1)) - 1;
-const lerp = (a: number, b: number, t: number): number => (1 - t) * a + t * b;
-
-const toHHMMSS = (number: number): string => {
-  const date = new Date(0, 0, 0);
-  date.setSeconds(Math.round(number));
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-
-  let hourMinuteSeparator = '';
-  if (hours !== 0) {
-    if (minutes < 10) {
-      hourMinuteSeparator = ':0';
-    } else {
-      hourMinuteSeparator = ':';
-    }
-  }
-
-  let minuteSecondSeparator = ':';
-  if (seconds < 10) {
-    minuteSecondSeparator += '0';
-  }
-
-  return `${hours}${hourMinuteSeparator}${minutes}${minuteSecondSeparator}${seconds}`;
-};
-
-const makeLogarithmicMapper = (
-  maxDomain: number,
-  maxRange: number
-): ((index: number) => number) => {
-  const mapped: number[] = [];
-  for (let i = 0; i < maxDomain; i++) {
-    mapped[i] = toLog((i * maxRange) / maxDomain, maxRange);
-  }
-
-  return (i) => mapped[i];
-};
+import { lerp } from '~/lib/utils';
 
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons({ uikit: true, faIcons: [faFileAudio, faVideo] });
@@ -273,9 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const play = () => {
+    if (!source) {
+      return;
+    }
+
     startTime = audioContext.currentTime;
     playing = true;
-    source?.start(0, startOffset % duration);
+    source.start(0, startOffset % duration);
     setCamera('side');
   };
 
@@ -308,12 +275,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ['dragenter', 'dragover'].forEach((event) => {
     fileInput.addEventListener(event, () => {
-      (fileInput.parentNode! as HTMLButtonElement).classList.add('uk-active');
+      (fileInput.parentNode as HTMLButtonElement).classList.add('uk-active');
     });
   });
   ['dragleave', 'dragend', 'drop'].forEach((event) => {
     fileInput.addEventListener(event, () => {
-      (fileInput.parentNode! as HTMLButtonElement).classList.remove('uk-active');
+      (fileInput.parentNode as HTMLButtonElement).classList.remove('uk-active');
     });
   });
 
