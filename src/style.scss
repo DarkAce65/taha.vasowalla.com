@@ -165,14 +165,14 @@ body {
   }
 }
 
-@media (max-width: $breakpoint-small-max) {
-  #overlayContainer {
-    left: 0;
-  }
-}
-
 @media (min-width: $breakpoint-medium) {
   #overlayContainer {
     max-width: 60%;
+  }
+}
+
+@media (max-width: $breakpoint-small-max) {
+  #overlayContainer {
+    left: 0;
   }
 }
