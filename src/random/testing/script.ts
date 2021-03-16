@@ -38,6 +38,8 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import seededRandom from '~/lib/seededRandom';
+
 import beamFragmentShader from './shaders/beam_frag.glsl';
 import beamVertexShader from './shaders/beam_vert.glsl';
 import waveVertexShader from './shaders/wave_vert.glsl';
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const clock = new Clock();
   const scene = new Scene();
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
-  document.querySelector('#rendererContainer').appendChild(renderer.domElement);
+  document.querySelector('#rendererContainer')!.appendChild(renderer.domElement);
 
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -75,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
   waterCamera.lookAt(new Vector3(0, 1, 0));
   const uniforms = UniformsUtils.merge([
     UniformsLib['lights'],
-    UniformsLib['phong'],
     {
       diffuse: { type: 'c', value: new Color(0x5f93d3) },
       opacity: { type: 'f', value: 0.7 },
@@ -116,13 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
     shininess: 0,
     flatShading: true,
   });
-  for (let i = 0; i < rockGeometry.vertices.length; i++) {
-    rockGeometry.vertices[i].x += Math.random() * 3 - 1.5;
-    rockGeometry.vertices[i].y = Math.max(
-      Math.min(rockGeometry.vertices[i].y + Math.random() * 3 - 1.5, 18),
-      0
-    );
-    rockGeometry.vertices[i].z += Math.random() * 3 - 1.5;
+  const rockVertices = rockGeometry.attributes.position;
+  for (let i = 0; i < rockVertices.count; i++) {
+    const vertex = new Vector3(rockVertices.getX(i), rockVertices.getY(i), rockVertices.getZ(i));
+    const [rx, ry, rz] = [seededRandom(vertex.x), seededRandom(vertex.y), seededRandom(vertex.z)];
+    vertex.x += rx * 3 - 1.5;
+    vertex.y = Math.max(Math.min(vertex.y + ry * 3 - 1.5, 18), 0);
+    vertex.z += rz * 3 - 1.5;
+    rockVertices.setXYZ(i, vertex.x, vertex.y, vertex.z);
   }
   const rock = new Mesh(rockGeometry, rockMaterial);
   rock.position.set(15, 0, -7);
@@ -143,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shininess: 10,
     flatShading: true,
   });
-  const lighthouse = new Object3D();
+  const lighthouse: Object3D & { lightRotation?: number } = new Object3D();
   lighthouse.add(new Mesh(new CylinderBufferGeometry(5, 6, 6), lhRed));
   lighthouse.children[0].position.y = 20;
   lighthouse.add(new Mesh(new CylinderBufferGeometry(4, 5, 6), lhWhite));
@@ -192,9 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
     lhBlack,
     new MeshPhongMaterial({ emissive: 0xffffbb, flatShading: true }),
   ]);
-  for (let i = 0; i < lhLightFixture.geometry.faces.length; i++) {
-    lhLightFixture.geometry.faces[i].materialIndex = i < 8 ? 0 : 1;
-  }
+  lhLightFixture.geometry.groups[0].materialIndex = 0;
+  lhLightFixture.geometry.groups[1].materialIndex = 1;
   lhLightFixture.position.z = -1;
   lhLightFixture.rotation.x = -Math.PI / 2;
   const lightShaderMaterial = new ShaderMaterial({
@@ -236,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hullPeak = 1.5;
   const sHull = new Object3D();
   for (let i = 0; i < 2; i++) {
-    const hullParametric = (u, v, position) => {
+    const hullParametric = (u: number, v: number, position: Vector3): void => {
       const x = v * u + (1 - v) / hullPeak - 0.5;
       let f = 0.2 * v * Math.atan(3 * u) * Math.pow(1 - u, 0.25);
       if (i === 0) {
@@ -259,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .to(pointlight, 5, { intensity: 0.4 }, 0)
     .to(ambient.color, 5, { r: 0.2, g: 0.13, b: 0.1 }, 0)
     .add(() => {
-      const header = document.querySelector('.floating-header');
+      const header = document.querySelector('.floating-header')!;
 
       if (nightTimeline.reversed()) {
         header.classList.add('uk-light');
@@ -304,8 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const delta = clock.getDelta();
     uniforms.u_time.value += delta;
     if (lighthouseOn) {
-      lighthouse.lightRotation += delta / 2;
-      const c = lighthouse.lightRotation;
+      const c = (lighthouse.lightRotation || 0) + delta / 2;
+      lighthouse.lightRotation = c;
       lighthouse.children[4].position.x = Math.sin(c);
       lighthouse.children[4].position.z = Math.cos(c);
       lighthouse.children[4].rotation.y = c;

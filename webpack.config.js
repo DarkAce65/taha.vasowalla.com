@@ -18,7 +18,7 @@ const pages = {
   hangman: { dir: 'games/hangman', entry: './script.js' },
   minesweeper: { dir: 'games/minesweeper', entry: './script.js' },
   shaders: { dir: 'random/shaders', entry: './script.js' },
-  testing: { dir: 'random/testing', entry: './script.js' },
+  testing: { dir: 'random/testing', entry: './script.ts' },
   ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },
   webaudio2d: { dir: 'visual/webaudio2d', entry: './script.ts' },
   webaudio3d: { dir: 'visual/webaudio3d', entry: './script.ts' },
