@@ -256,9 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const nightTimeline = gsap.timeline();
   nightTimeline
     .reverse()
-    .to(uniforms.u_multiplier, 5, { value: 3 }, 0)
-    .to(pointlight, 5, { intensity: 0.4 }, 0)
-    .to(ambient.color, 5, { r: 0.2, g: 0.13, b: 0.1 }, 0)
+    .to(uniforms.u_multiplier, { value: 3, duration: 5 }, 0)
+    .to(pointlight, { intensity: 0.4, duration: 5 }, 0)
+    .to(ambient.color, { r: 0.2, g: 0.13, b: 0.1, duration: 5 }, 0)
     .add(() => {
       const header = document.querySelector('.floating-header')!;
 
@@ -270,9 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2.5)
     .to(
       uniforms.u_intensity,
-      2,
       {
         value: 1,
+        duration: 2,
         onStart() {
           lighthouseOn = true;
           lhLightBeam.visible = true;
