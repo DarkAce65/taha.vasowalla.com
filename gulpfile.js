@@ -10,8 +10,7 @@ const del = require('del');
 const webpackStream = require('webpack-stream');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const sass = require('gulp-sass');
-sass.compiler = require('sass');
+const { sassSync } = require('@mr-hope/gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 
 const { DEST_DIR, STATIC_FILE_GLOBS } = require('./build.config');
@@ -65,7 +64,7 @@ const compileStyles = () => {
   return gulp
     .src(styleSources, { sourcemaps: true, since })
     .pipe(addSassDependents({ skipDependents: firstRun }))
-    .pipe(sass.sync(sassOptions).on('error', sass.logError))
+    .pipe(sassSync(sassOptions).on('error', sassSync.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest(DEST_DIR, { sourcemaps: 'maps' }))
     .pipe(using({ prefix: 'Writing', filesize: true }));
