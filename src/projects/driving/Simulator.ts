@@ -28,6 +28,7 @@ interface SimulatorOptions {
 
   numHiddenNodes?: number;
   numSensors?: number;
+  sensorAngle?: number;
 }
 
 const DEFAULT_CONTROLS = {
@@ -73,6 +74,7 @@ class Simulator {
     this.simulatorControls = {
       numHiddenNodes: this.simulatorOptions.numHiddenNodes ?? DEFAULT_CONTROLS.numHiddenNodes,
       numSensors: this.simulatorOptions.numSensors ?? DEFAULT_CONTROLS.numSensors,
+      sensorAngle: this.simulatorOptions.sensorAngle,
     };
     this.generationParams = {
       generationSize: this.simulatorOptions.generationSize ?? DEFAULT_CONTROLS.generationSize,

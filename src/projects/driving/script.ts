@@ -60,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     generationSize: 30,
     numBreeders: 4,
     numRandom: 3,
-    numHiddenNodes: 8,
+    numHiddenNodes: 12,
+    numSensors: 5,
+    sensorAngle: (160 * Math.PI) / 180,
   });
 
   const startButton = document.querySelector('#start')!;
