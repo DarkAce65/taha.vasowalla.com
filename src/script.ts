@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < satellites.length; i++) {
       satellites[i].position.applyAxisAngle(
         new Vector3(0, 0, 1),
-        (satellites[i].orbitSpeed ?? 0) * delta
+        satellites[i].orbitSpeed! * delta
       );
     }
 
