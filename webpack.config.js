@@ -67,6 +67,9 @@ module.exports = {
       directory: path.join(__dirname, DEST_DIR),
       watch: true,
     },
+    client: {
+      overlay: false,
+    },
   },
 
   entry: entrypoints,
