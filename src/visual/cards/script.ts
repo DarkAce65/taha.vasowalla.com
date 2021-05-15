@@ -63,8 +63,9 @@ const cylinder = (elements: Element[], offset = 0) => {
     const py = Math.floor((index + offset - radiusOffset * 60) / 10) * (height / 6) + height / 12;
 
     gsap.to(element, {
-      duration: 1,
+      duration: 2.5,
       delay: index * delay,
+      ease: 'elastic.out(1, 1)',
       x: px,
       y: py,
       z: pz,
@@ -98,8 +99,9 @@ const sphere = (elements: Element[], offset = 0) => {
     const rz = 0;
 
     gsap.to(element, {
-      duration: 1,
+      duration: 2.5,
       delay: index * delay,
+      ease: 'elastic.out(1, 1)',
       x: px,
       y: py + height / 2,
       z: pz,
@@ -121,8 +123,9 @@ const fan = (elements: Element[], offset = 0) => {
     const py = radius * Math.sin(angle) + height / 1.5;
     const pz = (index + offset) / 5;
     gsap.to(element, {
-      duration: 1,
+      duration: 2.5,
       delay: index * delay,
+      ease: 'elastic.out(1, 1)',
       x: px,
       y: py,
       z: pz,
