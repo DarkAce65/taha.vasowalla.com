@@ -34,9 +34,7 @@ class ParticleEmitter extends Object3D {
 
   private readonly uniforms: { [uniform: string]: IUniform };
 
-  private readonly attributes: {
-    readonly [attributeName: string]: BufferAttribute;
-  };
+  private readonly attributes: { readonly [attributeName: string]: BufferAttribute };
 
   private points: Points;
 

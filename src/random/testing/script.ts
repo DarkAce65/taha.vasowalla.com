@@ -112,11 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   scene.add(water);
 
   const rockGeometry = new IcosahedronGeometry(20, 2);
-  const rockMaterial = new MeshPhongMaterial({
-    color: 0x666666,
-    shininess: 0,
-    flatShading: true,
-  });
+  const rockMaterial = new MeshPhongMaterial({ color: 0x666666, shininess: 0, flatShading: true });
   const rockVertices = rockGeometry.attributes.position;
   for (let i = 0; i < rockVertices.count; i++) {
     const vertex = new Vector3(rockVertices.getX(i), rockVertices.getY(i), rockVertices.getZ(i));
@@ -130,21 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
   rock.position.set(15, 0, -7);
   scene.add(rock);
 
-  const lhWhite = new MeshPhongMaterial({
-    color: 0xddddaa,
-    shininess: 10,
-    flatShading: true,
-  });
-  const lhRed = new MeshPhongMaterial({
-    color: 0xef5350,
-    shininess: 10,
-    flatShading: true,
-  });
-  const lhBlack = new MeshPhongMaterial({
-    color: 0x444444,
-    shininess: 10,
-    flatShading: true,
-  });
+  const lhWhite = new MeshPhongMaterial({ color: 0xddddaa, shininess: 10, flatShading: true });
+  const lhRed = new MeshPhongMaterial({ color: 0xef5350, shininess: 10, flatShading: true });
+  const lhBlack = new MeshPhongMaterial({ color: 0x444444, shininess: 10, flatShading: true });
   const lighthouse: Object3D & { lightRotation?: number } = new Object3D();
   lighthouse.add(new Mesh(new CylinderBufferGeometry(5, 6, 6), lhRed));
   lighthouse.children[0].position.y = 20;
