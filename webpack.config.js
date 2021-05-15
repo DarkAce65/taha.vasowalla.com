@@ -11,7 +11,7 @@ const pages = {
   index: { dir: '.', entry: './script.ts' },
   about: { dir: 'about', entry: './script.js' },
   animation: { dir: 'random/animation', entry: './script.js' },
-  cards: { dir: 'visual/cards', entry: './script.js' },
+  cards: { dir: 'visual/cards', entry: './script.ts' },
   chemistry: { dir: 'projects/chemistry', entry: './script.js' },
   driving: { dir: 'projects/driving', entry: './script.ts' },
   fireball: { dir: 'random/fireball', entry: './script.js' },
