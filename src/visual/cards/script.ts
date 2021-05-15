@@ -206,7 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#cardCountContainer')!.addEventListener('click', () => {
     // Change opacity
     cardOpacity = cardOpacity === 1 ? 0.5 : 1;
-    gsap.to('.card', { overwrite: 'auto', duration: 2, opacity: cardOpacity });
+    gsap.killTweensOf('.card:not(.dead)', 'opacity');
+    gsap.to('.card', { duration: 2, opacity: cardOpacity });
   });
 
   document.querySelectorAll('a#add, button#add').forEach((element) => {
