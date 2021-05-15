@@ -56,11 +56,11 @@ const cylinder = (elements: Element[], offset = 0) => {
 
   elements.forEach((element, index) => {
     const radiusOffset = Math.floor((index + offset) / 60);
-    const radius = Math.max(0, width / 4 - (radiusOffset * width) / 30);
+    const radius = Math.max(0, width / 4 - radiusOffset * (width / 30));
     const angle = (((index + offset) % 10) / 10) * 2 * Math.PI;
     const px = radius * Math.cos(angle);
     const pz = radius * Math.sin(angle);
-    const py = (Math.floor((index + offset - radiusOffset * 60) / 10) * height) / 6 + height / 12;
+    const py = Math.floor((index + offset - radiusOffset * 60) / 10) * (height / 6) + height / 12;
 
     gsap.to(element, {
       duration: 1,
@@ -128,7 +128,7 @@ const fan = (elements: Element[], offset = 0) => {
       z: pz,
       rotationX: 0,
       rotationY: 0,
-      rotationZ: 90 + (angle * 180) / Math.PI,
+      rotationZ: 90 + angle * (180 / Math.PI),
     });
   });
 };
