@@ -50,10 +50,27 @@ const compileScriptsAndHTML = () =>
 compileScriptsAndHTML.displayName = 'compile:markup_scripts';
 
 const devServer = () => {
-  const {
-    devServer: { host, port },
-  } = webpackConfig;
-  return new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(port, host);
+  let server = null;
+
+  const listen = () => {
+    if (server !== null) {
+      const time = `[${chalk.gray(new Date().toTimeString().slice(0, 8))}]`;
+      console.log(time, 'Restarting server...');
+      server.close();
+      delete require.cache[require.resolve('./webpack.config.js')];
+    }
+
+    const reloadedWebpackConfig = require('./webpack.config.js');
+    const {
+      devServer: { host, port },
+    } = reloadedWebpackConfig;
+    server = new WebpackDevServer(webpack(reloadedWebpackConfig), reloadedWebpackConfig.devServer);
+    server.listen(port, host);
+
+    return Promise.resolve();
+  };
+
+  return gulp.watch('./webpack.config.js', { ignoreInitial: false }, listen);
 };
 devServer.displayName = 'dev_server:run';
 
