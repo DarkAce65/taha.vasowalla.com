@@ -194,10 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const reader = new FileReader();
       reader.onload = ({ target }) => {
         const contents = target?.result as ArrayBuffer;
-        UIkit.notification(`${files[0].name} uploaded!`, {
-          pos: 'bottom-right',
-          status: 'success',
-        });
+        UIkit.notification(`${files[0].name} loaded!`, { pos: 'bottom-right', status: 'success' });
         const notification = UIkit.notification('Decoding audio data...', {
           pos: 'bottom-right',
           timeout: 0,
