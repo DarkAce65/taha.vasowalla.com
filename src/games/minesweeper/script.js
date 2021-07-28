@@ -136,7 +136,8 @@ const buildHighscoreTable = (difficulty, scores) => {
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
-  const scores = Cookie.getJSON('scores') || {};
+  const scoresCookie = Cookie.get('scores');
+  const scores = scoresCookie ? JSON.parse(scoresCookie) : {};
   Object.keys(presets).forEach((difficulty) => buildHighscoreTable(difficulty, scores[difficulty]));
 
   const highscoreNameInput = document.querySelector('#highscoreModal #name');
@@ -156,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(([name]) => {
             scores[currentDifficulty].push({ name: name.trim(), time });
             buildHighscoreTable(currentDifficulty, scores[currentDifficulty]);
-            Cookie.set('scores', scores);
+            Cookie.set('scores', JSON.stringify(scores));
           })
           .catch(() => {});
       }
@@ -228,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .addEventListener('click', () => {
         delete scores[difficulty];
         buildHighscoreTable(difficulty, scores[difficulty]);
-        Cookie.set('scores', scores);
+        Cookie.set('scores', JSON.stringify(scores));
       })
   );
 

@@ -1,5 +1,5 @@
 diff --git a/node_modules/@types/uikit/index.d.ts b/node_modules/@types/uikit/index.d.ts
-index b1886e9..3103478 100644
+index d2c5c23..e1e95b7 100755
 --- a/node_modules/@types/uikit/index.d.ts
 +++ b/node_modules/@types/uikit/index.d.ts
 @@ -12,16 +12,16 @@ type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
@@ -24,4 +24,4 @@ index b1886e9..3103478 100644
 +    const update: (element: UIkitElement, e: unknown) => void;
  
      interface UIkitAccordionOptions {
-         active?: number;
+         active?: number | undefined;

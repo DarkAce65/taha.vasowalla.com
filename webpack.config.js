@@ -2,6 +2,7 @@ const path = require('path');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { ProvidePlugin } = require('webpack');
 
@@ -98,43 +99,22 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
-      {
-        test: /\.css$/,
-        sideEffects: true,
-        include: /node_modules/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'lib/css',
-              name: '[name].[ext]',
-              esModule: false,
-            },
-          },
-          'extract-loader',
-          'css-loader',
-        ],
-      },
-      {
-        test: /\.(woff2?|eot|ttf|png|svg|jpg|gif)$/,
-        sideEffects: true,
-        include: /node_modules/,
-        loader: 'file-loader',
-        options: {
-          outputPath: '/lib/assets',
-          name: '[name].[ext]',
-          esModule: false,
-        },
-      },
-      {
-        test: /\.pdf$/,
-        loader: 'file-loader',
-        options: { name: '[path][name].[ext]', esModule: false },
-      },
-      { test: /\.(glsl|txt)$/, sideEffects: true, use: 'raw-loader' },
       { test: /\.pug$/, use: 'pug-loader' },
       { test: /\.tsx?$/, exclude: /node_modules/, use: ['babel-loader', 'ts-loader'] },
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
+      { test: /\.pdf$/, type: 'asset/resource', generator: { filename: '[path][name][ext]' } },
+      { test: /\.(glsl|txt)$/, type: 'asset/source' },
+      {
+        test: /\.css$/i,
+        include: /node_modules/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.(woff2?|eot|ttf|png|svg|jpg|gif)$/i,
+        type: 'asset',
+        include: /node_modules/,
+        generator: { filename: 'lib/assets/[name].[contenthash:5][ext]' },
+      },
     ],
   },
 
@@ -151,6 +131,7 @@ module.exports = {
       process: 'process/browser',
     }),
     new ESLintPlugin({ extensions: ['js', 'ts'] }),
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       filename: '403.html',
       template: path.join(__dirname, 'src', '403.pug'),
