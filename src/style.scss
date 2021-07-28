@@ -117,12 +117,6 @@ body {
   }
 }
 
-.loading #rendererContainer {
-  opacity: 0;
-  transform: scale(1.1);
-  transition: 0s;
-}
-
 #rendererContainer {
   position: absolute;
   top: 0;
