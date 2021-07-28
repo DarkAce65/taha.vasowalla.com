@@ -64,8 +64,16 @@ const devServer = () => {
     const {
       devServer: { host, port },
     } = reloadedWebpackConfig;
-    server = new WebpackDevServer(webpack(reloadedWebpackConfig), reloadedWebpackConfig.devServer);
-    server.listen(port, host);
+
+    try {
+      server = new WebpackDevServer(
+        webpack(reloadedWebpackConfig),
+        reloadedWebpackConfig.devServer
+      );
+      server.listen(port, host);
+    } catch (error) {
+      server = false;
+    }
 
     return Promise.resolve();
   };
