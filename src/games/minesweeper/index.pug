@@ -4,30 +4,32 @@ doctype html
 html
   head
     +head("Minesweeper")
-    link(rel="shortcut icon" href="../../assets/icons/mine.png")
-    link(rel="stylesheet" type="text/css" href="../../uikit.css")
-    link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel='shortcut icon', href='../../assets/icons/mine.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
 
   body
     +container(["games", "minesweeper"])
       div(uk-grid)
-        div(class="uk-width-medium@m")
-          div(uk-sticky="offset: 40; media: @m")
-            ul#highscoreTabs.uk-tab-left.uk-tab-stacked(uk-tab="connect: #highscores; swiping: false;")
-              li: a(href="#") Beginner
-              li: a(href="#") Intermediate
-              li: a(href="#") Expert
-              li#customTab: a(href="#") Custom
+        div(class='uk-width-medium@m')
+          div(uk-sticky='offset: 40; media: @m')
+            ul#highscoreTabs.uk-tab-left.uk-tab-stacked(
+              uk-tab='connect: #highscores; swiping: false;'
+            )
+              li: a(href='#') Beginner
+              li: a(href='#') Intermediate
+              li: a(href='#') Expert
+              li#customTab: a(href='#') Custom
             .uk-text-center.uk-text-muted.uk-text-uppercase.uk-text-small
-              div(uk-form-custom="target: > * > #scaleLabel")
+              div(uk-form-custom='target: > * > #scaleLabel')
                 select#scale
-                  option(value="small") Small
-                  option(value="medium") Medium
-                  option(value="large") Large
+                  option(value='small') Small
+                  option(value='medium') Medium
+                  option(value='large') Large
                 div Scale:
-                  = ' '
+                  = " "
                   span#scaleLabel
-                  span(uk-icon="icon: triangle-down")
+                  span(uk-icon='icon: triangle-down')
         .uk-width-expand
           .uk-flex-center(uk-grid)
             .uk-width-auto
@@ -39,7 +41,7 @@ html
                     #timer
                   #gridContainer
                     table#grid
-            .uk-width-expand(style={'min-width': '300px'})
+            .uk-width-expand(style={ "min-width": "300px" })
               #highscores.uk-switcher
                 each difficulty in ['beginner', 'intermediate', 'expert']
                   .scoreTable(data-difficulty=difficulty)
@@ -52,16 +54,16 @@ html
                             th.uk-table-expand Name
                             th Time
                         tbody
-                .uk-text-center(data-difficulty="custom")
+                .uk-text-center(data-difficulty='custom')
                   button#recustomizeGame.uk-button.uk-button-default Re-customize game
-    #highscoreModal(uk-modal="esc-close: false; bg-close: false;")
+    #highscoreModal(uk-modal='esc-close: false; bg-close: false;')
       .uk-modal-dialog
         button.uk-modal-close-default(uk-close)
         .uk-modal-body
           .uk-form-stacked
             .uk-margin
-              label.uk-form-label(for="name") Enter your name to save your highscore:
-              .uk-form-controls: input#name.uk-input(placeholder="Name")
+              label.uk-form-label(for='name') Enter your name to save your highscore:
+              .uk-form-controls: input#name.uk-input(placeholder='Name')
           .uk-text-right
             button#submit.uk-button.uk-button-primary(disabled) OK
     #customGameModal(uk-modal)
@@ -72,13 +74,19 @@ html
         .uk-modal-body
           .uk-form-horizontal
             .uk-margin
-              label.uk-form-label(for="rows") Rows
-              .uk-form-controls: input#rows.uk-input(type="number" placeholder="Enter a value between 9 and 24")
+              label.uk-form-label(for='rows') Rows
+              .uk-form-controls: input#rows.uk-input(
+                type='number',
+                placeholder='Enter a value between 9 and 24'
+              )
             .uk-margin
-              label.uk-form-label(for="cols") Columns
-              .uk-form-controls: input#cols.uk-input(type="number" placeholder=" Enter a value between 9 and 30")
+              label.uk-form-label(for='cols') Columns
+              .uk-form-controls: input#cols.uk-input(
+                type='number',
+                placeholder=' Enter a value between 9 and 30'
+              )
             .uk-margin
-              label.uk-form-label(for="mines") Mines
-              .uk-form-controls: input#mines.uk-input(type="number" placeholder=" At least 10")
+              label.uk-form-label(for='mines') Mines
+              .uk-form-controls: input#mines.uk-input(type='number', placeholder=' At least 10')
         .uk-modal-footer.uk-text-right
           button#initialize.uk-button.uk-button-primary(disabled) OK

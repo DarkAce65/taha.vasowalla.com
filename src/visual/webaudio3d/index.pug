@@ -4,18 +4,22 @@ doctype html
 html
   head
     +head("Web Audio API")
-    link(rel="shortcut icon" href="../../assets/icons/webaudio.png")
-    link(rel="stylesheet" type="text/css" href="../../uikit.css")
-    link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel='shortcut icon', href='../../assets/icons/webaudio.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
 
   body
     +floatingBreadcrumbs("visual", "webaudio3d")(uk-margin)
       #controls.uk-flex-none
         .uk-button-group
           button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-audio] Load audio file
-            input#fileInput(type="file" accept="audio/*")
+            input#fileInput(type='file', accept='audio/*')
           button#resetCamera.uk-button.uk-button-default.uk-button-small #[i.fas.fa-video] Reset
         #details.uk-hidden
           #name
-          | #[span#currentTime -:--] / #[span#duration -:--]
+          span#currentTime -:--
+          |
+          | /
+          |
+          span#duration -:--
     #rendererContainer

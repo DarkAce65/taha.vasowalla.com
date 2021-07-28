@@ -4,28 +4,31 @@ doctype html
 html
   head
     +head("Chemistry Calculators")
-    link(rel="shortcut icon" href="../../assets/icons/chemistry.png")
-    link(rel="stylesheet" type="text/css" href="../../uikit.css")
-    link(rel="stylesheet" type="text/css" href=require("katex/dist/katex.css"))
-    link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel='shortcut icon', href='../../assets/icons/chemistry.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href=require("katex/dist/katex.css"))
+    link(rel='stylesheet', type='text/css', href='style.css')
   body
     +container(["projects", "chemistry"])
       div(uk-grid)
-        div(class="uk-width-large@m")
-          ul.uk-tab-left.uk-tab-stacked(uk-tab="connect: #switcher; swiping: false; animation: uk-animation-slide-left-small" uk-sticky="offset: 40; media: @m")
-            li: a(href="#") Molar Mass
-            li: a(href="#") Dilution
-            li: a(href="#") Ideal Gas Law
-            li: a(href="#") Specific Heat Capacity
+        div(class='uk-width-large@m')
+          ul.uk-tab-left.uk-tab-stacked(
+            uk-tab='connect: #switcher; swiping: false; animation: uk-animation-slide-left-small',
+            uk-sticky='offset: 40; media: @m'
+          )
+            li: a(href='#') Molar Mass
+            li: a(href='#') Dilution
+            li: a(href='#') Ideal Gas Law
+            li: a(href='#') Specific Heat Capacity
         .uk-width-expand.uk-margin-remove-top
           #switcher.uk-switcher
             div
               h3 Molar mass calculator
-              p In chemistry, the #[+external.uk-link(href="https://en.wikipedia.org/wiki/Molar_mass") molar mass] is a physical property that is defined as the mass of a substance divided by the amount of the substance. This calculator solves for the molar mass of a chemical formula and the mass percent of each element in the formula.
-              p Example: The chemical formula for magnesium stearate, a compound found in some medical tablets, is #[span(data-katex-expr="Mg \\left(CH_3 \\left(CH_2 \\right)_{16}CO_2 \\right)_2")] and would be entered below as Mg(CH3(CH2)16CO2)2.
+              p In chemistry, the #[+external.uk-link(href='https://en.wikipedia.org/wiki/Molar_mass') molar mass] is a physical property that is defined as the mass of a substance divided by the amount of the substance. This calculator solves for the molar mass of a chemical formula and the mass percent of each element in the formula.
+              p Example: The chemical formula for magnesium stearate, a compound found in some medical tablets, is #[span(data-katex-expr='Mg \\left(CH_3 \\left(CH_2 \\right)_{16}CO_2 \\right)_2')] and would be entered below as Mg(CH3(CH2)16CO2)2.
               #molarMassInput.uk-inline.uk-width-1-1
-                a.uk-form-icon.uk-form-icon-flip(uk-icon="close")
-                input.uk-input(type="text" placeholder="Chemical formula")
+                a.uk-form-icon.uk-form-icon-flip(uk-icon='close')
+                input.uk-input(type='text', placeholder='Chemical formula')
               #molarMassFormulaContainer.uk-margin-small
                 #molarMassFormula.uk-text-center
                 #molarMassInputError.uk-text-danger(hidden)
@@ -45,116 +48,174 @@ html
                       td
             div
               h3 Dilution calculator
-              p The #[+external.uk-link(href="https://en.wikipedia.org/wiki/Dilution_(equation)") Dilution] equation calculates a required value to achieve the specified concentration. This calculator uses the formula #[span(data-katex-expr="\\textstyle M_1 \\times V_1 = M_2 \\times V_2")] where #[span(data-katex-expr="M_1")] and #[span(data-katex-expr="M_2")] are the molarity of the solutions and #[span(data-katex-expr="V_1")] and #[span(data-katex-expr="V_2")] are the volumes of the solutions.
+              p The #[+external.uk-link(href='https://en.wikipedia.org/wiki/Dilution_(equation)') Dilution] equation calculates a required value to achieve the specified concentration. This calculator uses the formula #[span(data-katex-expr='\\textstyle M_1 \\times V_1 = M_2 \\times V_2')] where #[span(data-katex-expr='M_1')] and #[span(data-katex-expr='M_2')] are the molarity of the solutions and #[span(data-katex-expr='V_1')] and #[span(data-katex-expr='V_2')] are the volumes of the solutions.
               p The highlighted input will be computed when "Calculate" is clicked.
-              p.uk-text-center(data-katex-expr="\\displaystyle M_1 \\times V_1 = M_2 \\times V_2")
+              p.uk-text-center(data-katex-expr='\\displaystyle M_1 \\times V_1 = M_2 \\times V_2')
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionM1.uk-input.uk-flex-1(type="number" step="any" placeholder="Molarity (M1)")
+                input#dilutionM1.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Molarity (M1)'
+                )
                 select#dilutionM1Units.uk-select.uk-form-width-small
-                  option(value="M") molar
-                  option(value="mM") millimolar
+                  option(value='M') molar
+                  option(value='mM') millimolar
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionV1.uk-input.uk-flex-1(type="number" step="any" placeholder="Volume (V1)")
+                input#dilutionV1.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Volume (V1)'
+                )
                 select#dilutionV1Units.uk-select.uk-form-width-small
-                  option(value="L") L
-                  option(value="mL") mL
-                  option(value="m3") m&sup3;
-                  option(value="cm3") cm&sup3;
+                  option(value='L') L
+                  option(value='mL') mL
+                  option(value='m3') m&sup3;
+                  option(value='cm3') cm&sup3;
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionM2.uk-input.uk-flex-1(type="number" step="any" placeholder="Molarity (M2)")
+                input#dilutionM2.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Molarity (M2)'
+                )
                 select#dilutionM2Units.uk-select.uk-form-width-small
-                  option(value="M") molar
-                  option(value="mM") millimolar
+                  option(value='M') molar
+                  option(value='mM') millimolar
               .uk-form-group.uk-flex.uk-margin-small
-                input#dilutionV2.uk-input.uk-flex-1(type="number" step="any" placeholder="Volume (V2)")
+                input#dilutionV2.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Volume (V2)'
+                )
                 select#dilutionV2Units.uk-select.uk-form-width-small
-                  option(value="L") L
-                  option(value="mL") mL
-                  option(value="m3") m&sup3;
-                  option(value="cm3") cm&sup3;
+                  option(value='L') L
+                  option(value='mL') mL
+                  option(value='m3') m&sup3;
+                  option(value='cm3') cm&sup3;
               .uk-margin.uk-text-right
                 button#dilutionCalculate.uk-button.uk-button-primary Calculate
-                = ' '
+                = " "
                 button#dilutionClear.uk-button.uk-button-default Clear
             div
               h3 Ideal gas law calculator
-              p The #[+external.uk-link(href="https://en.wikipedia.org/wiki/Ideal_gas_law") Ideal Gas Law] is the equation for a hypothetical ideal gas. It is used to predict certain measurements of a gas under normal conditions. This calculator uses the formula #[span(data-katex-expr="PV = nRT")]  to accurately tell the pressure #[span(data-katex-expr="\\left(P\\right)")], volume #[span(data-katex-expr="\\left(V\\right)")], number of moles #[span(data-katex-expr="\\left(n\\right)")], or the temperature #[span(data-katex-expr="\\left(T\\right)")]. In this equation, #[span(data-katex-expr="R")] is the ideal, or universal, gas constant. It is derived from the #[+external.uk-link(href="https://en.wikipedia.org/wiki/Combined_gas_law") combined gas law], (which explores the relationship between temperature, pressure and volume) and #[+external.uk-link(href="https://en.wikipedia.org/wiki/Avogadro%27s_law") Avogadro's law] (which states that under the same conditions of temperature and pressure, the same volume of all gases contains the same number of molecules).
+              p The #[+external.uk-link(href='https://en.wikipedia.org/wiki/Ideal_gas_law') Ideal Gas Law] is the equation for a hypothetical ideal gas. It is used to predict certain measurements of a gas under normal conditions. This calculator uses the formula #[span(data-katex-expr='PV = nRT')] to accurately tell the pressure #[span(data-katex-expr='\\left(P\\right)')], volume #[span(data-katex-expr='\\left(V\\right)')], number of moles #[span(data-katex-expr='\\left(n\\right)')], or the temperature #[span(data-katex-expr='\\left(T\\right)')]. In this equation, #[span(data-katex-expr='R')] is the ideal, or universal, gas constant. It is derived from the #[+external.uk-link(href='https://en.wikipedia.org/wiki/Combined_gas_law') combined gas law], (which explores the relationship between temperature, pressure and volume) and #[+external.uk-link(href='https://en.wikipedia.org/wiki/Avogadro%27s_law') Avogadro's law] (which states that under the same conditions of temperature and pressure, the same volume of all gases contains the same number of molecules).
               p The highlighted input will be computed when "Calculate" is clicked.
-              p.uk-text-center(data-katex-expr="\\displaystyle PV = nRT")
-              p.uk-text-center Gas Constant #[span(data-katex-expr="\\left(R\\right) = 0.0820573 \\frac{L \\times atm}{mol \\times K} = 8.3144621 \\frac{J}{mol \\times K}")]
+              p.uk-text-center(data-katex-expr='\\displaystyle PV = nRT')
+              p.uk-text-center Gas Constant #[span(data-katex-expr='\\left(R\\right) = 0.0820573 \\frac{L \\times atm}{mol \\times K} = 8.3144621 \\frac{J}{mol \\times K}')]
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawP.uk-input.uk-flex-1(type="number" step="any" placeholder="Pressure (P)")
+                input#idealGasLawP.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Pressure (P)'
+                )
                 select#idealGasLawPUnits.uk-select.uk-form-width-small
-                  option(value="atm") atm
-                  option(value="mmHg") mmHg
-                  option(value="Pa") Pa
-                  option(value="kPa") kPa
-                  option(value="torr") torr
+                  option(value='atm') atm
+                  option(value='mmHg') mmHg
+                  option(value='Pa') Pa
+                  option(value='kPa') kPa
+                  option(value='torr') torr
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawV.uk-input.uk-flex-1(type="number" step="any" placeholder="Volume (V)")
+                input#idealGasLawV.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Volume (V)'
+                )
                 select#idealGasLawVUnits.uk-select.uk-form-width-small
-                  option(value="L") L
-                  option(value="mL") mL
-                  option(value="m3") m&sup3;
-                  option(value="cm3") cm&sup3;
+                  option(value='L') L
+                  option(value='mL') mL
+                  option(value='m3') m&sup3;
+                  option(value='cm3') cm&sup3;
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawN.uk-input.uk-flex-1(type="number" step="any" placeholder="Moles (n)")
+                input#idealGasLawN.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Moles (n)'
+                )
                 select#idealGasLawNUnits.uk-select.uk-form-width-small
-                  option(value="mol") mole
-                  option(value="mmol") millimole
+                  option(value='mol') mole
+                  option(value='mmol') millimole
               .uk-form-group.uk-flex.uk-margin-small
-                input#idealGasLawT.uk-input.uk-flex-1(type="number" step="any" placeholder="Temperature (T)")
+                input#idealGasLawT.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Temperature (T)'
+                )
                 select#idealGasLawTUnits.uk-select.uk-form-width-small
-                  option(value="K") K
-                  option(value="C") C&#176;
-                  option(value="F") F&#176;
+                  option(value='K') K
+                  option(value='C') C&#176;
+                  option(value='F') F&#176;
               .uk-margin.uk-text-right
                 button#idealGasLawCalculate.uk-button.uk-button-primary Calculate
-                = ' '
+                = " "
                 button#idealGasLawClear.uk-button.uk-button-default Clear
             div
               h3 Specific heat calculator
-              p The #[+external.uk-link(href="https://en.wikipedia.org/wiki/Heat_capacity") specific heat capacity] of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation #[span(data-katex-expr="Q = mC_p\\Delta T")] where #[span(data-katex-expr="Q")] is the amount of energy, #[span(data-katex-expr="m")] is the mass of the substance, #[span(data-katex-expr="C_p")] is the specific heat capacity, and #[span(data-katex-expr="\\Delta T")] is the change in temperature.
+              p The #[+external.uk-link(href='https://en.wikipedia.org/wiki/Heat_capacity') specific heat capacity] of a substance is defined as the amount of energy needed to raise the temperature of the substance by a given amount. This calculator uses the equation #[span(data-katex-expr='Q = mC_p\\Delta T')] where #[span(data-katex-expr='Q')] is the amount of energy, #[span(data-katex-expr='m')] is the mass of the substance, #[span(data-katex-expr='C_p')] is the specific heat capacity, and #[span(data-katex-expr='\\Delta T')] is the change in temperature.
               p The highlighted input will be computed when "Calculate" is clicked.
-              ul.uk-subnav.uk-subnav-pill.uk-margin.uk-flex-center(uk-switcher="connect: #specificHeatTempSwitcher; swiping: false")
-                li: a(href="#" data-katex-expr="\\displaystyle Q = mC_p\\Delta T")
-                li: a(href="#" data-katex-expr="\\displaystyle Q = mC_p\\left(T_f - T_i\\right)")
+              ul.uk-subnav.uk-subnav-pill.uk-margin.uk-flex-center(
+                uk-switcher='connect: #specificHeatTempSwitcher; swiping: false'
+              )
+                li: a(href='#', data-katex-expr='\\displaystyle Q = mC_p\\Delta T')
+                li: a(href='#', data-katex-expr='\\displaystyle Q = mC_p\\left(T_f - T_i\\right)')
               .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatQ.uk-input.uk-flex-1(type="number" step="any" placeholder="Energy (Q)")
+                input#specificHeatQ.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Energy (Q)'
+                )
                 select#specificHeatQUnits.uk-select.uk-form-width-small
-                  option(value="J") Joules
-                  option(value="cal") Calories
+                  option(value='J') Joules
+                  option(value='cal') Calories
               .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatM.uk-input.uk-flex-1(type="number" step="any" placeholder="Mass (m)")
+                input#specificHeatM.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Mass (m)'
+                )
                 select#specificHeatMUnits.uk-select.uk-form-width-small
-                  option(value="g") grams
-                  option(value="kg") kilograms
+                  option(value='g') grams
+                  option(value='kg') kilograms
               .uk-form-group.uk-flex.uk-margin-small
-                input#specificHeatCp.uk-input.uk-flex-1(type="number" step="any" placeholder="Specific Heat (Cp)")
+                input#specificHeatCp.uk-input.uk-flex-1(
+                  type='number',
+                  step='any',
+                  placeholder='Specific Heat (Cp)'
+                )
                 select#specificHeatCpUnits.uk-select.uk-form-width-small
-                  option(value="JgK") J/g&#8901;K
-                  option(value="JkgK") J/kg&#8901;K
+                  option(value='JgK') J/g&#8901;K
+                  option(value='JkgK') J/kg&#8901;K
               #specificHeatTempSwitcher.uk-switcher
                 #specificHeatDeltaTTab.uk-form-group.uk-flex.uk-margin-small
-                  input#specificHeatT.uk-input.uk-flex-1(type="number" step="any" placeholder!="Change in Temperature (&#916;T)")
+                  input#specificHeatT.uk-input.uk-flex-1(
+                    type='number',
+                    step='any',
+                    placeholder!='Change in Temperature (&#916;T)'
+                  )
                   select#specificHeatTUnits.uk-select.uk-form-width-small
-                    option(value="K") K
-                    option(value="C") C&#176;
-                    option(value="F") F&#176;
+                    option(value='K') K
+                    option(value='C') C&#176;
+                    option(value='F') F&#176;
                 #specificHeatDiffTTab
                   .uk-form-group.uk-flex.uk-margin-small
-                    input#specificHeatTf.uk-input.uk-flex-1(type="number" step="any" placeholder="Final Temperature (Tf)")
+                    input#specificHeatTf.uk-input.uk-flex-1(
+                      type='number',
+                      step='any',
+                      placeholder='Final Temperature (Tf)'
+                    )
                     select#specificHeatTfUnits.uk-select.uk-form-width-small
-                      option(value="K") K
-                      option(value="C") C&#176;
-                      option(value="F") F&#176;
+                      option(value='K') K
+                      option(value='C') C&#176;
+                      option(value='F') F&#176;
                   .uk-form-group.uk-flex.uk-margin-small
-                    input#specificHeatTi.uk-input.uk-flex-1(type="number" step="any" placeholder="Initial Temperature (Ti)")
+                    input#specificHeatTi.uk-input.uk-flex-1(
+                      type='number',
+                      step='any',
+                      placeholder='Initial Temperature (Ti)'
+                    )
                     select#specificHeatTiUnits.uk-select.uk-form-width-small
-                      option(value="K") K
-                      option(value="C") C&#176;
-                      option(value="F") F&#176;
+                      option(value='K') K
+                      option(value='C') C&#176;
+                      option(value='F') F&#176;
               .uk-margin.uk-text-right
                 button#specificHeatCalculate.uk-button.uk-button-primary Calculate
-                = ' '
+                = " "
                 button#specificHeatClear.uk-button.uk-button-default Clear

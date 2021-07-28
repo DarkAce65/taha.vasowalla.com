@@ -4,9 +4,9 @@ doctype html
 html
   head
     +head("Everything Taha", gfonts=["Arvo", "Share"])
-    link(rel="shortcut icon" href="assets/icons/tv.png")
-    link(rel="stylesheet" type="text/css" href="style.css")
-    style(type="text/css").
+    link(rel='shortcut icon', href='assets/icons/tv.png')
+    link(rel='stylesheet', type='text/css', href='style.css')
+    style(type='text/css').
       .loading #rendererContainer {
         opacity: 0;
         transform: scale(1.1);
@@ -19,27 +19,29 @@ html
       #banner Hi, I'm Taha
       nav#menu
         #primary
-          .menu-item: a(href="about/") about
-          .menu-item(data-menu="#projects"): span(tabindex=0) projects
-          .menu-item(data-menu="#games"): span(tabindex=0) games
-          .menu-item(data-menu="#random"): span(tabindex=0) random
+          .menu-item: a(href='about/') about
+          .menu-item(data-menu='#projects'): span(tabindex=0) projects
+          .menu-item(data-menu='#games'): span(tabindex=0) games
+          .menu-item(data-menu='#random'): span(tabindex=0) random
         #secondary.closed
           #projects.submenu
-            .menu-item: a(href="visual/webaudio2d/") 2D audio
-            .menu-item: a(href="visual/webaudio3d/") 3D audio
-            .menu-item: a(href="projects/chemistry/") chemistry calculators
-            .menu-item: a(href="projects/driving/") driving
-            .menu-item: +external(href="https://github.com/DarkAce65/raytracer")
+            .menu-item: a(href='visual/webaudio2d/') 2D audio
+            .menu-item: a(href='visual/webaudio3d/') 3D audio
+            .menu-item: a(href='projects/chemistry/') chemistry calculators
+            .menu-item: a(href='projects/driving/') driving
+            .menu-item: +external(href='https://github.com/DarkAce65/raytracer')
               | raytracer
               |
-              i.fas.fa-external-link-alt(style={'font-size': '0.6em', 'vertical-align': 'middle'})
+              i.fas.fa-external-link-alt(
+                style={ "font-size": "0.6em", "vertical-align": "middle" }
+              )
           #games.submenu
-            .menu-item: a(href="games/hangman/") hangman
-            .menu-item: a(href="games/minesweeper/") minesweeper
-            .menu-item: a(href="games/ultimatettt/") ultimate tic tac toe
+            .menu-item: a(href='games/hangman/') hangman
+            .menu-item: a(href='games/minesweeper/') minesweeper
+            .menu-item: a(href='games/ultimatettt/') ultimate tic tac toe
           #random.submenu
-            .menu-item: a(href="random/animation/") 2D animations
-            .menu-item: a(href="visual/cards/") cards
-            .menu-item: a(href="random/fireball/") fireball
-            .menu-item: a(href="random/shaders/") glsl shaders
-            .menu-item: a(href="random/testing/") testing lab
+            .menu-item: a(href='random/animation/') 2D animations
+            .menu-item: a(href='visual/cards/') cards
+            .menu-item: a(href='random/fireball/') fireball
+            .menu-item: a(href='random/shaders/') glsl shaders
+            .menu-item: a(href='random/testing/') testing lab

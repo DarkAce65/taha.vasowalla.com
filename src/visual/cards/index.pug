@@ -4,13 +4,13 @@ doctype html
 html
   head
     +head("Cards")
-    link(rel="shortcut icon" href="../../assets/icons/cards.png")
-    link(rel="stylesheet" type="text/css" href="../../uikit.css")
-    link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel='shortcut icon', href='../../assets/icons/cards.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
 
   body
     +container(["visual", "cards"])
-      .uk-button-group(class="uk-visible@m")
+      .uk-button-group(class='uk-visible@m')
         button#random.hidden-xs.uk-button.uk-button-default.uk-button-small Random
         button#pile.hidden-xs.uk-button.uk-button-default.uk-button-small Pile
         button#cylinder.hidden-xs.uk-button.uk-button-default.uk-button-small Cylinder
@@ -19,18 +19,18 @@ html
         button#drop.hidden-xs.uk-button.uk-button-default.uk-button-small Drop
         button#add.uk-button.uk-button-default.uk-button-small Add Cards
         button#remove.uk-button.uk-button-default.uk-button-small(disabled) Remove Cards
-      .uk-inline(class="uk-hidden@m")
-        .uk-button.uk-button-default.uk-button-small &#8203;#[span(uk-icon="triangle-down")]
-        #dropdown.uk-dropdown(uk-dropdown="mode: click")
+      .uk-inline(class='uk-hidden@m')
+        .uk-button.uk-button-default.uk-button-small &#8203;#[span(uk-icon='triangle-down')]
+        #dropdown.uk-dropdown(uk-dropdown='mode: click')
           ul.uk-nav.uk-dropdown-nav
-            li: a#random(href="#dropdown" uk-toggle) Random
-            li: a#pile(href="#dropdown" uk-toggle) Pile
-            li: a#cylinder(href="#dropdown" uk-toggle) Cylinder
-            li: a#sphere(href="#dropdown" uk-toggle) Sphere
-            li: a#fan(href="#dropdown" uk-toggle) Fan
-            li: a#drop(href="#dropdown" uk-toggle) Drop
-            li: a#add(href="javascript:void(0)") Add Cards
-            li.uk-disabled: a#remove(href="javascript:void(0)") Remove Cards
+            li: a#random(href='#dropdown', uk-toggle) Random
+            li: a#pile(href='#dropdown', uk-toggle) Pile
+            li: a#cylinder(href='#dropdown', uk-toggle) Cylinder
+            li: a#sphere(href='#dropdown', uk-toggle) Sphere
+            li: a#fan(href='#dropdown', uk-toggle) Fan
+            li: a#drop(href='#dropdown', uk-toggle) Drop
+            li: a#add(href='javascript:void(0)') Add Cards
+            li.uk-disabled: a#remove(href='javascript:void(0)') Remove Cards
       #cardCountContainer.uk-button.uk-button-default.uk-button-small Card Count: #[span#cardCount 60]
 
       #animationContainer

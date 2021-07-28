@@ -1,22 +1,24 @@
 mixin head(title, gfonts=['Share'])
   title= title
-  meta(charset="utf-8")
-  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
-  meta(name="viewport" content="width=device-width, initial-scale=1")
-  meta(name="theme-color" content="#000000")
-  meta(name="msapplication-navbutton-color" content="#000000")
-  - const fonts = gfonts.map((font) => `family=${font}`).join('&');
-  link(rel="stylesheet" href=`https://fonts.googleapis.com/css2?${fonts}&display=swap`)
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  meta(name='theme-color', content='#000000')
+  meta(name='msapplication-navbutton-color', content='#000000')
+  - const fonts = gfonts.map((font) => `family=${font}`).join("&");
+  link(rel='stylesheet', href=`https://fonts.googleapis.com/css2?${fonts}&display=swap`)
 
 mixin breadcrumbs(...items)
   h3&attributes(attributes): ul.uk-breadcrumb.uk-margin-remove
-    li: a(href="/") #[span(uk-icon="home")] home
+    li: a(href='/') #[span(uk-icon='home')] home
     each item in items
       li: span= item
 
 mixin floatingBreadcrumbs(...items)
-  .floating-header.uk-position-absolute.uk-position-top.uk-position-medium(class=block && ['uk-flex', 'uk-flex-wrap'])&attributes(attributes)
-    +breadcrumbs(...items)(class={'uk-flex-auto': block})
+  .floating-header.uk-position-absolute.uk-position-top.uk-position-medium(
+    class=block && ["uk-flex", "uk-flex-wrap"]
+  )&attributes(attributes)
+    +breadcrumbs(...items)(class={ "uk-flex-auto": block })
     block
 
 mixin container(breadcrumbItems)
@@ -25,5 +27,5 @@ mixin container(breadcrumbItems)
     block
 
 mixin external
-  a(target="_blank" rel="noopener noreferrer")&attributes(attributes)
+  a(target='_blank', rel='noopener noreferrer')&attributes(attributes)
     block

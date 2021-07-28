@@ -4,43 +4,57 @@ doctype html
 html
   head
     +head("Hangman")
-    link(rel="shortcut icon" href="../../assets/icons/hangman.png")
-    link(rel="stylesheet" type="text/css" href="../../uikit.css")
-    link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel='shortcut icon', href='../../assets/icons/hangman.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
 
   body
     +container(["games", "hangman"])
       .uk-grid-collapse.uk-flex-center(uk-grid)
-        div(class="uk-width-3-5 uk-width-2-3@s uk-width-1-2@m" style={'max-width': '80vh'})
-          svg#hangman(viewbox="0 0 500 400" style={'width': '100%'})
-            path#base(d="m 52.567061,362.68341 c 88.653899,-29.13563 197.359959,-17.43136 278.732599,4.8749")
-            path#gallows(d="m 143.44166,345.45176 c 10.88005,-103.29584 11.68263,-208.83798 14.14214,-312.13713 82.3107,-8.19067 165.55984,-11.1117 248.49747,-11.1117 -0.27648,13.64776 -1.34605,26.92097 -2.0203,40.4061")
+        .uk-width-3-5(class='uk-width-2-3@s uk-width-1-2@m', style={ "max-width": "80vh" })
+          svg#hangman(viewbox='0 0 500 400', style={ width: "100%" })
+            path#base(
+              d='m 52.567061,362.68341 c 88.653899,-29.13563 197.359959,-17.43136 278.732599,4.8749'
+            )
+            path#gallows(
+              d='m 143.44166,345.45176 c 10.88005,-103.29584 11.68263,-208.83798 14.14214,-312.13713 82.3107,-8.19067 165.55984,-11.1117 248.49747,-11.1117 -0.27648,13.64776 -1.34605,26.92097 -2.0203,40.4061'
+            )
             g#man
-              path#rLeg(d="m 411.3892,235.7377 c 15.23931,17.1561 17.75142,48.02831 24.34193,69.7654")
-              path#lLeg(d="m 412.16038,235.78408 c -4.90664,25.6128 -14.93038,50.305 -23.94217,74.7332")
-              path#rArm(d="m 400.61306,116.44399 c 17.06809,19.19532 26.85158,38.1177 33.04254,74.68829")
-              path#lArm(d="m 398.29597,117.58622 c -3.27985,28.78639 -14.14214,53.78348 -14.14214,82.83251")
-              path#body(d="m 399.64285,116.42857 12.5,120.35714")
-              path#head(d="m 392.19072,67.57406 c -65.92616,96.50587 108.15832,29.76716 3.94514,-8.87456")
+              path#rLeg(
+                d='m 411.3892,235.7377 c 15.23931,17.1561 17.75142,48.02831 24.34193,69.7654'
+              )
+              path#lLeg(
+                d='m 412.16038,235.78408 c -4.90664,25.6128 -14.93038,50.305 -23.94217,74.7332'
+              )
+              path#rArm(
+                d='m 400.61306,116.44399 c 17.06809,19.19532 26.85158,38.1177 33.04254,74.68829'
+              )
+              path#lArm(
+                d='m 398.29597,117.58622 c -3.27985,28.78639 -14.14214,53.78348 -14.14214,82.83251'
+              )
+              path#body(d='m 399.64285,116.42857 12.5,120.35714')
+              path#head(
+                d='m 392.19072,67.57406 c -65.92616,96.50587 108.15832,29.76716 3.94514,-8.87456'
+              )
             g#eyes
-              path(d="m 391.93919,86.18434 c -1.69509,2.28862 -3.75231,4.83465 -5.55584,6.81853")
-              path(d="m 386.88843,86.94196 c 2.55432,1.43504 4.2581,4.04221 5.55584,6.06091")
-              path(d="m 411.8897,81.63866 c -0.1828,2.6209 -2.30291,4.40199 -4.04061,6.31345")
-              path(d="m 407.34402,81.89119 c 0.62853,3.02856 3.3129,4.10015 5.80837,5.55584")
-        div(class="uk-width-2-5 uk-width-1-3@s")
+              path(d='m 391.93919,86.18434 c -1.69509,2.28862 -3.75231,4.83465 -5.55584,6.81853')
+              path(d='m 386.88843,86.94196 c 2.55432,1.43504 4.2581,4.04221 5.55584,6.06091')
+              path(d='m 411.8897,81.63866 c -0.1828,2.6209 -2.30291,4.40199 -4.04061,6.31345')
+              path(d='m 407.34402,81.89119 c 0.62853,3.02856 3.3129,4.10015 5.80837,5.55584')
+        .uk-width-2-5(class='uk-width-1-3@s')
           .uk-text-center(uk-margin)
-            button.uk-button.uk-button-default.uk-button-small(uk-toggle="target: #setWordModal") Set word
-            = ' '
-            button#randomWord.uk-button.uk-button-default.uk-button-small Random word #[span(class="uk-visible@s") (Shift + R)]
+            button.uk-button.uk-button-default.uk-button-small(uk-toggle='target: #setWordModal') Set word
+            = " "
+            button#randomWord.uk-button.uk-button-default.uk-button-small Random word #[span(class='uk-visible@s') (Shift + R)]
           h3#guessesLeft.uk-text-center.uk-margin-small
-          #guessedLettersContainer(class="uk-hidden-touch uk-hidden")
+          #guessedLettersContainer.uk-hidden-touch.uk-hidden
             h4 Guessed letters
             #guessedLetters.uk-tile.uk-tile-muted.uk-padding-remove
       #wordDisplay.uk-text-center.uk-margin-bottom(uk-margin)
       .uk-text-center.uk-hidden-touch
         .uk-inline
-          button#submitGuess.uk-form-icon.uk-form-icon-flip(uk-icon="icon: chevron-right")
-          input#guessInput.uk-input.uk-form-large(maxlength="1")
+          button#submitGuess.uk-form-icon.uk-form-icon-flip(uk-icon='icon: chevron-right')
+          input#guessInput.uk-input.uk-form-large(maxlength='1')
       .uk-text-center.uk-hidden-notouch
         each letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
           .letter-tile(data-letter=letter)= letter

@@ -4,18 +4,22 @@ doctype html
 html
   head
     +head("Web Audio API")
-    link(rel="shortcut icon" href="../../assets/icons/webaudio.png")
-    link(rel="stylesheet" type="text/css" href="../../uikit.css")
-    link(rel="stylesheet" type="text/css" href="style.css")
+    link(rel='shortcut icon', href='../../assets/icons/webaudio.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
 
   body
     +container(["visual", "webaudio2d"])
       .uk-margin-bottom
         button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-audio] Load audio file
-          input#fileInput(type="file" accept="audio/*")
+          input#fileInput(type='file', accept='audio/*')
       #visualizerContainer.bordered
         #details.uk-hidden
           #name
-          | #[span#currentTime -:--] / #[span#duration -:--]
+          span#currentTime -:--
+          |
+          | /
+          |
+          span#duration -:--
         canvas#visualizer
         #wave
