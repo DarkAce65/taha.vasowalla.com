@@ -8,6 +8,15 @@ mixin head(title, gfonts=['Share'])
   - const fonts = gfonts.map((font) => `family=${font}`).join("&");
   link(rel='stylesheet', href=`https://fonts.googleapis.com/css2?${fonts}&display=swap`)
 
+mixin openGraphMeta
+  meta(property='og:url', content='https://taha.vasowalla.com/')
+  meta(property='og:type', content='website')
+  meta(property='og:image', content='https://taha.vasowalla.com/assets/img/banner.png')
+  meta(name='twitter:card', content='summary_large_image')
+  meta(property='twitter:domain', content='taha.vasowalla.com')
+  meta(property='twitter:url', content='https://taha.vasowalla.com/')
+  meta(name='twitter:image', content='https://taha.vasowalla.com/assets/img/banner.png')
+
 mixin breadcrumbs(...items)
   h3&attributes(attributes): ul.uk-breadcrumb.uk-margin-remove
     li: a(href='/') #[span(uk-icon='home')] home
