@@ -101,7 +101,7 @@ module.exports = {
     rules: [
       { test: /\.pug$/, use: 'pug-loader' },
       { test: /\.tsx?$/, exclude: /node_modules/, use: ['babel-loader', 'ts-loader'] },
-      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
+      { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
       { test: /\.pdf$/, type: 'asset/resource', generator: { filename: '[path][name][ext]' } },
       { test: /\.(glsl|txt)$/, type: 'asset/source' },
       {
