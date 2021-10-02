@@ -6,7 +6,6 @@ class ToggleWrapper {
 
   constructor(...toggleParams: Parameters<typeof UIkit.toggle>) {
     this.uikitToggle = UIkit.toggle(...toggleParams);
-
     this.toggled = this.uikitToggle.isToggled();
   }
 
