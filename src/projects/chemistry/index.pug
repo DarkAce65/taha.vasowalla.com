@@ -9,7 +9,7 @@ html
     link(rel='stylesheet', type='text/css', href='style.css')
   body
     +container(["projects", "chemistry"])
-      div(uk-grid)
+      .uk-grid-row-small(uk-grid)
         div(class='uk-width-large@m')
           ul.uk-tab-left.uk-tab-stacked(
             uk-tab='connect: #switcher; swiping: false; animation: uk-animation-slide-left-small',
@@ -19,7 +19,7 @@ html
             li: a(href='#') Dilution
             li: a(href='#') Ideal Gas Law
             li: a(href='#') Specific Heat Capacity
-        .uk-width-expand.uk-margin-remove-top
+        .uk-width-expand
           #switcher.uk-switcher
             div
               h3 Molar mass calculator
