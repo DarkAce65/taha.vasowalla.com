@@ -52,7 +52,7 @@ compileScriptsAndHTML.displayName = 'compile:markup_scripts';
 const devServer = () => {
   let server = null;
 
-  const listen = () => {
+  const listen = async () => {
     if (server !== null) {
       const time = `[${chalk.gray(new Date().toTimeString().slice(0, 8))}]`;
       console.log(time, 'Restarting server...');
@@ -67,10 +67,10 @@ const devServer = () => {
 
     try {
       server = new WebpackDevServer(
-        webpack(reloadedWebpackConfig),
-        reloadedWebpackConfig.devServer
+        reloadedWebpackConfig.devServer,
+        webpack(reloadedWebpackConfig)
       );
-      server.listen(port, host);
+      await server.start(port, host);
     } catch (error) {
       server = false;
     }

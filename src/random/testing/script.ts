@@ -20,7 +20,6 @@ import {
   Mesh,
   MeshPhongMaterial,
   Object3D,
-  ParametricBufferGeometry,
   PerspectiveCamera,
   PlaneBufferGeometry,
   PlaneGeometry,
@@ -37,6 +36,8 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// @ts-expect-error untyped dependency
+import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 
 import seededRandom from '~/lib/seededRandom';
 
@@ -230,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       position.set(x, 0.15 * Math.pow(v, 4) - 0.075, f);
     };
-    sHull.add(new Mesh(new ParametricBufferGeometry(hullParametric, 25, 10), sMetal));
+    sHull.add(new Mesh(new ParametricGeometry(hullParametric, 25, 10), sMetal));
   }
   ship.add(sHull);
   ship.position.set(-30, 20, 10);
