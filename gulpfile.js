@@ -50,13 +50,14 @@ const compileScriptsAndHTML = () =>
 compileScriptsAndHTML.displayName = 'compile:markup_scripts';
 
 const devServer = () => {
+  /** @type {WebpackDevServer} */
   let server = null;
 
   const listen = async () => {
     if (server !== null) {
       const time = `[${chalk.gray(new Date().toTimeString().slice(0, 8))}]`;
       console.log(time, 'Restarting server...');
-      server.close();
+      await server.stop();
       delete require.cache[require.resolve('./webpack.config.js')];
     }
 
