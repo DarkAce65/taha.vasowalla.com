@@ -2,11 +2,12 @@
 
 @mixin hook-form() {
   border: $global-border-width solid $form-border;
-  transition: $transition-duration ease-in-out;
+  transition: $transition-duration ease-in-out, width 0s, height 0s;
 }
 
 @mixin hook-form-focus() {
   border-color: $form-focus-border;
+  transition: 0s;
 }
 
 @mixin hook-form-disabled() {
