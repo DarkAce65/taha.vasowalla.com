@@ -271,6 +271,13 @@ document.addEventListener('DOMContentLoaded', () => {
       .split('\n')
       .map((word) => word.replaceAll(' ', '').toUpperCase())
       .filter((word) => word.length !== 0);
+
+    if (words.length === 0) {
+      errorElement.textContent = `No words to add to wordsearch!`;
+      wordSearchError.show();
+      return;
+    }
+
     const allowDiagonals = getElOrThrow<HTMLInputElement>('#allowDiagonals').checked;
     const allowReversed = getElOrThrow<HTMLInputElement>('#allowReversed').checked;
 
