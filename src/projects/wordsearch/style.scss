@@ -3,12 +3,17 @@
 }
 
 #grid {
-  margin: 0 auto;
-  table-layout: fixed;
-  border-collapse: collapse;
+  text-align: center;
   font-size: 1.5rem;
+  overflow-x: auto;
 
-  td {
+  .row {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .cell {
+    display: inline-block;
     width: 1.6em;
     height: 1.6em;
     text-align: center;

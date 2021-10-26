@@ -10,7 +10,7 @@ html
 
   body
     +container(["projects", "wordsearch"])
-      .uk-flex.uk-flex-wrap
+      div(uk-grid)
         #controls.uk-margin(class='uk-width-1-2@m')
           .uk-form-horizontal
             .uk-margin
@@ -33,12 +33,16 @@ html
               label.uk-form-label(for='words') Words
               .uk-form-controls
                 textarea#words.uk-textarea(
-                  placeholder='Enter words here with each word on a new line'
+                  placeholder='Enter words here with each word on a new line',
+                  rows='6'
                 )
             div
               button#generate.uk-button.uk-button-primary Generate
             #error.uk-margin.uk-text-danger(hidden)
         .uk-margin.uk-flex-auto(style={ "max-width": "100%" })
-          #wordsearch(style={ overflow: "auto" })
-            table#grid.uk-margin
-            #wordsToFind.uk-margin.uk-grid-small.uk-child-width-1-2(uk-grid, class='uk-child-width-1-4@m')
+          #wordsearch
+            #grid.uk-margin
+            #wordsToFind.uk-margin.uk-grid-small.uk-flex-center.uk-text-center.uk-child-width-1-2(
+              uk-grid,
+              class='uk-child-width-1-4@m'
+            )

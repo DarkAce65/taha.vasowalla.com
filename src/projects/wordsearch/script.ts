@@ -197,15 +197,18 @@ class GridBuilder {
   render(initialRender?: boolean) {
     let tableHtml = '';
     for (let row = 0; row < this.height; row++) {
-      tableHtml += '<tr>';
+      tableHtml += '<div class="row">';
       for (let col = 0; col < this.width; col++) {
         const letter = initialRender
           ? '_'
           : (this.grid[col][row].letter || getRandomLetter()).toUpperCase();
 
-        tableHtml += `<td>${letter}</td>`;
+        tableHtml += `<div class="cell">${letter}</div>`;
       }
-      tableHtml += '</tr>';
+      tableHtml += '</div>';
+      if (row !== this.height - 1) {
+        tableHtml += '<br/>';
+      }
     }
     getElOrThrow('#grid').innerHTML = tableHtml;
 
@@ -213,7 +216,9 @@ class GridBuilder {
 
     let wordsToFindHtml = '';
     if (!initialRender) {
-      for (const word of Object.keys(this.wordPositions)) {
+      const words = Object.keys(this.wordPositions);
+      words.sort();
+      for (const word of words) {
         wordsToFindHtml += `<div>${word}</div>`;
       }
 
