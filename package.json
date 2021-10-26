@@ -13,7 +13,7 @@
         "postinstall": "patch-package",
         "prepare": "husky install",
         "eslint:fix": "eslint --fix \"gulpfile.js\" \"*.config.js\" \"gulp/**/*.js\" \"src/**/*.{js,ts}\"",
-        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"tsconfig.json\" \"gulp/**/*.js\" \"src/**/*.{pug,js,ts,scss}\"",
+        "prettier:write": "prettier --write \"gulpfile.js\" \".eslintrc.js\" \"*.config.js\" \"tsconfig.json\" \"gulp/**/*.js\" \"src/**/*.{pug,json,js,ts,scss}\"",
         "copy:static": "gulp copy:static --silent",
         "dev": "gulp dev --silent",
         "build": "gulp --silent",
@@ -21,7 +21,7 @@
     },
     "lint-staged": {
         "*.{js,ts}!eslintrc.js": "eslint --max-warnings=0",
-        "*.{pug,js,ts,scss}": "prettier --list-different"
+        "*.{pug,json,js,ts,scss}!package.json": "prettier --list-different"
     },
     "devDependencies": {
         "@babel/core": "^7.15.8",
