@@ -36,7 +36,6 @@ import {
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// @ts-expect-error untyped dependency
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 
 import seededRandom from '~/lib/seededRandom';
