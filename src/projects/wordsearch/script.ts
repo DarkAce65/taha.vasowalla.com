@@ -1,4 +1,6 @@
+import ToggleWrapper from '~/lib/ToggleWrapper';
 import enableIcons from '~/lib/enableIcons';
+import { getElOrThrow } from '~/lib/getEl';
 
 type Direction = 'u' | 'ur' | 'r' | 'dr' | 'd' | 'dl' | 'l' | 'ul';
 
@@ -212,67 +214,53 @@ class GridBuilder {
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons();
 
+  const errorElement = getElOrThrow('#error');
+  const wordSearchError = new ToggleWrapper('#error', {
+    animation: 'uk-animation-fade',
+    mode: '',
+    queued: true,
+  });
+
   let width = 5;
   let height = 5;
+  let gridBuilder = new GridBuilder(width, height);
+  gridBuilder.render(true);
 
-  let gridBuilder: GridBuilder;
-  const initializeGridBuilder = () => {
-    if (width <= 0 || height <= 0) {
+  getElOrThrow('#generate').addEventListener('click', () => {
+    const widthInput = parseInt(getElOrThrow<HTMLInputElement>('#width').value, 10);
+    const heightInput = parseInt(getElOrThrow<HTMLInputElement>('#height').value, 10);
+
+    if (isNaN(widthInput) || isNaN(heightInput) || widthInput <= 0 || heightInput <= 0) {
+      errorElement.textContent =
+        'Invalid width and height - ensure that they are both greater than 0';
+      wordSearchError.show();
       return;
     }
 
-    gridBuilder = new GridBuilder(width, height);
-    gridBuilder.render(true);
-  };
-  initializeGridBuilder();
+    wordSearchError.hide();
 
-  (document.querySelector('#width') as HTMLInputElement).addEventListener('input', (event) => {
-    const target = event.currentTarget as HTMLInputElement;
-    if (target.value.length < 0) {
-      return;
+    if (widthInput !== width || heightInput !== height) {
+      width = widthInput;
+      height = heightInput;
+
+      gridBuilder = new GridBuilder(width, height);
+      gridBuilder.render(true);
     }
 
-    try {
-      width = parseInt(target.value, 10);
-      initializeGridBuilder();
-    } catch (e) {
-      // Ignore parse errors
-    }
-  });
-
-  (document.querySelector('#height') as HTMLInputElement).addEventListener('input', (event) => {
-    const target = event.currentTarget as HTMLInputElement;
-    if (target.value.length < 0) {
-      return;
-    }
-
-    try {
-      height = parseInt(target.value, 10);
-      initializeGridBuilder();
-    } catch (e) {
-      // Ignore parse errors
-    }
-  });
-
-  document.querySelector('#generate')!.addEventListener('click', () => {
-    const rawWordInput = (document.querySelector('#words') as HTMLTextAreaElement).value;
+    const rawWordInput = getElOrThrow<HTMLTextAreaElement>('#words').value;
     const words = rawWordInput
       .split('\n')
       .map((word) => word.replaceAll(' ', '').toUpperCase())
       .filter((word) => word.length !== 0);
-    const allowDiagonals = (document.querySelector('#allowDiagonals') as HTMLInputElement).checked;
-    const allowReversed = (document.querySelector('#allowReversed') as HTMLInputElement).checked;
+    const allowDiagonals = getElOrThrow<HTMLInputElement>('#allowDiagonals').checked;
+    const allowReversed = getElOrThrow<HTMLInputElement>('#allowReversed').checked;
 
     try {
-      gridBuilder.randomlyPlaceWords(words, {
-        allowDiagonals,
-        allowReversed,
-      });
+      gridBuilder.randomlyPlaceWords(words, { allowDiagonals, allowReversed });
       gridBuilder.render();
-    } catch (e) {
-      alert(
-        `Unable to make a wordsearch with ${height} rows and ${width} columns! Either try again or make the grid larger.`
-      );
+    } catch (error) {
+      errorElement.textContent = `Unable to make a wordsearch with ${height} rows and ${width} columns! Either try again or make the grid larger.`;
+      wordSearchError.show();
     }
   });
 });

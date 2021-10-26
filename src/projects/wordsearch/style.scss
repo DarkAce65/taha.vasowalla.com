@@ -1,13 +1,13 @@
-table {
+#grid {
   margin: 0 auto;
   table-layout: fixed;
   border-collapse: collapse;
   font-family: 'Open Sans', sans-serif;
   font-size: 1.5rem;
-}
 
-td {
-  width: 1.6em;
-  height: 1.6em;
-  text-align: center;
+  td {
+    width: 1.6em;
+    height: 1.6em;
+    text-align: center;
+  }
 }
