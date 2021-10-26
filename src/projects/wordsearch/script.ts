@@ -159,6 +159,9 @@ class GridBuilder {
   randomlyPlaceWords(words: string[], { allowDiagonals = false, allowReversed = false } = {}) {
     this.reset();
 
+    const orderedWords = words.slice(0);
+    orderedWords.sort((a, b) => b.length - a.length);
+
     const directions: Direction[] = ['r', 'd'];
     if (allowDiagonals) {
       directions.push('dr');
@@ -172,8 +175,8 @@ class GridBuilder {
 
     const attempts: { [word: string]: number } = {};
     let i = 0;
-    while (i < words.length) {
-      let word = words[i];
+    while (i < orderedWords.length) {
+      let word = orderedWords[i];
 
       if (attempts[word] > MAX_ATTEMPTS) {
         if (i < 1) {
@@ -182,7 +185,7 @@ class GridBuilder {
 
         attempts[word] = 0;
         i--;
-        word = words[i];
+        word = orderedWords[i];
         this.removeWord(word);
         continue;
       }
