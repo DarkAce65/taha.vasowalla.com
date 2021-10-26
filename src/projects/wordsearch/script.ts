@@ -222,7 +222,7 @@ class GridBuilder {
       const words = Object.keys(this.wordPositions);
       words.sort();
       for (const word of words) {
-        wordsToFindHtml += `<div>${word}</div>`;
+        wordsToFindHtml += `<div class="word">${word}</div>`;
       }
 
       wordsToFind.innerHTML = wordsToFindHtml;
@@ -288,5 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
       errorElement.textContent = `Unable to make a wordsearch with ${height} rows and ${width} columns! Either try again or make the grid larger.`;
       wordSearchError.show();
     }
+  });
+
+  document.querySelectorAll('.toggle-print').forEach((buttonToggle) => {
+    buttonToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('print-layout');
+    });
   });
 });
