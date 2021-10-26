@@ -23,6 +23,7 @@ const pages = {
   ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },
   webaudio2d: { dir: 'visual/webaudio2d', entry: './script.ts' },
   webaudio3d: { dir: 'visual/webaudio3d', entry: './script.ts' },
+  wordsearch: { dir: 'projects/wordsearch', entry: './script.ts' },
 };
 
 const entrypoints = Object.entries(pages).reduce(

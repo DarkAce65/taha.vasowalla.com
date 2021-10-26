@@ -1,0 +1,42 @@
+include ../../partials/mixins
+
+doctype html
+html
+  head
+    +head("Wordsearch Generator", gfonts=["Share", "Open Sans"])
+    link(rel='shortcut icon', href='../../assets/icons/network.png')
+    link(rel='stylesheet', type='text/css', href='../../uikit.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
+
+  body
+    +container(["projects", "wordsearch"])
+      .uk-flex.uk-flex-wrap
+        #controls.uk-margin(class='uk-width-1-2@m')
+          .uk-form-horizontal
+            .uk-margin
+              label.uk-form-label(for='width') Width
+              .uk-form-controls
+                input#width.uk-input(type='number', value='5')
+            .uk-margin
+              label.uk-form-label(for='height') Height
+              .uk-form-controls
+                input#height.uk-input(type='number', value='5')
+            .uk-margin
+              .uk-form-label Options
+              .uk-form-controls.uk-form-controls-text
+                label(for='allowDiagonals') #[input#allowDiagonals.uk-checkbox(type='checkbox')] Allow diagonals
+                br
+                label(for='allowReversed') #[input#allowReversed.uk-checkbox(type='checkbox')] Allow reversed words
+            .uk-margin
+              .uk-form-controls
+            .uk-margin
+              label.uk-form-label(for='words') Words
+              .uk-form-controls
+                textarea#words.uk-textarea(
+                  placeholder='Enter words here with each word on a new line'
+                )
+            div
+              button#generate.uk-button.uk-button-primary Generate
+        .uk-margin.uk-flex-auto(style={ "max-width": "100%" })
+          div(style={ overflow: "auto" })
+            table#grid
