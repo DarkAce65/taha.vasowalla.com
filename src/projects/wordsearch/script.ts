@@ -3,7 +3,7 @@ import enableIcons from '~/lib/enableIcons';
 type Direction = 'u' | 'ur' | 'r' | 'dr' | 'd' | 'dl' | 'l' | 'ul';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const MAX_ATTEMPTS = 100;
+const MAX_ATTEMPTS = 20;
 
 const getRandomLetter = (): string => ALPHABET[Math.floor(26 * Math.random())];
 
@@ -78,7 +78,13 @@ class GridBuilder {
     const xDelta = getXDelta(direction);
     const yDelta = getYDelta(direction);
     for (let i = 0; i < word.length; i++) {
-      const cell = this.grid[col + xDelta * i][row + yDelta * i];
+      const c = col + xDelta * i;
+      const r = row + yDelta * i;
+      if (c < 0 || this.width - 1 < c || r < 0 || this.height - 1 < r) {
+        return false;
+      }
+
+      const cell = this.grid[c][r];
       if (cell.letter && cell.letter !== word[i]) {
         return false;
       }
@@ -164,10 +170,9 @@ class GridBuilder {
 
     const attempts: { [word: string]: number } = {};
     let i = 0;
-
     while (i < words.length) {
       let word = words[i];
-      attempts[word] = (attempts[word] || 0) + 1;
+
       if (attempts[word] > MAX_ATTEMPTS) {
         if (i < 1) {
           throw new Error('Unable to backtrack further');
@@ -180,6 +185,7 @@ class GridBuilder {
         continue;
       }
 
+      attempts[word] = (attempts[word] || 0) + 1;
       if (this.randomlyPlaceWord(word, directions)) {
         i++;
       }
