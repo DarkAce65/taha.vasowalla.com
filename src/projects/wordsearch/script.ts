@@ -207,7 +207,18 @@ class GridBuilder {
       }
       tableHtml += '</tr>';
     }
-    document.querySelector('#grid')!.innerHTML = tableHtml;
+    getElOrThrow('#grid').innerHTML = tableHtml;
+
+    const wordsToFind = getElOrThrow('#wordsToFind');
+
+    let wordsToFindHtml = '';
+    if (!initialRender) {
+      for (const word of Object.keys(this.wordPositions)) {
+        wordsToFindHtml += `<div>${word}</div>`;
+      }
+
+      wordsToFind.innerHTML = wordsToFindHtml;
+    }
   }
 }
 

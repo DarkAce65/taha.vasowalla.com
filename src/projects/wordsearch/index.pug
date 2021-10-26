@@ -37,7 +37,8 @@ html
                 )
             div
               button#generate.uk-button.uk-button-primary Generate
-            #error.uk-margin.uk-text-danger(hidden) test
+            #error.uk-margin.uk-text-danger(hidden)
         .uk-margin.uk-flex-auto(style={ "max-width": "100%" })
-          div(style={ overflow: "auto" })
-            table#grid
+          #wordsearch(style={ overflow: "auto" })
+            table#grid.uk-margin
+            #wordsToFind.uk-margin.uk-grid-small.uk-child-width-1-2(uk-grid, class='uk-child-width-1-4@m')
