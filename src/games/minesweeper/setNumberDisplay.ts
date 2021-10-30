@@ -1,6 +1,6 @@
-import { getElOrThrow } from '~/lib/getEl';
+import { Selector, getElOrThrow } from '~/lib/getEl';
 
-export default (selector, num) => {
+export default (selector: Selector, num: number): void => {
   const element = getElOrThrow(selector);
 
   const display = [];

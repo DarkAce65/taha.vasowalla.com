@@ -5,16 +5,20 @@ import Cookie from 'js-cookie';
 
 import ValidatedInput from '~/lib/ValidatedInput';
 import { BREAKPOINT_SMALL } from '~/lib/breakpoints';
+import { getElOrThrow } from '~/lib/getEl';
 import getModalValues from '~/lib/getModalValues';
 
-import Minefield, { presets } from './Minefield';
+import Minefield, { PRESETS } from './Minefield';
 
-const initCustomGameModal = () => {
-  let rows = null;
-  let cols = null;
-  let mines = null;
+type Scale = 'small' | 'medium' | 'large';
+type Difficulty = 'beginner' | 'intermediate' | 'expert' | 'custom';
 
-  const initializeCustomButton = document.querySelector('#initialize');
+const initCustomGameModal = (): (() => Promise<{ rows: number; cols: number; mines: number }>) => {
+  let rows: number | null = null;
+  let cols: number | null = null;
+  let mines: number | null = null;
+
+  const initializeCustomButton = getElOrThrow<HTMLButtonElement>('#initialize');
   const minesInput = new ValidatedInput('#mines', {
     customValidator: (input) => {
       const parsedMines = Math.floor(parseFloat(input));
@@ -99,12 +103,12 @@ const initCustomGameModal = () => {
 
   return () =>
     getModalValues('#customGameModal', initializeCustomButton)
-      .then(() => ({ rows, cols, mines }))
+      .then(() => ({ rows: rows!, cols: cols!, mines: mines! }))
       .finally(reset);
 };
 
-const buildHighscoreTable = (difficulty, scores) => {
-  const table = document.querySelector(`.scoreTable[data-difficulty=${difficulty}] tbody`);
+const buildHighscoreTable = (difficulty: Difficulty, scores?: { name: string; time: number }[]) => {
+  const table = getElOrThrow(`.scoreTable[data-difficulty=${difficulty}] tbody`);
   table.innerHTML = '';
 
   if (scores) {
@@ -117,7 +121,7 @@ const buildHighscoreTable = (difficulty, scores) => {
         nameCell.textContent = name;
         scoreRow.appendChild(nameCell);
         const timeCell = document.createElement('td');
-        timeCell.textContent = time;
+        timeCell.textContent = `${time}`;
         scoreRow.appendChild(timeCell);
 
         table.appendChild(scoreRow);
@@ -138,10 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const scoresCookie = Cookie.get('scores');
   const scores = scoresCookie ? JSON.parse(scoresCookie) : {};
-  Object.keys(presets).forEach((difficulty) => buildHighscoreTable(difficulty, scores[difficulty]));
+  Object.keys(PRESETS).forEach((difficulty) =>
+    buildHighscoreTable(difficulty as keyof typeof PRESETS, scores[difficulty])
+  );
 
-  const highscoreNameInput = document.querySelector('#highscoreModal #name');
-  let currentDifficulty = 'beginner';
+  const highscoreNameInput = getElOrThrow<HTMLInputElement>('#highscoreModal #name');
+  let currentDifficulty: Difficulty = 'beginner';
   const minefield = new Minefield({
     target: 'table#grid',
     minesLeftEl: '#minesLeft',
@@ -159,7 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
             buildHighscoreTable(currentDifficulty, scores[currentDifficulty]);
             Cookie.set('scores', JSON.stringify(scores));
           })
-          .catch(() => {});
+          .catch(() => {
+            UIkit.notification('Failed to save highscore!', { status: 'danger' });
+          });
       }
     },
   });
@@ -167,14 +175,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const makeOptionsPromise = initCustomGameModal();
   document.querySelector;
   highscoreNameInput.addEventListener('input', () => {
-    document.querySelector('#highscoreModal #submit').disabled =
+    getElOrThrow<HTMLButtonElement>('#highscoreModal #submit').disabled =
       highscoreNameInput.value.trim().length === 0;
   });
 
   minefield.initialize(currentDifficulty);
 
   const tab = UIkit.tab('#highscoreTabs');
-  document.querySelector('#customTab').addEventListener('click', (ev) => {
+  getElOrThrow('#customTab').addEventListener('click', (ev) => {
     if (tab.index() === 3) {
       return;
     }
@@ -187,10 +195,12 @@ document.addEventListener('DOMContentLoaded', () => {
         currentDifficulty = 'custom';
         minefield.initialize(options);
       })
-      .catch(() => {});
+      .catch(() => {
+        // Ignore error from closing modal
+      });
   });
-  document.querySelector('#highscores').addEventListener('show', (ev) => {
-    const { difficulty } = ev.target.dataset;
+  getElOrThrow('#highscores').addEventListener('show', (ev) => {
+    const difficulty = (ev.target as HTMLDivElement).dataset.difficulty as Difficulty;
     if (difficulty === 'custom') {
       return;
     }
@@ -199,8 +209,8 @@ document.addEventListener('DOMContentLoaded', () => {
     minefield.initialize(difficulty);
   });
 
-  const game = document.querySelector('#game');
-  const resize = (size) => {
+  const game = getElOrThrow('#game');
+  const resize = (size: Scale) => {
     switch (size) {
       case 'small':
         game.classList.remove('size-medium', 'size-large');
@@ -221,35 +231,42 @@ document.addEventListener('DOMContentLoaded', () => {
     Cookie.set('scale', size);
   };
 
-  document.querySelector('#scale').addEventListener('change', (ev) => resize(ev.target.value));
-
-  Object.keys(presets).forEach((difficulty) =>
-    document
-      .querySelector(`.scoreTable[data-difficulty="${difficulty}"] .reset`)
-      .addEventListener('click', () => {
-        delete scores[difficulty];
-        buildHighscoreTable(difficulty, scores[difficulty]);
-        Cookie.set('scores', JSON.stringify(scores));
-      })
+  getElOrThrow<HTMLSelectElement>('#scale').addEventListener('change', (ev) =>
+    resize((ev.currentTarget as HTMLSelectElement).value as Scale)
   );
 
-  document.querySelector('#recustomizeGame').addEventListener('click', () =>
+  Object.keys(PRESETS).forEach((difficulty) =>
+    getElOrThrow(`.scoreTable[data-difficulty="${difficulty}"] .reset`).addEventListener(
+      'click',
+      () => {
+        delete scores[difficulty];
+        buildHighscoreTable(difficulty as keyof typeof PRESETS, scores[difficulty]);
+        Cookie.set('scores', JSON.stringify(scores));
+      }
+    )
+  );
+
+  getElOrThrow('#recustomizeGame').addEventListener('click', () =>
     makeOptionsPromise()
       .then((options) => {
         currentDifficulty = 'custom';
         minefield.initialize(options);
       })
-      .catch(() => {})
+      .catch(() => {
+        // Ignore error from closing modal
+      })
   );
 
   let scale = Cookie.get('scale');
-  if (['small', 'medium', 'large'].indexOf(scale) === -1) {
-    if (window.innerWidth < BREAKPOINT_SMALL) {
-      scale = 'medium';
-    } else {
-      scale = 'small';
+  if (scale) {
+    if (['small', 'medium', 'large'].indexOf(scale) === -1) {
+      if (window.innerWidth < BREAKPOINT_SMALL) {
+        scale = 'medium';
+      } else {
+        scale = 'small';
+      }
     }
+    getElOrThrow<HTMLSelectElement>('#scale').value = scale;
+    resize(scale as Scale);
   }
-  document.querySelector('#scale').value = scale;
-  resize(scale);
 });

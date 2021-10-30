@@ -17,7 +17,7 @@ const pages = {
   driving: { dir: 'projects/driving', entry: './script.ts' },
   fireball: { dir: 'random/fireball', entry: './script.js' },
   hangman: { dir: 'games/hangman', entry: './script.ts' },
-  minesweeper: { dir: 'games/minesweeper', entry: './script.js' },
+  minesweeper: { dir: 'games/minesweeper', entry: './script.ts' },
   shaders: { dir: 'random/shaders', entry: './script.js' },
   testing: { dir: 'random/testing', entry: './script.ts' },
   ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },

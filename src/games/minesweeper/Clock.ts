@@ -1,11 +1,14 @@
 class Clock {
+  private _value: number;
+  public callback?: (time: number) => void;
+  private timeoutId: ReturnType<typeof setInterval> | null;
+
   constructor() {
     this._value = 0;
-    this.callback = null;
-    this._timeoutId = null;
+    this.timeoutId = null;
   }
 
-  set value(value) {
+  set value(value: number) {
     this._value = value;
 
     if (this.callback) {
@@ -18,7 +21,7 @@ class Clock {
   }
 
   start() {
-    this._timeoutId = setInterval(() => {
+    this.timeoutId = setInterval(() => {
       this.value += 1;
       if (this.callback) {
         this.callback(this.value);
@@ -27,8 +30,10 @@ class Clock {
   }
 
   pause() {
-    clearInterval(this._timeoutId);
-    this._timeoutId = null;
+    if (this.timeoutId !== null) {
+      clearInterval(this.timeoutId);
+      this.timeoutId = null;
+    }
   }
 
   stop() {
