@@ -20,7 +20,7 @@ const getModalValues = (
   const modal = UIkit.modal(modalEl);
   const deferred = new DeferredPromise<string[]>();
 
-  const onSubmit = () => {
+  const onSubmit = (): void => {
     removeListeners();
     if (inputEls) {
       const inputValues = inputEls.map((input) => getElOrThrow(input).value);
@@ -31,12 +31,12 @@ const getModalValues = (
     modal.hide();
   };
 
-  const onHide = () => {
+  const onHide = (): void => {
     removeListeners();
     deferred.reject();
   };
 
-  function removeListeners() {
+  function removeListeners(): void {
     resolvedSubmitButton.removeEventListener('click', onSubmit);
     resolvedModalEl.removeEventListener('hide', onHide);
     delete resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY];

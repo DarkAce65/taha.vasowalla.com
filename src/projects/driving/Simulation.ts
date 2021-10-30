@@ -98,7 +98,7 @@ class Simulation {
     return this.simulationData.datapoints.map((datapoint) => datapoint.position);
   }
 
-  private collisionHandler(event: World['beginContactEvent']) {
+  private collisionHandler(event: World['beginContactEvent']): void {
     if (event.shapeA.collisionGroup === CHECKPOINT_MASK) {
       this.hitCheckpoint(event.bodyA as Checkpoint);
     } else if (event.shapeB.collisionGroup === CHECKPOINT_MASK) {
@@ -194,7 +194,7 @@ class Simulation {
     return { fitness, avgSpeed };
   }
 
-  private drawTrails(ctx: CanvasRenderingContext2D, trails: Vector2[][]) {
+  private drawTrails(ctx: CanvasRenderingContext2D, trails: Vector2[][]): void {
     for (const trail of trails) {
       if (trail.length === 0) {
         continue;
@@ -232,7 +232,10 @@ class Simulation {
     ctx.stroke();
   }
 
-  private drawCarStatus({ ctx, width, height }: CanvasParams, [throttle, brake, steer]: number[]) {
+  private drawCarStatus(
+    { ctx, width, height }: CanvasParams,
+    [throttle, brake, steer]: number[]
+  ): void {
     ctx.clearRect(0, 0, width, height);
 
     ctx.fillStyle = COLORS.WHITE;

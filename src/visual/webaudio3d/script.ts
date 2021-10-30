@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let frequencyData = zeroArray;
   let mapLogarithmic = makeLogarithmicMapper(bars.length, bufferLength);
 
-  const resize = () => {
+  const resize = (): void => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(circle);
   };
 
-  const reset = () => {
+  const reset = (): void => {
     if (source) {
       source.disconnect();
       gainNode.disconnect();
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(render);
   };
 
-  const play = () => {
+  const play = (): void => {
     if (!source) {
       return;
     }

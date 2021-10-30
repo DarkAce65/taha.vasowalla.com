@@ -235,7 +235,7 @@ class Car {
     ctx.stroke();
   }
 
-  private drawSensors(ctx: CanvasRenderingContext2D) {
+  private drawSensors(ctx: CanvasRenderingContext2D): void {
     const hitPointRadius = 5;
     const normalLength = 10;
 

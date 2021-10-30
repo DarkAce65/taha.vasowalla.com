@@ -123,7 +123,7 @@ class GridBuilder {
     }
   }
 
-  randomlyPlaceWord(word: string, directions: Direction[]) {
+  randomlyPlaceWord(word: string, directions: Direction[]): boolean {
     const l = word.length;
 
     const direction = directions[Math.floor(Math.random() * directions.length)];
@@ -156,7 +156,10 @@ class GridBuilder {
     return false;
   }
 
-  randomlyPlaceWords(words: string[], { allowDiagonals = false, allowReversed = false } = {}) {
+  randomlyPlaceWords(
+    words: string[],
+    { allowDiagonals = false, allowReversed = false } = {}
+  ): void {
     this.reset();
 
     const orderedWords = words.slice(0);
@@ -197,7 +200,7 @@ class GridBuilder {
     }
   }
 
-  render(initialRender?: boolean) {
+  render(initialRender?: boolean): void {
     let tableHtml = '';
     for (let row = 0; row < this.height; row++) {
       tableHtml += '<div class="row">';

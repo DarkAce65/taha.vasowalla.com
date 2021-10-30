@@ -91,7 +91,7 @@ const initCustomGameModal = (): (() => Promise<{ rows: number; cols: number; min
     },
   });
 
-  const reset = () => {
+  const reset = (): void => {
     rowsInput.reset();
     colsInput.reset();
     minesInput.reset();
@@ -107,7 +107,10 @@ const initCustomGameModal = (): (() => Promise<{ rows: number; cols: number; min
       .finally(reset);
 };
 
-const buildHighscoreTable = (difficulty: Difficulty, scores?: { name: string; time: number }[]) => {
+const buildHighscoreTable = (
+  difficulty: Difficulty,
+  scores?: { name: string; time: number }[]
+): void => {
   const table = getElOrThrow(`.scoreTable[data-difficulty=${difficulty}] tbody`);
   table.innerHTML = '';
 
@@ -210,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const game = getElOrThrow('#game');
-  const resize = (size: Scale) => {
+  const resize = (size: Scale): void => {
     switch (size) {
       case 'small':
         game.classList.remove('size-medium', 'size-large');

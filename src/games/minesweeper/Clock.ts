@@ -16,11 +16,11 @@ class Clock {
     }
   }
 
-  get value() {
+  get value(): number {
     return this._value;
   }
 
-  start() {
+  start(): void {
     this.timeoutId = setInterval(() => {
       this.value += 1;
       if (this.callback) {
@@ -29,19 +29,19 @@ class Clock {
     }, 1000);
   }
 
-  pause() {
+  pause(): void {
     if (this.timeoutId !== null) {
       clearInterval(this.timeoutId);
       this.timeoutId = null;
     }
   }
 
-  stop() {
+  stop(): void {
     this.pause();
     this.value = 0;
   }
 
-  restart() {
+  restart(): void {
     this.value = 0;
     this.start();
   }

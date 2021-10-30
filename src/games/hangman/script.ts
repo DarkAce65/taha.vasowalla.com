@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
 
-  const setWord = (word: string) => {
+  const setWord = (word: string): void => {
     hangmanWord = word.toUpperCase(); // Convert word to uppercase
     guessedLetters = []; // Clear guessed letters
     guessesLeft = 6; // Set 6 guesses
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       .to('#man path, #eyes path', { duration: 0.3, ...makeDashOffsetParams({ progress: 0 }) });
   };
 
-  const guess = (letter: string) => {
+  const guess = (letter: string): void => {
     guessInput.value = '';
     if (letter.match(/[^A-Za-z]/)) {
       // Invalid guess

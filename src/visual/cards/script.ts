@@ -15,7 +15,7 @@ let cardCount = 60;
 let current = 'random';
 let delay = 5 / cardCount;
 
-const resize = () => {
+const resize = (): void => {
   const container = document.querySelector<HTMLElement>('#animationContainer')!;
 
   height =
@@ -35,7 +35,7 @@ const resize = () => {
 };
 
 // Pile orientation
-const pile = (elements: Element[], offset = 0) => {
+const pile = (elements: Element[], offset = 0): void => {
   current = 'pile';
 
   gsap.to(elements, {
@@ -51,7 +51,7 @@ const pile = (elements: Element[], offset = 0) => {
 };
 
 // Cylinder orientation
-const cylinder = (elements: Element[], offset = 0) => {
+const cylinder = (elements: Element[], offset = 0): void => {
   current = 'cylinder';
 
   elements.forEach((element, index) => {
@@ -77,7 +77,7 @@ const cylinder = (elements: Element[], offset = 0) => {
 };
 
 // Sphere orientation
-const sphere = (elements: Element[], offset = 0) => {
+const sphere = (elements: Element[], offset = 0): void => {
   current = 'sphere';
 
   const radius = Math.min(width / 2.2, height / 2.2);
@@ -113,7 +113,7 @@ const sphere = (elements: Element[], offset = 0) => {
 };
 
 // Fan orientation
-const fan = (elements: Element[], offset = 0) => {
+const fan = (elements: Element[], offset = 0): void => {
   current = 'fan';
 
   const radius = Math.min(width / 2.2 - cardHeight / 2, height / 2.2 - cardHeight / 2);
@@ -137,7 +137,7 @@ const fan = (elements: Element[], offset = 0) => {
 };
 
 // Drop to floor
-const drop = (elements: Element[]) => {
+const drop = (elements: Element[]): void => {
   current = 'drop';
 
   const makeRandomShift = (low: number, high: number) => () => {
@@ -167,7 +167,7 @@ const drop = (elements: Element[]) => {
 };
 
 // Random orientation
-const randomPosition = (elements: Element[]) => {
+const randomPosition = (elements: Element[]): void => {
   current = 'random';
 
   const s = (width - cardHeight * 2) / 2;

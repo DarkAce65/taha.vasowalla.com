@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
       2.5
     );
 
-  const toggleNight = () => {
+  const toggleNight = (): void => {
     if (nightTimeline.reversed()) {
       nightTimeline.play();
       document.body.classList.add('night');
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const render = () => {
+  const render = (): void => {
     renderer.render(scene, camera);
     controls.update();
 

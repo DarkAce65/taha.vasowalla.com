@@ -22,7 +22,7 @@ export const PRESETS = {
   },
 };
 
-const getCoordinatesFromDataset = (cell: HTMLTableCellElement) => ({
+const getCoordinatesFromDataset = (cell: HTMLTableCellElement): { row: number; col: number } => ({
   row: parseInt(cell.dataset.row!, 10),
   col: parseInt(cell.dataset.col!, 10),
 });
@@ -98,11 +98,11 @@ class Minefield {
     setNumberDisplay(this.minesLeftEl, minesLeft);
   }
 
-  get minesLeft() {
+  get minesLeft(): number {
     return this._minesLeft;
   }
 
-  initialize(options: MinefieldOptions | keyof typeof PRESETS = this.gameOptions) {
+  initialize(options: MinefieldOptions | keyof typeof PRESETS = this.gameOptions): void {
     if (typeof options === 'string') {
       if (!Object.prototype.hasOwnProperty.call(PRESETS, options)) {
         throw new Error(`Invalid preset "${options}" given`);
@@ -135,7 +135,7 @@ class Minefield {
     this.bindToDOM();
   }
 
-  addMines(numMines: number, avoidLocations: { r: number; c: number }[] = []) {
+  addMines(numMines: number, avoidLocations: { r: number; c: number }[] = []): void {
     const avoid = new Set();
     for (let i = 0; i < avoidLocations.length; i++) {
       const { r, c } = avoidLocations[i];
@@ -161,7 +161,7 @@ class Minefield {
     this.minesLeft += mineLocations.length;
   }
 
-  updateNeighbors(row: number, col: number, delta: number) {
+  updateNeighbors(row: number, col: number, delta: number): void {
     const rowStart = Math.max(0, row - 1);
     const rowEnd = Math.min(this.gameOptions.rows - 1, row + 1);
     const colStart = Math.max(0, col - 1);
@@ -177,7 +177,7 @@ class Minefield {
     }
   }
 
-  removeSurroundingBombs(row: number, col: number) {
+  removeSurroundingBombs(row: number, col: number): void {
     let minesRemoved = 0;
     const avoidLocations = [];
     const rowStart = Math.max(0, row - 1);
@@ -200,7 +200,7 @@ class Minefield {
     this.addMines(minesRemoved, avoidLocations);
   }
 
-  bindToDOM() {
+  bindToDOM(): void {
     this.faceEl.classList.remove('surprise', 'win', 'lose');
 
     const table = this.domTarget;
@@ -253,7 +253,7 @@ class Minefield {
     }
   }
 
-  finishGame(won: boolean) {
+  finishGame(won: boolean): void {
     this.active = false;
     this.clock.pause();
     if (won) {
@@ -283,7 +283,7 @@ class Minefield {
     }
   }
 
-  openNeighbors(row: number, col: number) {
+  openNeighbors(row: number, col: number): void {
     const rowStart = Math.max(0, row - 1);
     const rowEnd = Math.min(this.gameOptions.rows - 1, row + 1);
     const colStart = Math.max(0, col - 1);
@@ -297,7 +297,7 @@ class Minefield {
     }
   }
 
-  openCell(row: number, col: number) {
+  openCell(row: number, col: number): void {
     if (this.openedCells === 0) {
       this.removeSurroundingBombs(row, col);
       this.clock.start();
@@ -326,7 +326,7 @@ class Minefield {
     }
   }
 
-  toggleFlag(row: number, col: number) {
+  toggleFlag(row: number, col: number): void {
     const cell = this.grid[row][col];
     const cellElement = cell.element!;
     switch (cell.state) {
@@ -345,7 +345,7 @@ class Minefield {
     }
   }
 
-  surroundingMinesFlagged(row: number, col: number) {
+  surroundingMinesFlagged(row: number, col: number): boolean {
     const rowStart = Math.max(0, row - 1);
     const rowEnd = Math.min(this.gameOptions.rows - 1, row + 1);
     const colStart = Math.max(0, col - 1);
@@ -362,13 +362,13 @@ class Minefield {
     return this.grid[row][col].value === flags;
   }
 
-  chord(row: number, col: number) {
+  chord(row: number, col: number): void {
     if (this.grid[row][col].state === 'open' && this.surroundingMinesFlagged(row, col)) {
       this.openNeighbors(row, col);
     }
   }
 
-  handleCellClick(row: number, col: number) {
+  handleCellClick(row: number, col: number): void {
     if (!this.active) {
       return;
     }
@@ -383,7 +383,7 @@ class Minefield {
     }
   }
 
-  handleCellRightClick(row: number, col: number) {
+  handleCellRightClick(row: number, col: number): void {
     if (!this.active || this.openedCells <= 0) {
       return;
     }

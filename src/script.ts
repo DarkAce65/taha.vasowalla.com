@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
   scene.add(emitter);
 
   let elapsedTime = 0;
-  function render() {
+  function render(): void {
     requestAnimationFrame(render);
     renderer.render(scene, camera);
 
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeMenuElement: HTMLElement | null = null;
   let collapseAnimationFrameId: number | null = null;
 
-  const resetHeight = () => {
+  const resetHeight = (): void => {
     secondaryMenuElement.removeEventListener('transitionend', resetHeight);
     secondaryMenuElement.style.removeProperty('height');
   };

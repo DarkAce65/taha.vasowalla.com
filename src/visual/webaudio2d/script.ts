@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let frequencyData: Uint8Array;
   let duration = 0;
 
-  const resize = () => {
+  const resize = (): void => {
     visualizerWidth = document.getElementById('visualizerContainer')!.clientWidth;
     if (window.innerHeight <= 600) {
       visualizerHeight = 200;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const reset = () => {
+  const reset = (): void => {
     if (source) {
       source.disconnect();
       gainNode.disconnect();
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
   };
 
-  const draw = () => {
+  const draw = (): void => {
     analyser.getByteTimeDomainData(volumeData);
     analyser.getByteFrequencyData(frequencyData);
     ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const play = () => {
+  const play = (): void => {
     if (!source) {
       return;
     }
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
       reader.readAsArrayBuffer(files[0]);
       wavesurfer.loadBlob(files[0]);
       wavesurferReady = new Promise((resolve) => {
-        const wsReady = () => {
+        const wsReady = (): void => {
           wavesurfer.un('ready', wsReady);
           resolve();
         };

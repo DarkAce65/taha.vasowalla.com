@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const killButton = document.querySelector('#kill')!;
   const resetButton = document.querySelector('#reset')!;
 
-  const updateState = () => {
+  const updateState = (): void => {
     switch (simulator.getState()) {
       case 'RUNNING':
         startButton.classList.add('uk-active');

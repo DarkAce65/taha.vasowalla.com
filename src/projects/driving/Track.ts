@@ -158,7 +158,7 @@ class Track {
     }
   }
 
-  private drawWall(ctx: CanvasRenderingContext2D, wall: Body) {
+  private drawWall(ctx: CanvasRenderingContext2D, wall: Body): void {
     const box = wall.shapes[0] as Box;
 
     ctx.beginPath();
@@ -171,7 +171,7 @@ class Track {
     ctx.restore();
   }
 
-  private drawCheckpoint(ctx: CanvasRenderingContext2D, checkpoint: Checkpoint) {
+  private drawCheckpoint(ctx: CanvasRenderingContext2D, checkpoint: Checkpoint): void {
     const box = checkpoint.shapes[0] as Box;
 
     ctx.beginPath();
