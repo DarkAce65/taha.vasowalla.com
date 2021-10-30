@@ -79,7 +79,17 @@ const devServer = () => {
     return Promise.resolve();
   };
 
-  return gulp.watch('./webpack.config.js', { ignoreInitial: false }, listen);
+  return gulp.watch(
+    [
+      './.eslintrc.js',
+      './babel.config.js',
+      './prettier.config.js',
+      './tsconfig.json',
+      './webpack.config.js',
+    ],
+    { ignoreInitial: false },
+    listen
+  );
 };
 devServer.displayName = 'dev_server:run';
 
