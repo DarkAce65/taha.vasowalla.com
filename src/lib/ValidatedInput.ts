@@ -16,7 +16,7 @@ interface ValidatedInputOptions {
 }
 
 class ValidatedInput {
-  private readonly input: HTMLInputElement;
+  private readonly _input: HTMLInputElement;
   private readonly validationMessage: HTMLElement;
   private readonly validationMessageToggle: ToggleWrapper;
 
@@ -35,14 +35,14 @@ class ValidatedInput {
       inputCallback,
     }: ValidatedInputOptions = {}
   ) {
-    this.input = getElOrThrow<HTMLInputElement>(inputElement);
+    this._input = getElOrThrow<HTMLInputElement>(inputElement);
     this._state = 'empty';
 
     if (validationMessageElement) {
       this.validationMessage = getElOrThrow(validationMessageElement);
     } else {
       this.validationMessage = document.createElement('div');
-      this.input.insertAdjacentElement('afterend', this.validationMessage);
+      this._input.insertAdjacentElement('afterend', this.validationMessage);
     }
 
     this.validationMessage.setAttribute('hidden', '');
@@ -71,12 +71,16 @@ class ValidatedInput {
     this.revalidate();
   }
 
+  get input(): HTMLInputElement {
+    return this._input;
+  }
+
   get value(): string {
-    return this.input.value;
+    return this._input.value;
   }
 
   set value(value: string) {
-    this.input.value = value;
+    this._input.value = value;
     this.revalidate();
   }
 
@@ -92,26 +96,26 @@ class ValidatedInput {
     switch (state) {
       case 'error':
         this._state = 'error';
-        this.input.classList.remove('uk-form-success');
+        this._input.classList.remove('uk-form-success');
         this.validationMessage.classList.remove('uk-text-success');
-        this.input.classList.add('uk-form-danger');
+        this._input.classList.add('uk-form-danger');
         this.validationMessage.classList.add('uk-text-danger');
         break;
       case 'success':
         this._state = 'success';
-        this.input.classList.remove('uk-form-danger');
+        this._input.classList.remove('uk-form-danger');
         this.validationMessage.classList.remove('uk-text-danger');
-        this.input.classList.add('uk-form-success');
+        this._input.classList.add('uk-form-success');
         this.validationMessage.classList.add('uk-text-success');
         break;
       case 'empty':
         this._state = 'empty';
-        this.input.classList.remove('uk-form-success', 'uk-form-danger');
+        this._input.classList.remove('uk-form-success', 'uk-form-danger');
         this.validationMessage.classList.remove('uk-text-success', 'uk-text-danger');
         break;
       default:
         this._state = 'default';
-        this.input.classList.remove('uk-form-success', 'uk-form-danger');
+        this._input.classList.remove('uk-form-success', 'uk-form-danger');
         this.validationMessage.classList.remove('uk-text-success', 'uk-text-danger');
         break;
     }
@@ -126,9 +130,9 @@ class ValidatedInput {
       return;
     }
 
-    if (this.input.checkValidity && this.input.reportValidity) {
-      if (!this.input.checkValidity()) {
-        this.input.reportValidity();
+    if (this._input.checkValidity && this._input.reportValidity) {
+      if (!this._input.checkValidity()) {
+        this._input.reportValidity();
         this.setState('error', stateCallback);
       }
     } else {
@@ -147,7 +151,7 @@ class ValidatedInput {
     this.removeValidation();
     this.listener = () => {
       if (this.enableValidation) {
-        if (this.input.checkValidity && !this.input.checkValidity()) {
+        if (this._input.checkValidity && !this._input.checkValidity()) {
           this.setState('error', stateCallback);
           this.validationMessageToggle.hide();
         } else if (validator) {
@@ -184,8 +188,8 @@ class ValidatedInput {
     };
     this.boundBlurListener = this.blurListener.bind(this, stateCallback);
 
-    this.input.addEventListener('input', this.listener);
-    this.input.addEventListener('blur', this.boundBlurListener);
+    this._input.addEventListener('input', this.listener);
+    this._input.addEventListener('blur', this.boundBlurListener);
   }
 
   setValidation(
@@ -197,11 +201,11 @@ class ValidatedInput {
 
   removeValidation(): void {
     if (this.listener) {
-      this.input.removeEventListener('input', this.listener);
+      this._input.removeEventListener('input', this.listener);
       this.listener = undefined;
     }
     if (this.boundBlurListener) {
-      this.input.removeEventListener('blur', this.boundBlurListener);
+      this._input.removeEventListener('blur', this.boundBlurListener);
       this.boundBlurListener = undefined;
     }
   }
