@@ -50,14 +50,18 @@ const compileScriptsAndHTML = () =>
 compileScriptsAndHTML.displayName = 'compile:markup_scripts';
 
 const devServer = () => {
+  let serverInitialized = false;
+  /** @type {webpack.Compiler} */
+  let compiler;
   /** @type {WebpackDevServer} */
-  let server = null;
+  let server;
 
   const listen = async () => {
-    if (server !== null) {
+    if (serverInitialized) {
       const time = `[${chalk.gray(new Date().toTimeString().slice(0, 8))}]`;
       console.log(time, 'Restarting server...');
       await server.stop();
+      compiler.close(() => {});
       delete require.cache[require.resolve('./webpack.config.js')];
     }
 
@@ -67,13 +71,12 @@ const devServer = () => {
     } = reloadedWebpackConfig;
 
     try {
-      server = new WebpackDevServer(
-        reloadedWebpackConfig.devServer,
-        webpack(reloadedWebpackConfig)
-      );
+      compiler = webpack(reloadedWebpackConfig);
+      server = new WebpackDevServer(reloadedWebpackConfig.devServer, compiler);
+      serverInitialized = true;
       await server.start(port, host);
     } catch (error) {
-      server = false;
+      serverInitialized = false;
     }
 
     return Promise.resolve();
