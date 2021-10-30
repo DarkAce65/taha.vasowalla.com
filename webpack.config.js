@@ -10,7 +10,7 @@ const { DEST_DIR } = require('./build.config');
 
 const pages = {
   index: { dir: '.', entry: './script.ts' },
-  about: { dir: 'about', entry: './script.js' },
+  about: { dir: 'about', entry: './script.ts' },
   animation: { dir: 'random/animation', entry: './script.js' },
   cards: { dir: 'visual/cards', entry: './script.ts' },
   chemistry: { dir: 'projects/chemistry', entry: './script.js' },
