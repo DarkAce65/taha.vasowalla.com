@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'variables';
 
 @mixin hook-breadcrumb-item-hover() {
@@ -13,7 +15,7 @@
 }
 
 @mixin hook-breadcrumb-divider() {
-  $breadcrumb-divider-offset: ($breadcrumb-item-font-size - 1) / 1.5;
+  $breadcrumb-divider-offset: math.div($breadcrumb-item-font-size - 1, 1.5);
 
   vertical-align: $breadcrumb-divider-offset;
   margin-bottom: $breadcrumb-divider-offset;

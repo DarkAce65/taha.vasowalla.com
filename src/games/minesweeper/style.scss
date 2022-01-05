@@ -1,9 +1,11 @@
+@use 'sass:math';
+
 $base-cell-size: 16px;
 $spritesheet-url: '../../assets/spritesheets/minesweeper.png';
 $scales: (
-  'small': 20px / $base-cell-size,
-  'medium': 30px / $base-cell-size,
-  'large': 40px / $base-cell-size,
+  'small': math.div(20px, $base-cell-size),
+  'medium': math.div(30px, $base-cell-size),
+  'large': math.div(40px, $base-cell-size),
 );
 
 $white: white;

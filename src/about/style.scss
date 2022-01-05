@@ -126,7 +126,7 @@ $timeline-volunteering-color: $teal;
     content: '';
     position: absolute;
     top: 0.5em;
-    left: -$timeline-width / 2 - $timeline-event-size;
+    left: -$timeline-width * 0.5 - $timeline-event-size;
     width: $timeline-event-size * 4;
     height: $timeline-event-size;
     background: $white;
@@ -139,8 +139,8 @@ $timeline-volunteering-color: $teal;
     line-height: $text-small-line-height;
 
     &::after {
-      margin-left: $global-margin / 2;
-      padding-left: $global-margin / 2;
+      margin-left: $global-margin * 0.5;
+      padding-left: $global-margin * 0.5;
       border-left: 1px solid $global-color;
     }
 
@@ -205,8 +205,8 @@ $timeline-volunteering-color: $teal;
     position: absolute;
     left: 0;
     background: currentColor;
-    width: math.max(1px, $timeline-width / math.sqrt(2));
-    height: $timeline-no-content-height * math.sqrt(2) + $timeline-width / 2;
+    width: math.max(1px, math.div($timeline-width, math.sqrt(2)));
+    height: $timeline-no-content-height * math.sqrt(2) + $timeline-width * 0.5;
   }
 
   &.split::before {
@@ -223,7 +223,7 @@ $timeline-volunteering-color: $teal;
 
   &.deep {
     &::before {
-      height: $timeline-no-content-height * math.sqrt(5) + $timeline-width / 2;
+      height: $timeline-no-content-height * math.sqrt(5) + $timeline-width * 0.5;
     }
 
     &.split::before {
