@@ -5,7 +5,7 @@ mixin head(title, gfonts=['Share'])
   meta(name='viewport', content='width=device-width, initial-scale=1')
   meta(name='theme-color', content='#000000')
   meta(name='msapplication-navbutton-color', content='#000000')
-  - const fonts = gfonts.map((font) => `family=${font.replace(" ", "+")}`).join("&");
+  - const fonts = gfonts.map((font) => `family=${font.replace(' ', '+')}`).join('&');
   link(rel='stylesheet', href=`https://fonts.googleapis.com/css2?${fonts}&display=swap`)
 
 mixin openGraphMeta
@@ -25,9 +25,9 @@ mixin breadcrumbs(...items)
 
 mixin floatingBreadcrumbs(...items)
   .floating-header.uk-position-absolute.uk-position-top.uk-position-medium(
-    class=block && ["uk-flex", "uk-flex-wrap"]
+    class=block && ['uk-flex', 'uk-flex-wrap']
   )&attributes(attributes)
-    +breadcrumbs(...items)(class={ "uk-flex-auto": block })
+    +breadcrumbs(...items)(class={ 'uk-flex-auto': block })
     block
 
 mixin container(breadcrumbItems)

@@ -11,8 +11,8 @@ html
   body
     +container(["games", "hangman"])
       .uk-grid-collapse.uk-flex-center(uk-grid)
-        .uk-width-3-5(class='uk-width-2-3@s uk-width-1-2@m', style={ "max-width": "80vh" })
-          svg#hangman(viewbox='0 0 500 400', style={ width: "100%" })
+        .uk-width-3-5(class='uk-width-2-3@s uk-width-1-2@m', style={ 'max-width': '80vh' })
+          svg#hangman(viewbox='0 0 500 400', style={ width: '100%' })
             path#base(
               d='m 52.567061,362.68341 c 88.653899,-29.13563 197.359959,-17.43136 278.732599,4.8749'
             )
@@ -44,7 +44,7 @@ html
         .uk-width-2-5(class='uk-width-1-3@s')
           .uk-text-center(uk-margin)
             button.uk-button.uk-button-default.uk-button-small(uk-toggle='target: #setWordModal') Set word
-            = " "
+            = ' '
             button#randomWord.uk-button.uk-button-default.uk-button-small Random word #[span(class='uk-visible@s') (Shift + R)]
           h3#guessesLeft.uk-text-center.uk-margin-small
           #guessedLettersContainer.uk-hidden-touch.uk-hidden

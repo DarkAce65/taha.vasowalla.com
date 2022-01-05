@@ -27,7 +27,7 @@ html
                   option(value='medium') Medium
                   option(value='large') Large
                 div Scale:
-                  = " "
+                  = ' '
                   span#scaleLabel
                   span(uk-icon='icon: triangle-down')
         .uk-width-expand
@@ -41,7 +41,7 @@ html
                     #timer
                   #gridContainer
                     table#grid
-            .uk-width-expand(style={ "min-width": "300px" })
+            .uk-width-expand(style={ 'min-width': '300px' })
               #highscores.uk-switcher
                 each difficulty in ['beginner', 'intermediate', 'expert']
                   .scoreTable(data-difficulty=difficulty)
