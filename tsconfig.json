@@ -4,16 +4,20 @@
     "baseUrl": "./",
     "paths": { "~/*": ["./src/*"] },
 
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
     "moduleResolution": "node",
 
     "allowJs": true,
-    "declaration": false,
     "esModuleInterop": true,
+    "noEmit": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+
+    "types": ["vite/client"]
   },
-  "include": ["src/**/*", "node_modules/@types/**/*.d.ts"]
+  "include": ["src"]
 }

@@ -37,7 +37,7 @@ module.exports = {
     'prefer-const': 'warn',
     'prefer-template': 'warn',
     'sort-imports': ['warn', { ignoreDeclarationSort: true }],
-    'spaced-comment': 'warn',
+    'spaced-comment': ['warn', 'always', { markers: ['/'] }],
   },
   overrides: [
     {

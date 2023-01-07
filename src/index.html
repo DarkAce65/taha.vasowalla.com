@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{> head title="Everything Taha" fonts="Arvo,Share"}} {{> openGraphMeta}}
+    <link rel="shortcut icon" href="assets/icons/tv.png" />
+    <link rel="stylesheet" href="style.scss" />
+    <style>
+      .loading #rendererContainer {
+        opacity: 0;
+        transform: scale(1.1);
+        transition: 0s;
+      }
+    </style>
+    <script type="module" src="./script.ts"></script>
+  </head>
+  <body class="loading">
+    <div id="rendererContainer"></div>
+    <div id="overlayContainer">
+      <div id="banner">Hi, I'm Taha</div>
+      <nav id="menu">
+        <div id="primary">
+          <div class="menu-item"><a href="about/">about</a></div>
+          <div class="menu-item" data-menu="#projects"><span tabindex="0">projects</span></div>
+          <div class="menu-item" data-menu="#games"><span tabindex="0">games</span></div>
+          <div class="menu-item" data-menu="#random"><span tabindex="0">random</span></div>
+        </div>
+        <div class="closed" id="secondary">
+          <div class="submenu" id="projects">
+            <div class="menu-item"><a href="visual/webaudio2d/">2D audio</a></div>
+            <div class="menu-item"><a href="visual/webaudio3d/">3D audio</a></div>
+            <div class="menu-item"><a href="projects/chemistry/">chemistry calculators</a></div>
+            <div class="menu-item"><a href="projects/driving/">driving</a></div>
+            <div class="menu-item">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/DarkAce65/raytracer"
+                >raytracer
+                <i
+                  class="fas fa-external-link-alt"
+                  style="font-size: 0.6em; vertical-align: middle"
+                ></i
+              ></a>
+            </div>
+            <div class="menu-item"><a href="projects/wordsearch/">wordsearch</a></div>
+          </div>
+          <div class="submenu" id="games">
+            <div class="menu-item"><a href="games/hangman/">hangman</a></div>
+            <div class="menu-item"><a href="games/minesweeper/">minesweeper</a></div>
+            <div class="menu-item"><a href="games/ultimatettt/">ultimate tic tac toe</a></div>
+          </div>
+          <div class="submenu" id="random">
+            <div class="menu-item"><a href="random/animation/">2D animations</a></div>
+            <div class="menu-item"><a href="visual/cards/">cards</a></div>
+            <div class="menu-item"><a href="random/fireball/">fireball</a></div>
+            <div class="menu-item"><a href="random/shaders/">glsl shaders</a></div>
+            <div class="menu-item"><a href="random/testing/">testing lab</a></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

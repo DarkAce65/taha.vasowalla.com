@@ -1,9 +1,9 @@
-diff --git a/node_modules/@types/uikit/index.d.ts b/node_modules/@types/uikit/index.d.ts
-index d2c5c23..976b76a 100755
---- a/node_modules/@types/uikit/index.d.ts
-+++ b/node_modules/@types/uikit/index.d.ts
-@@ -12,16 +12,16 @@ type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
- type UIkitNode = Node;
+diff --git a/node_modules/@types/uikit/dist/js/uikit.d.ts b/node_modules/@types/uikit/dist/js/uikit.d.ts
+index 6bab926..0130226 100755
+--- a/node_modules/@types/uikit/dist/js/uikit.d.ts
++++ b/node_modules/@types/uikit/dist/js/uikit.d.ts
+@@ -8,15 +8,15 @@ export interface Plugin {
+ }
  
  export namespace UIkit {
 -    const util: object;
@@ -14,18 +14,16 @@ index d2c5c23..976b76a 100755
      const prefix: string;
      const options: object;
      const version: string;
--    const use: object;
 -    const mixin: object;
 -    const extend: object;
 -    const update: object;
-+    const use: (plugin: unknown) => unknown;
 +    const mixin: (mixin: object, component: string | ReturnType<typeof UIkit.component>) => void;
 +    const extend: (options: object) => unknown;
 +    const update: (element: UIkitElement, e: unknown) => void;
  
-     interface UIkitAccordionOptions {
-         active?: number | undefined;
-@@ -318,6 +318,7 @@ export namespace UIkit {
+     function use(plugin: Plugin): typeof UIkit;
+ 
+@@ -334,6 +334,7 @@ export namespace UIkit {
      }
  
      interface UIkitTabElement {
@@ -33,3 +31,11 @@ index d2c5c23..976b76a 100755
          show(index: string | number | UIkitNode): void;
      }
  
+@@ -351,6 +352,7 @@ export namespace UIkit {
+ 
+     interface UIkitToggleElement {
+         toggle(): void;
++        isToggled(): boolean;
+     }
+ 
+     type Toggle = (element: UIkitElement, options?: UIkitToggleOptions) => UIkitToggleElement;
