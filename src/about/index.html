@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{> head title="About Me"}}
+    <link rel="shortcut icon" href="/img/icons/tv.png" />
+    <link rel="stylesheet" type="text/css" href="../uikit.scss" />
+    <link rel="stylesheet" type="text/css" href="style.scss" />
+    <script type="module" src="script.ts"></script>
+  </head>
+  <body>
+    {{#> container breadcrumbs=(split "about")}}
+    <div uk-grid class="uk-flex-center uk-child-width-1-2@m">
+      <div class="uk-width-large uk-width-1-3@s uk-width-1-4@m">
+        <img
+          uk-img
+          data-src="/img/profile.jpg"
+          data-width="528"
+          data-height="528"
+          style="width: 100%"
+        />
+      </div>
+      <div class="uk-grid-item-match uk-width-expand@s">
+        <div
+          class="uk-card uk-card-small uk-card-body uk-card-default uk-text-center uk-width-expand@s uk-text-left@s"
+        >
+          <h2>Taha Vasowalla</h2>
+          <p>
+            A self-taught software developer with a strong background in web development and a
+            passion to learn. Very patient and willing to work out robust solutions for challenging
+            problems.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div uk-grid class="uk-child-width-1-2@m">
+      <div class="uk-grid-item-match">
+        <div uk-grid class="uk-flex-column">
+          <div class="uk-flex-none">
+            <div class="uk-card uk-card-small uk-card-body uk-card-default">
+              <div class="uk-text-center grid-2col">
+                <div style="grid-column: 1 / 3">
+                  <a href="/Resume - Taha Vasowalla.pdf" target="_blank" class="uk-link"
+                    >Resume.pdf</a
+                  >
+                </div>
+                {{#externalLink href="https://github.com/DarkAce65" class=""}}<span
+                  uk-icon="github"
+                  class="uk-margin-small-right"
+                ></span>
+                @DarkAce65{{/externalLink}} {{#externalLink
+                href="https://www.linkedin.com/in/TahaVasowalla" class=""}}<span
+                  uk-icon="linkedin"
+                  class="uk-margin-small-right"
+                ></span>
+                LinkedIn{{/externalLink}} {{#externalLink href="https://instagram.com/darkace65/"
+                class=""}}<span uk-icon="instagram" class="uk-margin-small-right"></span>
+                @darkace65{{/externalLink}} {{#externalLink
+                href="https://www.facebook.com/taha.vasowalla" class=""}}<span
+                  uk-icon="facebook"
+                  class="uk-margin-small-right"
+                ></span>
+                Facebook{{/externalLink}}
+              </div>
+            </div>
+          </div>
+          <div class="uk-flex-none uk-visible@m">
+            <img uk-img data-src="/img/taha.jpg" data-width="739" data-height="300" />
+          </div>
+        </div>
+      </div>
+      <div class="uk-grid-item-match uk-flex-first@m">
+        <div class="uk-card uk-card-small uk-card-body uk-card-default">
+          <h4>Programming Experience</h4>
+          <div uk-grid class="uk-grid-small uk-grid-divider">
+            <div class="uk-text-right uk-width-2-5 uk-width-medium@s">Confident in</div>
+            <div class="uk-width-expand">
+              <div>JavaScript/TypeScript</div>
+              <div>Java</div>
+              <div>C</div>
+              <div>Rust</div>
+              <div>Python</div>
+              <div>CSS, Sass/SCSS, Less</div>
+              <div>Responsive design</div>
+            </div>
+          </div>
+          <div uk-grid class="uk-grid-small uk-grid-divider">
+            <div class="uk-text-right uk-width-2-5 uk-width-medium@s">Comfortable with</div>
+            <div class="uk-width-expand">
+              <div>C++ (and Arduino)</div>
+              <div>docker/docker-compose</div>
+              <div>Processing</div>
+              <div>Shell scripting</div>
+              <div>GLSL Shaders</div>
+              <div>LaTeX</div>
+              <div>Android and iOS development</div>
+            </div>
+          </div>
+          <div uk-grid class="uk-grid-small uk-grid-divider">
+            <div class="uk-text-right uk-width-2-5 uk-width-medium@s">Worked briefly with</div>
+            <div class="uk-width-expand">
+              <div>Unity (C#)</div>
+              <div>Objective-C</div>
+              <div>Visual Basic</div>
+              <div>MATLAB</div>
+              <div>PHP</div>
+              <div>Ruby</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uk-width-1-1">
+        <div id="timeline" class="uk-card uk-card-small uk-card-body uk-card-default">
+          <div class="trail"><div class="trail" data-category="work"></div></div>
+          <div class="connector">
+            <div class="event" data-category="work">
+              <div class="padding-bottom">
+                <div class="event-date">May, 2021 &mdash; Present</div>
+                <div>Senior Software Engineer I at HubSpot</div>
+                CRM Setup Frontend team
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="event" data-category="work">
+              <div class="padding-bottom">
+                <div class="event-date">January, 2021 &mdash; May 2021 (4 mos)</div>
+                <div>Software Engineer at HubSpot</div>
+                CRM Setup Frontend team
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="work">
+              <div class="uk-text-emphasis">2020</div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="branch join" data-category="school">
+              <div class="empty"><div class="branch join" data-category="work"></div></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="event" data-category="school">
+              <div class="connector" data-category="work">
+                <div class="event-date">December 22nd, 2020</div>
+                <div>Graduated Northeastern University</div>
+                Bachelor of Science in Computer Engineering, Minors in Math and Computer Science
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="branch join" data-category="club">
+                <div class="empty"><div class="branch join" data-category="work"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="club">
+                <div class="connector" data-category="work">
+                  <div class="padding-bottom">
+                    <div class="event-date">Fall, 2017 &mdash; December, 2020 (3 yrs 2 mos)</div>
+                    Vice President and Co-founder of the {{#externalLink
+                    href="https://nuvr.github.io/"}}Virtual Reality club{{/externalLink}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="club" data-reminder="NUVR">
+                <div class="event" data-category="work">
+                  <div class="event-date">January, 2020 &mdash; January, 2021 (1 yr)</div>
+                  <div>Software engineering co-op at HubSpot</div>
+                  CRM Platform Backend &amp; CRM Records Backend teams
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="branch split deep" data-category="work">
+                <div class="connector" data-category="club"></div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="club">
+                <div class="uk-text-emphasis">2019</div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="branch join" data-category="club">
+                <div class="empty"><div class="branch join" data-category="club"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="club">
+                <div class="connector" data-category="club">
+                  <div class="event-date">
+                    Fall, 2017 &mdash; Fall, 2019 <span class="event-duration">(2 yrs 4 mos)</span>
+                  </div>
+                  Webmaster of the {{#externalLink href="https://neuasa.org/"}}NUSound
+                  club{{/externalLink}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="branch join" data-category="work">
+                <div class="empty">
+                  <div class="branch join" data-category="club">
+                    <div class="empty"><div class="branch join" data-category="club"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="work">
+                <div class="connector" data-category="club">
+                  <div class="connector" data-category="club">
+                    <div class="event-date">
+                      February, 2019 &mdash; August, 2019
+                      <span class="event-duration">(7 mos)</span>
+                    </div>
+                    <div>Software engineering co-op at HubSpot</div>
+                    Strategic Integrations Frontend team
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="work">
+                <div class="connector" data-category="club">
+                  <div class="connector" data-category="club"><div class="spacer"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school" data-reminder="Northeastern University">
+              <div class="connector" data-category="work" data-reminder="HubSpot">
+                <div class="connector" data-category="club" data-reminder="NUSound">
+                  <div class="connector" data-category="club" data-reminder="NUVR">
+                    <div class="uk-text-emphasis">2018</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="work">
+                <div class="connector" data-category="club">
+                  <div class="connector" data-category="club"><div class="spacer"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="work">
+                <div class="connector" data-category="club">
+                  <div class="connector" data-category="club">
+                    <div class="event-date">
+                      January, 2018 &mdash; January, 2019
+                      <span class="event-duration">(1 yr 1 mo)</span>
+                    </div>
+                    <div>Software engineering co-op at HubSpot</div>
+                    Search team
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="branch split" data-category="work">
+                <div class="empty">
+                  <div class="branch split" data-category="club">
+                    <div class="empty"><div class="branch split" data-category="club"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="club">
+                <div class="connector" data-category="club">
+                  <div class="padding-bottom uk-text-emphasis">2017</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="club">
+                <div class="connector" data-category="club">
+                  <div class="padding-bottom">
+                    <div class="event-date">Fall, 2017</div>
+                    Joined the {{#externalLink href="https://neuasa.org/"}}NUSound
+                    club's{{/externalLink}} eboard as Webmaster
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="club">
+                <div class="event" data-category="club">
+                  <div class="event-date">Fall, 2017</div>
+                  Founded the {{#externalLink href="https://nuvr.github.io/"}}Virtual Reality club
+                  (NUVR){{/externalLink}} with {{#externalLink href="https://abbondanzo.com/"}}Peter
+                  Abbondanzo{{/externalLink}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="branch split deep" data-category="club">
+                <div class="branch split" data-category="club"></div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school"><div class="spacer"></div></div>
+          </div>
+          <div class="connector">
+            <div class="branch join deep" data-category="work">
+              <div class="connector" data-category="school"></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="work">
+                <div class="event-date">
+                  Summer, 2017 <span class="event-duration">(1 mo)</span>
+                </div>
+                Software development intern at Lexumo
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="branch split deep" data-category="work">
+              <div class="connector" data-category="school"></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="padding-bottom uk-text-emphasis">2016</div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="event" data-category="school">
+              <div class="event-date">September, 2016</div>
+              Enrolled at Northeastern University
+            </div>
+          </div>
+          <div class="connector"><div class="branch split" data-category="school"></div></div>
+          <div class="connector"><div class="spacer"></div></div>
+          <div class="connector"><div class="branch join" data-category="volunteering"></div></div>
+          <div class="connector">
+            <div class="event" data-category="volunteering">
+              <div class="event-date">
+                July, 2010 &mdash; July, 2016 <span class="event-duration">(6 yrs)</span>
+              </div>
+              <div>Instructor at Mrs. D's Swim School</div>
+              Former student with Red Cross Level 6 certification and lifeguard training
+            </div>
+          </div>
+          <div class="connector"><div class="trail" data-category="volunteering"></div></div>
+          <div class="connector"><div class="spacer"></div></div>
+          <div class="connector"><div class="branch join" data-category="school"></div></div>
+          <div class="connector">
+            <div class="event" data-category="school">
+              <div class="event-date">June 6th, 2016</div>
+              Graduated Andover High School
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school"><div class="branch join"></div></div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event">
+                <div class="padding-bottom">
+                  <div class="event-date">May 25th, 2016</div>
+                  Presented the {{#externalLink
+                  href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/"}}SARndbox{{/externalLink}}
+                  at the international {{#externalLink href="http://linc2016.mit.edu/"}}LINC
+                  Conference{{/externalLink}} hosted by MIT and became the first high school
+                  students to be invited to the LINC Conference
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-reminder="SARndbox">
+                <div class="padding-bottom">
+                  <div class="event-date">April 16th, 2016</div>
+                  Presented the {{#externalLink
+                  href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/"}}SARndbox{{/externalLink}}
+                  at the {{#externalLink href="https://www.cambridgesciencefestival.org/"}}Cambridge
+                  Science Festival{{/externalLink}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event">
+                <div class="event-date">January 22nd, 2016</div>
+                Participated in the {{#externalLink
+                href="http://learnlaunch.org/conference-2016/classroomofthefuture/"}}LearnLaunch{{/externalLink}}
+                conference co-hosted by Harvard with the Andover Innovation Lab and our build of the
+                {{#externalLink
+                href="https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/"}}SARndbox{{/externalLink}}
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school"><div class="branch split"></div></div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school" data-reminder="Andover High School">
+              <div class="uk-text-emphasis">2015</div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="branch join deep" data-category="work">
+              <div class="connector" data-category="school"></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="work">
+                <div class="padding-bottom">
+                  <div class="event-date">
+                    Summer, 2015 <span class="event-duration">(2 mos)</span>
+                  </div>
+                  iOS developer at HHBrown
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="work">
+                <div class="trail" data-category="volunteering"></div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="work">
+                <div class="event" data-category="volunteering">
+                  <div class="event-date">July 16th, 2015</div>
+                  Attained rank of Eagle Scout
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="connector" data-category="work">
+                <div class="trail" data-category="volunteering"></div>
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="branch split deep" data-category="work">
+              <div class="connector" data-category="school"></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="padding-bottom uk-text-emphasis">2014</div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="event" data-category="school">
+              <div class="padding-bottom">
+                <div class="event-date">November 5th, 2014</div>
+                Inducted into the National Honor Society
+              </div>
+            </div>
+          </div>
+          <div class="event">
+            <div class="connector" data-category="school">
+              <div class="event-date">August 9th, 2014</div>
+              Won Best Web App Award with {{#externalLink href="https://gukovsky.com/"}}Eli
+              Gukovsky{{/externalLink}} at a hackathon hosted by HHBrown
+            </div>
+          </div>
+          <div class="connector">
+            <div class="branch join deep" data-category="volunteering">
+              <div class="connector" data-category="school"></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="event" data-category="volunteering">
+                <div class="event-date">June, 2014</div>
+                <div>Volunteer at Andover Historical Society</div>
+                Helped complete historical research on artifacts in the Historical Society's
+                inventory
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="branch split deep" data-category="volunteering">
+              <div class="connector" data-category="school"></div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="connector" data-category="school">
+              <div class="padding-bottom uk-text-emphasis">2012&ndash;2013</div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="event school-override" data-category="club">
+              <div class="padding-bottom">
+                <div class="event-date">September, 2012</div>
+                Founded the Origami club
+              </div>
+            </div>
+          </div>
+          <div class="connector">
+            <div class="event" data-category="school">
+              <div class="event-date">September, 2012</div>
+              Enrolled at Andover High School
+            </div>
+          </div>
+          <div class="connector"><div class="branch split" data-category="school"></div></div>
+          <div class="connector"><div class="padding-bottom uk-text-emphasis">2011</div></div>
+          <div class="event base-override" data-category="club">
+            <div class="padding-bottom">
+              <div class="event-date">October, 2011</div>
+              Founded the Origami Club at West Middle School
+            </div>
+          </div>
+          <div class="connector"><div class="padding-bottom uk-text-emphasis">2010</div></div>
+          <div class="event">
+            <div class="event-date">May 22nd, 2010</div>
+            Earned Junior Black Belt in Uechi Ryu style karate
+          </div>
+          <div class="trail"></div>
+        </div>
+      </div>
+    </div>
+    {{/container}}
+  </body>
+</html>
