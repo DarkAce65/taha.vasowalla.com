@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{> head title="Web Audio API"}}
+    <link rel="shortcut icon" href="../../assets/icons/webaudio.png" />
+    <link rel="stylesheet" type="text/css" href="../../uikit.scss" />
+    <link rel="stylesheet" type="text/css" href="style.scss" />
+    <script type="module" src="script.ts"></script>
+  </head>
+  <body>
+    {{#> container breadcrumbs=(split "visual,webaudio2d")}}
+    <div class="uk-margin-bottom">
+      <button class="uk-button uk-button-default uk-button-small uk-button-file">
+        <i class="far fa-file-audio"></i> Load audio file
+        <input id="fileInput" type="file" accept="audio/*" />
+      </button>
+    </div>
+    <div id="visualizerContainer" class="bordered">
+      <div id="details" class="uk-hidden">
+        <div id="name"></div>
+        <span id="currentTime">-:--</span> / <span id="duration">-:--</span>
+      </div>
+      <canvas id="visualizer"></canvas>
+      <div id="wave"></div>
+    </div>
+    {{/container}}
+  </body>
+</html>
