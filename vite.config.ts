@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { SafeString, escapeExpression } from 'handlebars';
+import { HelperOptions, SafeString, escapeExpression } from 'handlebars';
 import { Plugin, defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import handlebarsPlugin from 'vite-plugin-handlebars';
@@ -52,28 +52,32 @@ export default defineConfig(({ mode }) => ({
   resolve: { alias: { '~': srcDir } },
   plugins: [
     handlebarsPlugin({
-      partialDirectory: resolve(srcDir, 'partials'),
+      partialDirectory: path.resolve(srcDir, 'partials'),
       helpers: {
-        toObject: ({ hash }: { hash: Record<string, unknown> }): Record<string, unknown> => hash,
-        toAttributes: (attributes?: Record<string, unknown>): SafeString | string =>
-          attributes
-            ? new SafeString(
-                Object.entries(attributes)
-                  .map(
-                    ([attribute, value]) =>
-                      `${escapeExpression(attribute)}="${escapeExpression(`${value}`)}"`
-                  )
-                  .join(' ')
-              )
-            : '',
-        split: (str: string): string[] => str.split(','),
-        googleFontLink: ({ hash }: { hash: Record<string, unknown> }): string => {
+        split(str: string): string[] {
+          return str.split(',');
+        },
+        googleFontLink({ hash }: HelperOptions): string {
           const fonts = 'fonts' in hash && typeof hash.fonts === 'string' ? hash.fonts : 'Share';
           const fontParams = fonts
             .split(',')
             .map((font) => `family=${font.replace(' ', '+')}`)
             .join('&');
           return `https://fonts.googleapis.com/css2?${fontParams}&display=swap`;
+        },
+        externalLink(options: HelperOptions) {
+          const attributeString = Object.entries({
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            class: 'uk-link',
+            ...options.hash,
+          })
+            .map(
+              ([attribute, value]) =>
+                `${escapeExpression(attribute)}="${escapeExpression(`${value}`)}"`
+            )
+            .join(' ');
+          return new SafeString(`<a ${attributeString}>${options.fn(this)}</a>`);
         },
       },
     }) as Plugin,
