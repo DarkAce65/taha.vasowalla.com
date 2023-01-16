@@ -8,33 +8,6 @@ import { helpers } from './utils/hbs-helpers';
 
 const srcDir = path.resolve(__dirname, 'src');
 
-const pages = {
-  index: { dir: '.', entry: './script.ts' },
-  about: { dir: 'about', entry: './script.ts' },
-  // animation: { dir: 'random/animation', entry: './script.js' },
-  // cards: { dir: 'visual/cards', entry: './script.ts' },
-  // chemistry: { dir: 'projects/chemistry', entry: './script.js' },
-  // driving: { dir: 'projects/driving', entry: './script.ts' },
-  // fireball: { dir: 'random/fireball', entry: './script.js' },
-  // hangman: { dir: 'games/hangman', entry: './script.ts' },
-  // minesweeper: { dir: 'games/minesweeper', entry: './script.ts' },
-  // shaders: { dir: 'random/shaders', entry: './script.js' },
-  // testing: { dir: 'random/testing', entry: './script.ts' },
-  // ultimatettt: { dir: 'games/ultimatettt', entry: './script.js' },
-  webaudio2d: { dir: 'visual/webaudio2d', entry: './script.ts' },
-  // webaudio3d: { dir: 'visual/webaudio3d', entry: './script.ts' },
-  // wordsearch: { dir: 'projects/wordsearch', entry: './script.ts' },
-};
-
-const entrypoints = Object.entries(pages).reduce(
-  (acc, [entryName, { dir, entry }]) => ({
-    ...acc,
-    [entryName]: path.join(srcDir, dir, entry),
-    [dir]: path.join(srcDir, dir, 'index.html'),
-  }),
-  {}
-);
-
 export default defineConfig(({ mode }) => ({
   appType: 'mpa',
   root: srcDir,
@@ -42,7 +15,25 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    rollupOptions: { input: entrypoints },
+    rollupOptions: {
+      input: {
+        index: path.join(srcDir, 'index.html'),
+        about: path.join(srcDir, 'about/index.html'),
+        animation: path.join(srcDir, 'random/animation/index.html'),
+        cards: path.join(srcDir, 'visual/cards/index.html'),
+        chemistry: path.join(srcDir, 'projects/chemistry/index.html'),
+        driving: path.join(srcDir, 'projects/driving/index.html'),
+        fireball: path.join(srcDir, 'random/fireball/index.html'),
+        hangman: path.join(srcDir, 'games/hangman/index.html'),
+        minesweeper: path.join(srcDir, 'games/minesweeper/index.html'),
+        shaders: path.join(srcDir, 'random/shaders/index.html'),
+        testing: path.join(srcDir, 'random/testing/index.html'),
+        ultimatettt: path.join(srcDir, 'games/ultimatettt/index.html'),
+        webaudio2d: path.join(srcDir, 'visual/webaudio2d/index.html'),
+        webaudio3d: path.join(srcDir, 'visual/webaudio3d/index.html'),
+        wordsearch: path.join(srcDir, 'projects/wordsearch/index.html'),
+      },
+    },
     sourcemap: true,
   },
   optimizeDeps: {
