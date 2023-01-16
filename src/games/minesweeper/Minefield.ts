@@ -210,7 +210,7 @@ class Minefield {
       table.appendChild(tbody);
     }
 
-    const rows = [...tbody.querySelectorAll('tr')];
+    const rows = Array.from(tbody.querySelectorAll('tr'));
     while (rows.length < this.gameOptions.rows) {
       rows.push(document.createElement('tr'));
     }
@@ -221,7 +221,7 @@ class Minefield {
     for (let r = 0; r < rows.length; r++) {
       const row = rows[r];
 
-      const cols = [...row.querySelectorAll('td')];
+      const cols = Array.from(row.querySelectorAll('td'));
       while (cols.length < this.gameOptions.cols) {
         const cell = document.createElement('td');
         cols.push(cell);
