@@ -40,9 +40,9 @@ import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeom
 
 import seededRandom from '~/lib/seededRandom';
 
-import beamFragmentShader from './shaders/beam_frag.glsl';
-import beamVertexShader from './shaders/beam_vert.glsl';
-import waveVertexShader from './shaders/wave_vert.glsl';
+import beamFragmentShader from './shaders/beam_frag.glsl?raw';
+import beamVertexShader from './shaders/beam_vert.glsl?raw';
+import waveVertexShader from './shaders/wave_vert.glsl?raw';
 
 document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);

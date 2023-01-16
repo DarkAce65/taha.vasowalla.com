@@ -19,13 +19,13 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import matrixFragmentShader from './shaders/matrix_frag.glsl';
-import noiseFragmentShader from './shaders/noise_frag.glsl';
-import noiseVertexShader from './shaders/noise_vert.glsl';
-import pulseFragmentShader from './shaders/pulse_frag.glsl';
-import pulseVertexShader from './shaders/pulse_vert.glsl';
-import staticVertexShader from './shaders/static_vert.glsl';
-import transparentFragmentShader from './shaders/transparent_frag.glsl';
+import matrixFragmentShader from './shaders/matrix_frag.glsl?raw';
+import noiseFragmentShader from './shaders/noise_frag.glsl?raw';
+import noiseVertexShader from './shaders/noise_vert.glsl?raw';
+import pulseFragmentShader from './shaders/pulse_frag.glsl?raw';
+import pulseVertexShader from './shaders/pulse_vert.glsl?raw';
+import staticVertexShader from './shaders/static_vert.glsl?raw';
+import transparentFragmentShader from './shaders/transparent_frag.glsl?raw';
 
 const uniforms = {
   u_time: { type: 'f', value: 0 },

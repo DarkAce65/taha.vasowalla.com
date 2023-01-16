@@ -15,8 +15,8 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import fireballFragmentShader from './shaders/fireball_frag.glsl';
-import fireballVertexShader from './shaders/fireball_vert.glsl';
+import fireballFragmentShader from './shaders/fireball_frag.glsl?raw';
+import fireballVertexShader from './shaders/fireball_vert.glsl?raw';
 
 const uniforms = {
   u_time: { type: 'f', value: 0 },

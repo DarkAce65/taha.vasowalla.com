@@ -11,8 +11,8 @@ import {
   ShaderMaterial,
 } from 'three';
 
-import fragmentShader from './particle_frag.glsl';
-import vertexShader from './particle_vert.glsl';
+import fragmentShader from './particle_frag.glsl?raw';
+import vertexShader from './particle_vert.glsl?raw';
 
 export interface ParticleEmitterOptions {
   color?: Color | string | number;
