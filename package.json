@@ -12,8 +12,8 @@
   "scripts": {
     "postinstall": "patch-package",
     "prepare": "husky install",
-    "eslint:fix": "eslint --fix \"*.config.{js,ts}\" \"src/**/*.{js,ts}\"",
-    "prettier:write": "prettier --write \".eslintrc.js\" \"*.config.{js,ts}\" \"tsconfig.json\" \"src/**/*.{html,json,js,ts,scss}\"",
+    "eslint:fix": "eslint --fix \"*.config.{js,ts}\" \"utils/**/*.{js,ts}\" \"src/**/*.{js,ts}\"",
+    "prettier:write": "prettier --write \".eslintrc.js\" \"*.config.{js,ts}\" \"tsconfig.json\" \"utils/**/*.{js,ts}\" \"src/**/*.{html,json,js,ts,scss}\"",
     "copy:static": "gulp copy:static --silent",
     "dev": "vite",
     "preview": "vite preview",

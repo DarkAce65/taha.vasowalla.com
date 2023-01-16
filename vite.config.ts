@@ -1,9 +1,10 @@
 import path from 'path';
 
-import { HelperOptions, SafeString, escapeExpression } from 'handlebars';
 import { Plugin, defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import handlebarsPlugin from 'vite-plugin-handlebars';
+
+import { helpers } from './utils/hbs-helpers';
 
 const srcDir = path.resolve(__dirname, 'src');
 
@@ -53,43 +54,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     handlebarsPlugin({
       partialDirectory: path.resolve(srcDir, 'partials'),
-      helpers: {
-        googleFontLink({ hash }: HelperOptions): string {
-          const fonts = 'fonts' in hash && typeof hash.fonts === 'string' ? hash.fonts : 'Share';
-          const fontParams = fonts
-            .split(',')
-            .map((font) => `family=${font.replace(' ', '+')}`)
-            .join('&');
-          return `https://fonts.googleapis.com/css2?${fontParams}&display=swap`;
-        },
-        externalLink(options: HelperOptions) {
-          const attributeString = Object.entries({
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            class: 'uk-link',
-            ...options.hash,
-          })
-            .map(
-              ([attribute, value]) =>
-                `${escapeExpression(attribute)}="${escapeExpression(`${value}`)}"`
-            )
-            .join(' ');
-          return new SafeString(`<a ${attributeString}>${options.fn(this)}</a>`);
-        },
-        breadcrumbs({ hash }: HelperOptions) {
-          const breadcrumbs =
-            typeof hash.breadcrumbs === 'string' ? hash.breadcrumbs.split('/') : [];
-
-          const list = ['<li><a href="/"><span uk-icon="home"></span> home</a></li>'];
-          for (const breadcrumb of breadcrumbs) {
-            list.push(`<li><span>${escapeExpression(breadcrumb)}</span></li>`);
-          }
-
-          return new SafeString(
-            `<h3><ul class="uk-breadcrumb uk-margin-remove">${list.join('')}</ul></h3>`
-          );
-        },
-      },
+      helpers,
     }) as Plugin,
     checker({
       overlay: { initialIsOpen: false },
