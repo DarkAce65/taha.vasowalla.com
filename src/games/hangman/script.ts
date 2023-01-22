@@ -16,7 +16,7 @@ const timeline = gsap.timeline();
 document.addEventListener('DOMContentLoaded', async () => {
   UIkit.use(Icons);
 
-  const rawWordlist = (await import(/* webpackChunkName: "wordlist" */ './wordlist.txt')).default;
+  const rawWordlist = (await import('./wordlist.txt?raw')).default;
   randomWords = rawWordlist.split('\n').map((word) => word.trim());
 
   const guessInput = getElOrThrow<HTMLInputElement>('#guessInput');
