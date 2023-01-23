@@ -1,0 +1,301 @@
+include ../partials/mixins
+
+doctype html
+html
+  head
+    +head("About Me")
+    link(rel='shortcut icon', href='../assets/icons/tv.png')
+    link(rel='stylesheet', type='text/css', href='../uikit.scss')
+    link(rel='stylesheet', type='text/css', href='style.scss')
+
+  body
+    +container(["about"])
+      .uk-flex-center(uk-grid, class='uk-child-width-1-2@m')
+        .uk-width-large(class='uk-width-1-3@s uk-width-1-4@m')
+          img(
+            uk-img,
+            data-src='../assets/img/profile.jpg',
+            data-width='528',
+            data-height='528',
+            style={ width: '100%' }
+          )
+        .uk-grid-item-match(class='uk-width-expand@s')
+          .uk-card.uk-card-small.uk-card-body.uk-card-default.uk-text-center(
+            class='uk-width-expand@s uk-text-left@s'
+          )
+            h2 Taha Vasowalla
+            p A self-taught software developer with a strong background in web development and a passion to learn. Very patient and willing to work out robust solutions for challenging problems.
+      div(uk-grid, class='uk-child-width-1-2@m')
+        .uk-grid-item-match
+          .uk-flex-column(uk-grid)
+            .uk-flex-none
+              .uk-card.uk-card-small.uk-card-body.uk-card-default
+                .uk-text-center.grid-2col
+                  div(style={ 'grid-column': '1 / 3' })
+                    a.uk-link(href='import(\'./Resume - Taha Vasowalla.pdf\')') Resume.pdf
+                  +external(href='https://github.com/DarkAce65') #[span.uk-margin-small-right(uk-icon='github')] @DarkAce65
+                  +external(href='https://www.linkedin.com/in/TahaVasowalla') #[span.uk-margin-small-right(uk-icon='linkedin')] LinkedIn
+                  +external(href='https://instagram.com/darkace65/') #[span.uk-margin-small-right(uk-icon='instagram')] @darkace65
+                  +external(href='https://www.facebook.com/taha.vasowalla') #[span.uk-margin-small-right(uk-icon='facebook')] Facebook
+            .uk-flex-none(class='uk-visible@m')
+              img(uk-img, data-src='../assets/img/taha.jpg', data-width='739', data-height='300')
+        .uk-grid-item-match(class='uk-flex-first@m')
+          .uk-card.uk-card-small.uk-card-body.uk-card-default
+            h4 Programming Experience
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right.uk-width-2-5(class='uk-width-medium@s') Confident in
+              .uk-width-expand
+                div JavaScript/TypeScript
+                div Java
+                div C
+                div Rust
+                div Python
+                div CSS, Sass/SCSS, Less
+                div Responsive design
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right.uk-width-2-5(class='uk-width-medium@s') Comfortable with
+              .uk-width-expand
+                div C++ (and Arduino)
+                div docker/docker-compose
+                div Processing
+                div Shell scripting
+                div GLSL Shaders
+                div LaTeX
+                div Android and iOS development
+            .uk-grid-small.uk-grid-divider(uk-grid)
+              .uk-text-right.uk-width-2-5(class='uk-width-medium@s') Worked briefly with
+              .uk-width-expand
+                div Unity (C#)
+                div Objective-C
+                div Visual Basic
+                div MATLAB
+                div PHP
+                div Ruby
+        .uk-width-1-1
+          #timeline.uk-card.uk-card-small.uk-card-body.uk-card-default
+            .trail: .trail(data-category='work')
+
+            .connector: .event(data-category='work'): .padding-bottom
+              .event-date May, 2021 – Present
+              div Senior Software Engineer I at HubSpot
+              | CRM Setup Frontend team
+
+            .connector: .event(data-category='work'): .padding-bottom
+              .event-date January, 2021 – May 2021 (4 mos)
+              div Software Engineer at HubSpot
+              | CRM Setup Frontend team
+
+            .connector: .connector(data-category='work'): .uk-text-emphasis 2020
+
+            .connector: .branch.join(data-category='school'): .empty: .branch.join(data-category='work')
+            .connector: .event(data-category='school'): .connector(data-category='work')
+              .event-date December 22nd, 2020
+              div Graduated Northeastern University
+              | Bachelor of Science in Computer Engineering, Minors in Math and Computer Science
+
+            .connector: .connector(data-category='school'): .branch.join(data-category='club'): .empty: .branch.join(
+              data-category='work'
+            )
+            .connector: .connector(data-category='school'): .event(data-category='club'): .connector(
+              data-category='work'
+            ): .padding-bottom
+              .event-date Fall, 2017 – December, 2020 (3 yrs 2 mos)
+              | Vice President and Co-founder of the #[+external.uk-link(href='https://nuvr.github.io/') Virtual Reality club]
+
+            .connector: .connector(data-category='school'): .connector(
+              data-category='club',
+              data-reminder='NUVR'
+            ): .event(
+              data-category='work'
+            )
+              .event-date January, 2020 – January, 2021 (1 yr)
+              div Software engineering co-op at HubSpot
+              | CRM Platform Backend & CRM Records Backend teams
+            .connector: .connector(data-category='school'): .branch.split.deep(data-category='work'): .connector(
+              data-category='club'
+            )
+
+            .connector: .connector(data-category='school'): .connector(data-category='club'): .uk-text-emphasis 2019
+
+            .connector: .connector(data-category='school'): .branch.join(data-category='club'): .empty: .branch.join(
+              data-category='club'
+            )
+            .connector: .connector(data-category='school'): .event(data-category='club'): .connector(
+              data-category='club'
+            )
+              .event-date Fall, 2017 – Fall, 2019 #[span.event-duration (2 yrs 4 mos)]
+              | Webmaster of the #[+external.uk-link(href='https://neuasa.org/') NUSound club]
+
+            .connector: .connector(data-category='school'): .branch.join(data-category='work'): .empty: .branch.join(
+              data-category='club'
+            ): .empty: .branch.join(
+              data-category='club'
+            )
+            .connector: .connector(data-category='school'): .event(data-category='work'): .connector(
+              data-category='club'
+            ): .connector(
+              data-category='club'
+            )
+              .event-date February, 2019 – August, 2019 #[span.event-duration (7 mos)]
+              div Software engineering co-op at HubSpot
+              | Strategic Integrations Frontend team
+
+            .connector: .connector(data-category='school'): .connector(data-category='work'): .connector(
+              data-category='club'
+            ): .connector(
+              data-category='club'
+            ): .spacer
+            .connector: .connector(data-category='school', data-reminder='Northeastern University'): .connector(
+              data-category='work',
+              data-reminder='HubSpot'
+            ): .connector(
+              data-category='club',
+              data-reminder='NUSound'
+            ): .connector(
+              data-category='club',
+              data-reminder='NUVR'
+            ): .uk-text-emphasis 2018
+            .connector: .connector(data-category='school'): .connector(data-category='work'): .connector(
+              data-category='club'
+            ): .connector(
+              data-category='club'
+            ): .spacer
+
+            .connector: .connector(data-category='school'): .event(data-category='work'): .connector(
+              data-category='club'
+            ): .connector(
+              data-category='club'
+            )
+              .event-date January, 2018 – January, 2019 #[span.event-duration (1 yr 1 mo)]
+              div Software engineering co-op at HubSpot
+              | Search team
+            .connector: .connector(data-category='school'): .branch.split(data-category='work'): .empty: .branch.split(
+              data-category='club'
+            ): .empty: .branch.split(
+              data-category='club'
+            )
+
+            .connector: .connector(data-category='school'): .connector(data-category='club'): .connector(
+              data-category='club'
+            ): .padding-bottom.uk-text-emphasis 2017
+
+            .connector: .connector(data-category='school'): .event(data-category='club'): .connector(
+              data-category='club'
+            ): .padding-bottom
+              .event-date Fall, 2017
+              | Joined the #[+external.uk-link(href='https://neuasa.org/') NUSound club's] eboard as Webmaster
+            .connector: .connector(data-category='school'): .connector(data-category='club'): .event(
+              data-category='club'
+            )
+              .event-date Fall, 2017
+              | Founded the #[+external.uk-link(href='https://nuvr.github.io/') Virtual Reality club (NUVR)] with #[+external.uk-link(href='https://abbondanzo.com/') Peter Abbondanzo]
+            .connector: .connector(data-category='school'): .branch.split.deep(data-category='club'): .branch.split(
+              data-category='club'
+            )
+
+            .connector: .connector(data-category='school'): .spacer
+
+            .connector: .branch.join.deep(data-category='work'): .connector(data-category='school')
+            .connector: .connector(data-category='school'): .event(data-category='work')
+              .event-date Summer, 2017 #[span.event-duration (1 mo)]
+              | Software development intern at Lexumo
+            .connector: .branch.split.deep(data-category='work'): .connector(data-category='school')
+
+            .connector: .connector(data-category='school'): .padding-bottom.uk-text-emphasis 2016
+
+            .connector: .event(data-category='school')
+              .event-date September, 2016
+              | Enrolled at Northeastern University
+            .connector: .branch.split(data-category='school')
+
+            .connector: .spacer
+
+            .connector: .branch.join(data-category='volunteering')
+            .connector: .event(data-category='volunteering')
+              .event-date July, 2010 – July, 2016 #[span.event-duration (6 yrs)]
+              div Instructor at Mrs. D's Swim School
+              | Former student with Red Cross Level 6 certification and lifeguard training
+            .connector: .trail(data-category='volunteering')
+
+            .connector: .spacer
+
+            .connector: .branch.join(data-category='school')
+            .connector: .event(data-category='school')
+              .event-date June 6th, 2016
+              | Graduated Andover High School
+            .connector: .connector(data-category='school'): .branch.join
+            .connector: .connector(data-category='school'): .event: .padding-bottom
+              .event-date May 25th, 2016
+              | Presented the #[+external.uk-link(href='https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/') SARndbox] at the international #[+external.uk-link(href='http://linc2016.mit.edu/') LINC Conference] hosted by MIT and became the first high school students to be invited to the LINC Conference
+            .connector: .connector(data-category='school'): .event(data-reminder='SARndbox'): .padding-bottom
+              .event-date April 16th, 2016
+              | Presented the #[+external.uk-link(href='https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/') SARndbox] at the #[+external.uk-link(href='https://www.cambridgesciencefestival.org/') Cambridge Science Festival]
+            .connector: .connector(data-category='school'): .event
+              .event-date January 22nd, 2016
+              | Participated in the #[+external.uk-link(href='http://learnlaunch.org/conference-2016/classroomofthefuture/') LearnLaunch] conference co-hosted by Harvard with the Andover Innovation Lab and our build of the #[+external.uk-link(href='https://web.cs.ucdavis.edu/~okreylos/ResDev/SARndbox/') SARndbox]
+            .connector: .connector(data-category='school'): .branch.split
+
+            .connector: .connector(data-category='school', data-reminder='Andover High School'): .uk-text-emphasis 2015
+
+            .connector: .branch.join.deep(data-category='work'): .connector(data-category='school')
+            .connector: .connector(data-category='school'): .event(data-category='work'): .padding-bottom
+              .event-date Summer, 2015 #[span.event-duration (2 mos)]
+              | iOS developer at HHBrown
+
+            .connector: .connector(data-category='school'): .connector(data-category='work'): .trail(
+              data-category='volunteering'
+            )
+            .connector: .connector(data-category='school'): .connector(data-category='work'): .event(
+              data-category='volunteering'
+            )
+              .event-date July 16th, 2015
+              | Attained rank of Eagle Scout
+            .connector: .connector(data-category='school'): .connector(data-category='work'): .trail(
+              data-category='volunteering'
+            )
+
+            .connector: .branch.split.deep(data-category='work'): .connector(data-category='school')
+
+            .connector: .connector(data-category='school'): .padding-bottom.uk-text-emphasis 2014
+
+            .connector: .event(data-category='school'): .padding-bottom
+              .event-date November 5th, 2014
+              | Inducted into the National Honor Society
+            .event: .connector(data-category='school')
+              .event-date August 9th, 2014
+              | Won Best Web App Award with #[+external.uk-link(href='https://gukovsky.com/') Eli Gukovsky] at a hackathon hosted by HHBrown
+
+            .connector: .branch.join.deep(data-category='volunteering'): .connector(
+              data-category='school'
+            )
+            .connector: .connector(data-category='school'): .event(data-category='volunteering')
+              .event-date June, 2014
+              div Volunteer at Andover Historical Society
+              | Helped complete historical research on artifacts in the Historical Society's inventory
+            .connector: .branch.split.deep(data-category='volunteering'): .connector(
+              data-category='school'
+            )
+
+            .connector: .connector(data-category='school'): .padding-bottom.uk-text-emphasis 2012–2013
+
+            .connector: .event.school-override(data-category='club'): .padding-bottom
+              .event-date September, 2012
+              | Founded the Origami club
+            .connector: .event(data-category='school')
+              .event-date September, 2012
+              | Enrolled at Andover High School
+            .connector: .branch.split(data-category='school')
+
+            .connector: .padding-bottom.uk-text-emphasis 2011
+
+            .event.base-override(data-category='club'): .padding-bottom
+              .event-date October, 2011
+              | Founded the Origami Club at West Middle School
+
+            .connector: .padding-bottom.uk-text-emphasis 2010
+
+            .event
+              .event-date May 22nd, 2010
+              | Earned Junior Black Belt in Uechi Ryu style karate
+
+            .trail

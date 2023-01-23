@@ -1,39 +1,42 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-import { Plugin, defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
-import handlebarsPlugin from 'vite-plugin-handlebars';
 
-import { helpers } from './utils/hbs-helpers';
+import virtualMPAPlugin from './utils/virtual-mpa-plugin';
 
-const srcDir = path.resolve(__dirname, 'src');
+const rootDir = fileURLToPath(new URL('.', import.meta.url));
+const srcDir = path.join(rootDir, 'src');
+
+const pages: Record<string, { dir: string; entry: string }> = {
+  index: { dir: '.', entry: 'script.ts' },
+  about: { dir: 'about', entry: 'script.ts' },
+};
+// {
+//   index: path.join(srcDir, 'index.html'),
+//   about: path.join(srcDir, 'about/index.html'),
+//   animation: path.join(srcDir, 'random/animation/index.html'),
+//   cards: path.join(srcDir, 'visual/cards/index.html'),
+//   chemistry: path.join(srcDir, 'projects/chemistry/index.html'),
+//   driving: path.join(srcDir, 'projects/driving/index.html'),
+//   fireball: path.join(srcDir, 'random/fireball/index.html'),
+//   hangman: path.join(srcDir, 'games/hangman/index.html'),
+//   minesweeper: path.join(srcDir, 'games/minesweeper/index.html'),
+//   shaders: path.join(srcDir, 'random/shaders/index.html'),
+//   testing: path.join(srcDir, 'random/testing/index.html'),
+//   ultimatettt: path.join(srcDir, 'games/ultimatettt/index.html'),
+//   webaudio2d: path.join(srcDir, 'visual/webaudio2d/index.html'),
+//   webaudio3d: path.join(srcDir, 'visual/webaudio3d/index.html'),
+//   wordsearch: path.join(srcDir, 'projects/wordsearch/index.html'),
+// }
 
 export default defineConfig(({ mode }) => ({
-  appType: 'mpa',
   root: srcDir,
-  publicDir: path.resolve(__dirname, 'public'),
+  publicDir: fileURLToPath(new URL('public', import.meta.url)),
   build: {
-    outDir: path.resolve(__dirname, 'dist'),
+    outDir: fileURLToPath(new URL('dist', import.meta.url)),
     emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        index: path.join(srcDir, 'index.html'),
-        about: path.join(srcDir, 'about/index.html'),
-        animation: path.join(srcDir, 'random/animation/index.html'),
-        cards: path.join(srcDir, 'visual/cards/index.html'),
-        chemistry: path.join(srcDir, 'projects/chemistry/index.html'),
-        driving: path.join(srcDir, 'projects/driving/index.html'),
-        fireball: path.join(srcDir, 'random/fireball/index.html'),
-        hangman: path.join(srcDir, 'games/hangman/index.html'),
-        minesweeper: path.join(srcDir, 'games/minesweeper/index.html'),
-        shaders: path.join(srcDir, 'random/shaders/index.html'),
-        testing: path.join(srcDir, 'random/testing/index.html'),
-        ultimatettt: path.join(srcDir, 'games/ultimatettt/index.html'),
-        webaudio2d: path.join(srcDir, 'visual/webaudio2d/index.html'),
-        webaudio3d: path.join(srcDir, 'visual/webaudio3d/index.html'),
-        wordsearch: path.join(srcDir, 'projects/wordsearch/index.html'),
-      },
-    },
     sourcemap: true,
   },
   optimizeDeps: {
@@ -43,10 +46,7 @@ export default defineConfig(({ mode }) => ({
   },
   resolve: { alias: { '~': srcDir } },
   plugins: [
-    handlebarsPlugin({
-      partialDirectory: path.resolve(srcDir, 'partials'),
-      helpers,
-    }) as Plugin,
+    virtualMPAPlugin(rootDir, srcDir, pages),
     checker({
       overlay: { initialIsOpen: false },
       terminal: mode !== 'test',
