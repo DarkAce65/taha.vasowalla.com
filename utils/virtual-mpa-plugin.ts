@@ -5,13 +5,20 @@ import colors from 'picocolors';
 import { compileClientWithDependenciesTracked, render } from 'pug';
 import { Plugin, normalizePath } from 'vite';
 
+const normalizeHTMLPath = (pathname: string): string =>
+  pathname.endsWith('.html')
+    ? pathname
+    : pathname.endsWith('/')
+    ? `${pathname}index.html`
+    : `${pathname}/index.html`;
+
 const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, string>): Plugin => {
   const rollupInputs: Record<string, string> = {};
   const htmlToPugPaths: Record<string, string> = {};
 
-  for (const [name, dir] of Object.entries(pages)) {
-    const indexHTMLPath = path.join(srcDir, dir, 'index.html');
-    const indexPugPath = path.join(srcDir, dir, 'index.pug');
+  for (const [name, page] of Object.entries(pages)) {
+    const indexHTMLPath = path.join(srcDir, normalizeHTMLPath(page));
+    const indexPugPath = indexHTMLPath.replace(/\.html$/, '.pug');
 
     rollupInputs[name] = indexHTMLPath;
 
@@ -84,14 +91,9 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
 
         if (!res.writableEnded && accept !== '*/*' && accept?.includes('text/html')) {
           const url = new URL(req.url!, `http://${req.headers.host}`);
-          const normalizedIndexHTMLPath = url.pathname.endsWith('.html')
-            ? url.pathname
-            : url.pathname.endsWith('/')
-            ? `${url.pathname}index.html`
-            : `${url.pathname}/index.html`;
           const htmlFilePath = path.join(
             srcDir,
-            normalizePath(normalizedIndexHTMLPath.replace(base, ''))
+            normalizePath(normalizeHTMLPath(url.pathname).replace(base, ''))
           );
 
           if (htmlFilePath in htmlToPugPaths) {
