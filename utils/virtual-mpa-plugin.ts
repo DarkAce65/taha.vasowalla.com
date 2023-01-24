@@ -5,16 +5,11 @@ import colors from 'picocolors';
 import { compileClientWithDependenciesTracked, render } from 'pug';
 import { Plugin, normalizePath } from 'vite';
 
-const virtualMPAPlugin = (
-  cwd: string,
-  srcDir: string,
-  pages: Record<string, { dir: string; entry: string }>
-): Plugin => {
+const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, string>): Plugin => {
   const rollupInputs: Record<string, string> = {};
   const htmlToPugPaths: Record<string, string> = {};
-  const htmlToEntry: Record<string, string> = {};
 
-  for (const [name, { dir, entry }] of Object.entries(pages)) {
+  for (const [name, dir] of Object.entries(pages)) {
     const indexHTMLPath = path.join(srcDir, dir, 'index.html');
     const indexPugPath = path.join(srcDir, dir, 'index.pug');
 
@@ -22,7 +17,6 @@ const virtualMPAPlugin = (
 
     if (!fs.existsSync(indexHTMLPath) && fs.existsSync(indexPugPath)) {
       htmlToPugPaths[indexHTMLPath] = indexPugPath;
-      htmlToEntry[indexHTMLPath] = path.join(srcDir, dir, entry);
     }
   }
 
@@ -33,7 +27,6 @@ const virtualMPAPlugin = (
     config() {
       return {
         appType: 'mpa',
-        optimizeDeps: { entries: Object.values(htmlToEntry) },
         build: { rollupOptions: { input: rollupInputs } },
       };
     },
@@ -69,21 +62,16 @@ const virtualMPAPlugin = (
         try {
           const template = compileClientWithDependenciesTracked(pugFileContents, pugOptions);
 
-          this.addWatchFile(htmlToPugPaths[id]);
           indexDependencies[htmlToPugPaths[id]] = new Set();
+          this.addWatchFile(htmlToPugPaths[id]);
 
           for (const dep of template.dependencies) {
             const depPath = path.join(cwd, dep);
-            this.addWatchFile(depPath);
             indexDependencies[htmlToPugPaths[id]].add(depPath);
+            this.addWatchFile(depPath);
           }
 
-          let rendered = render(pugFileContents, pugOptions);
-          rendered = rendered.replace(
-            '</head>',
-            `<script type='module' src='${htmlToEntry[id]}'></script></head>`
-          );
-          return rendered;
+          return render(pugFileContents, pugOptions);
         } catch (error) {
           return `<!DOCTYPE html><html><pre>${error.message}</pre></html>`;
         }

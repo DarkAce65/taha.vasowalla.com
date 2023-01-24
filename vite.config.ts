@@ -9,9 +9,9 @@ import virtualMPAPlugin from './utils/virtual-mpa-plugin';
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
 const srcDir = path.join(rootDir, 'src');
 
-const pages: Record<string, { dir: string; entry: string }> = {
-  index: { dir: '.', entry: 'script.ts' },
-  about: { dir: 'about', entry: 'script.ts' },
+const pages: Record<string, string> = {
+  index: '.',
+  about: 'about',
 };
 // {
 //   index: path.join(srcDir, 'index.html'),
