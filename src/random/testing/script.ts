@@ -4,16 +4,14 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import gsap from 'gsap';
 import {
   AmbientLight,
-  BoxBufferGeometry,
+  BoxGeometry,
   Clock,
   Color,
   ConeGeometry,
   CubeCamera,
-  CylinderBufferGeometry,
   CylinderGeometry,
   DoubleSide,
   EdgesGeometry,
-  IcosahedronBufferGeometry,
   IcosahedronGeometry,
   LineBasicMaterial,
   LineSegments,
@@ -21,7 +19,6 @@ import {
   MeshPhongMaterial,
   Object3D,
   PerspectiveCamera,
-  PlaneBufferGeometry,
   PlaneGeometry,
   PointLight,
   Scene,
@@ -107,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const wsize = uniforms.u_wavesize.value;
   const wseg = uniforms.u_wavesegments.value;
   water.add(new Mesh(new PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial));
-  water.add(new Mesh(new PlaneBufferGeometry(wsize.x, wsize.y), faceMaterial));
+  water.add(new Mesh(new PlaneGeometry(wsize.x, wsize.y), faceMaterial));
   water.rotation.x = Math.PI / 2;
   scene.add(water);
 
@@ -130,19 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const lhRed = new MeshPhongMaterial({ color: 0xef5350, shininess: 10, flatShading: true });
   const lhBlack = new MeshPhongMaterial({ color: 0x444444, shininess: 10, flatShading: true });
   const lighthouse: Object3D & { lightRotation?: number } = new Object3D();
-  lighthouse.add(new Mesh(new CylinderBufferGeometry(5, 6, 6), lhRed));
+  lighthouse.add(new Mesh(new CylinderGeometry(5, 6, 6), lhRed));
   lighthouse.children[0].position.y = 20;
-  lighthouse.add(new Mesh(new CylinderBufferGeometry(4, 5, 6), lhWhite));
+  lighthouse.add(new Mesh(new CylinderGeometry(4, 5, 6), lhWhite));
   lighthouse.children[1].position.y = 26;
-  lighthouse.add(new Mesh(new CylinderBufferGeometry(3, 4, 6), lhRed));
+  lighthouse.add(new Mesh(new CylinderGeometry(3, 4, 6), lhRed));
   lighthouse.children[2].position.y = 32;
 
   lighthouse.add(new Object3D());
   lighthouse.children[3].position.y = 40;
-  const lhBase = new Mesh(new CylinderBufferGeometry(4, 4, 1), lhBlack);
+  const lhBase = new Mesh(new CylinderGeometry(4, 4, 1), lhBlack);
   lhBase.position.y = -5;
   const lhGlass = new Mesh(
-    new CylinderBufferGeometry(3, 3, 3.5, 8, 1, true),
+    new CylinderGeometry(3, 3, 3.5, 8, 1, true),
     new MeshPhongMaterial({
       transparent: true,
       opacity: 0.1,
@@ -159,10 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
     )
   );
   lhGlass.position.y = -2.75;
-  const lhRoof = new Mesh(new CylinderBufferGeometry(1, 4, 2), lhBlack);
-  const lhRoofBall = new Mesh(new IcosahedronBufferGeometry(0.7, 1), lhBlack);
+  const lhRoof = new Mesh(new CylinderGeometry(1, 4, 2), lhBlack);
+  const lhRoofBall = new Mesh(new IcosahedronGeometry(0.7, 1), lhBlack);
   lhRoofBall.position.y = 1.3;
-  const lhSpire = new Mesh(new BoxBufferGeometry(0.25, 2, 0.25), lhBlack);
+  const lhSpire = new Mesh(new BoxGeometry(0.25, 2, 0.25), lhBlack);
   lhSpire.position.y = 2.7;
 
   lighthouse.children[3].add(lhBase);

@@ -1,5 +1,5 @@
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import SimplexNoise from 'simplex-noise';
+import { createNoise3D } from 'simplex-noise';
 import {
   BufferGeometry,
   Color,
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(() => document.body.classList.remove('loading'), 500);
 
-  const simplex = new SimplexNoise();
+  const noise3D = createNoise3D();
 
   const scene = new Scene();
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
       planetVertices.getZ(i)
     );
     const dv = vertex.clone().setLength(10);
-    const jitter = Math.abs(simplex.noise3D(dv.x, dv.y, dv.z));
+    const jitter = Math.abs(noise3D(dv.x, dv.y, dv.z));
     vertex.x += jitter * 9 - 3;
     vertex.z += jitter * 9 - 3;
     dv.setLength(50);
-    const noise = Math.abs(simplex.noise3D(dv.x, dv.y, dv.z));
+    const noise = Math.abs(noise3D(dv.x, dv.y, dv.z));
     if (noise > 0.6) {
       vertex.setLength(45 + noise * 10);
     } else {
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const vertex = new Vector3(vertices.getX(i), vertices.getY(i), vertices.getZ(i));
 
       const dv = vertex.clone().setLength(0.4);
-      vertex.setLength(3 + Math.abs(simplex.noise3D(dv.x, dv.y, dv.z)) * 2);
+      vertex.setLength(3 + Math.abs(noise3D(dv.x, dv.y, dv.z)) * 2);
 
       vertices.setXYZ(i, vertex.x, vertex.y, vertex.z);
     }
