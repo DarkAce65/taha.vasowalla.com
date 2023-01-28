@@ -1,11 +1,10 @@
 const prettierConfig = require('./prettier.config');
 
 module.exports = {
-  parser: '@babel/eslint-parser',
-  plugins: ['prettier', 'import'],
+  env: { browser: true, node: true, es2021: true },
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   extends: ['eslint:recommended', 'prettier', 'plugin:prettier/recommended'],
-  env: { browser: true, node: true, es6: true },
-  parserOptions: { ecmaVersion: 6 },
+  plugins: ['prettier', 'import'],
   rules: {
     'prettier/prettier': ['warn', prettierConfig],
     eqeqeq: 'warn',
