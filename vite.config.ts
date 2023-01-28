@@ -12,26 +12,24 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url));
 const srcDir = path.join(rootDir, 'src');
 
 const pages: Record<string, string> = {
+  '403': '403.html',
+  '404': '404.html',
   index: '.',
   about: 'about',
+  hangman: 'games/hangman',
+  minesweeper: 'games/minesweeper',
+  ultimatettt: 'games/ultimatettt',
+  chemistry: 'projects/chemistry',
+  driving: 'projects/driving',
+  wordsearch: 'projects/wordsearch',
+  animation: 'random/animation',
+  fireball: 'random/fireball',
+  shaders: 'random/shaders',
+  testing: 'random/testing',
+  cards: 'visual/cards',
+  webaudio2d: 'visual/webaudio2d',
+  webaudio3d: 'visual/webaudio3d',
 };
-// {
-//   index: path.join(srcDir, 'index.html'),
-//   about: path.join(srcDir, 'about/index.html'),
-//   animation: path.join(srcDir, 'random/animation/index.html'),
-//   cards: path.join(srcDir, 'visual/cards/index.html'),
-//   chemistry: path.join(srcDir, 'projects/chemistry/index.html'),
-//   driving: path.join(srcDir, 'projects/driving/index.html'),
-//   fireball: path.join(srcDir, 'random/fireball/index.html'),
-//   hangman: path.join(srcDir, 'games/hangman/index.html'),
-//   minesweeper: path.join(srcDir, 'games/minesweeper/index.html'),
-//   shaders: path.join(srcDir, 'random/shaders/index.html'),
-//   testing: path.join(srcDir, 'random/testing/index.html'),
-//   ultimatettt: path.join(srcDir, 'games/ultimatettt/index.html'),
-//   webaudio2d: path.join(srcDir, 'visual/webaudio2d/index.html'),
-//   webaudio3d: path.join(srcDir, 'visual/webaudio3d/index.html'),
-//   wordsearch: path.join(srcDir, 'projects/wordsearch/index.html'),
-// }
 
 export default defineConfig(({ mode }) => ({
   root: srcDir,
