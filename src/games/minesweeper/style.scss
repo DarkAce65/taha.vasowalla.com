@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 $base-cell-size: 16px;
-$spritesheet-url: '../../assets/spritesheets/minesweeper.png';
+$spritesheet-url: './minesweeper.png';
 $scales: (
   'small': math.div(20px, $base-cell-size),
   'medium': math.div(30px, $base-cell-size),

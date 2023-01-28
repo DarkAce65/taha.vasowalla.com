@@ -15,6 +15,7 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
+import fireballTexture from './fireball.png';
 import fireballFragmentShader from './shaders/fireball_frag.glsl?raw';
 import fireballVertexShader from './shaders/fireball_vert.glsl?raw';
 
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(render);
   };
 
-  loader.load('../../assets/textures/fireball.png', (texture) => {
+  loader.load(fireballTexture, (texture) => {
     uniforms.u_textureMap.value = texture;
   });
   render();

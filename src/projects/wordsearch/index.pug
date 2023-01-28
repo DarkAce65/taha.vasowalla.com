@@ -3,14 +3,15 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("Wordsearch Generator", gfonts=["Share", "Open Sans"])
-    link(rel='shortcut icon', href='../../assets/icons/network.png')
-    link(rel='stylesheet', type='text/css', href='../../uikit.css')
-    link(rel='stylesheet', type='text/css', href='style.css')
+    +head('Wordsearch Generator', gfonts=['Share', 'Open Sans'])
+    link(rel='shortcut icon', href='/img/icons/network.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/projects/wordsearch/style.scss')
+    script(type='module', src='/projects/wordsearch/script.ts')
 
   body
     button.toggle-print.uk-button.uk-button-secondary Toggle Print Layout
-    +container(["projects", "wordsearch"])
+    +container(['projects', 'wordsearch'])
       div(uk-grid)
         #controls.uk-margin(class='uk-width-1-2@m')
           .uk-form-horizontal

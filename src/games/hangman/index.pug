@@ -3,13 +3,14 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("Hangman")
-    link(rel='shortcut icon', href='../../assets/icons/hangman.png')
-    link(rel='stylesheet', type='text/css', href='../../uikit.css')
-    link(rel='stylesheet', type='text/css', href='style.css')
+    +head('Hangman')
+    link(rel='shortcut icon', href='/img/icons/hangman.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/games/hangman/style.scss')
+    script(type='module', src='/games/hangman/script.ts')
 
   body
-    +container(["games", "hangman"])
+    +container(['games', 'hangman'])
       .uk-grid-collapse.uk-flex-center(uk-grid)
         .uk-width-3-5(class='uk-width-2-3@s uk-width-1-2@m', style={ 'max-width': '80vh' })
           svg#hangman(viewbox='0 0 500 400', style={ width: '100%' })
@@ -56,7 +57,7 @@ html
           button#submitGuess.uk-form-icon.uk-form-icon-flip(uk-icon='icon: chevron-right')
           input#guessInput.uk-input.uk-form-large(maxlength='1')
       .uk-text-center.uk-hidden-notouch
-        each letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        each letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
           .letter-tile(data-letter=letter)= letter
     #setWordModal(uk-modal)
       .uk-modal-dialog

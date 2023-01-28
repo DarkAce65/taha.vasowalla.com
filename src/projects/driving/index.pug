@@ -3,13 +3,14 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("Driving Simulation", gfonts=["Share", "Inconsolata"])
-    link(rel='shortcut icon', href='../../assets/icons/network.png')
-    link(rel='stylesheet', type='text/css', href='../../uikit.css')
-    link(rel='stylesheet', type='text/css', href='style.css')
+    +head('Driving Simulation', gfonts=['Share', 'Inconsolata'])
+    link(rel='shortcut icon', href='/img/icons/network.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/projects/driving/style.scss')
+    script(type='module', src='/projects/driving/script.ts')
 
   body
-    +container(["projects", "driving"])
+    +container(['projects', 'driving'])
       p A genetic algorithm that teaches itself to navigate a track without bumping into walls.
       p The car is controlled by a network structure which takes inputs from three sensors and the car's current speed and produces three outputs for acceleration, brakes, and steering. The genetic algorithm selectively chooses network weights for the next generation from the genomes which performed the best in the last generation.
       #stats.uk-margin

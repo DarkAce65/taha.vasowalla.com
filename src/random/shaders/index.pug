@@ -3,13 +3,14 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("GLSL Shaders")
-    link(rel='shortcut icon', href='../../assets/icons/chip.png')
-    link(rel='stylesheet', type='text/css', href='../../uikit.css')
-    link(rel='stylesheet', type='text/css', href='style.css')
+    +head('GLSL Shaders')
+    link(rel='shortcut icon', href='/img/icons/chip.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/random/shaders/style.scss')
+    script(type='module', src='/random/shaders/script.js')
 
   body
-    +floatingBreadcrumbs("random", "shaders")
+    +floatingBreadcrumbs('random', 'shaders')
       .uk-flex-none
         button.uk-button.uk-button-default.uk-button-small(style={ background: 'black' }) Camera #[span(uk-icon='triangle-down')]
         div(uk-dropdown='mode: click')

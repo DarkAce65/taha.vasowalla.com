@@ -3,13 +3,14 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("Web Audio API")
-    link(rel='shortcut icon', href='../../assets/icons/webaudio.png')
-    link(rel='stylesheet', type='text/css', href='../../uikit.css')
-    link(rel='stylesheet', type='text/css', href='style.css')
+    +head('Web Audio API')
+    link(rel='shortcut icon', href='/img/icons/webaudio.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/visual/webaudio3d/style.scss')
+    script(type='module', src='/visual/webaudio3d/script.ts')
 
   body
-    +floatingBreadcrumbs("visual", "webaudio3d")(uk-margin)
+    +floatingBreadcrumbs('visual', 'webaudio3d')(uk-margin)
       #controls.uk-flex-none
         .uk-button-group
           button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-audio] Load audio file

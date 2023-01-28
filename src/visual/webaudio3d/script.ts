@@ -302,7 +302,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('name')!;
             mm.parseBlob(files[0])
               .then((metadata) => {
-                name.textContent = `${metadata.common.title}\n${metadata.common.artist}`;
+                name.textContent = `${metadata.common.title ?? ''}\n${
+                  metadata.common.artist ?? ''
+                }`;
               })
               .catch(() => {
                 name.textContent = files[0].name;

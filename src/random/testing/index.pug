@@ -3,11 +3,12 @@ include ../../partials/mixins
 doctype html
 html
   head
-    +head("Experimental")
-    link(rel='shortcut icon', href='../../assets/icons/tv.png')
-    link(rel='stylesheet', type='text/css', href='../../uikit.css')
-    link(rel='stylesheet', type='text/css', href='style.css')
+    +head('Experimental')
+    link(rel='shortcut icon', href='/img/icons/tv.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/random/testing/style.scss')
+    script(type='module', src='/random/testing/script.ts')
 
   body
-    +floatingBreadcrumbs("random", "testing").uk-light
+    +floatingBreadcrumbs('random', 'testing').uk-light
     #rendererContainer
