@@ -1,6 +1,8 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import inject from '@rollup/plugin-inject';
+import stdLibBrowser from 'node-stdlib-browser';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 
@@ -40,11 +42,14 @@ export default defineConfig(({ mode }) => ({
     sourcemap: true,
   },
   optimizeDeps: {
-    esbuildOptions: {
-      define: { global: 'globalThis' },
+    include: ['buffer', 'process'],
+  },
+  resolve: {
+    alias: {
+      ...stdLibBrowser,
+      '~': srcDir,
     },
   },
-  resolve: { alias: { '~': srcDir } },
   plugins: [
     virtualMPAPlugin(rootDir, srcDir, pages),
     checker({
@@ -53,5 +58,13 @@ export default defineConfig(({ mode }) => ({
       typescript: true,
       eslint: { lintCommand: "eslint './**/*.{ts,tsx}'" },
     }),
+    {
+      enforce: 'post',
+      ...inject({
+        global: [require.resolve('node-stdlib-browser/helpers/esbuild/shim'), 'global'],
+        process: [require.resolve('node-stdlib-browser/helpers/esbuild/shim'), 'process'],
+        Buffer: [require.resolve('node-stdlib-browser/helpers/esbuild/shim'), 'Buffer'],
+      }),
+    },
   ],
 }));
