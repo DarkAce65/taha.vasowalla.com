@@ -3,23 +3,17 @@ include ../partials/mixins
 doctype html
 html
   head
-    +head("About Me")
+    +head('About Me')
     link(rel='shortcut icon', href='/img/icons/tv.png')
-    link(rel='stylesheet', type='text/css', href='../uikit.scss')
-    link(rel='stylesheet', type='text/css', href='style.scss')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/about/style.scss')
     script(type='module', src='/about/script.ts')
 
   body
-    +container(["about"])
+    +container(['about'])
       .uk-flex-center(uk-grid, class='uk-child-width-1-2@m')
         .uk-width-large(class='uk-width-1-3@s uk-width-1-4@m')
-          img(
-            uk-img,
-            data-src='/img/profile.jpg',
-            data-width='528',
-            data-height='528',
-            style={ width: '100%' }
-          )
+          img(src='/about/profile.jpg', style={ width: '100%' })
         .uk-grid-item-match(class='uk-width-expand@s')
           .uk-card.uk-card-small.uk-card-body.uk-card-default.uk-text-center(
             class='uk-width-expand@s uk-text-left@s'
@@ -33,13 +27,13 @@ html
               .uk-card.uk-card-small.uk-card-body.uk-card-default
                 .uk-text-center.grid-2col
                   div(style={ 'grid-column': '1 / 3' })
-                    a.uk-link(href='import(\'./Resume - Taha Vasowalla.pdf\')') Resume.pdf
+                    a.uk-link(href='/Resume - Taha Vasowalla.pdf') Resume.pdf
                   +external(href='https://github.com/DarkAce65') #[span.uk-margin-small-right(uk-icon='github')] @DarkAce65
                   +external(href='https://www.linkedin.com/in/TahaVasowalla') #[span.uk-margin-small-right(uk-icon='linkedin')] LinkedIn
                   +external(href='https://instagram.com/darkace65/') #[span.uk-margin-small-right(uk-icon='instagram')] @darkace65
                   +external(href='https://www.facebook.com/taha.vasowalla') #[span.uk-margin-small-right(uk-icon='facebook')] Facebook
             .uk-flex-none(class='uk-visible@m')
-              img(uk-img, data-src='/img/taha.jpg', data-width='739', data-height='300')
+              img(uk-img, data-src='/about/taha.jpg', data-width='739', data-height='300')
         .uk-grid-item-match(class='uk-flex-first@m')
           .uk-card.uk-card-small.uk-card-body.uk-card-default
             h4 Programming Experience
