@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import colors from 'picocolors';
-import { compileClientWithDependenciesTracked, render } from 'pug';
+import { Options, compileClientWithDependenciesTracked, render } from 'pug';
 import { Plugin, normalizePath } from 'vite';
 
 const normalizeHTMLPath = (pathname: string): string =>
@@ -64,7 +64,7 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
     load(id) {
       if (id in htmlToPugPaths) {
         const pugFileContents = fs.readFileSync(htmlToPugPaths[id], { encoding: 'utf8' });
-        const pugOptions = { filename: path.relative(cwd, htmlToPugPaths[id]) };
+        const pugOptions: Options = { filename: path.relative(cwd, htmlToPugPaths[id]) };
 
         try {
           const template = compileClientWithDependenciesTracked(pugFileContents, pugOptions);
