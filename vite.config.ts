@@ -54,7 +54,7 @@ export default defineConfig(({ mode }) => ({
       overlay: { initialIsOpen: false },
       terminal: mode !== 'test',
       typescript: true,
-      eslint: { lintCommand: "eslint './**/*.{ts,tsx}'" },
+      eslint: { lintCommand: 'eslint "./**/*.{ts,tsx}"' },
     }),
     {
       enforce: 'post',

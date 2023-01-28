@@ -17,7 +17,7 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
   const htmlToPugPaths: Record<string, string> = {};
 
   for (const [name, page] of Object.entries(pages)) {
-    const indexHTMLPath = path.join(srcDir, normalizeHTMLPath(page));
+    const indexHTMLPath = normalizePath(path.join(srcDir, normalizeHTMLPath(page)));
     const indexPugPath = indexHTMLPath.replace(/\.html$/, '.pug');
 
     rollupInputs[name] = indexHTMLPath;
