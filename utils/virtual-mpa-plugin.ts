@@ -37,25 +37,6 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
         build: { rollupOptions: { input: rollupInputs } },
       };
     },
-    handleHotUpdate({ file, modules, server }) {
-      if (
-        modules.length === 0 &&
-        Object.entries(indexDependencies).some(
-          ([indexFile, depFile]) => indexFile === file || depFile.has(file)
-        )
-      ) {
-        server.config.logger.info(
-          `${colors.green('page reload ')}${colors.dim(path.relative(srcDir, file))}`,
-          { clear: true, timestamp: true }
-        );
-        server.ws.send({
-          type: 'full-reload',
-          path: server.config.server.middlewareMode
-            ? '*'
-            : `/${normalizePath(path.relative(srcDir, file))}`,
-        });
-      }
-    },
     resolveId(id, _, options) {
       if (options.isEntry && id in htmlToPugPaths) {
         return id;
@@ -82,6 +63,25 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
         } catch (error) {
           return `<!DOCTYPE html><html><pre>${error.message}</pre></html>`;
         }
+      }
+    },
+    handleHotUpdate({ file, modules, server }) {
+      if (
+        modules.length === 0 &&
+        Object.entries(indexDependencies).some(
+          ([indexFile, depFile]) => indexFile === file || depFile.has(file)
+        )
+      ) {
+        server.config.logger.info(
+          `${colors.green('page reload ')}${colors.dim(path.relative(srcDir, file))}`,
+          { clear: true, timestamp: true }
+        );
+        server.ws.send({
+          type: 'full-reload',
+          path: server.config.server.middlewareMode
+            ? '*'
+            : `/${normalizePath(path.relative(srcDir, file))}`,
+        });
       }
     },
     configureServer(server) {
