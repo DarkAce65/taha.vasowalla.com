@@ -22,7 +22,8 @@
   },
   "lint-staged": {
     "*.{js,ts}!eslintrc.js": "eslint --max-warnings=0",
-    "*.{html,json,js,ts,scss}!package.json": "prettier --list-different"
+    "*.{pug,js,ts,scss}": "prettier --list-different",
+    "!(*package).json": "prettier --list-different"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
