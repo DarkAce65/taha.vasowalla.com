@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mapLogarithmic = makeLogarithmicMapper(numBars, bufferLength);
 
     bars = [];
-    const curve = new EllipseCurve(0, 0, 100, 100, 0, 2 * Math.PI, true, 0);
+    const curve = new EllipseCurve(0, 0, 100, 100, 0, 2 * Math.PI, false, 0);
     points = curve.getPoints(numBars - 1);
 
     const geometry = new BufferGeometry().setFromPoints(points);
