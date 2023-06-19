@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const carStatusCanvasParams = { ctx: carStatusCtx, width: statWidth, height: statHeight };
 
   const trackPoints: Vector2[] = [
-    [130, 110],
+    [120, 170],
     [150, 320],
     [90, 420],
     [110, 520],
@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     [685, 120],
     [600, 65],
     [305, 75],
+    [130, 110],
   ];
   const track = new Track(trackPoints.map((position) => ({ position })));
 
