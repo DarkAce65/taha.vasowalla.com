@@ -73,6 +73,7 @@
     "p2": "^0.7.1",
     "simplex-noise": "^4.0.1",
     "three": "^0.154.0",
+    "three-custom-shader-material": "^5.4.0",
     "uikit": "^3.16.22",
     "wavesurfer.js": "^7.0.5"
   }

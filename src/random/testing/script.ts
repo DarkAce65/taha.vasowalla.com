@@ -6,7 +6,6 @@ import {
   AmbientLight,
   BoxGeometry,
   Clock,
-  Color,
   ConeGeometry,
   CubeCamera,
   CylinderGeometry,
@@ -22,11 +21,9 @@ import {
   PlaneGeometry,
   PointLight,
   Scene,
-  ShaderLib,
   ShaderMaterial,
+  ShaderMaterialParameters,
   SpotLight,
-  UniformsLib,
-  UniformsUtils,
   Vector2,
   Vector3,
   WebGLCubeRenderTarget,
@@ -34,6 +31,7 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
+import CustomShaderMaterial from 'three-custom-shader-material/vanilla';
 
 import seededRandom from '~/lib/seededRandom';
 
@@ -72,32 +70,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const waterCamera = new CubeCamera(0.01, 1000, new WebGLCubeRenderTarget(128));
   waterCamera.lookAt(new Vector3(0, 1, 0));
-  const uniforms = UniformsUtils.merge([
-    UniformsLib['lights'],
-    {
-      diffuse: { type: 'c', value: new Color(0x5f93d3) },
-      opacity: { type: 'f', value: 0.7 },
-      u_time: { type: 'f', value: 0 },
-      u_intensity: { type: 'f', value: 0 },
-      u_multiplier: { type: 'f', value: 1 },
-      u_wavesize: { type: 'v2', value: new Vector2(200, 200) },
-      u_wavesegments: { type: 'v2', value: new Vector2(40, 40) },
-    },
-  ]);
-  const waveShaderMaterial = new ShaderMaterial({
-    transparent: true,
-    lights: true,
-    defines: { PHONG: '', FLAT_SHADED: '' },
-    extensions: { derivatives: true },
+  const uniforms = {
+    u_time: { value: 0 },
+    u_intensity: { value: 0 },
+    u_multiplier: { value: 2 },
+    u_wavesize: { value: new Vector2(200, 200) },
+    u_wavesegments: { value: new Vector2(30, 30) },
+  } satisfies ShaderMaterialParameters['uniforms'];
+  const waveShaderMaterial = new CustomShaderMaterial({
+    baseMaterial: MeshPhongMaterial,
+    color: 0x5f93d3,
+    flatShading: true,
+    shininess: 300,
+    side: DoubleSide,
     uniforms,
     vertexShader: waveVertexShader,
-    fragmentShader: ShaderLib['phong'].fragmentShader,
-    side: DoubleSide,
   });
   const faceMaterial = new MeshPhongMaterial({
     color: 0x5e85b4,
-    side: DoubleSide,
     flatShading: true,
+    side: DoubleSide,
   });
 
   const water = new Object3D();
@@ -105,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const wseg = uniforms.u_wavesegments.value;
   water.add(new Mesh(new PlaneGeometry(wsize.x, wsize.y, wseg.x, wseg.y), waveShaderMaterial));
   water.add(new Mesh(new PlaneGeometry(wsize.x, wsize.y), faceMaterial));
-  water.rotation.x = Math.PI / 2;
+  water.rotation.x = -Math.PI / 2;
+  water.position.y -= 0.1;
   scene.add(water);
 
   const rockGeometry = new IcosahedronGeometry(20, 2);
@@ -234,16 +227,16 @@ document.addEventListener('DOMContentLoaded', () => {
   ship.scale.set(10, 10, 10);
   scene.add(ship);
 
-  const nightTimeline = gsap.timeline();
-  nightTimeline
+  const dayNightTimeline = gsap.timeline();
+  dayNightTimeline
     .reverse()
-    .to(uniforms.u_multiplier, { value: 3, duration: 5 }, 0)
+    .to(uniforms.u_multiplier, { value: 6, duration: 5, ease: 'power3.in' }, 0)
     .to(pointlight, { intensity: 0.4, duration: 5 }, 0)
     .to(ambient.color, { r: 0.2, g: 0.13, b: 0.1, duration: 5 }, 0)
     .add(() => {
       const header = document.querySelector('.floating-header')!;
 
-      if (nightTimeline.reversed()) {
+      if (dayNightTimeline.reversed()) {
         header.classList.add('uk-light');
       } else {
         header.classList.remove('uk-light');
@@ -270,11 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
   const toggleNight = (): void => {
-    if (nightTimeline.reversed()) {
-      nightTimeline.play();
+    if (dayNightTimeline.reversed()) {
+      dayNightTimeline.play();
       document.body.classList.add('night');
     } else {
-      nightTimeline.reverse();
+      dayNightTimeline.reverse();
       document.body.classList.remove('night');
     }
   };
