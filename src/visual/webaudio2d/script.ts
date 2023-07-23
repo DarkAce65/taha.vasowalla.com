@@ -34,17 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const wavesurfer = WaveSurfer.create({
     container: '#wave',
-    audioContext,
-    interact: false,
-    normalize: true,
-    scrollParent: true,
-    hideScrollbar: true,
+    cursorColor: COLORS.WHITE,
     height: 100,
+    hideScrollbar: true,
+    interact: false,
+    minPxPerSec: 20,
+    normalize: true,
     progressColor: COLORS.RED,
     waveColor: chroma(COLORS.RED).luminance(0.05).hex(),
-    cursorColor: COLORS.WHITE,
   });
-  wavesurfer.setMute(true);
+  wavesurfer.setMuted(true);
 
   let wavesurferReady = Promise.resolve();
 
@@ -150,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startTime = audioContext.currentTime;
     playing = true;
     source.start(0, startOffset % duration);
-    wavesurfer.seekAndCenter(startOffset / duration);
+    wavesurfer.seekTo(startOffset / duration);
     wavesurfer.play();
     draw();
   };
@@ -238,15 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       reader.readAsArrayBuffer(files[0]);
-      wavesurfer.loadBlob(files[0]);
-      wavesurferReady = new Promise((resolve) => {
-        const wsReady = (): void => {
-          wavesurfer.un('ready', wsReady);
-          resolve();
-        };
-
-        wavesurfer.on('ready', wsReady);
-      });
+      wavesurferReady = wavesurfer.load(URL.createObjectURL(files[0]));
     }
   });
 
