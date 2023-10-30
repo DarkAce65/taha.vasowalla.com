@@ -14,11 +14,9 @@
     "prepare": "husky install",
     "eslint:fix": "eslint --fix \"*.config.{js,ts}\" \"utils/**/*.{js,ts}\" \"src/**/*.{js,ts}\"",
     "prettier:write": "prettier --write \".eslintrc.js\" \"*.config.{js,ts}\" \"tsconfig.json\" \"utils/**/*.{js,ts}\" \"src/**/*.{pug,json,js,ts,scss}\"",
-    "copy:static": "gulp copy:static --silent",
     "dev": "vite",
     "preview": "vite preview",
-    "build": "tsc && vite build",
-    "build:prod": "cross-env NODE_ENV=production PUBLIC_PATH='/' gulp --silent"
+    "build": "tsc && vite build"
   },
   "lint-staged": {
     "*.ts": "eslint --max-warnings=0",
