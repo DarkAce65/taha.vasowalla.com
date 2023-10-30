@@ -91,9 +91,8 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
 
         if (!res.writableEnded && accept !== '*/*' && accept?.includes('text/html')) {
           const url = new URL(req.url!, `http://${req.headers.host}`);
-          const htmlFilePath = path.join(
-            srcDir,
-            normalizePath(normalizeHTMLPath(url.pathname).replace(base, ''))
+          const htmlFilePath = normalizePath(
+            path.join(srcDir, normalizeHTMLPath(url.pathname).replace(base, ''))
           );
 
           if (htmlFilePath in htmlToPugPaths) {
