@@ -15,7 +15,7 @@ function getEl<E extends HTMLElement = HTMLElement>(
   return isNode(selector) ? selector : null;
 }
 
-function getElOrThrow<E extends HTMLElement = HTMLElement>(
+export function getElOrThrow<E extends HTMLElement = HTMLElement>(
   selector: Selector<E>,
   parent?: Selector,
 ): E {
@@ -42,5 +42,4 @@ function getElOrThrow<E extends HTMLElement = HTMLElement>(
   return el;
 }
 
-export { getElOrThrow };
 export default getEl;
