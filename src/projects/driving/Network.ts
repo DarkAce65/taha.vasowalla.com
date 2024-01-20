@@ -21,7 +21,10 @@ class Network {
   private inputLayerWeights: number[] = [];
   private hiddenLayerWeights: number[] = [];
 
-  constructor(readonly structure: NetworkStructure, values?: NetworkValues) {
+  constructor(
+    readonly structure: NetworkStructure,
+    values?: NetworkValues,
+  ) {
     const { numInputs, numHiddenNodes, numOutputs } = structure;
 
     if (values) {
@@ -30,7 +33,7 @@ class Network {
         values.hiddenLayerWeights.length !== numHiddenNodes * numOutputs
       ) {
         throw new Error(
-          "Invalid network values provided - number of values doesn't match structure"
+          "Invalid network values provided - number of values doesn't match structure",
         );
       }
 
@@ -73,7 +76,7 @@ class Network {
   static fromParents(
     structure: NetworkStructure,
     parents: [Network, Network],
-    { mutationChance = 0.1, mutationAmount = 0.1 } = {}
+    { mutationChance = 0.1, mutationAmount = 0.1 } = {},
   ): Network {
     const { numInputs, numHiddenNodes, numOutputs } = structure;
     const [p0, p1] = parents;
@@ -234,7 +237,7 @@ class Network {
     { ctx, width, height }: CanvasParams,
     input: number[],
     hidden: number[],
-    output: number[]
+    output: number[],
   ): void {
     const drawNodes = (x: number, nodes: number[]): void => {
       for (let i = 0; i < nodes.length; i++) {

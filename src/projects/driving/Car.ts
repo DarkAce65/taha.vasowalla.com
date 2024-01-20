@@ -42,7 +42,7 @@ class Car {
   constructor(
     bodyWidth: number,
     bodyHeight: number,
-    { numSensors = 3, sensorLength = 120, sensorAngle = 90 * (Math.PI / 180) }: SensorOptions = {}
+    { numSensors = 3, sensorLength = 120, sensorAngle = 90 * (Math.PI / 180) }: SensorOptions = {},
   ) {
     const chassisBody = new Body({ mass: 1 });
     const chassisBox = new Box({
@@ -124,7 +124,7 @@ class Car {
 
   getNormalizedSensorValues(): number[] {
     return this.sensors.map((sensor) =>
-      sensor.hasHit ? sensor.hitDistance! / sensor.ray.length : 1
+      sensor.hasHit ? sensor.hitDistance! / sensor.ray.length : 1,
     );
   }
 
@@ -258,7 +258,7 @@ class Car {
         ctx.moveTo(hitPoint[0], hitPoint[1]);
         ctx.lineTo(
           hitPoint[0] + hitNormal[0] * normalLength,
-          hitPoint[1] + hitNormal[1] * normalLength
+          hitPoint[1] + hitNormal[1] * normalLength,
         );
         ctx.stroke();
       }

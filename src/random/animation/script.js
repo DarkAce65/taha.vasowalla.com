@@ -61,7 +61,7 @@ const updateBubbles = () => {
       if (bubbles[i].position.y + bubbles[i].radius < 0 || bubbles[i].opacity < 0.01) {
         bubbles[i] = new Bubble(
           Math.random() * bubblesCanvas.width,
-          Math.random() * 150 + 10 + bubblesCanvas.height
+          Math.random() * 150 + 10 + bubblesCanvas.height,
         );
       } else {
         bubbles[i].update();
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < bubblesCanvas.width / 3; i++) {
     bubbles[i] = new Bubble(
       Math.random() * bubblesCanvas.width,
-      Math.random() * 190 + 10 + bubblesCanvas.height
+      Math.random() * 190 + 10 + bubblesCanvas.height,
     );
   }
 

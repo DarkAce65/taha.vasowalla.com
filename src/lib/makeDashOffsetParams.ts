@@ -17,8 +17,8 @@ export default ({ progress = 0, onUpdate }: DashOffsetAnimationParams): gsap.Ani
           return offset < 0.001
             ? 'none'
             : pathLength - offset <= 0
-            ? '0px 99999px'
-            : `${pathLength} ${pathLength + 5}`;
+              ? '0px 99999px'
+              : `${pathLength} ${pathLength + 5}`;
         },
       });
     } else {

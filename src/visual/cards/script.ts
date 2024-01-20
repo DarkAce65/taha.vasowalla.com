@@ -90,7 +90,7 @@ const sphere = (elements: Element[], offset = 0): void => {
     let rx =
       (180 / Math.PI) *
       Math.acos(
-        (px * px + pz * pz) / Math.sqrt(px * px + py * py + pz * pz) / Math.sqrt(px * px + pz * pz)
+        (px * px + pz * pz) / Math.sqrt(px * px + py * py + pz * pz) / Math.sqrt(px * px + pz * pz),
       );
     if (Math.sign(py) === Math.sign(pz)) {
       rx *= -1;
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('#animation')!
       .insertAdjacentHTML(
         'beforeend',
-        `<div class="card" style="background: hsl(${(i * 360) / cardCount}, 100%, 50%);"></div>`
+        `<div class="card" style="background: hsl(${(i * 360) / cardCount}, 100%, 50%);"></div>`,
       );
   }
 
@@ -259,12 +259,12 @@ document.addEventListener('DOMContentLoaded', () => {
           duration: 1,
           stagger: 0.01,
           backgroundColor: (i) => `hsl(${(i * 360) / cardCount}, 100%, 50%)`,
-        })
+        }),
       );
 
       document.querySelector('button#remove')!.removeAttribute('disabled');
       (document.querySelector('a#remove')!.parentNode! as HTMLElement).classList.remove(
-        'uk-disabled'
+        'uk-disabled',
       );
     });
   });
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         delay = 5 / cardCount;
 
         const killedElements = shuffle(
-          Array.from(document.querySelectorAll('.card:not(.dead)'))
+          Array.from(document.querySelectorAll('.card:not(.dead)')),
         ).slice(0, 30);
         killedElements.forEach((el) => el.classList.add('dead'));
         gsap
@@ -312,39 +312,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cardCount <= 60) {
           document.querySelector('button#remove')!.setAttribute('disabled', '');
           (document.querySelector('a#remove')!.parentNode! as HTMLElement).classList.add(
-            'uk-disabled'
+            'uk-disabled',
           );
         }
       }
-    })
+    }),
   );
 
   document.querySelectorAll('a#pile, button#pile').forEach((pileButton) =>
     pileButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       pile(Array.from(document.querySelectorAll('.card:not(.dead)'))); // Position cards
-    })
+    }),
   );
 
   document.querySelectorAll('a#cylinder, button#cylinder').forEach((cylinderButton) =>
     cylinderButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       cylinder(Array.from(document.querySelectorAll('.card:not(.dead)')));
-    })
+    }),
   );
 
   document.querySelectorAll('a#sphere, button#sphere').forEach((sphereButton) =>
     sphereButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       sphere(Array.from(document.querySelectorAll('.card:not(.dead)')));
-    })
+    }),
   );
 
   document.querySelectorAll('a#fan, button#fan').forEach((fanButton) =>
     fanButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       fan(Array.from(document.querySelectorAll('.card:not(.dead)')));
-    })
+    }),
   );
 
   document.querySelectorAll('a#drop, button#drop').forEach((dropButton) =>
@@ -353,14 +353,14 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
         drop(shuffle(Array.from(document.querySelectorAll('.card:not(.dead)'))));
       }
-    })
+    }),
   );
 
   document.querySelectorAll('a#random, button#random').forEach((randomButton) =>
     randomButton.addEventListener('click', () => {
       gsap.killTweensOf('.card:not(.dead)', 'x,y,z,rotationX,rotationY,rotationZ');
       randomPosition(shuffle(Array.from(document.querySelectorAll('.card:not(.dead)'))));
-    })
+    }),
   );
 
   let resizeTimeout: ReturnType<typeof setTimeout>;

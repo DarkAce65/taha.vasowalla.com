@@ -142,7 +142,7 @@ const initDilution = () => {
         inputs,
         units.map((unit) => unit.value),
         inputs.indexOf(computeTarget),
-        computeDilution
+        computeDilution,
       );
       computeTarget.value = computed;
     } catch (ex) {
@@ -207,7 +207,7 @@ const initIdealGasLaw = () => {
         inputs,
         units.map((unit) => unit.value),
         inputs.indexOf(computeTarget),
-        computeIdealGasLaw
+        computeIdealGasLaw,
       );
       computeTarget.value = computed;
     } catch (ex) {
@@ -310,7 +310,7 @@ const initSpecificHeat = () => {
         inputs,
         units.map((unit) => unit.value),
         inputs.indexOf(computeTarget),
-        computeSpecificHeat.bind(this, tempInputMethod)
+        computeSpecificHeat.bind(this, tempInputMethod),
       );
       computeTarget.value = computed;
     } catch (ex) {

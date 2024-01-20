@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (playing) {
       document.getElementById('currentTime')!.textContent = toHHMMSS(
-        audioContext.currentTime - startTime + startOffset
+        audioContext.currentTime - startTime + startOffset,
       );
       if (audioContext.currentTime - startTime + startOffset >= duration) {
         reset();

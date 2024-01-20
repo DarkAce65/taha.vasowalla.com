@@ -5,7 +5,7 @@ const isNode = (obj: unknown): obj is Node =>
 
 function getEl<E extends HTMLElement = HTMLElement>(
   selector: Selector<E>,
-  parent?: Selector
+  parent?: Selector,
 ): E | null {
   if (typeof selector === 'string') {
     const parentEl = parent ? getElOrThrow(parent) : document;
@@ -17,7 +17,7 @@ function getEl<E extends HTMLElement = HTMLElement>(
 
 function getElOrThrow<E extends HTMLElement = HTMLElement>(
   selector: Selector<E>,
-  parent?: Selector
+  parent?: Selector,
 ): E {
   let el: E | null;
   if (parent) {
@@ -32,7 +32,7 @@ function getElOrThrow<E extends HTMLElement = HTMLElement>(
       throw new Error(
         `Selector "${selector}" matched no element for parent${
           typeof parent === 'string' ? ` "${parent}"` : ''
-        }`
+        }`,
       );
     } else {
       throw new Error(`Selector "${selector}" matched no element`);

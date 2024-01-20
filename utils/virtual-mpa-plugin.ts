@@ -9,8 +9,8 @@ const normalizeHTMLPath = (pathname: string): string =>
   pathname.endsWith('.html')
     ? pathname
     : pathname.endsWith('/')
-    ? `${pathname}index.html`
-    : `${pathname}/index.html`;
+      ? `${pathname}index.html`
+      : `${pathname}/index.html`;
 
 const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, string>): Plugin => {
   const rollupInputs: Record<string, string> = {};
@@ -69,12 +69,12 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
       if (
         modules.length === 0 &&
         Object.entries(indexDependencies).some(
-          ([indexFile, depFile]) => indexFile === file || depFile.has(file)
+          ([indexFile, depFile]) => indexFile === file || depFile.has(file),
         )
       ) {
         server.config.logger.info(
           `${colors.green('page reload ')}${colors.dim(path.relative(srcDir, file))}`,
-          { clear: true, timestamp: true }
+          { clear: true, timestamp: true },
         );
         server.ws.send({
           type: 'full-reload',
@@ -92,7 +92,7 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
         if (!res.writableEnded && accept !== '*/*' && accept?.includes('text/html')) {
           const url = new URL(req.url!, `http://${req.headers.host}`);
           const htmlFilePath = normalizePath(
-            path.join(srcDir, normalizeHTMLPath(url.pathname).replace(base, ''))
+            path.join(srcDir, normalizeHTMLPath(url.pathname).replace(base, '')),
           );
 
           if (htmlFilePath in htmlToPugPaths) {

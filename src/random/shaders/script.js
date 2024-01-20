@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('#cubeDropdown')
       .insertAdjacentHTML(
         'beforeend',
-        `<li><a id="${key}" class="view" href="javascript:void(0)">${key} cube</a></li>`
+        `<li><a id="${key}" class="view" href="javascript:void(0)">${key} cube</a></li>`,
       );
   });
   viewportBounds.maxX += 50;
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.view').forEach((view) =>
     view.addEventListener('click', (e) => {
       setCamera(e.target.id);
-    })
+    }),
   );
 
   window.addEventListener('resize', () => {

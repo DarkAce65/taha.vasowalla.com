@@ -5,7 +5,7 @@ const molarMassTable = periodicTable.elements.reduce(
     ...table,
     [symbol]: { number, name, mass: atomic_mass },
   }),
-  {}
+  {},
 );
 
 const validateFormula = (formula) => {
@@ -15,7 +15,7 @@ const validateFormula = (formula) => {
 
   if (!/^([A-Z][a-z]*([1-9]\d*)?|\(|\)([1-9]\d*)?)*$/.test(formula)) {
     throw new Error(
-      'Invalid formula. Make sure element symbols are capitalized correctly and atom counts directly follow elements.'
+      'Invalid formula. Make sure element symbols are capitalized correctly and atom counts directly follow elements.',
     );
   }
 
@@ -45,19 +45,19 @@ const validateFormula = (formula) => {
   }
 
   const invalidElements = elements.filter(
-    (value) => !Object.prototype.hasOwnProperty.call(molarMassTable, value)
+    (value) => !Object.prototype.hasOwnProperty.call(molarMassTable, value),
   );
   if (invalidElements.length === 1) {
     throw new Error(`Unknown elements. ${invalidElements[0]} is not a recognized element symbol.`);
   } else if (invalidElements.length === 2) {
     throw new Error(
-      `Unknown elements. ${invalidElements[0]} and ${invalidElements[1]} are not recognized element symbols.`
+      `Unknown elements. ${invalidElements[0]} and ${invalidElements[1]} are not recognized element symbols.`,
     );
   } else if (invalidElements.length > 2) {
     throw new Error(
       `Unknown elements. ${invalidElements.slice(0, -1).join(', ')}, and ${
         invalidElements[invalidElements.length - 1]
-      } are not recognized element symbols.`
+      } are not recognized element symbols.`,
     );
   }
 };

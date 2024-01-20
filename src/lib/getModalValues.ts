@@ -8,7 +8,7 @@ const MODEL_FETCHER_ACTIVE_KEY = 'MODAL_FETCHER_ACTIVE';
 const getModalValues = (
   modalEl: Selector,
   submitButton: Selector<HTMLButtonElement>,
-  inputEls?: HTMLInputElement[]
+  inputEls?: HTMLInputElement[],
 ): Promise<string[]> => {
   const resolvedModalEl = getElOrThrow(modalEl);
   if (resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY]) {

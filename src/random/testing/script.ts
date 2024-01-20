@@ -140,13 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
       shininess: 1000,
       flatShading: true,
       side: DoubleSide,
-    })
+    }),
   );
   lhGlass.add(
     new LineSegments(
       new EdgesGeometry(lhGlass.geometry),
-      new LineBasicMaterial({ color: 0x444444 })
-    )
+      new LineBasicMaterial({ color: 0x444444 }),
+    ),
   );
   lhGlass.position.y = -2.75;
   const lhRoof = new Mesh(new CylinderGeometry(1, 4, 2), lhBlack);
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   const lhLightBeam = new Mesh(
     new CylinderGeometry(1, 15, wsize.x / 1.8, 16, 1, true),
-    lightShaderMaterial
+    lightShaderMaterial,
   );
   lhLightBeam.visible = false;
   lhLightBeam.position.z = wsize.x / 3.6 - 0.5;
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
           lhSpotLight.intensity = uniforms.u_intensity.value;
         },
       },
-      2.5
+      2.5,
     );
 
   const toggleNight = (): void => {

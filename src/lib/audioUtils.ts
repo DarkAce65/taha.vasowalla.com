@@ -26,7 +26,7 @@ const toLog = (i: number, max: number): number => Math.pow(max, i / (max - 1)) -
 
 export const makeLogarithmicMapper = (
   maxDomain: number,
-  maxRange: number
+  maxRange: number,
 ): ((index: number) => number) => {
   const mapped: number[] = [];
   for (let i = 0; i < maxDomain; i++) {

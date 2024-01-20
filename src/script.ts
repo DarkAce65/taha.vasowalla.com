@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const vertex = new Vector3(
       planetVertices.getX(i),
       planetVertices.getY(i),
-      planetVertices.getZ(i)
+      planetVertices.getZ(i),
     );
     const dv = vertex.clone().setLength(10);
     const jitter = Math.abs(noise3D(dv.x, dv.y, dv.z));
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
   scene.add(planet);
 
   const numSatellites = 100;
-  const satelliteMaterial = planetMaterial.clone() as MeshPhongMaterial;
-  const cometMaterial = satelliteMaterial.clone() as MeshPhongMaterial;
+  const satelliteMaterial = planetMaterial.clone();
+  const cometMaterial = satelliteMaterial.clone();
   const currentHour = new Date().getHours();
   cometMaterial.emissive = new Color(currentHour < 9 || 21 <= currentHour ? 0x3e5af8 : 0xf85a3e);
 
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const satelliteRadius = i === 0 ? 1 : Math.max(1, Math.pow(Math.random() + 0.2, 2) * 2.5);
     const satelliteGeometry = new IcosahedronGeometry(
       satelliteRadius,
-      satelliteRadius > 2.5 ? 1 : 0
+      satelliteRadius > 2.5 ? 1 : 0,
     );
     if (satelliteRadius > 2.5) {
       displaceSatelliteGeometry(satelliteGeometry);
@@ -110,13 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const h = Math.random() * 30 - 15;
     satelliteGeometry.applyMatrix4(
       new Matrix4().makeRotationFromEuler(
-        new Euler(Math.random(), Math.random(), Math.random(), 'XYZ')
-      )
+        new Euler(Math.random(), Math.random(), Math.random(), 'XYZ'),
+      ),
     );
 
     const satellite: Satellite = new Mesh(
       satelliteGeometry,
-      i === 0 ? cometMaterial : satelliteMaterial
+      i === 0 ? cometMaterial : satelliteMaterial,
     );
     satellite.position.set(c, s, h);
     satellite.scale.setScalar(satelliteScale);
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < satellites.length; i++) {
       satellites[i].position.applyAxisAngle(
         new Vector3(0, 0, 1),
-        satellites[i].orbitSpeed! * delta
+        satellites[i].orbitSpeed! * delta,
       );
     }
 
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       span.addEventListener('click', () => toggleSubmenu(menuElement));
       span.addEventListener(
         'keydown',
-        (e) => [' ', 'Enter'].indexOf(e.key) !== -1 && toggleSubmenu(menuElement)
+        (e) => [' ', 'Enter'].indexOf(e.key) !== -1 && toggleSubmenu(menuElement),
       );
     }
   });

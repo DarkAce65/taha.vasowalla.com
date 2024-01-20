@@ -45,16 +45,16 @@ class Simulation {
     readonly network: Network,
     private readonly car: Car,
     private readonly track: Track,
-    private readonly finishCallback: (fitness: number) => void
+    private readonly finishCallback: (fitness: number) => void,
   ) {
     if (network.structure.numInputs !== car.numSensors + 1) {
       throw new Error(
-        `Given network has an invalid number of inputs - must match number of sensors of car (${car.numSensors}) plus 1 but got ${network.structure.numInputs}`
+        `Given network has an invalid number of inputs - must match number of sensors of car (${car.numSensors}) plus 1 but got ${network.structure.numInputs}`,
       );
     }
     if (network.structure.numOutputs !== 3) {
       throw new Error(
-        `Given network has an invalid number of outputs - must be 3 but got ${network.structure.numOutputs}`
+        `Given network has an invalid number of outputs - must be 3 but got ${network.structure.numOutputs}`,
       );
     }
 
@@ -146,7 +146,7 @@ class Simulation {
     { ctx, width, height }: CanvasParams,
     netCanvasParams: CanvasParams,
     carStatusCanvasParams: CanvasParams,
-    trails: Vector2[][]
+    trails: Vector2[][],
   ): SimulationResult {
     if (this.completed) {
       return { fitness: this.fitness(), avgSpeed: this.car.avgSpeed };
@@ -234,7 +234,7 @@ class Simulation {
 
   private drawCarStatus(
     { ctx, width, height }: CanvasParams,
-    [throttle, brake, steer]: number[]
+    [throttle, brake, steer]: number[],
   ): void {
     ctx.clearRect(0, 0, width, height);
 
@@ -261,7 +261,7 @@ class Simulation {
       for (let i = 1; i < datapoints.length; i++) {
         ctx.lineTo(
           (i / (datapoints.length - 1)) * width,
-          ((datapoints[i].speed - minSpeed) / (maxSpeed - minSpeed)) * height
+          ((datapoints[i].speed - minSpeed) / (maxSpeed - minSpeed)) * height,
         );
       }
       ctx.stroke();

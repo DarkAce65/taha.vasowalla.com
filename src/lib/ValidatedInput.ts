@@ -33,7 +33,7 @@ class ValidatedInput {
       validationMessageElement,
       stateCallback,
       inputCallback,
-    }: ValidatedInputOptions = {}
+    }: ValidatedInputOptions = {},
   ) {
     this._input = getElOrThrow<HTMLInputElement>(inputElement);
     this._state = 'empty';
@@ -56,7 +56,7 @@ class ValidatedInput {
         if (ev.target === this.validationMessage) {
           ev.stopPropagation();
         }
-      })
+      }),
     );
 
     this._setValidation(customValidator, { stateCallback, inputCallback });
@@ -146,7 +146,7 @@ class ValidatedInput {
     {
       stateCallback,
       inputCallback,
-    }: { stateCallback?: StateCallback; inputCallback?: InputCallback } = {}
+    }: { stateCallback?: StateCallback; inputCallback?: InputCallback } = {},
   ): void {
     this.removeValidation();
     this.listener = () => {
@@ -194,7 +194,7 @@ class ValidatedInput {
 
   setValidation(
     validator: Validator,
-    callbacks?: { stateCallback?: StateCallback; inputCallback?: InputCallback }
+    callbacks?: { stateCallback?: StateCallback; inputCallback?: InputCallback },
   ): void {
     this._setValidation(validator, callbacks);
   }

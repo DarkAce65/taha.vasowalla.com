@@ -55,7 +55,10 @@ interface WordPosition {
 class GridBuilder {
   private grid: GridCell[][];
   private wordPositions: { [word: string]: WordPosition };
-  constructor(private width: number, private height: number) {
+  constructor(
+    private width: number,
+    private height: number,
+  ) {
     this.grid = [];
     this.wordPositions = {};
     this.reset(width, height);
@@ -158,7 +161,7 @@ class GridBuilder {
 
   randomlyPlaceWords(
     words: string[],
-    { allowDiagonals = false, allowReversed = false } = {}
+    { allowDiagonals = false, allowReversed = false } = {},
   ): void {
     this.reset();
 

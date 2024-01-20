@@ -41,7 +41,7 @@ const constructWall = (point0: Vector2, point1: Vector2): Body => {
       height: WALL_THICKNESS,
       collisionGroup: WALL_MASK,
       collisionMask: CAR_MASK | SENSOR_MASK,
-    })
+    }),
   );
 
   return wall;
@@ -62,7 +62,7 @@ const constructCheckpointBody = (point0: Vector2, point1: Vector2): Body => {
       sensor: true,
       collisionGroup: CHECKPOINT_MASK,
       collisionMask: CAR_MASK,
-    })
+    }),
   );
 
   return body;
@@ -114,7 +114,7 @@ class Track {
     for (let i = 0; i < trackPoints.length; i++) {
       const trackSegmentLength = p2.vec2.dist(
         trackPoints[i].position,
-        trackPoints[(i + 1) % trackPoints.length].position
+        trackPoints[(i + 1) % trackPoints.length].position,
       );
       this.totalTrackLength += trackSegmentLength;
 
@@ -124,14 +124,14 @@ class Track {
       const checkpoint: Checkpoint = Object.assign(
         constructCheckpointBody(
           leftPoints[(i + 1) % trackPoints.length],
-          rightPoints[(i + 1) % trackPoints.length]
+          rightPoints[(i + 1) % trackPoints.length],
         ),
         {
           index: i,
           trackSegmentLength,
           cumulativeDistance: this.totalTrackLength,
           lastCheckpoint: i === trackPoints.length - 1,
-        }
+        },
       );
       this.checkpoints.push(checkpoint);
     }

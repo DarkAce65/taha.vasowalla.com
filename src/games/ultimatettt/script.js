@@ -77,12 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (state[boardRow][boardCol].wonBy !== null) {
       throw new Error(
-        `Board at [${boardRow}][${boardCol}] is already won by ${state[boardRow][boardCol].wonBy}`
+        `Board at [${boardRow}][${boardCol}] is already won by ${state[boardRow][boardCol].wonBy}`,
       );
     }
     if (state[boardRow][boardCol].subBoard[row][col] !== null) {
       throw new Error(
-        `Cell at [${boardRow}][${boardCol}][${row}][${col}] is already claimed by ${state[boardRow][boardCol].subBoard[row][col]}`
+        `Cell at [${boardRow}][${boardCol}][${row}][${col}] is already claimed by ${state[boardRow][boardCol].subBoard[row][col]}`,
       );
     }
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     state[boardRow][boardCol].subBoard[row][col] = p;
     document
       .querySelector(
-        `.cell[data-board-row="${boardRow}"][data-board-column="${boardCol}"][data-row="${row}"][data-column="${col}"]`
+        `.cell[data-board-row="${boardRow}"][data-board-column="${boardCol}"][data-row="${row}"][data-column="${col}"]`,
       )
       .classList.add(p === 0 ? player1Class : player2Class);
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state[row][col].wonBy === null) {
       document
         .querySelectorAll(
-          `.cell.possible, .cell[data-board-row="${row}"][data-board-column="${col}"]`
+          `.cell.possible, .cell[data-board-row="${row}"][data-board-column="${col}"]`,
         )
         .forEach((element) => {
           if (

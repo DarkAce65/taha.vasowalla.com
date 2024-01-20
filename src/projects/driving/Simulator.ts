@@ -66,7 +66,7 @@ class Simulator {
     private readonly simCanvasParams: CanvasParams,
     private readonly netCanvasParams: CanvasParams,
     private readonly carStatusCanvasParams: CanvasParams,
-    private readonly simulatorOptions: SimulatorOptions = {}
+    private readonly simulatorOptions: SimulatorOptions = {},
   ) {
     this.handleSimulationComplete = this.handleSimulationComplete.bind(this);
     this.run = this.run.bind(this);
@@ -249,7 +249,7 @@ class Simulator {
       this.simCanvasParams,
       this.netCanvasParams,
       this.carStatusCanvasParams,
-      this.generationTrails
+      this.generationTrails,
     );
 
     if (fitness > this.bestFitness) {

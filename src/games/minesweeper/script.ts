@@ -109,7 +109,7 @@ const initCustomGameModal = (): (() => Promise<{ rows: number; cols: number; min
 
 const buildHighscoreTable = (
   difficulty: Difficulty,
-  scores?: { name: string; time: number }[]
+  scores?: { name: string; time: number }[],
 ): void => {
   const table = getElOrThrow(`.scoreTable[data-difficulty=${difficulty}] tbody`);
   table.innerHTML = '';
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoresCookie = Cookie.get('scores');
   const scores = scoresCookie ? JSON.parse(scoresCookie) : {};
   Object.keys(PRESETS).forEach((difficulty) =>
-    buildHighscoreTable(difficulty as keyof typeof PRESETS, scores[difficulty])
+    buildHighscoreTable(difficulty as keyof typeof PRESETS, scores[difficulty]),
   );
 
   const highscoreNameInput = getElOrThrow<HTMLInputElement>('#highscoreModal #name');
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   getElOrThrow<HTMLSelectElement>('#scale').addEventListener('change', (ev) =>
-    resize((ev.currentTarget as HTMLSelectElement).value as Scale)
+    resize((ev.currentTarget as HTMLSelectElement).value as Scale),
   );
 
   Object.keys(PRESETS).forEach((difficulty) =>
@@ -245,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
         delete scores[difficulty];
         buildHighscoreTable(difficulty as keyof typeof PRESETS, scores[difficulty]);
         Cookie.set('scores', JSON.stringify(scores));
-      }
-    )
+      },
+    ),
   );
 
   getElOrThrow('#recustomizeGame').addEventListener('click', () =>
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(() => {
         // Ignore error from closing modal
-      })
+      }),
   );
 
   let scale = Cookie.get('scale');

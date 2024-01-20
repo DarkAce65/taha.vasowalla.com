@@ -56,7 +56,9 @@ body {
         color: $dim-text-color;
         border-bottom: 1px solid currentColor;
         cursor: pointer;
-        transition: color $transition-duration, border-color $transition-duration,
+        transition:
+          color $transition-duration,
+          border-color $transition-duration,
           padding $transition-duration;
 
         &:hover,
@@ -64,7 +66,10 @@ body {
           outline: none;
           color: $bright-text-color;
           border-bottom-color: $bright-text-color;
-          transition: color 0s, border-color 0s, padding $transition-duration;
+          transition:
+            color 0s,
+            border-color 0s,
+            padding $transition-duration;
         }
       }
     }
@@ -93,7 +98,9 @@ body {
   }
 
   #secondary {
-    transition: height $transition-duration, margin $transition-duration;
+    transition:
+      height $transition-duration,
+      margin $transition-duration;
 
     &.closed {
       height: 0;
@@ -124,7 +131,9 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition:
+    opacity 1.5s ease,
+    transform 1.5s ease;
 
   canvas {
     max-width: 100%;

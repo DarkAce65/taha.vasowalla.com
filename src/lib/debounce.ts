@@ -9,7 +9,7 @@ interface DebouncedFunction<Inputs extends unknown[]> {
 
 const debounce = <Inputs extends unknown[]>(
   func: (...args: Inputs) => void,
-  { delay = 500 }: DebounceOptions = {}
+  { delay = 500 }: DebounceOptions = {},
 ): DebouncedFunction<Inputs> => {
   let timeout: number;
 

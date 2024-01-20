@@ -86,7 +86,7 @@ class Minefield {
     this.faceEl.addEventListener('click', () => this.initialize());
     this.domTarget.addEventListener('mousedown', () => this.faceEl.classList.add('surprise'));
     ['mouseup', 'mouseleave'].forEach((ev) =>
-      this.domTarget.addEventListener(ev, () => this.faceEl.classList.remove('surprise'))
+      this.domTarget.addEventListener(ev, () => this.faceEl.classList.remove('surprise')),
     );
 
     this.initialize('intermediate');

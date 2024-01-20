@@ -97,7 +97,7 @@ class ParticleEmitter extends Object3D {
     const { r, g, b } = this.color;
 
     return [r, g, b].map((v) =>
-      MathUtils.clamp(v + (Math.random() - 0.5) * this.colorRandomness, 0, 1)
+      MathUtils.clamp(v + (Math.random() - 0.5) * this.colorRandomness, 0, 1),
     );
   }
 
@@ -133,7 +133,7 @@ class ParticleEmitter extends Object3D {
 
   emit(
     { x, y, z }: { x: number; y: number; z: number } = this.position,
-    { x: vx = 0, y: vy = 0, z: vz = 0 }: { x?: number; y?: number; z?: number } = {}
+    { x: vx = 0, y: vy = 0, z: vz = 0 }: { x?: number; y?: number; z?: number } = {},
   ): void {
     const { position, velocity, particleColor, spawnTime } = this.attributes;
 

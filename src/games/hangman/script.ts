@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         timeline.to(
           document.querySelectorAll('#man path')[guessesLeft],
           { duration: 1, ...makeDashOffsetParams({ progress: 1 }) },
-          timeline.time()
+          timeline.time(),
         ); // Draw part of man
         const incorrectGuess = document.createElement('span');
         incorrectGuess.classList.add('letter', 'incorrect');
