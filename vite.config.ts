@@ -54,14 +54,23 @@ export default defineConfig(({ mode }) => ({
       overlay: { initialIsOpen: false },
       terminal: mode !== 'test',
       typescript: true,
-      eslint: { lintCommand: 'eslint "./**/*.{ts,tsx}"' },
+      eslint: { lintCommand: 'eslint "./**/*.{ts,tsx}"', useFlatConfig: true },
     }),
     {
       enforce: 'post',
       ...inject({
-        global: [require.resolve('node-stdlib-browser/helpers/esbuild/shim'), 'global'],
-        process: [require.resolve('node-stdlib-browser/helpers/esbuild/shim'), 'process'],
-        Buffer: [require.resolve('node-stdlib-browser/helpers/esbuild/shim'), 'Buffer'],
+        global: [
+          fileURLToPath(import.meta.resolve('node-stdlib-browser/helpers/esbuild/shim')),
+          'global',
+        ],
+        process: [
+          fileURLToPath(import.meta.resolve('node-stdlib-browser/helpers/esbuild/shim')),
+          'process',
+        ],
+        Buffer: [
+          fileURLToPath(import.meta.resolve('node-stdlib-browser/helpers/esbuild/shim')),
+          'Buffer',
+        ],
       }),
     },
   ],
