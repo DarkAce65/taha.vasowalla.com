@@ -10,6 +10,6 @@ void main() {
 
   float vDotN = dot(normalize(vViewPosition), vNormal);
   float opacity = pow(max(0.0, vDotN), 2.0) + 0.05;
-  opacity = mix(0.0, opacity, vUv.y) * u_intensity;
+  opacity = mix(0.0, opacity, vUv.y) * u_intensity / 10000.0;
   gl_FragColor = vec4(color, opacity * 2.5);
 }

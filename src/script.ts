@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const lights = [];
 
-  lights[0] = new PointLight(0xeeeefe, 2, 300, 1.5);
+  lights[0] = new PointLight(0xeeeefe, 2500, 300, 1.5);
   lights[0].position.set(45, 15, 105);
 
-  lights[1] = new PointLight(0x423e6a, 1, 1200, 2);
+  lights[1] = new PointLight(0x423e6a, 1500, 1200, 2);
   lights[1].position.set(-90, 10, 120);
 
-  lights[2] = new PointLight(0x513c1f, 1, 300, 3);
+  lights[2] = new PointLight(0x513c1f, 1500, 300, 3);
   lights[2].position.set(40, -40, 80);
 
   for (let i = 0; i < lights.length; i++) {
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (i === 0) {
       satellite.orbitSpeed *= 3;
-      satellite.add(new PointLight(cometMaterial.emissive, 1, orbitRadius * 1.5, 2));
+      satellite.add(new PointLight(cometMaterial.emissive, 1000, orbitRadius * 1.5, 2));
     }
 
     scene.add(satellite);

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const controls = new TrackballControls(camera, renderer.domElement);
 
-  const ambient = new AmbientLight(0xffffff);
+  const ambient = new AmbientLight(0xffffff, 3);
   scene.add(ambient);
 
   const volumeObject = new Object3D();

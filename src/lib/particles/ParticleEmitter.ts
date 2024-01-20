@@ -114,14 +114,10 @@ class ParticleEmitter extends Object3D {
         count = this.particleCursor;
       }
 
-      position.updateRange.offset = offset * position.itemSize;
-      position.updateRange.count = count * position.itemSize;
-      velocity.updateRange.offset = offset * velocity.itemSize;
-      velocity.updateRange.count = count * velocity.itemSize;
-      particleColor.updateRange.offset = offset * particleColor.itemSize;
-      particleColor.updateRange.count = count * particleColor.itemSize;
-      spawnTime.updateRange.offset = offset * spawnTime.itemSize;
-      spawnTime.updateRange.count = count * spawnTime.itemSize;
+      position.addUpdateRange(offset * position.itemSize, count * position.itemSize);
+      velocity.addUpdateRange(offset * velocity.itemSize, count * velocity.itemSize);
+      particleColor.addUpdateRange(offset * particleColor.itemSize, count * particleColor.itemSize);
+      spawnTime.addUpdateRange(offset * spawnTime.itemSize, count * spawnTime.itemSize);
 
       position.needsUpdate = true;
       velocity.needsUpdate = true;

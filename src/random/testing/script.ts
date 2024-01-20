@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
   controls.dampingFactor = 0.2;
   camera.lookAt(scene.position);
 
-  const ambient = new AmbientLight(0x555555);
+  const ambient = new AmbientLight(0x777777);
   scene.add(ambient);
 
-  const pointlight = new PointLight(0xffffdd);
+  const pointlight = new PointLight(0xffffdd, 1000, 0, 1);
   pointlight.position.set(250, 100, -100);
   scene.add(pointlight);
 
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   dayNightTimeline
     .reverse()
     .to(uniforms.u_multiplier, { value: 6, duration: 5, ease: 'power3.in' }, 0)
-    .to(pointlight, { intensity: 0.4, duration: 5 }, 0)
+    .to(pointlight, { intensity: 100, duration: 5 }, 0)
     .to(ambient.color, { r: 0.2, g: 0.13, b: 0.1, duration: 5 }, 0)
     .add(() => {
       const header = document.querySelector('.floating-header')!;
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .to(
       uniforms.u_intensity,
       {
-        value: 1,
+        value: 10000,
         duration: 2,
         onStart() {
           lighthouseOn = true;
