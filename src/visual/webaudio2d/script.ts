@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const volDecay = 0.1;
   let mapLogarithmic: ReturnType<typeof makeLogarithmicMapper>;
 
+  let animationHandle: number;
   function draw(): void {
     if (!audioAnalyser.isPlaying()) {
       reset();
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    requestAnimationFrame(draw);
+    animationHandle = requestAnimationFrame(draw);
 
     getElOrThrow('#currentTime').textContent = toHHMMSS(audioAnalyser.getCurrentTime());
 
@@ -188,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audioAnalyser.play();
             wavesurfer.seekTo(0);
             wavesurfer.play();
+            cancelAnimationFrame(animationHandle);
             draw();
           })
           .catch(() => {
