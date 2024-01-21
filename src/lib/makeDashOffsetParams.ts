@@ -6,8 +6,9 @@ interface DashOffsetAnimationParams {
 }
 
 export default ({ progress = 0, onUpdate }: DashOffsetAnimationParams): gsap.AnimationVars => ({
-  strokeDashoffset: (_: number, element: SVGPathElement): number =>
-    (1 - progress) * (element.getTotalLength() + 1),
+  strokeDashoffset(_: number, element: SVGPathElement): number {
+    return (1 - progress) * (element.getTotalLength() + 1);
+  },
   onUpdate() {
     if (this.ratio === 0 || this.ratio === 1) {
       gsap.set(this._targets, {

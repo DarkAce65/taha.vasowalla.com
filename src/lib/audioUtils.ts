@@ -163,7 +163,7 @@ export class AudioAnalyserController {
     analyserNode.getByteFrequencyData(frequencyDomain);
   }
 
-  async loadAudioBuffer(audioBuffer: AudioBuffer): Promise<void> {
+  loadAudioBuffer(audioBuffer: AudioBuffer): void {
     this.reset();
 
     const bufferNode = new PlaybackPositionBufferNode(this.audioContext, { buffer: audioBuffer });
@@ -192,7 +192,7 @@ export class AudioAnalyserController {
 
   async loadFile(fileContents: ArrayBuffer): Promise<void> {
     const buffer = await this.audioContext.decodeAudioData(fileContents);
-    return this.loadAudioBuffer(buffer);
+    this.loadAudioBuffer(buffer);
   }
 
   play(): void {

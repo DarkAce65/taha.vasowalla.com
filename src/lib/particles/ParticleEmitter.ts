@@ -136,7 +136,7 @@ class ParticleEmitter extends Object3D {
     position.setXYZ(this.particleCursor, x, y, z);
     velocity.setXYZ(this.particleCursor, vx, vy, vz);
     particleColor.set(this.makeParticleColorArray(), this.particleCursor * particleColor.itemSize);
-    spawnTime.setX(this.particleCursor, this.uniforms.time.value);
+    spawnTime.setX(this.particleCursor, (this.uniforms.time as IUniform<number>).value);
 
     this.particlesToUpdate++;
     this.particleCursor++;

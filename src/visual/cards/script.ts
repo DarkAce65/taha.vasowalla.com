@@ -157,7 +157,7 @@ const drop = (elements: Element[]): void => {
     x: makeRandomShift(-25, 25),
     y: height,
     z: makeRandomShift(-25, 25),
-    rotationX(_, element) {
+    rotationX(_, element: Element) {
       const rotationX = (gsap.getProperty(element, 'rotationX') as number) || 0;
       return rotationX % 90 < 0 ? -90 : 90;
     },

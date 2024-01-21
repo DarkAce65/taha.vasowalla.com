@@ -61,7 +61,7 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
 
           return render(pugFileContents, pugOptions);
         } catch (error) {
-          return `<!DOCTYPE html><html><pre>${error.message}</pre></html>`;
+          return `<!DOCTYPE html><html><pre>${(error as Error).message}</pre></html>`;
         }
       }
     },
@@ -86,7 +86,8 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
     },
     configureServer(server) {
       const base = normalizePath(`/${server.config.base || '/'}/`);
-      server.middlewares.use(async (req, res, next) => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      server.middlewares.use(async (req, res) => {
         const accept = req.headers.accept;
 
         if (!res.writableEnded && accept !== '*/*' && accept?.includes('text/html')) {
@@ -105,8 +106,6 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
             }
           }
         }
-
-        next();
       });
     },
   };

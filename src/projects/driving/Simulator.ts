@@ -197,7 +197,7 @@ class Simulator {
     }
     const car = new Car(20, 40, { numSensors, sensorLength, sensorAngle });
 
-    return new Simulation(network, car, this.track, this.handleSimulationComplete);
+    return new Simulation(network, car, this.track, () => this.handleSimulationComplete());
   }
 
   private handleSimulationComplete(): void {
@@ -261,7 +261,7 @@ class Simulator {
     document.querySelector('#fitness')!.textContent = fitness.toFixed(2).padStart(6);
     document.querySelector('#avgSpeed')!.textContent = avgSpeed.toFixed(2).padStart(6);
 
-    requestAnimationFrame(this.run);
+    requestAnimationFrame(() => this.run());
   }
 }
 

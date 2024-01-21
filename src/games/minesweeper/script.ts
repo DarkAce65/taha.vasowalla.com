@@ -144,7 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
   const scoresCookie = Cookie.get('scores');
-  const scores = scoresCookie ? JSON.parse(scoresCookie) : {};
+  const scores: Record<string, { name: string; time: number }[]> = scoresCookie
+    ? JSON.parse(scoresCookie)
+    : {};
   Object.keys(PRESETS).forEach((difficulty) =>
     buildHighscoreTable(difficulty as keyof typeof PRESETS, scores[difficulty]),
   );
@@ -176,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const makeOptionsPromise = initCustomGameModal();
-  document.querySelector;
   highscoreNameInput.addEventListener('input', () => {
     getElOrThrow<HTMLButtonElement>('#highscoreModal #submit').disabled =
       highscoreNameInput.value.trim().length === 0;
@@ -228,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         game.classList.add('size-large');
         break;
       default:
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw new Error(`Invalid size: ${size}`);
     }
 
@@ -249,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ),
   );
 
-  getElOrThrow('#recustomizeGame').addEventListener('click', () =>
+  getElOrThrow('#recustomizeGame').addEventListener('click', () => {
     makeOptionsPromise()
       .then((options) => {
         currentDifficulty = 'custom';
@@ -257,8 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(() => {
         // Ignore error from closing modal
-      }),
-  );
+      });
+  });
 
   let scale = Cookie.get('scale');
   if (scale) {

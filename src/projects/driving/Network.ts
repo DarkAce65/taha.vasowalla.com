@@ -184,8 +184,8 @@ class Network {
   private evaluate(inputs: number[]): [number[], number[]] {
     const { numInputs, numHiddenNodes, numOutputs } = this.structure;
 
-    const hiddenLayer: number[] = new Array(numHiddenNodes).fill(0);
-    const outputs: number[] = new Array(numOutputs).fill(0);
+    const hiddenLayer = new Array<number>(numHiddenNodes).fill(0);
+    const outputs = new Array<number>(numOutputs).fill(0);
 
     for (let i = 0; i < numHiddenNodes; i++) {
       for (let j = 0; j < numInputs; j++) {

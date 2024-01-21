@@ -30,12 +30,12 @@ export function getElOrThrow<E extends HTMLElement = HTMLElement>(
   if (el === null) {
     if (parent) {
       throw new Error(
-        `Selector "${selector}" matched no element for parent${
+        `Selector "${selector as string}" matched no element for parent${
           typeof parent === 'string' ? ` "${parent}"` : ''
         }`,
       );
     } else {
-      throw new Error(`Selector "${selector}" matched no element`);
+      throw new Error(`Selector "${selector as string}" matched no element`);
     }
   }
 

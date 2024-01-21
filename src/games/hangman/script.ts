@@ -13,11 +13,12 @@ let guessesLeft = 6;
 let randomWords: string[] | null = null;
 const timeline = gsap.timeline();
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   UIkit.use(Icons);
 
-  const rawWordlist = (await import('./wordlist.txt?raw')).default;
-  randomWords = rawWordlist.split('\n').map((word) => word.trim());
+  import('./wordlist.txt?raw').then(({ default: rawWordlist }) => {
+    randomWords = rawWordlist.split('\n').map((word) => word.trim());
+  });
 
   const guessInput = getElOrThrow<HTMLInputElement>('#guessInput');
   const guessesLeftEl = getElOrThrow('#guessesLeft');
@@ -184,14 +185,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  setWordButton.addEventListener('click', async () => {
+  setWordButton.addEventListener('click', () => {
     const word = wordInput.value.trim();
     if (wordInput.state === 'error' || word.length === 0) {
       return;
     }
 
     setWord(word);
-    await UIkit.modal('#setWordModal').hide();
+    UIkit.modal('#setWordModal').hide();
     guessInput.focus();
   });
 

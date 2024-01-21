@@ -12,7 +12,7 @@ const getModalValues = (
 ): Promise<string[]> => {
   const resolvedModalEl = getElOrThrow(modalEl);
   if (resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY]) {
-    throw new Error(`${modalEl} is already in use by another value fetcher`);
+    throw new Error(`${modalEl as string} is already in use by another value fetcher`);
   }
   resolvedModalEl.dataset[MODEL_FETCHER_ACTIVE_KEY] = 'true';
   const resolvedSubmitButton = getElOrThrow(submitButton, modalEl);

@@ -67,9 +67,9 @@ class GridBuilder {
   reset(width = this.width, height = this.height): void {
     this.width = width;
     this.height = height;
-    this.grid = new Array(width);
+    this.grid = new Array<GridCell[]>(width);
     for (let col = 0; col < width; col++) {
-      const column = new Array(height);
+      const column = new Array<GridCell>(height);
       for (let row = 0; row < height; row++) {
         column[row] = { letter: null, uses: 0 };
       }
