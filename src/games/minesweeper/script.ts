@@ -229,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
         game.classList.add('size-large');
         break;
       default:
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw new Error(`Invalid size: ${size}`);
     }
 

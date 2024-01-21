@@ -1,9 +1,10 @@
 import fs from 'fs';
+import { ServerResponse } from 'http';
 import path from 'path';
 
 import colors from 'picocolors';
 import { Options, compileClientWithDependenciesTracked, render } from 'pug';
-import { Plugin, normalizePath } from 'vite';
+import { Connect, Plugin, ViteDevServer, normalizePath } from 'vite';
 
 const normalizeHTMLPath = (pathname: string): string =>
   pathname.endsWith('.html')
@@ -12,7 +13,7 @@ const normalizeHTMLPath = (pathname: string): string =>
       ? `${pathname}index.html`
       : `${pathname}/index.html`;
 
-const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, string>): Plugin => {
+function virtualMPAPlugin(cwd: string, srcDir: string, pages: Record<string, string>): Plugin {
   const rollupInputs: Record<string, string> = {};
   const htmlToPugPaths: Record<string, string> = {};
 
@@ -28,6 +29,31 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
   }
 
   const indexDependencies: Record<string, Set<string>> = {};
+
+  async function pugHandler(
+    server: ViteDevServer,
+    base: string,
+    req: Connect.IncomingMessage,
+    res: ServerResponse,
+  ): Promise<void> {
+    const accept = req.headers.accept;
+
+    if (!res.writableEnded && accept !== '*/*' && accept?.includes('text/html')) {
+      const url = new URL(req.url!, `http://${req.headers.host}`);
+      const htmlFilePath = normalizePath(
+        path.join(srcDir, normalizeHTMLPath(url.pathname).replace(base, '')),
+      );
+
+      if (htmlFilePath in htmlToPugPaths) {
+        const loadedHTML = await server.pluginContainer.load(htmlFilePath);
+        if (loadedHTML && typeof loadedHTML === 'string') {
+          res.setHeader('Content-Type', 'text/html');
+          res.statusCode = 200;
+          res.end(await server.transformIndexHtml(req.url!, loadedHTML, req.originalUrl));
+        }
+      }
+    }
+  }
 
   return {
     name: 'virtual-mpa-plugin',
@@ -86,29 +112,19 @@ const virtualMPAPlugin = (cwd: string, srcDir: string, pages: Record<string, str
     },
     configureServer(server) {
       const base = normalizePath(`/${server.config.base || '/'}/`);
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      server.middlewares.use(async (req, res) => {
-        const accept = req.headers.accept;
-
-        if (!res.writableEnded && accept !== '*/*' && accept?.includes('text/html')) {
-          const url = new URL(req.url!, `http://${req.headers.host}`);
-          const htmlFilePath = normalizePath(
-            path.join(srcDir, normalizeHTMLPath(url.pathname).replace(base, '')),
-          );
-
-          if (htmlFilePath in htmlToPugPaths) {
-            const loadedHTML = await server.pluginContainer.load(htmlFilePath);
-            if (loadedHTML && typeof loadedHTML === 'string') {
-              res.setHeader('Content-Type', 'text/html');
-              res.statusCode = 200;
-              res.end(await server.transformIndexHtml(req.url!, loadedHTML, req.originalUrl));
-              return;
-            }
-          }
-        }
-      });
+      return () =>
+        server.middlewares.use((req, res, next) => {
+          pugHandler(server, base, req, res)
+            .then(() => {
+              console.log('handled', req.url);
+              next();
+            })
+            .catch(() => {
+              console.error('bad', req.url);
+            });
+        });
     },
   };
-};
+}
 
 export default virtualMPAPlugin;

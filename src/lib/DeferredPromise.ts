@@ -24,7 +24,6 @@ class DeferredPromise<T> {
     this.resolvePromise(value);
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   reject(reason?: any): void {
     if (!this.rejectPromise) {
       throw new Error('Promise not initialized');
