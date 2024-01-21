@@ -5,32 +5,25 @@ import chroma from 'chroma-js';
 import * as mm from 'music-metadata-browser';
 import WaveSurfer from 'wavesurfer.js';
 
-import { makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
+import { AudioAnalyserController, makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
 import { COLORS } from '~/lib/colors';
 import enableIcons from '~/lib/enableIcons';
+import { getElOrThrow } from '~/lib/getEl';
 import { lerp } from '~/lib/utils';
 
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons({ uikit: true, faIcons: [faFileAudio] });
 
+  const audioAnalyser = new AudioAnalyserController({ smoothingTimeConstant: 0.8 });
+
   let visualizerWidth = 800;
   let visualizerHeight = 400;
   const volumeBarHeight = 10;
 
-  const c = document.getElementById('visualizer') as HTMLCanvasElement;
-  const ctx = c.getContext('2d')!;
-  c.height = visualizerHeight;
-  c.width = visualizerWidth;
-
-  const fftSize = Math.pow(2, 11);
-  let mapLogarithmic: ReturnType<typeof makeLogarithmicMapper>;
-
-  const audioContext = new AudioContext();
-  let source: AudioBufferSourceNode | null = null;
-  const gainNode = audioContext.createGain();
-  const analyser = audioContext.createAnalyser();
-  analyser.fftSize = fftSize;
-  analyser.smoothingTimeConstant = 0.8;
+  const canvas = getElOrThrow<HTMLCanvasElement>('#visualizer');
+  const ctx = canvas.getContext('2d')!;
+  canvas.height = visualizerHeight;
+  canvas.width = visualizerWidth;
 
   const wavesurfer = WaveSurfer.create({
     container: '#wave',
@@ -47,63 +40,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let wavesurferReady = Promise.resolve();
 
-  let playing = false;
+  let volumeData: Uint8Array;
+  let frequencyData: Uint8Array;
+
   let targetVolume = 0;
   let currentVolume = 0;
   const volDecay = 0.1;
-  let startOffset = 0;
-  let startTime = 0;
-  let bufferLength: number;
-  let volumeData: Uint8Array;
-  let frequencyData: Uint8Array;
-  let duration = 0;
+  let mapLogarithmic: ReturnType<typeof makeLogarithmicMapper>;
 
-  const resize = (): void => {
-    visualizerWidth = document.getElementById('visualizerContainer')!.clientWidth;
-    if (window.innerHeight <= 600) {
-      visualizerHeight = 200;
-    } else {
-      visualizerHeight = 400;
-    }
-    c.width = visualizerWidth;
-    c.height = visualizerHeight;
-
-    if (source) {
-      mapLogarithmic = makeLogarithmicMapper(visualizerWidth, bufferLength);
-    }
-  };
-
-  const reset = (): void => {
-    if (source) {
-      source.disconnect();
-      gainNode.disconnect();
-      analyser.disconnect();
-      source.stop();
-      document.getElementById('name')!.textContent = '';
-      document.getElementById('currentTime')!.textContent = '-:--';
-      document.getElementById('duration')!.textContent = '-:--';
-      source = null;
+  function draw(): void {
+    if (!audioAnalyser.isPlaying()) {
+      reset();
+      getElOrThrow('#details').classList.add('uk-hidden');
+      return;
     }
 
-    playing = false;
-    startOffset = 0;
-    targetVolume = 0;
-    currentVolume = 0;
+    requestAnimationFrame(draw);
+
+    getElOrThrow('#currentTime').textContent = toHHMMSS(audioAnalyser.getCurrentTime());
+
+    audioAnalyser.getAnalyserData(volumeData, frequencyData);
     ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
-  };
 
-  const draw = (): void => {
-    analyser.getByteTimeDomainData(volumeData);
-    analyser.getByteFrequencyData(frequencyData);
-    ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
+    const bufferLength = audioAnalyser.getAnalyserBufferLength();
 
     const h = visualizerHeight - volumeBarHeight;
     for (let i = 0; i < visualizerWidth; i++) {
       const mappedIndex = mapLogarithmic(i);
-      const p = mappedIndex % 1;
-      const l = Math.max(0, Math.floor(mappedIndex));
-      const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
-      const y = ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
+      const betweenIndexOffset = mappedIndex % 1;
+      const leftIndex = Math.max(0, Math.floor(mappedIndex));
+      const rightIndex = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
+      const y =
+        ((1 - betweenIndexOffset) * frequencyData[leftIndex] +
+          betweenIndexOffset * frequencyData[rightIndex]) /
+        255;
 
       ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, y * y * 70 + 10)}%)`;
       ctx.fillRect(i, (1 - y) * h, 1, y * h);
@@ -127,54 +97,40 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, currentVolume * currentVolume * 60 + 40)}%)`;
     const volumeBarWidth = visualizerWidth * currentVolume;
     ctx.fillRect(visualizerWidth / 2 - volumeBarWidth / 2, h, volumeBarWidth, volumeBarHeight);
+  }
 
-    if (playing) {
-      document.getElementById('currentTime')!.textContent = toHHMMSS(
-        audioContext.currentTime - startTime + startOffset,
+  function resize(): void {
+    visualizerWidth = getElOrThrow('#visualizerContainer').clientWidth;
+    if (window.innerHeight <= 600) {
+      visualizerHeight = 200;
+    } else {
+      visualizerHeight = 400;
+    }
+    canvas.width = visualizerWidth;
+    canvas.height = visualizerHeight;
+
+    if (audioAnalyser.isPlaying()) {
+      mapLogarithmic = makeLogarithmicMapper(
+        visualizerWidth,
+        audioAnalyser.getAnalyserBufferLength(),
       );
-      if (audioContext.currentTime - startTime + startOffset >= duration) {
-        reset();
-        document.getElementById('details')!.classList.add('uk-hidden');
-      } else {
-        requestAnimationFrame(draw);
-      }
     }
-  };
+  }
 
-  const play = (): void => {
-    if (!source) {
-      return;
-    }
+  function reset(): void {
+    getElOrThrow('#name').textContent = '';
+    getElOrThrow('#currentTime').textContent = '-:--';
+    getElOrThrow('#duration').textContent = '-:--';
 
-    startTime = audioContext.currentTime;
-    playing = true;
-    source.start(0, startOffset % duration);
-    wavesurfer.seekTo(startOffset / duration);
-    wavesurfer.play();
-    draw();
-  };
-
-  const handleAudioBuffer = async (dataBuffer: AudioBuffer): Promise<void> => {
-    reset();
-    source = audioContext.createBufferSource();
-    source.buffer = dataBuffer;
-    source.connect(gainNode);
-    gainNode.connect(analyser);
-    analyser.connect(audioContext.destination);
-
-    bufferLength = Math.ceil(analyser.frequencyBinCount * (20000 / 24000)); // Restrict buffer to 20000Hz
-    volumeData = new Uint8Array(bufferLength);
-    frequencyData = new Uint8Array(bufferLength);
-    duration = dataBuffer.duration;
-    mapLogarithmic = makeLogarithmicMapper(visualizerWidth, bufferLength);
-
-    await wavesurferReady;
-  };
+    targetVolume = 0;
+    currentVolume = 0;
+    ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
+  }
 
   resize();
   reset();
 
-  const fileInput = document.getElementById('fileInput')!;
+  const fileInput = getElOrThrow('#fileInput');
 
   ['dragenter', 'dragover'].forEach((event) => {
     fileInput.addEventListener(event, () => {
@@ -199,35 +155,42 @@ document.addEventListener('DOMContentLoaded', () => {
           timeout: 0,
         });
 
-        audioContext
-          .decodeAudioData(contents)
-          .then((buffer) => {
-            const name = document.getElementById('name')!;
-            mm.parseBlob(files[0])
-              .then((metadata) => {
-                name.textContent = `${metadata.common.title ?? ''}\n${
-                  metadata.common.artist ?? ''
-                }`;
-              })
-              .catch(() => {
-                name.textContent = files[0].name;
-              });
+        audioAnalyser
+          .loadFile(contents)
+          .then(async () => {
+            await wavesurferReady;
 
-            return handleAudioBuffer(buffer);
-          })
-          .then(() => {
             notification.close(false);
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
 
-            play();
+            const fileMetadataElement = getElOrThrow('#name');
+            mm.parseBlob(files[0])
+              .then((metadata) => {
+                const { title = '', artist = '' } = metadata.common;
+                if (title.length === 0 && artist.length === 0) {
+                  fileMetadataElement.textContent = files[0].name;
+                } else {
+                  fileMetadataElement.textContent = `${title ?? ''}\n${artist ?? ''}`;
+                }
+              })
+              .catch(() => {
+                fileMetadataElement.textContent = files[0].name;
+              });
+            getElOrThrow('#duration').textContent = toHHMMSS(audioAnalyser.getDuration());
+            getElOrThrow('#details').classList.remove('uk-hidden');
+            getElOrThrow('#visualizerContainer').classList.remove('bordered');
 
-            document.getElementById('duration')!.textContent = toHHMMSS(duration);
-            document.getElementById('details')!.classList.remove('uk-hidden');
-            document.getElementById('visualizerContainer')!.classList.remove('bordered');
+            const bufferLength = audioAnalyser.getAnalyserBufferLength();
+            volumeData = new Uint8Array(bufferLength);
+            frequencyData = new Uint8Array(bufferLength);
+            mapLogarithmic = makeLogarithmicMapper(visualizerWidth, bufferLength);
+
+            audioAnalyser.play();
+            wavesurfer.seekTo(0);
+            wavesurfer.play();
+            draw();
           })
-          .catch((error) => {
-            console.error(error);
-
+          .catch(() => {
             notification.close(false);
             UIkit.notification('Decoding error. Make sure the file is an audio file.', {
               status: 'danger',

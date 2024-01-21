@@ -28,12 +28,15 @@ import {
 } from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 
-import { makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
+import { AudioAnalyserController, makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
 import enableIcons from '~/lib/enableIcons';
+import { getElOrThrow } from '~/lib/getEl';
 import { lerp } from '~/lib/utils';
 
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons({ uikit: true, faIcons: [faFileAudio, faVideo] });
+
+  const audioAnalyser = new AudioAnalyserController({ smoothingTimeConstant: 0.675 });
 
   const scene = new Scene();
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
@@ -65,44 +68,25 @@ document.addEventListener('DOMContentLoaded', () => {
   let bars: Line[] = [];
   let points: Vector2[];
 
-  const fftSize = Math.pow(2, 11);
-  const volDecay = 0.1;
-
-  const audioContext = new AudioContext();
-  let source: AudioBufferSourceNode | null = null;
-  const gainNode = audioContext.createGain();
-  const analyser = audioContext.createAnalyser();
-  analyser.fftSize = fftSize;
-  analyser.smoothingTimeConstant = 0.675;
-
-  let playing = false;
-  let startOffset = 0;
-  let startTime = 0;
-  let duration = 0;
-  let bufferLength = Math.ceil(analyser.frequencyBinCount * (20000 / 24000)); // Restrict buffer to 20000Hz
+  let volumeData: Uint8Array;
+  let frequencyData: Uint8Array;
 
   let targetVolume = 0;
   let currentVolume = 0;
-  let zeroArray = new Uint8Array(bufferLength);
-  let silence = new Uint8Array(bufferLength);
-  silence.fill(128);
-  let volumeData = silence;
-  let frequencyData = zeroArray;
-  let mapLogarithmic = makeLogarithmicMapper(bars.length, bufferLength);
+  const volDecay = 0.1;
+  let mapLogarithmic: ReturnType<typeof makeLogarithmicMapper>;
 
-  const resize = (): void => {
+  function resize(): void {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-  };
+  }
 
-  const createBars = (numBars: number): void => {
+  function createBars(numBars: number): void {
     for (let i = 0; i < bars.length; i++) {
       scene.remove(bars[i]);
     }
     scene.remove(circle);
-
-    mapLogarithmic = makeLogarithmicMapper(numBars, bufferLength);
 
     bars = [];
     const curve = new EllipseCurve(0, 0, 100, 100, 0, 2 * Math.PI, false, 0);
@@ -129,25 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
     geometry.computeBoundingSphere();
     circle = new Line(geometry, material);
     scene.add(circle);
-  };
+  }
 
-  const reset = (): void => {
-    if (source) {
-      source.disconnect();
-      gainNode.disconnect();
-      analyser.disconnect();
-      source.stop();
-      document.getElementById('name')!.innerHTML = '';
-      document.getElementById('currentTime')!.innerHTML = '-:--';
-      document.getElementById('duration')!.innerHTML = '-:--';
-      source = null;
-    }
+  function reset(): void {
+    getElOrThrow('#name').innerHTML = '';
+    getElOrThrow('#currentTime').innerHTML = '-:--';
+    getElOrThrow('#duration').innerHTML = '-:--';
+  }
 
-    playing = false;
-    startOffset = 0;
-  };
-
-  const setCamera = (position: 'overhead' | 'side'): void => {
+  function setCamera(position: 'overhead' | 'side'): void {
     let x = 0;
     let y = 0;
     let z = 0;
@@ -181,34 +155,46 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     });
     gsap.to(camera.up, { duration: 1, x: 0, y: 1, z: uz });
-  };
+  }
 
-  const render = (): void => {
-    if (playing) {
-      analyser.getByteTimeDomainData(volumeData);
-      analyser.getByteFrequencyData(frequencyData);
+  function render(): void {
+    requestAnimationFrame(render);
+
+    if (audioAnalyser.isPlaying()) {
+      audioAnalyser.getAnalyserData(volumeData, frequencyData);
+      getElOrThrow('#currentTime').textContent = toHHMMSS(audioAnalyser.getCurrentTime());
+
+      const bufferLength = audioAnalyser.getAnalyserBufferLength();
+
+      for (let i = 0; i < bars.length; i++) {
+        const mappedIndex = mapLogarithmic(i);
+        const betweenIndexOffset = mappedIndex % 1;
+        const leftIndex = Math.max(0, Math.floor(mappedIndex));
+        const rightIndex = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
+        const scalar =
+          1 +
+          ((1 - betweenIndexOffset) * frequencyData[leftIndex] +
+            betweenIndexOffset * frequencyData[rightIndex]) /
+            255;
+
+        bars[i].geometry.attributes.position.setXY(1, scalar * points[i].x, scalar * points[i].y);
+        bars[i].geometry.attributes.position.needsUpdate = true;
+      }
+
+      targetVolume = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const v = volumeData[i] - 128;
+        targetVolume += v * v;
+      }
+      targetVolume = Math.sqrt(targetVolume / bufferLength) / 128;
     } else {
-      volumeData = silence;
-      frequencyData = zeroArray;
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].geometry.attributes.position.setXY(1, points[i].x, points[i].y);
+        bars[i].geometry.attributes.position.needsUpdate = true;
+      }
+      targetVolume = 0;
     }
 
-    for (let i = 0; i < bars.length; i++) {
-      const mappedIndex = mapLogarithmic(i);
-      const p = mappedIndex % 1;
-      const l = Math.max(0, Math.floor(mappedIndex));
-      const r = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
-      const scalar = 1 + ((1 - p) * frequencyData[l] + p * frequencyData[r]) / 255;
-
-      bars[i].geometry.attributes.position.setXY(1, scalar * points[i].x, scalar * points[i].y);
-      bars[i].geometry.attributes.position.needsUpdate = true;
-    }
-
-    targetVolume = 0;
-    for (let i = 0; i < bufferLength; i++) {
-      const v = volumeData[i] - 128;
-      targetVolume += v * v;
-    }
-    targetVolume = Math.sqrt(targetVolume / bufferLength) / 128;
     if (currentVolume < targetVolume) {
       currentVolume = targetVolume;
     } else {
@@ -220,58 +206,20 @@ document.addEventListener('DOMContentLoaded', () => {
     ballMaterial.color.setHSL(0, 0.67, currentVolume + 0.1);
     lineMaterial.color.setHSL(0, 0.67, 1.1 - currentVolume);
 
-    if (playing) {
-      document.getElementById('currentTime')!.innerHTML = toHHMMSS(
-        audioContext.currentTime - startTime + startOffset,
-      );
-      if (audioContext.currentTime - startTime + startOffset >= duration) {
-        reset();
-        document.getElementById('details')!.classList.add('uk-hidden');
-      }
-    }
-
     renderer.render(scene, camera);
     controls.update();
-    requestAnimationFrame(render);
-  };
-
-  const play = (): void => {
-    if (!source) {
-      return;
-    }
-
-    startTime = audioContext.currentTime;
-    playing = true;
-    source.start(0, startOffset % duration);
-    setCamera('side');
-  };
-
-  const handleAudioBuffer = async (dataBuffer: AudioBuffer): Promise<void> => {
-    reset();
-    source = audioContext.createBufferSource();
-    source.buffer = dataBuffer;
-    source.connect(gainNode);
-    gainNode.connect(analyser);
-    analyser.connect(audioContext.destination);
-
-    bufferLength = Math.ceil(analyser.frequencyBinCount * (20000 / 24000)); // Restrict buffer to 20000Hz
-    volumeData = new Uint8Array(bufferLength);
-    frequencyData = new Uint8Array(bufferLength);
-    zeroArray = new Uint8Array(bufferLength);
-    silence = new Uint8Array(bufferLength);
-    silence.fill(128);
-    duration = dataBuffer.duration;
-    mapLogarithmic = makeLogarithmicMapper(bars.length, bufferLength);
-  };
+  }
 
   resize();
   reset();
   createBars(200);
   render();
 
-  document.getElementById('resetCamera')!.addEventListener('click', () => setCamera('overhead'));
+  getElOrThrow('#resetCamera').addEventListener('click', () => {
+    setCamera('overhead');
+  });
 
-  const fileInput = document.getElementById('fileInput')!;
+  const fileInput = getElOrThrow('#fileInput');
 
   ['dragenter', 'dragover'].forEach((event) => {
     fileInput.addEventListener(event, () => {
@@ -296,35 +244,37 @@ document.addEventListener('DOMContentLoaded', () => {
           timeout: 0,
         });
 
-        audioContext
-          .decodeAudioData(contents)
-          .then((buffer) => {
-            const name = document.getElementById('name')!;
-            mm.parseBlob(files[0])
-              .then((metadata) => {
-                name.textContent = `${metadata.common.title ?? ''}\n${
-                  metadata.common.artist ?? ''
-                }`;
-              })
-              .catch(() => {
-                name.textContent = files[0].name;
-              });
-
-            return handleAudioBuffer(buffer);
-          })
+        audioAnalyser
+          .loadFile(contents)
           .then(() => {
             notification.close(false);
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
-          })
-          .then(() => {
-            play();
 
-            document.getElementById('duration')!.innerHTML = toHHMMSS(duration);
-            document.getElementById('details')!.classList.remove('uk-hidden');
-          })
-          .catch((error) => {
-            console.error(error);
+            const fileMetadataElement = getElOrThrow('#name');
+            mm.parseBlob(files[0])
+              .then((metadata) => {
+                const { title = '', artist = '' } = metadata.common;
+                if (title.length === 0 && artist.length === 0) {
+                  fileMetadataElement.textContent = files[0].name;
+                } else {
+                  fileMetadataElement.textContent = `${title ?? ''}\n${artist ?? ''}`;
+                }
+              })
+              .catch(() => {
+                fileMetadataElement.textContent = files[0].name;
+              });
+            getElOrThrow('#duration').innerHTML = toHHMMSS(audioAnalyser.getDuration());
+            getElOrThrow('#details').classList.remove('uk-hidden');
 
+            const bufferLength = audioAnalyser.getAnalyserBufferLength();
+            volumeData = new Uint8Array(bufferLength);
+            frequencyData = new Uint8Array(bufferLength);
+            mapLogarithmic = makeLogarithmicMapper(bars.length, bufferLength);
+
+            audioAnalyser.play();
+            setCamera('side');
+          })
+          .catch(() => {
             notification.close(false);
             UIkit.notification('Decoding error. Make sure the file is an audio file.', {
               status: 'danger',
