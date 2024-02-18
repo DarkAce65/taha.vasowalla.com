@@ -66,18 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const bufferLength = audioAnalyser.getAnalyserBufferLength();
 
     const h = visualizerHeight - volumeBarHeight;
-    for (let i = 0; i < visualizerWidth; i++) {
-      const mappedIndex = mapLogarithmic(i);
-      const betweenIndexOffset = mappedIndex % 1;
-      const leftIndex = Math.max(0, Math.floor(mappedIndex));
-      const rightIndex = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
-      const y =
-        ((1 - betweenIndexOffset) * frequencyData[leftIndex] +
-          betweenIndexOffset * frequencyData[rightIndex]) /
-        255;
 
-      ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, y * y * 70 + 10)}%)`;
-      ctx.fillRect(i, (1 - y) * h, 1, y * h);
+    let barX = 0;
+    for (const value of mapLogarithmic(frequencyData)) {
+      const barY = value / 255;
+
+      ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, barY * barY * 70 + 10)}%)`;
+      ctx.fillRect(barX, (1 - barY) * h, 1, barY * h);
+      barX += 1;
     }
 
     targetVolume = 0;
@@ -112,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (audioAnalyser.isPlaying()) {
       mapLogarithmic = makeLogarithmicMapper(
-        visualizerWidth,
         audioAnalyser.getAnalyserBufferLength(),
+        visualizerWidth,
       );
     }
   }
@@ -184,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const bufferLength = audioAnalyser.getAnalyserBufferLength();
             volumeData = new Uint8Array(bufferLength);
             frequencyData = new Uint8Array(bufferLength);
-            mapLogarithmic = makeLogarithmicMapper(visualizerWidth, bufferLength);
+            mapLogarithmic = makeLogarithmicMapper(bufferLength, visualizerWidth);
 
             audioAnalyser.play();
             wavesurfer.seekTo(0);

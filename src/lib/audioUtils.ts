@@ -23,7 +23,7 @@ export function toHHMMSS(number: number): string {
 }
 
 const toLog = (i: number, max: number): number => Math.pow(max, i / (max - 1)) - 1;
-export function makeLogarithmicMapper(
+export function makeLogarithmicMapper2(
   maxDomain: number,
   maxRange: number,
 ): (index: number) => number {
@@ -33,6 +33,59 @@ export function makeLogarithmicMapper(
   }
 
   return (i) => mapped[i];
+}
+
+export function makeLogarithmicMapper(
+  domain: number,
+  range: number,
+): (input: ArrayLike<number>) => Generator<number> {
+  const buckets = new Array(range).fill(undefined).map<number[]>(() => []);
+
+  const logDomain = Math.log(domain);
+  for (let i = 0; i < domain; i++) {
+    if (i === 0) {
+      buckets[0].push(i);
+    } else {
+      const bucketIndex = Math.min(Math.floor((Math.log(i + 1) / logDomain) * range), range - 1);
+      buckets[bucketIndex].push(i);
+    }
+  }
+
+  const condensedBuckets: { bucket: number[]; width: number }[] = [];
+  for (const bucket of buckets) {
+    if (bucket.length === 0) {
+      condensedBuckets[condensedBuckets.length - 1].width += 1;
+    } else {
+      condensedBuckets.push({ bucket, width: 1 });
+    }
+  }
+
+  return function* logarithmicMapper(input) {
+    const maxValues: (number | null)[] = new Array(condensedBuckets.length).fill(null);
+    function getMaxValue(index: number): number {
+      if (maxValues[index] === null) {
+        const { bucket } = condensedBuckets[index];
+        let max = input[bucket[0]];
+        for (let i = 1; i < bucket.length; i++) {
+          if (input[bucket[i]] > max) max = input[bucket[i]];
+        }
+        maxValues[index] = max;
+      }
+      return maxValues[index]!;
+    }
+    for (let i = 0; i < condensedBuckets.length; i++) {
+      const currentValue = getMaxValue(i);
+      const { width } = condensedBuckets[i];
+      if (width > 1) {
+        const nextValue = getMaxValue(i + 1);
+        for (let j = 0; j < width; j++) {
+          yield currentValue + (nextValue - currentValue) * (j / width);
+        }
+      } else {
+        yield currentValue;
+      }
+    }
+  };
 }
 
 class PlaybackPositionBufferNode {
