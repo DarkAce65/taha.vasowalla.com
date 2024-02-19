@@ -22,19 +22,6 @@ export function toHHMMSS(number: number): string {
   return `${hours}${hourMinuteSeparator}${minutes}${minuteSecondSeparator}${seconds}`;
 }
 
-const toLog = (i: number, max: number): number => Math.pow(max, i / (max - 1)) - 1;
-export function makeLogarithmicMapper2(
-  maxDomain: number,
-  maxRange: number,
-): (index: number) => number {
-  const mapped: number[] = [];
-  for (let i = 0; i < maxDomain; i++) {
-    mapped[i] = toLog((i * maxRange) / maxDomain, maxRange);
-  }
-
-  return (i) => mapped[i];
-}
-
 export function makeLogarithmicMapper(
   domain: number,
   range: number,

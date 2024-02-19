@@ -166,19 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const bufferLength = audioAnalyser.getAnalyserBufferLength();
 
-      for (let i = 0; i < bars.length; i++) {
-        const mappedIndex = mapLogarithmic(i);
-        const betweenIndexOffset = mappedIndex % 1;
-        const leftIndex = Math.max(0, Math.floor(mappedIndex));
-        const rightIndex = Math.min(bufferLength - 1, Math.ceil(mappedIndex));
-        const scalar =
-          1 +
-          ((1 - betweenIndexOffset) * frequencyData[leftIndex] +
-            betweenIndexOffset * frequencyData[rightIndex]) /
-            255;
+      let barIndex = 0;
+      for (const value of mapLogarithmic(frequencyData)) {
+        const scalar = 1 + value / 255;
 
-        bars[i].geometry.attributes.position.setXY(1, scalar * points[i].x, scalar * points[i].y);
-        bars[i].geometry.attributes.position.needsUpdate = true;
+        bars[barIndex].geometry.attributes.position.setXY(
+          1,
+          scalar * points[barIndex].x,
+          scalar * points[barIndex].y,
+        );
+        bars[barIndex].geometry.attributes.position.needsUpdate = true;
+        barIndex += 1;
       }
 
       targetVolume = 0;
@@ -249,7 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(() => {
             notification.close(false);
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
-
+          })
+          .catch((error) => {
+            notification.close(false);
+            UIkit.notification('Decoding error. Make sure the file is an audio file.', {
+              status: 'danger',
+              pos: 'bottom-right',
+            });
+            throw error;
+          })
+          .then(() => {
             const fileMetadataElement = getElOrThrow('#name');
             mm.parseBlob(files[0])
               .then((metadata) => {
@@ -269,17 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const bufferLength = audioAnalyser.getAnalyserBufferLength();
             volumeData = new Uint8Array(bufferLength);
             frequencyData = new Uint8Array(bufferLength);
-            mapLogarithmic = makeLogarithmicMapper(bars.length, bufferLength);
+            mapLogarithmic = makeLogarithmicMapper(bufferLength, bars.length);
 
             audioAnalyser.play();
             setCamera('side');
-          })
-          .catch(() => {
-            notification.close(false);
-            UIkit.notification('Decoding error. Make sure the file is an audio file.', {
-              status: 'danger',
-              pos: 'bottom-right',
-            });
           });
       };
 
