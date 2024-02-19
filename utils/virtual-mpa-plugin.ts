@@ -114,14 +114,9 @@ function virtualMPAPlugin(cwd: string, srcDir: string, pages: Record<string, str
       const base = normalizePath(`/${server.config.base || '/'}/`);
       return () =>
         server.middlewares.use((req, res, next) => {
-          pugHandler(server, base, req, res)
-            .then(() => {
-              console.log('handled', req.url);
-              next();
-            })
-            .catch(() => {
-              console.error('bad', req.url);
-            });
+          pugHandler(server, base, req, res).then(() => {
+            next();
+          });
         });
     },
   };
