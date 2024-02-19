@@ -195,9 +195,13 @@ export class AudioAnalyserController {
     return this.audioState?.isSourcePlaying ?? false;
   }
 
-  getCurrentTime(): number {
+  getProgress(): number {
     const { bufferNode } = this.getAudioState();
-    return bufferNode.playbackPosition * this.audioBuffer!.duration;
+    return bufferNode.playbackPosition;
+  }
+
+  getCurrentTime(): number {
+    return this.getProgress() * this.audioBuffer!.duration;
   }
 
   getDuration(): number {
@@ -214,6 +218,20 @@ export class AudioAnalyserController {
 
     analyserNode.getByteTimeDomainData(timeDomain);
     analyserNode.getByteFrequencyData(frequencyDomain);
+  }
+
+  getChannelData(): [Float32Array, Float32Array] {
+    const audioBuffer = this.audioBuffer!;
+    const channel0 = audioBuffer.getChannelData(0);
+    const channel1 = audioBuffer.numberOfChannels === 1 ? channel0 : audioBuffer.getChannelData(1);
+
+    let max = 0;
+    for (let i = 0; i < audioBuffer.length; i++) {
+      if (Math.abs(channel0[i]) > max) max = Math.abs(channel0[i]);
+      if (Math.abs(channel1[i]) > max) max = Math.abs(channel1[i]);
+    }
+
+    return [channel0.map((v) => v / max), channel1.map((v) => v / max)];
   }
 
   loadAudioBuffer(audioBuffer: AudioBuffer): void {
