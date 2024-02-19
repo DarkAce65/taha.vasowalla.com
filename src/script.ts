@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const satelliteMaterial = planetMaterial.clone();
   const cometMaterial = satelliteMaterial.clone();
   const currentHour = new Date().getHours();
-  cometMaterial.emissive = new Color(currentHour < 9 || 21 <= currentHour ? 0x3e5af8 : 0xf85a3e);
+  cometMaterial.emissive = new Color(currentHour < 8 || 18 <= currentHour ? 0x3e5af8 : 0xf85a3e);
 
   let satelliteScale = Math.min(window.innerWidth, window.innerHeight) < 500 ? 1.5 : 1;
   const satellites: Satellite[] = [];
