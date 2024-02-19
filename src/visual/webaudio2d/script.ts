@@ -1,9 +1,7 @@
 import UIkit from 'uikit';
 
 import { faFileAudio } from '@fortawesome/free-regular-svg-icons';
-import chroma from 'chroma-js';
 import * as mm from 'music-metadata-browser';
-import WaveSurfer from 'wavesurfer.js';
 
 import { AudioAnalyserController, makeLogarithmicMapper, toHHMMSS } from '~/lib/audioUtils';
 import { COLORS } from '~/lib/colors';
@@ -19,26 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
   let visualizerWidth = 800;
   let visualizerHeight = 400;
   const volumeBarHeight = 10;
+  let waveWidth = 800;
+  const waveHeight = 100;
+  const wavePixelsPerSecond = 20;
 
-  const canvas = getElOrThrow<HTMLCanvasElement>('#visualizer');
-  const ctx = canvas.getContext('2d')!;
-  canvas.height = visualizerHeight;
-  canvas.width = visualizerWidth;
+  const visualizerCanvas = getElOrThrow<HTMLCanvasElement>('#visualizer');
+  const visualizerCtx = visualizerCanvas.getContext('2d')!;
+  visualizerCanvas.height = visualizerHeight;
+  visualizerCanvas.width = visualizerWidth;
 
-  const wavesurfer = WaveSurfer.create({
-    container: '#wave',
-    cursorColor: COLORS.WHITE,
-    height: 100,
-    hideScrollbar: true,
-    interact: false,
-    minPxPerSec: 20,
-    normalize: true,
-    progressColor: COLORS.RED,
-    waveColor: chroma(COLORS.RED).luminance(0.05).hex(),
-  });
-  wavesurfer.setMuted(true);
-
-  let wavesurferReady = Promise.resolve();
+  getElOrThrow('#waveCanvasContainer').style.height = `${waveHeight}px`;
+  const waveProgressCanvas = getElOrThrow<HTMLCanvasElement>('#waveProgress');
+  const waveProgressCtx = waveProgressCanvas.getContext('2d')!;
+  waveProgressCanvas.height = waveHeight;
+  waveProgressCanvas.width = waveWidth;
+  const waveCanvas = getElOrThrow<HTMLCanvasElement>('#wave');
+  const waveCtx = waveCanvas.getContext('2d')!;
+  waveCanvas.height = waveHeight;
+  waveCanvas.width = waveWidth;
 
   let volumeData: Uint8Array;
   let frequencyData: Uint8Array;
@@ -61,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     getElOrThrow('#currentTime').textContent = toHHMMSS(audioAnalyser.getCurrentTime());
 
     audioAnalyser.getAnalyserData(volumeData, frequencyData);
-    ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
+    visualizerCtx.clearRect(0, 0, visualizerWidth, visualizerHeight);
 
     const bufferLength = audioAnalyser.getAnalyserBufferLength();
 
@@ -71,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const value of mapLogarithmic(frequencyData)) {
       const barY = value / 255;
 
-      ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, barY * barY * 70 + 10)}%)`;
-      ctx.fillRect(barX, (1 - barY) * h, 1, barY * h);
+      visualizerCtx.fillStyle = `hsl(9, 93%, ${Math.min(100, barY * barY * 70 + 10)}%)`;
+      visualizerCtx.fillRect(barX, (1 - barY) * h, 1, barY * h);
       barX += 1;
     }
 
@@ -91,9 +87,80 @@ document.addEventListener('DOMContentLoaded', () => {
       currentVolume = 1;
     }
 
-    ctx.fillStyle = `hsl(9, 93%, ${Math.min(100, currentVolume * currentVolume * 60 + 40)}%)`;
+    visualizerCtx.fillStyle = `hsl(9, 93%, ${Math.min(100, currentVolume * currentVolume * 60 + 40)}%)`;
     const volumeBarWidth = visualizerWidth * currentVolume;
-    ctx.fillRect(visualizerWidth / 2 - volumeBarWidth / 2, h, volumeBarWidth, volumeBarHeight);
+    visualizerCtx.fillRect(
+      visualizerWidth / 2 - volumeBarWidth / 2,
+      h,
+      volumeBarWidth,
+      volumeBarHeight,
+    );
+
+    const progress = audioAnalyser.getProgress();
+
+    const scroll = progress * waveWidth - visualizerWidth / 2;
+    const left = Math.min(Math.max(0, scroll), waveWidth - visualizerWidth);
+    getElOrThrow('#waveCanvasContainer').style.left = `${-left}px`;
+    const end = waveWidth * progress;
+    waveProgressCanvas.style.clipPath = `polygon(0 0, ${end}px 0, ${end}px ${waveHeight}px, 0 ${waveHeight}px)`;
+  }
+
+  function condenseWaveformData(
+    rawChannelData: [Float32Array, Float32Array],
+    length: number,
+  ): [Float32Array, Float32Array] {
+    const [channel0, channel1] = rawChannelData;
+    const channelLength = channel0.length;
+    const step = channelLength / length;
+    const condensedData: [Float32Array, Float32Array] = [
+      new Float32Array(length),
+      new Float32Array(length),
+    ];
+    for (let i = 0; i < length; i++) {
+      let max0 = 0;
+      let max1 = 0;
+      for (let j = Math.floor(i * step); j < Math.floor((i + 1) * step); j++) {
+        if (channel0[j] > max0) max0 = channel0[j];
+        if (channel1[j] > max1) max1 = channel1[j];
+      }
+      condensedData[0][i] = max0;
+      condensedData[1][i] = max1;
+    }
+
+    return condensedData;
+  }
+
+  function drawWaveform(): void {
+    waveWidth = Math.max(
+      visualizerWidth,
+      Math.round(audioAnalyser.getDuration() * wavePixelsPerSecond),
+    );
+    waveProgressCanvas.width = waveWidth;
+    waveProgressCanvas.height = waveHeight;
+    waveCanvas.width = waveWidth;
+    waveCanvas.height = waveHeight;
+    getElOrThrow('#waveContainer').style.width = `${waveWidth}px`;
+
+    const [channel0, channel1] = condenseWaveformData(audioAnalyser.getChannelData(), waveWidth);
+
+    waveProgressCtx.clearRect(0, 0, waveWidth, waveHeight);
+    waveCtx.clearRect(0, 0, waveWidth, waveHeight);
+    waveProgressCtx.fillStyle = COLORS.RED;
+
+    const halfHeight = waveHeight / 2;
+    waveProgressCtx.beginPath();
+    waveProgressCtx.moveTo(0, halfHeight);
+    for (let i = 0; i < waveWidth; i++) {
+      waveProgressCtx.lineTo(i, -Math.max(0.5, channel0[i] * halfHeight) + halfHeight);
+    }
+    waveProgressCtx.lineTo(waveWidth, halfHeight);
+    for (let i = waveWidth - 1; i >= 0; i--) {
+      waveProgressCtx.lineTo(i, +Math.max(0.5, channel1[i] * halfHeight) + halfHeight);
+    }
+    waveProgressCtx.closePath();
+    waveProgressCtx.fill();
+
+    waveCtx.drawImage(waveProgressCanvas, 0, 0);
   }
 
   function resize(): void {
@@ -103,14 +170,17 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       visualizerHeight = 400;
     }
-    canvas.width = visualizerWidth;
-    canvas.height = visualizerHeight;
+
+    visualizerCanvas.width = visualizerWidth;
+    visualizerCanvas.height = visualizerHeight;
 
     if (audioAnalyser.isPlaying()) {
       mapLogarithmic = makeLogarithmicMapper(
         audioAnalyser.getAnalyserBufferLength(),
         visualizerWidth,
       );
+
+      drawWaveform();
     }
   }
 
@@ -121,7 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     targetVolume = 0;
     currentVolume = 0;
-    ctx.clearRect(0, 0, visualizerWidth, visualizerHeight);
+    visualizerCtx.clearRect(0, 0, visualizerWidth, visualizerHeight);
+
+    waveProgressCanvas.style.clipPath = '';
   }
 
   resize();
@@ -154,12 +226,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         audioAnalyser
           .loadFile(contents)
-          .then(async () => {
-            await wavesurferReady;
-
+          .then(() => {
             notification.close(false);
             UIkit.notification('Audio data decoded!', { pos: 'bottom-right', status: 'success' });
-
+          })
+          .catch((error) => {
+            notification.close(false);
+            UIkit.notification('Decoding error. Make sure the file is an audio file.', {
+              status: 'danger',
+              pos: 'bottom-right',
+            });
+            throw error;
+          })
+          .then(() => {
             const fileMetadataElement = getElOrThrow('#name');
             mm.parseBlob(files[0])
               .then((metadata) => {
@@ -182,23 +261,15 @@ document.addEventListener('DOMContentLoaded', () => {
             frequencyData = new Uint8Array(bufferLength);
             mapLogarithmic = makeLogarithmicMapper(bufferLength, visualizerWidth);
 
+            drawWaveform();
+
             audioAnalyser.play();
-            wavesurfer.seekTo(0);
-            wavesurfer.play();
             cancelAnimationFrame(animationHandle);
             draw();
-          })
-          .catch(() => {
-            notification.close(false);
-            UIkit.notification('Decoding error. Make sure the file is an audio file.', {
-              status: 'danger',
-              pos: 'bottom-right',
-            });
           });
       };
 
       reader.readAsArrayBuffer(files[0]);
-      wavesurferReady = wavesurfer.load(URL.createObjectURL(files[0]));
     }
   });
 

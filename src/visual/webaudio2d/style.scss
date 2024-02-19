@@ -16,12 +16,23 @@
   background: $black;
 }
 
-#wave {
-  margin-bottom: 10px;
+#waveContainer {
+  overflow: hidden;
+}
 
-  canvas {
-    max-width: none;
-  }
+#waveCanvasContainer {
+  position: relative;
+}
+
+#waveProgress,
+#wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#wave {
+  filter: brightness(0.4);
 }
 
 #details {
