@@ -393,11 +393,6 @@
   resolved "https://registry.yarnpkg.com/@types/chroma-js/-/chroma-js-2.4.3.tgz#2f10bd16483a87d8ead68764fc439550e9c4cbb6"
   integrity sha512-1ly5ly/7S/YF8aD7MxUQnFOZxdegimuOunJl0xDsLlguu5JrwuSTVGVH3UpIUlh6YauI0RMNT4cqjBonhgbdIQ==
 
-"@types/debounce@*":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@types/debounce/-/debounce-1.2.4.tgz#cb7e85d9ad5ababfac2f27183e8ac8b576b2abb3"
-  integrity sha512-jBqiORIzKDOToaF63Fm//haOCHuwQuLa2202RK4MozpA6lh93eCBc+/8+wZn5OzjJt3ySdc+74SXWXB55Ewtyw==
-
 "@types/eslint-plugin-prettier@^3.1.3":
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/@types/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.3.tgz#ad98516d11fa887e41a29cd3e4ba5d60396a4356"
@@ -479,13 +474,6 @@
   version "3.14.5"
   resolved "https://registry.yarnpkg.com/@types/uikit/-/uikit-3.14.5.tgz#a9e250fa71968c3e145bfda7c99f6d9680db2d3e"
   integrity sha512-3Q1CRzoAVLm+XNCP/2P5DbLuX98fkNLYxGQ1qUdV6cdzDTBbyVeH+est0LTZPtro9FUwXTNu8WfxfwLymFbZvQ==
-
-"@types/wavesurfer.js@^6.0.12":
-  version "6.0.12"
-  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-6.0.12.tgz#3cbec05cb70fa8c9a79a8da70cc9be10166f9d83"
-  integrity sha512-oM9hYlPIVms4uwwoaGs9d0qp7Xk7IjSGkdwgmhUymVUIIilRfjtSQvoOgv4dpKiW0UozWRSyXfQqTobi0qWyCw==
-  dependencies:
-    "@types/debounce" "*"
 
 "@types/webxr@*":
   version "0.5.10"
@@ -3398,6 +3386,7 @@ string-argv@0.3.2:
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3833,11 +3822,6 @@ vscode-uri@^3.0.2:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-3.0.8.tgz#1770938d3e72588659a172d0fd4642780083ff9f"
   integrity sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==
-
-wavesurfer.js@^7.6.5:
-  version "7.6.5"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.6.5.tgz#7d9df410507f46de4eb4b09e3b3284f0c30bb41f"
-  integrity sha512-N3VjoD01i99g8zRY8TbZTZakpV+ZYlbdXX09M7NIrEXYjcWXh91MIuAczKa5LOUetz/B52Ly/glKNH2WUY4UWA==
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
