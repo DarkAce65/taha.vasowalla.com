@@ -135,11 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
       visualizerWidth,
       Math.round(audioAnalyser.getDuration() * wavePixelsPerSecond),
     );
-    waveProgressCanvas.width = waveWidth;
-    waveProgressCanvas.height = waveHeight;
-    waveCanvas.width = waveWidth;
-    waveCanvas.height = waveHeight;
+    waveProgressCanvas.width = waveWidth * window.devicePixelRatio;
+    waveProgressCanvas.height = waveHeight * window.devicePixelRatio;
+    waveCanvas.width = waveWidth * window.devicePixelRatio;
+    waveCanvas.height = waveHeight * window.devicePixelRatio;
     getElOrThrow('#waveContainer').style.width = `${waveWidth}px`;
+    waveProgressCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
     const [channel0, channel1] = condenseWaveformData(audioAnalyser.getChannelData(), waveWidth);
 
@@ -171,8 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
       visualizerHeight = 400;
     }
 
-    visualizerCanvas.width = visualizerWidth;
-    visualizerCanvas.height = visualizerHeight;
+    const roundedPixelRatio = Math.max(1, Math.round(window.devicePixelRatio));
+    visualizerCanvas.width = visualizerWidth * roundedPixelRatio;
+    visualizerCanvas.height = visualizerHeight * roundedPixelRatio;
+    visualizerCanvas.style.width = `${visualizerWidth}px`;
+    visualizerCanvas.style.height = `${visualizerHeight}px`;
+    visualizerCtx.scale(roundedPixelRatio, roundedPixelRatio);
 
     if (audioAnalyser.isPlaying()) {
       mapLogarithmic = makeLogarithmicMapper(
