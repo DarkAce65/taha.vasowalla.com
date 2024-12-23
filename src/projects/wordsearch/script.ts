@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       gridBuilder.randomlyPlaceWords(words, { allowDiagonals, allowReversed });
       gridBuilder.render();
-    } catch (error) {
+    } catch {
       errorElement.textContent = `Unable to make a wordsearch with ${height} rows and ${width} columns! Either try again or make the grid larger.`;
       wordSearchError.show();
     }

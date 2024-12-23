@@ -31,6 +31,6 @@ export default ({ progress = 0, onUpdate }: DashOffsetAnimationParams): gsap.Ani
       });
     }
 
-    onUpdate && onUpdate.call(this);
+    onUpdate?.call(this);
   },
 });

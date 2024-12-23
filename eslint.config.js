@@ -69,4 +69,5 @@ export default [
       '@typescript-eslint/restrict-template-expressions': ['warn', { allowNever: true }],
     },
   },
+  { ignores: ['dist/*'] },
 ];
