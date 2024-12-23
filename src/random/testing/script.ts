@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const clock = new Clock();
   const scene = new Scene();
-  const renderer = new WebGLRenderer({ antialias: true });
+  const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   document.querySelector('#rendererContainer')!.appendChild(renderer.domElement);
 
   const width = window.innerWidth;

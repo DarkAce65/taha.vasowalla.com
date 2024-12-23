@@ -1,5 +1,4 @@
 import {
-  AdditiveBlending,
   BufferAttribute,
   BufferGeometry,
   Color,
@@ -63,7 +62,6 @@ class ParticleEmitter extends Object3D {
       uniforms: this.uniforms,
       vertexShader,
       fragmentShader,
-      blending: AdditiveBlending,
       depthWrite: false,
       transparent: true,
       vertexColors: true,
