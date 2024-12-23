@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const clock = new Clock();
   const scene = new Scene();
   scene.background = new Color(0x000000);
-  const renderer = new WebGLRenderer({ alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ antialias: true });
   document.querySelector('#rendererContainer').appendChild(renderer.domElement);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);

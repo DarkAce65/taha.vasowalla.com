@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const audioAnalyser = new AudioAnalyserController({ smoothingTimeConstant: 0.675 });
 
   const scene = new Scene();
-  const renderer = new WebGLRenderer({ alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ antialias: true });
   document.querySelector('#rendererContainer')!.appendChild(renderer.domElement);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);

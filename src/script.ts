@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const noise3D = createNoise3D();
 
   const scene = new Scene();
-  const renderer = new WebGLRenderer({ alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ antialias: true });
   document.querySelector('#rendererContainer')!.appendChild(renderer.domElement);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);

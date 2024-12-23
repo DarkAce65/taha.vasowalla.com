@@ -69,7 +69,7 @@
     "music-metadata-browser": "^2.5.10",
     "p2": "^0.7.1",
     "simplex-noise": "^4.0.1",
-    "three": "^0.161.0",
+    "three": "^0.171.0",
     "three-custom-shader-material": "^5.4.0",
     "uikit": "^3.18.3"
   }
