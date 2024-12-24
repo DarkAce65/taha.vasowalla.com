@@ -1,13 +1,14 @@
-@import 'variables';
+@use '../colors';
+@use 'variables';
 
 @mixin hook-modal-dialog {
-  border: $modal-border-width solid $darkgray;
+  border: variables.$modal-border-width solid colors.$darkgray;
 }
 
 @mixin hook-modal-misc() {
   .uk-modal-dialog {
     transform: scale(1.2);
-    transition: $transition-duration;
+    transition: variables.$transition-duration;
     transition-property: opacity, transform;
   }
 

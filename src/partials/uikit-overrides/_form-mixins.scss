@@ -1,28 +1,29 @@
-@import 'variables';
+@use '../colors';
+@use 'variables';
 
 @mixin hook-form() {
-  border: $global-border-width solid $form-border;
+  border: variables.$global-border-width solid variables.$form-border;
   transition:
-    $transition-duration ease-in-out,
+    variables.$transition-duration ease-in-out,
     width 0s,
     height 0s;
 }
 
 @mixin hook-form-focus() {
-  border-color: $form-focus-border;
+  border-color: variables.$form-focus-border;
   transition: 0s;
 }
 
 @mixin hook-form-disabled() {
-  border-color: $form-disabled-border;
+  border-color: variables.$form-disabled-border;
 }
 
 @mixin hook-form-danger() {
-  border-color: $form-danger-border;
+  border-color: variables.$form-danger-border;
 }
 
 @mixin hook-form-success() {
-  border-color: $form-success-border;
+  border-color: variables.$form-success-border;
 }
 
 @mixin hook-form-blank() {
@@ -31,7 +32,7 @@
 
 @mixin hook-form-blank-focus() {
   border-color: transparent;
-  border-bottom-color: $form-blank-focus-border;
+  border-bottom-color: variables.$form-blank-focus-border;
 }
 
 @mixin hook-form-radio() {
@@ -39,21 +40,21 @@
 }
 
 @mixin hook-form-radio-focus() {
-  background-color: $darkgray;
-  box-shadow: inset 0 0 0 $focus-inset-width currentColor;
+  background-color: colors.$darkgray;
+  box-shadow: inset 0 0 0 variables.$focus-inset-width currentColor;
 }
 
 @mixin hook-form-misc() {
   .uk-form-highlight,
   .uk-form-highlight:focus {
-    color: $form-highlight-color;
-    border-color: $form-highlight-border;
+    color: variables.$form-highlight-color;
+    border-color: variables.$form-highlight-border;
   }
 
   .uk-input,
   .uk-textarea {
     &:disabled::placeholder {
-      color: $form-disabled-placeholder-color;
+      color: variables.$form-disabled-placeholder-color;
     }
   }
 
@@ -62,10 +63,10 @@
   }
 
   .uk-form-group {
-    margin-left: $global-border-width;
+    margin-left: variables.$global-border-width;
 
     & > * {
-      margin-left: -$global-border-width;
+      margin-left: -(variables.$global-border-width);
 
       &:focus,
       &:active,

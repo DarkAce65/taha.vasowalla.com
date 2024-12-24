@@ -42,6 +42,11 @@ export default defineConfig(({ mode }) => ({
   optimizeDeps: {
     include: ['buffer', 'process'],
   },
+  css: {
+    preprocessorOptions: {
+      scss: { quietDeps: true },
+    },
+  },
   resolve: {
     alias: {
       ...stdLibBrowser,

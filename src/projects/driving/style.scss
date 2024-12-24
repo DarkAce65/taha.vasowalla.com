@@ -1,9 +1,8 @@
-@import '../../partials/colors';
-@import '../../partials/uikit-overrides/variables';
+@use '../../partials/colors';
 
 canvas {
-  background: $black;
-  border: 1px solid $darkgray;
+  background: colors.$black;
+  border: 1px solid colors.$darkgray;
 }
 
 #canvas {

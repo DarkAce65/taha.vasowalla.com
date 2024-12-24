@@ -1,8 +1,8 @@
-@import 'partials/colors';
-@import 'partials/fonts';
-@import 'partials/mixins';
+@use 'partials/colors';
+@use 'partials/fonts';
+@use 'partials/mixins';
 
-@import 'partials/uikit-overrides/variables';
+@use 'partials/uikit-overrides/variables';
 
 * {
   box-sizing: border-box;
@@ -17,10 +17,10 @@ body {
 }
 
 body {
-  font-size: $base-font-size;
-  font-family: $base-font-stack;
+  font-size: fonts.$base-font-size;
+  font-family: fonts.$base-font-stack;
   background: black;
-  color: $dim-text-color;
+  color: colors.$dim-text-color;
 }
 
 #overlayContainer {
@@ -32,7 +32,7 @@ body {
 
 #banner {
   font-size: 2.75em;
-  font-family: $serif-font-stack;
+  font-family: fonts.$serif-font-stack;
 }
 
 #menu {
@@ -45,7 +45,7 @@ body {
   #primary,
   #secondary {
     .menu-item {
-      @include vertical-align;
+      @include mixins.vertical-align;
       flex: 1 0 auto;
       margin: 0.5em 0.3em;
 
@@ -53,23 +53,23 @@ body {
       & > span {
         display: inline-block;
         width: 100%;
-        color: $dim-text-color;
+        color: colors.$dim-text-color;
         border-bottom: 1px solid currentColor;
         cursor: pointer;
         transition:
-          color $transition-duration,
-          border-color $transition-duration,
-          padding $transition-duration;
+          color variables.$transition-duration,
+          border-color variables.$transition-duration,
+          padding variables.$transition-duration;
 
         &:hover,
         &:focus {
           outline: none;
-          color: $bright-text-color;
-          border-bottom-color: $bright-text-color;
+          color: colors.$bright-text-color;
+          border-bottom-color: colors.$bright-text-color;
           transition:
             color 0s,
             border-color 0s,
-            padding $transition-duration;
+            padding variables.$transition-duration;
         }
       }
     }
@@ -87,20 +87,20 @@ body {
 
       & > span::after {
         content: '/';
-        transition: opacity $transition-duration;
+        transition: opacity variables.$transition-duration;
       }
 
       &.active > span {
-        color: $bright-text-color;
-        border-bottom-color: $red;
+        color: colors.$bright-text-color;
+        border-bottom-color: colors.$red;
       }
     }
   }
 
   #secondary {
     transition:
-      height $transition-duration,
-      margin $transition-duration;
+      height variables.$transition-duration,
+      margin variables.$transition-duration;
 
     &.closed {
       height: 0;
@@ -113,7 +113,7 @@ body {
       visibility: hidden;
       height: 0;
       opacity: 0;
-      transition: opacity $transition-duration;
+      transition: opacity variables.$transition-duration;
 
       &.active {
         visibility: visible;
@@ -141,7 +141,7 @@ body {
   }
 }
 
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
   #overlayContainer {
     bottom: 0;
     min-width: 600px;
@@ -169,13 +169,13 @@ body {
   }
 }
 
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
   #overlayContainer {
     max-width: 60%;
   }
 }
 
-@media (max-width: $breakpoint-small-max) {
+@media (max-width: variables.$breakpoint-small-max) {
   #overlayContainer {
     left: 0;
   }

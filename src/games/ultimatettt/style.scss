@@ -1,5 +1,7 @@
-@import '../../partials/colors';
-@import '../../partials/uikit-overrides/variables';
+@use 'sass:color';
+
+@use '../../partials/colors';
+@use '../../partials/uikit-overrides/variables';
 
 $red-color: #ff7b64;
 $blue-color: #647bff;
@@ -21,12 +23,12 @@ $inner-board-border: 2px;
   border-radius: 3px;
 
   &.red {
-    color: $black;
+    color: colors.$black;
     background: $red-color;
   }
 
   &.blue {
-    color: $white;
+    color: colors.$white;
     background: $blue-color;
   }
 }
@@ -58,7 +60,7 @@ table {
         width: $cell-size - $cell-gutter * 2;
         height: $cell-size - $cell-gutter * 2;
         border-radius: 2px;
-        transition-duration: $transition-duration;
+        transition-duration: variables.$transition-duration;
         transform: scale(0);
       }
     }
@@ -81,7 +83,7 @@ table {
   cursor: pointer;
 
   &::after {
-    background-color: $lightgray;
+    background-color: colors.$lightgray;
     transform: scale(1);
     animation: blink 2s infinite;
   }
@@ -98,23 +100,23 @@ table {
 }
 
 .subBoard.red {
-  background-color: lighten($red-color, 17);
+  background-color: color.adjust($red-color, $lightness: 17%, $space: hsl);
   border-radius: 5px;
 }
 
 .subBoard.blue {
-  background-color: lighten($blue-color, 17);
+  background-color: color.adjust($blue-color, $lightness: 17%, $space: hsl);
   border-radius: 5px;
 }
 
 #board tr > td:nth-child(2) {
-  border-left: $outer-board-border solid $darkgray;
-  border-right: $outer-board-border solid $darkgray;
+  border-left: $outer-board-border solid colors.$darkgray;
+  border-right: $outer-board-border solid colors.$darkgray;
 }
 
 #board tr:nth-child(2) > td {
-  border-top: $outer-board-border solid $darkgray;
-  border-bottom: $outer-board-border solid $darkgray;
+  border-top: $outer-board-border solid colors.$darkgray;
+  border-bottom: $outer-board-border solid colors.$darkgray;
 }
 
 #board table td:nth-child(2) {
@@ -127,7 +129,7 @@ table {
   border-bottom-width: $inner-board-border;
 }
 
-@media (max-width: $breakpoint-small) {
+@media (max-width: variables.$breakpoint-small) {
   table {
     width: $cell-size-small * 9 + $board-gutter-small * 6 + $outer-board-border * 2 +
       $inner-board-border * 6;

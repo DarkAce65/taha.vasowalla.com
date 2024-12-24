@@ -1,93 +1,57 @@
-@import '../colors';
-@import '../fonts';
+@forward 'variable-overrides';
 
-$transition-duration: 0.3s;
+@use 'sass:color';
 
-$base-selection-color: $light;
-$base-selection-background: rgba($red, 0.4);
+@use '../colors';
+@use 'variable-overrides' as variables;
 
-$global-font-family: $base-font-stack;
-$global-font-size: $base-font-size;
-$base-heading-font-family: $header-font-stack;
-$global-muted-color: $dim-text-color;
-$global-color: $text-color;
-$global-emphasis-color: $bright-text-color;
-$global-inverse-color: $black;
-$global-success-color: $black;
-$global-danger-color: $black;
+$global-success-color: colors.$black;
+$global-danger-color: colors.$black;
 
-$global-link-color: currentColor;
-$base-link-hover-color: $global-emphasis-color;
-$base-link-hover-text-decoration: none;
-
-$global-background: $black;
-$global-muted-background: $muted;
-$global-primary-background: $red;
-$global-secondary-background: $light;
-$global-danger-background: $darkred;
-$global-border: $darkgray;
+$position-medium-margin: variables.$global-margin;
 
 $focus-inset-width: 2px;
 
-$accordion-title-color: $global-color;
-$accordion-title-hover-color: $global-emphasis-color;
-
-$breadcrumb-item-font-size: 0.875em;
-$breadcrumb-divider-margin-horizontal: 10px;
-
 $button-border-width: 1px;
-$button-default-border: $global-border;
-$button-default-color: $global-color;
-$button-default-background: transparent;
-$button-disabled-background: transparent;
-$button-text-color: $global-muted-color;
-$button-text-hover-color: $global-color;
+$button-default-border: variables.$global-border;
+$button-primary-hover-color: variables.$button-primary-color;
+$button-primary-hover-background: variables.$button-primary-background;
+$button-primary-active-color: variables.$button-primary-background;
+$button-primary-active-background: variables.$button-primary-color;
+$button-secondary-hover-color: variables.$button-secondary-color;
+$button-secondary-hover-background: variables.$button-secondary-background;
+$button-secondary-active-color: variables.$button-secondary-background;
+$button-secondary-active-background: variables.$button-secondary-color;
+$button-danger-hover-color: variables.$button-danger-color;
+$button-danger-hover-background: variables.$button-danger-background;
+$button-danger-active-color: variables.$button-danger-background;
+$button-danger-active-background: variables.$button-danger-color;
 
-$form-background: $black;
-$form-border: $global-border;
-$form-highlight-color: $teal;
-$form-highlight-border: $teal;
-$form-focus-color: $global-emphasis-color;
-$form-focus-border: $global-emphasis-color;
-$form-blank-focus-border: $global-border;
+$form-highlight-color: colors.$teal;
+$form-disabled-placeholder-color: color.adjust(
+  variables.$global-muted-color,
+  $lightness: -10%,
+  $space: hsl
+);
+$form-radio-background: color.adjust(
+  variables.$global-muted-background,
+  $lightness: 10%,
+  $space: hsl
+);
+$form-radio-checked-focus-background: variables.$form-radio-checked-background;
+$form-border: variables.$global-border;
+$form-blank-focus-border: variables.$global-border;
+$form-danger-border: variables.$global-danger-background;
 $form-disabled-border: transparent;
-$form-disabled-placeholder-color: darken($global-muted-color, 10);
-$form-select-option-color: $light;
+$form-focus-border: variables.$global-emphasis-color;
+$form-highlight-border: colors.$teal;
+$form-success-border: variables.$global-success-background;
 
 $modal-border-width: 1px;
+$modal-header-background: variables.$modal-background;
 
-$notification-message-background: $black;
-
-$tab-border: $darkgray;
-$tab-item-active-border: $red;
-
-$width-medium-width: 200px;
-$width-large-width: 300px;
-
-@import 'uikit/src/scss/variables';
-
-$position-medium-margin: $global-margin;
-
-$button-primary-hover-color: $button-primary-color;
-$button-primary-hover-background: $button-primary-background;
-$button-primary-active-color: $button-primary-background;
-$button-primary-active-background: $button-primary-color;
-$button-secondary-hover-color: $button-secondary-color;
-$button-secondary-hover-background: $button-secondary-background;
-$button-secondary-active-color: $button-secondary-background;
-$button-secondary-active-background: $button-secondary-color;
-$button-danger-hover-color: $button-danger-color;
-$button-danger-hover-background: $button-danger-background;
-$button-danger-active-color: $button-danger-background;
-$button-danger-active-background: $button-danger-color;
-
-$form-radio-background: lighten($global-muted-background, 10);
-$form-radio-checked-focus-background: $form-radio-checked-background;
-$form-danger-border: $global-danger-background;
-$form-success-border: $global-success-background;
-
-$modal-header-background: $modal-background;
-
-$tab-item-font-size: $global-small-font-size;
-$tab-border-width: $global-border-width;
+$tab-border: colors.$darkgray;
+$tab-border-width: variables.$global-border-width;
+$tab-item-font-size: variables.$global-small-font-size;
 $tab-item-border-width: $tab-border-width + 2;
+$tab-item-active-border: colors.$red;

@@ -1,4 +1,4 @@
-@import '../../partials/colors';
+@use '../../partials/colors';
 
 #visualizerContainer {
   position: relative;
@@ -13,7 +13,7 @@
 
 #visualizer {
   width: 100%;
-  background: $black;
+  background: colors.$black;
 }
 
 #waveContainer {
@@ -39,7 +39,7 @@
   position: absolute;
   top: 2px;
   right: 10px;
-  color: $white;
+  color: colors.$white;
   text-align: right;
 }
 

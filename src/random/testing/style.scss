@@ -1,10 +1,12 @@
-@import '../../partials/colors';
-@import '../../partials/uikit-overrides/variables';
+@use 'sass:color';
 
-@import '../../partials/floating-header';
+@use '../../partials/colors';
+@use '../../partials/uikit-overrides/variables';
+
+@use '../../partials/floating-header';
 
 $day: #c0cfe2;
-$night: darken($day, 70);
+$night: color.adjust($day, $lightness: -70%, $space: hsl);
 
 html,
 body {

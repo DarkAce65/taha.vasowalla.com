@@ -1,4 +1,5 @@
-@import 'variables';
+@use '../colors';
+@use 'variables';
 
 @mixin hook-tab() {
   position: relative;
@@ -7,22 +8,22 @@
     content: '';
     position: absolute;
     bottom: 0;
-    left: $tab-margin-horizontal;
+    left: variables.$tab-margin-horizontal;
     right: 0;
-    border-bottom: $tab-border-width solid $tab-border;
+    border-bottom: variables.$tab-border-width solid variables.$tab-border;
   }
 }
 
 @mixin hook-tab-item() {
-  font-size: $tab-item-font-size;
+  font-size: variables.$tab-item-font-size;
   text-transform: uppercase;
-  border-bottom: $tab-item-border-width solid transparent;
+  border-bottom: variables.$tab-item-border-width solid transparent;
   transition-property: color, border-color, background;
-  transition-duration: $transition-duration;
+  transition-duration: variables.$transition-duration;
 }
 
 @mixin hook-tab-item-active() {
-  border-color: $tab-item-active-border;
+  border-color: variables.$tab-item-active-border;
 }
 
 @mixin hook-tab-item-disabled() {
@@ -38,7 +39,7 @@
 
 @mixin hook-tab-bottom-item() {
   border-bottom: none;
-  border-top: $tab-item-border-width solid transparent;
+  border-top: variables.$tab-item-border-width solid transparent;
 }
 
 @mixin hook-tab-left() {
@@ -48,7 +49,7 @@
     left: auto;
     right: 0;
     border-bottom: none;
-    border-left: $tab-border-width solid $tab-border;
+    border-left: variables.$tab-border-width solid variables.$tab-border;
   }
 }
 
@@ -59,26 +60,26 @@
     left: 0;
     right: auto;
     border-bottom: none;
-    border-left: $tab-border-width solid $tab-border;
+    border-left: variables.$tab-border-width solid variables.$tab-border;
   }
 }
 
 @mixin hook-tab-left-item() {
   border-bottom: none;
-  border-right: $tab-item-border-width solid transparent;
+  border-right: variables.$tab-item-border-width solid transparent;
 }
 
 @mixin hook-tab-right-item() {
   border-bottom: none;
-  border-left: $tab-item-border-width solid transparent;
+  border-left: variables.$tab-item-border-width solid transparent;
 }
 
 @mixin hook-tab-misc() {
   .uk-tab .uk-dropdown {
-    margin-left: $tab-margin-horizontal + $tab-item-padding-horizontal;
+    margin-left: variables.$tab-margin-horizontal + variables.$tab-item-padding-horizontal;
   }
 
-  @media (max-width: $breakpoint-small) {
+  @media (max-width: variables.$breakpoint-small) {
     .uk-tab.uk-tab-stacked {
       & > * {
         flex-basis: 100%;
@@ -90,8 +91,8 @@
       }
 
       & > .uk-active > a {
-        color: $global-inverse-color;
-        background: $red;
+        color: variables.$global-inverse-color;
+        background: colors.$red;
       }
     }
   }

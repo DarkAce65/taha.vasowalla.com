@@ -1,4 +1,4 @@
-@import '../../partials/colors';
+@use '../../partials/colors';
 
 #wordsearch {
   font-family: 'Open Sans', sans-serif;
@@ -35,8 +35,8 @@ body > .toggle-print {
 }
 
 html.print-layout {
-  background-color: $white;
-  color: $black;
+  background-color: colors.$white;
+  color: colors.$black;
 
   body > .toggle-print {
     display: block;

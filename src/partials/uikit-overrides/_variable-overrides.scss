@@ -1,0 +1,48 @@
+@use '../colors';
+@use '../fonts';
+
+@forward 'uikit/src/scss/variables' with (
+  $transition-duration: 0.3s,
+
+  $base-selection-color: colors.$light,
+  $base-selection-background: rgba(colors.$red, 0.4),
+  $global-font-family: fonts.$base-font-stack,
+  $global-font-size: fonts.$base-font-size,
+  $base-heading-font-family: fonts.$header-font-stack,
+  $global-muted-color: colors.$dim-text-color,
+  $global-color: colors.$text-color,
+  $global-emphasis-color: colors.$bright-text-color,
+  $global-inverse-color: colors.$black,
+
+  $global-link-color: currentColor,
+  $base-link-hover-color: colors.$bright-text-color,
+  $base-link-hover-text-decoration: none,
+
+  $global-background: colors.$black,
+  $global-muted-background: colors.$muted,
+  $global-primary-background: colors.$red,
+  $global-secondary-background: colors.$light,
+  $global-danger-background: colors.$darkred,
+  $global-border: colors.$darkgray,
+
+  $accordion-title-color: colors.$text-color,
+  $accordion-title-hover-color: colors.$bright-text-color,
+
+  $breadcrumb-item-font-size: 0.875em,
+  $breadcrumb-divider-margin-horizontal: 10px,
+
+  $button-default-color: colors.$text-color,
+  $button-default-background: transparent,
+  $button-disabled-background: transparent,
+  $button-text-color: colors.$dim-text-color,
+  $button-text-hover-color: colors.$text-color,
+
+  $form-background: colors.$black,
+  $form-focus-color: colors.$bright-text-color,
+  $form-select-option-color: colors.$light,
+
+  $notification-message-background: colors.$black,
+
+  $width-medium-width: 200px,
+  $width-large-width: 300px
+);

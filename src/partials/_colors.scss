@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $black: black;
 $muted: #202020;
 $darkgray: #666666;
@@ -7,7 +9,7 @@ $light: #eeeeee;
 $white: white;
 
 $red: #f85a3e;
-$darkred: darken($red, 20);
+$darkred: color.adjust($red, $lightness: -20%, $space: hsl);
 $teal: #63d4dd;
 $purple: #a177ee;
 

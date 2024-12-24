@@ -1,23 +1,23 @@
 @use 'sass:math';
 
-@import '../partials/colors';
-@import '../partials/uikit-overrides/variables';
+@use '../partials/colors';
+@use '../partials/uikit-overrides/variables';
 
 $timeline-gap: 24px;
 $timeline-width: 2px;
 $timeline-event-size: 3px;
 $timeline-no-content-height: $timeline-gap + $timeline-width;
 
-$timeline-background: $muted;
-$timeline-color: $gray;
-$timeline-school-color: $red;
-$timeline-work-color: $purple;
-$timeline-volunteering-color: $teal;
+$timeline-background: colors.$muted;
+$timeline-color: colors.$gray;
+$timeline-school-color: colors.$red;
+$timeline-work-color: colors.$purple;
+$timeline-volunteering-color: colors.$teal;
 
 .grid-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: $global-margin;
+  gap: variables.$global-margin;
 }
 
 #timeline {
@@ -25,11 +25,11 @@ $timeline-volunteering-color: $teal;
 }
 
 .padding-bottom {
-  padding-bottom: $global-margin;
+  padding-bottom: variables.$global-margin;
 }
 
 .spacer {
-  min-height: $global-margin;
+  min-height: variables.$global-margin;
 }
 
 .empty {
@@ -129,19 +129,19 @@ $timeline-volunteering-color: $teal;
     left: -$timeline-width * 0.5 - $timeline-event-size;
     width: $timeline-event-size * 4;
     height: $timeline-event-size;
-    background: $white;
+    background: colors.$white;
     border-top: $timeline-event-size solid $timeline-background;
     border-bottom: $timeline-event-size solid $timeline-background;
   }
 
   .event-date {
-    font-size: $text-small-font-size;
-    line-height: $text-small-line-height;
+    font-size: variables.$text-small-font-size;
+    line-height: variables.$text-small-line-height;
 
     &::after {
-      margin-left: $global-margin * 0.5;
-      padding-left: $global-margin * 0.5;
-      border-left: 1px solid $global-color;
+      margin-left: variables.$global-margin * 0.5;
+      padding-left: variables.$global-margin * 0.5;
+      border-left: 1px solid variables.$global-color;
     }
 
     .event-duration {

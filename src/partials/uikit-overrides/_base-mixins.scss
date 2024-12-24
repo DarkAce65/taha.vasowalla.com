@@ -1,4 +1,6 @@
-@import 'variables';
+@use '../colors';
+@use '../fonts';
+@use 'variables';
 
 @mixin hook-base-misc() {
   * {
@@ -17,19 +19,19 @@
   }
 
   body {
-    font-size: $base-font-size;
+    font-size: fonts.$base-font-size;
   }
 
   a,
   .uk-link,
   .uk-button-link {
-    transition: $transition-duration;
+    transition: variables.$transition-duration;
 
     &:hover,
     &:focus,
     &:active {
       outline: none;
-      color: $white;
+      color: colors.$white;
       text-decoration: none;
       transition: 0s;
     }

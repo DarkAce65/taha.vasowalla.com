@@ -1,4 +1,4 @@
-@import '../../partials/uikit-overrides/variables';
+@use '../../partials/uikit-overrides/variables';
 
 html,
 body {
@@ -19,7 +19,7 @@ li.uk-disabled a {
   margin: 10px 0;
   text-align: center;
   perspective: 2000px;
-  transition: height $transition-duration;
+  transition: height variables.$transition-duration;
 
   #animation {
     transform-style: preserve-3d;
@@ -34,8 +34,8 @@ li.uk-disabled a {
       border-radius: 5px;
       background-color: red;
       transition:
-        width $transition-duration,
-        height $transition-duration;
+        width variables.$transition-duration,
+        height variables.$transition-duration;
     }
   }
 }

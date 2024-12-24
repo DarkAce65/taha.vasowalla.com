@@ -1,14 +1,14 @@
-@import 'uikit-overrides/variables';
+@use 'uikit-overrides/variables';
 
 .floating-header {
-  margin-top: $global-margin;
-  margin-left: $global-small-gutter;
-  margin-right: $global-small-gutter;
+  margin-top: variables.$global-margin;
+  margin-left: variables.$global-small-gutter;
+  margin-right: variables.$global-small-gutter;
 }
 
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
   .floating-header {
-    margin-left: $global-gutter;
-    margin-right: $global-gutter;
+    margin-left: variables.$global-gutter;
+    margin-right: variables.$global-gutter;
   }
 }

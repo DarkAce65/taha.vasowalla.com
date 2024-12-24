@@ -1,4 +1,5 @@
-@import 'partials/uikit-overrides/variables';
+@use 'partials/colors';
+@use 'partials/uikit-overrides/variables';
 
 html,
 body {
@@ -7,10 +8,10 @@ body {
 
 #e403 {
   overflow: hidden;
-  background-color: $red;
-  color: $inverse-global-muted-color;
+  background-color: colors.$red;
+  color: variables.$inverse-global-muted-color;
 
   h1 {
-    color: $inverse-global-color;
+    color: variables.$inverse-global-color;
   }
 }
