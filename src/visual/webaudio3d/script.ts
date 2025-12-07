@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let bars: Line[] = [];
   let points: Vector2[];
 
-  let volumeData: Uint8Array;
-  let frequencyData: Uint8Array;
+  let volumeData: Uint8Array<ArrayBuffer>;
+  let frequencyData: Uint8Array<ArrayBuffer>;
 
   let targetVolume = 0;
   let currentVolume = 0;

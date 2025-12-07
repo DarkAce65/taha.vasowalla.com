@@ -58,7 +58,7 @@ export function makeLogarithmicMapper(
         }
         maxValues[index] = max;
       }
-      return maxValues[index]!;
+      return maxValues[index];
     }
     for (let i = 0; i < condensedBuckets.length; i++) {
       const currentValue = getMaxValue(i);
@@ -81,7 +81,7 @@ class PlaybackPositionBufferNode {
   private readonly splitterNode: ChannelSplitterNode;
   private readonly analyserNode: AnalyserNode;
 
-  private readonly playbackSampleArray: Float32Array;
+  private readonly playbackSampleArray: Float32Array<ArrayBuffer>;
 
   constructor(
     private readonly context: AudioContext,
@@ -200,7 +200,10 @@ export class AudioAnalyserController {
     return analyserBufferLength;
   }
 
-  getAnalyserData(timeDomain: Uint8Array, frequencyDomain: Uint8Array): void {
+  getAnalyserData(
+    timeDomain: Uint8Array<ArrayBuffer>,
+    frequencyDomain: Uint8Array<ArrayBuffer>,
+  ): void {
     const { analyserNode } = this.getAudioState();
 
     analyserNode.getByteTimeDomainData(timeDomain);

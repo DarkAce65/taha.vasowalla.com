@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
   waveCanvas.height = waveHeight;
   waveCanvas.width = waveWidth;
 
-  let volumeData: Uint8Array;
-  let frequencyData: Uint8Array;
+  let volumeData: Uint8Array<ArrayBuffer>;
+  let frequencyData: Uint8Array<ArrayBuffer>;
 
   let targetVolume = 0;
   let currentVolume = 0;
