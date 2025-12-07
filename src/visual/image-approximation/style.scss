@@ -1,9 +1,16 @@
 @use '../../partials/colors';
 @use '../../partials/uikit-overrides/variables';
 
-#targetCanvas,
-#workingCanvas {
+#image,
+#displayCanvas {
   height: 400px;
+  width: 400px;
   background: colors.$black;
   border: 1px solid variables.$button-default-border;
+}
+
+#image {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
