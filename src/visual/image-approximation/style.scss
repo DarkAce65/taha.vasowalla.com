@@ -1,0 +1,9 @@
+@use '../../partials/colors';
+@use '../../partials/uikit-overrides/variables';
+
+#targetCanvas,
+#workingCanvas {
+  height: 400px;
+  background: colors.$black;
+  border: 1px solid variables.$button-default-border;
+}

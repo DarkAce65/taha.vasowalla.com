@@ -27,6 +27,7 @@ const pages: Record<string, string> = {
   shaders: 'random/shaders',
   testing: 'random/testing',
   cards: 'visual/cards',
+  image: 'visual/image-approximation',
   webaudio2d: 'visual/webaudio2d',
   webaudio3d: 'visual/webaudio3d',
 };

@@ -1,0 +1,23 @@
+include ../../partials/mixins
+
+doctype html
+html
+  head
+    +head('Image approximation')
+    link(rel='shortcut icon', href='/img/icons/tv.png')
+    link(rel='stylesheet', type='text/css', href='/uikit.scss')
+    link(rel='stylesheet', type='text/css', href='/visual/image-approximation/style.scss')
+    script(type='module', src='/visual/image-approximation/script.ts')
+
+  body
+    +container(['visual', 'image approximation'])
+      .uk-flex-center.uk-margin-bottom(uk-grid, class='uk-child-width-1-2@m')
+        .uk-text-center(class='uk-text-right@m')
+          canvas#targetCanvas
+        .uk-text-center(class='uk-text-left@m')
+          canvas#workingCanvas
+
+      .uk-flex.uk-flex-center
+        .uk-button-group
+          .uk-button.uk-button-default Start
+          .uk-button.uk-button-default Upload image
