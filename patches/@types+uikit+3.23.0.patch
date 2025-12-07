@@ -1,0 +1,43 @@
+diff --git a/node_modules/@types/uikit/dist/js/uikit.d.ts b/node_modules/@types/uikit/dist/js/uikit.d.ts
+index 97cd575..9c37faf 100644
+--- a/node_modules/@types/uikit/dist/js/uikit.d.ts
++++ b/node_modules/@types/uikit/dist/js/uikit.d.ts
+@@ -6,14 +6,14 @@ export namespace UIkit {
+         off(element: UIkitElement, type: string, listener: (e: Event) => void): void;
+         [key: string]: any;
+     };
+-    const component: object;
++    const component: (name: string, options?: unknown) => unknown;
+     const data: string;
+     const prefix: string;
+     const options: object;
+     const version: string;
+-    const mixin: object;
+-    const extend: object;
+-    const update: object;
++    const mixin: (mixin: object, component: string | ReturnType<typeof UIkit.component>) => void;
++    const extend: (options: object) => unknown;
++    const update: (element: UIkitElement, e: unknown) => void;
+ 
+     function use(plugin: Plugin): typeof UIkit;
+ 
+@@ -738,6 +738,10 @@ export namespace UIkit {
+     }
+ 
+     interface UIkitTabElement extends UIkitElementBase {
++        /**
++         * Returns the index of the currently shown Tab item.
++         */
++        index(): number;
+         /**
+          * Shows the Tab item with the given index.
+          * @param index Tab item to show. 0 based index.
+@@ -769,6 +773,8 @@ export namespace UIkit {
+     interface UIkitToggleElement extends UIkitElementBase {
+         /** Toggles the Toggle's target. */
+         toggle(): void;
++        /** Returns that toggle status of the Toggle. */
++        isToggled(): boolean;
+     }
+ 
+     type Toggle = UIkitFunction<UIkitToggleOptions, UIkitToggleElement>;
