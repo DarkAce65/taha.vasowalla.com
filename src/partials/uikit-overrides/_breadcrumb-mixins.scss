@@ -13,10 +13,3 @@
     color: variables.$breadcrumb-item-active-color;
   }
 }
-
-@mixin hook-breadcrumb-divider() {
-  $breadcrumb-divider-offset: math.div(variables.$breadcrumb-item-font-size - 1, 1.5);
-
-  vertical-align: $breadcrumb-divider-offset;
-  margin: 0 $breadcrumb-divider-margin-horizontal $breadcrumb-divider-offset;
-}

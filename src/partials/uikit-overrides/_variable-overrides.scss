@@ -25,10 +25,10 @@
   $global-danger-background: colors.$darkred,
   $global-border: colors.$darkgray,
 
-  $accordion-title-color: colors.$text-color,
-  $accordion-title-hover-color: colors.$bright-text-color,
+  $accordion-default-title-color: colors.$text-color,
+  $accordion-default-title-hover-color: colors.$bright-text-color,
 
-  $breadcrumb-item-font-size: 0.875em,
+  $breadcrumb-item-font-size: 1.25rem,
   $breadcrumb-divider-margin-horizontal: 10px,
 
   $button-default-color: colors.$text-color,
