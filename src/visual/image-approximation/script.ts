@@ -154,13 +154,18 @@ class Individual {
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons({ uikit: true, faIcons: [faFileImage] });
 
+  let trianglesPerIndividual = 100;
+  let individualsPerGeneration = 50;
+  const initialScale = 100;
+  const mutationChance = 0.01;
+
   const imageCanvas = getElOrThrow<HTMLCanvasElement>('#imageCanvas');
   const displayCanvas = getElOrThrow<HTMLCanvasElement>('#displayCanvas');
-  const workingCanvas = getOffscreenCanvas(200, 200);
-  imageCanvas.width = 200;
-  imageCanvas.height = 200;
-  displayCanvas.width = 200;
-  displayCanvas.height = 200;
+  const workingCanvas = getOffscreenCanvas(initialScale, initialScale);
+  imageCanvas.width = initialScale;
+  imageCanvas.height = initialScale;
+  displayCanvas.width = 400;
+  displayCanvas.height = 400;
 
   const imageCtx = imageCanvas.getContext('2d', { alpha: false });
   const displayCtx = displayCanvas.getContext('2d', { alpha: false });
@@ -170,21 +175,18 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const trianglesPerIndividual = 125;
-  const individualsPerGeneration = 50;
-  const mutationChance = 0.01;
-  let targetImage: HTMLImageElement;
-  let targetImageData: ImageDataArray;
+  let targetImage: HTMLImageElement | null = null;
+  let targetImageData: ImageDataArray | null = null;
 
   function iterate(individuals: Individual[]): void {
-    if (!workingCtx || !displayCtx) {
+    if (!workingCtx || !displayCtx || targetImageData === null) {
       return;
     }
 
     const individualsWithFitness = individuals
       .map<
         [Individual, number]
-      >((individual) => [individual, individual.calculateFitness(workingCtx, targetImageData)])
+      >((individual) => [individual, individual.calculateFitness(workingCtx, targetImageData!)])
       .sort(([, aFitness], [, bFitness]) => bFitness - aFitness);
 
     const [bestIndividual, bestFitness] = individualsWithFitness[0];
@@ -206,20 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
     requestAnimationFrame(() => iterate(newIndividuals));
-  }
-
-  function resize(width: number, height: number): void {
-    if (!imageCtx) {
-      return;
-    }
-
-    imageCanvas.width = width;
-    imageCanvas.height = height;
-    workingCanvas.width = width;
-    workingCanvas.height = height;
-    displayCanvas.width = width;
-    displayCanvas.height = height;
-    targetImageData = getImageData(imageCtx, targetImage);
   }
 
   function start(): void {
@@ -264,5 +252,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getElOrThrow('#blur').addEventListener('click', () => {
     displayCanvas.classList.toggle('blur');
+  });
+
+  const framesInput = getElOrThrow<HTMLInputElement>('#frames');
+  framesInput.valueAsNumber = individualsPerGeneration;
+  framesInput.addEventListener('change', () => {
+    const value = framesInput.valueAsNumber;
+    if (isNaN(value)) {
+      return;
+    }
+    individualsPerGeneration = value;
+  });
+
+  const trianglesInput = getElOrThrow<HTMLInputElement>('#triangles');
+  trianglesInput.valueAsNumber = trianglesPerIndividual;
+  trianglesInput.addEventListener('change', () => {
+    const value = trianglesInput.valueAsNumber;
+    if (isNaN(value)) {
+      return;
+    }
+    trianglesPerIndividual = value;
+  });
+
+  const resolutionInput = getElOrThrow<HTMLInputElement>('#resolution');
+  resolutionInput.valueAsNumber = initialScale;
+  resolutionInput.addEventListener('change', () => {
+    const value = resolutionInput.valueAsNumber;
+    if (!imageCtx || isNaN(value)) {
+      return;
+    }
+
+    imageCanvas.width = value;
+    imageCanvas.height = value;
+    workingCanvas.width = value;
+    workingCanvas.height = value;
+    if (targetImage) {
+      targetImageData = getImageData(imageCtx, targetImage);
+    }
   });
 });

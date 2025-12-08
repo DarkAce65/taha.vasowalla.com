@@ -25,3 +25,17 @@ html
           button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-image] Load image
             input#upload(type='file', accept='image/*')
           #blur.uk-button.uk-button-default.uk-button-small Toggle blur
+
+        .uk-form-horizontal.uk-width-1-2
+          .uk-margin
+            label.uk-form-label Triangles per frame
+            .uk-form-controls
+              input#triangles.uk-input(type='number')
+          .uk-margin
+            label.uk-form-label Frames per generation
+            .uk-form-controls
+              input#frames.uk-input(type='number')
+          .uk-margin
+            label.uk-form-label Resolution #[span(uk-icon='warning', uk-tooltip='title: High performance impact')]
+            .uk-form-controls
+              input#resolution.uk-input(type='number')
