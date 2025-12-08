@@ -1,16 +1,19 @@
 @use '../../partials/colors';
 @use '../../partials/uikit-overrides/variables';
 
-#image,
+#imageContainer,
+#displayContainer {
+  overflow: hidden;
+  border: 1px solid variables.$button-default-border;
+}
+
+#imageCanvas,
 #displayCanvas {
   height: 400px;
   width: 400px;
   background: colors.$black;
-  border: 1px solid variables.$button-default-border;
 }
 
-#image {
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
+#displayCanvas.blur {
+  filter: blur(5px);
 }

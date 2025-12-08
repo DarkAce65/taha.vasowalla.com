@@ -2,29 +2,37 @@ import UIkit from 'uikit';
 
 import { faFileImage } from '@fortawesome/free-regular-svg-icons';
 
-import DeferredPromise from '~/lib/DeferredPromise';
 import enableIcons from '~/lib/enableIcons';
 import { getElOrThrow } from '~/lib/getEl';
+import { shuffle } from '~/lib/utils';
 
 function getOffscreenCanvas(width: number, height: number): HTMLCanvasElement | OffscreenCanvas {
   try {
     return new OffscreenCanvas(width, height);
   } catch (err) {
-    return document.createElement('canvas');
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    return canvas;
   }
 }
 
-function loadImageUrl(imageUrl: string): Promise<HTMLImageElement> {
-  const deferredPromise = new DeferredPromise<HTMLImageElement>();
-  const image = new Image();
-  image.addEventListener('load', () => {
-    deferredPromise.resolve(image);
-  });
-  image.addEventListener('error', ({ error }) => {
-    deferredPromise.reject(error);
-  });
-  image.src = imageUrl;
-  return deferredPromise.promise;
+function getImageData(
+  ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+  image: HTMLImageElement,
+): ImageDataArray {
+  const width = ctx.canvas.width;
+  const height = ctx.canvas.height;
+  ctx.clearRect(0, 0, width, height);
+  const imageAspect = image.height / image.width;
+  if (imageAspect > height / width) {
+    const x = ((1 - 1 / imageAspect) * width) / 2;
+    ctx.drawImage(image, x, 0, width / imageAspect, height);
+  } else {
+    const y = ((1 - 1 * imageAspect) * height) / 2;
+    ctx.drawImage(image, 0, y, width, height * imageAspect);
+  }
+  return ctx.getImageData(0, 0, width, height).data;
 }
 
 class Individual {
@@ -78,9 +86,6 @@ class Individual {
           value += (Math.random() * 2 - 1) * mutationAmount;
           value = Math.max(0, Math.min(value, 1));
         }
-        if (isNaN(value)) {
-          value = Math.random();
-        }
         data.push(value);
       }
     }
@@ -106,9 +111,9 @@ class Individual {
   private drawTriangle(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     index: number,
-    width: number,
-    height: number,
   ): void {
+    const width = ctx.canvas.width;
+    const height = ctx.canvas.height;
     const r = Math.floor(this.data[index + 6] * 255);
     const g = Math.floor(this.data[index + 7] * 255);
     const b = Math.floor(this.data[index + 8] * 255);
@@ -120,42 +125,113 @@ class Individual {
     ctx.fill();
   }
 
-  public draw(
-    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    width: number,
-    height: number,
-  ): void {
-    ctx.clearRect(0, 0, width, height);
+  public draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D): void {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     for (let i = 0; i < this.data.length; i += Individual.GENE_SIZE) {
-      this.drawTriangle(ctx, i, width, height);
+      this.drawTriangle(ctx, i);
     }
+  }
+
+  public calculateFitness(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    targetImageData: ImageDataArray,
+  ): number {
+    this.draw(ctx);
+
+    const workingData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
+    let squaredDiff = 0;
+    for (let p = 0; p < workingData.length; p += 4) {
+      const rDiff = targetImageData[p] - workingData[p];
+      const gDiff = targetImageData[p + 1] - workingData[p + 1];
+      const bDiff = targetImageData[p + 2] - workingData[p + 2];
+      squaredDiff += rDiff * rDiff + gDiff * gDiff + bDiff * bDiff;
+    }
+    const normalizedSquaredDiff = squaredDiff / (255 * 255);
+    return 1 - normalizedSquaredDiff / ((workingData.length * 3) / 4);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   enableIcons({ uikit: true, faIcons: [faFileImage] });
 
-  const width = 400;
-  const height = 400;
-
-  const workingCanvas = getOffscreenCanvas(width, height);
+  const imageCanvas = getElOrThrow<HTMLCanvasElement>('#imageCanvas');
   const displayCanvas = getElOrThrow<HTMLCanvasElement>('#displayCanvas');
-  const workingCtx = workingCanvas.getContext('2d', { alpha: false });
+  const workingCanvas = getOffscreenCanvas(200, 200);
+  imageCanvas.width = 200;
+  imageCanvas.height = 200;
+  displayCanvas.width = 200;
+  displayCanvas.height = 200;
+
+  const imageCtx = imageCanvas.getContext('2d', { alpha: false });
   const displayCtx = displayCanvas.getContext('2d', { alpha: false });
-  if (!workingCtx || !displayCtx) {
+  const workingCtx = workingCanvas.getContext('2d', { alpha: false });
+  if (!imageCtx || !workingCtx || !displayCtx) {
     UIkit.notification('Failed to initialize the page', { pos: 'bottom-right', status: 'error' });
     return;
   }
 
-  let imageData: ImageDataArray;
+  const trianglesPerIndividual = 125;
+  const individualsPerGeneration = 50;
+  const mutationChance = 0.01;
+  let targetImage: HTMLImageElement;
+  let targetImageData: ImageDataArray;
 
-  workingCanvas.width = width;
-  workingCanvas.height = height;
-  displayCanvas.width = width;
-  displayCanvas.height = height;
+  function iterate(individuals: Individual[]): void {
+    if (!workingCtx || !displayCtx) {
+      return;
+    }
+
+    const individualsWithFitness = individuals
+      .map<
+        [Individual, number]
+      >((individual) => [individual, individual.calculateFitness(workingCtx, targetImageData)])
+      .sort(([, aFitness], [, bFitness]) => bFitness - aFitness);
+
+    const [bestIndividual, bestFitness] = individualsWithFitness[0];
+    bestIndividual.draw(displayCtx);
+
+    const breeders = individualsWithFitness
+      .slice(0, Math.max(2, ~~(individualsWithFitness.length * 0.15)))
+      .map(([individual]) => individual);
+    const mutationAmount = 0.1 / (bestFitness * bestFitness);
+
+    const newIndividuals: Individual[] = [];
+    for (let i = newIndividuals.length; i < individualsPerGeneration; i++) {
+      shuffle(breeders);
+      newIndividuals.push(
+        Individual.fromParents(trianglesPerIndividual, breeders[0], breeders[1], {
+          mutationAmount,
+          mutationChance,
+        }),
+      );
+    }
+    requestAnimationFrame(() => iterate(newIndividuals));
+  }
+
+  function resize(width: number, height: number): void {
+    if (!imageCtx) {
+      return;
+    }
+
+    imageCanvas.width = width;
+    imageCanvas.height = height;
+    workingCanvas.width = width;
+    workingCanvas.height = height;
+    displayCanvas.width = width;
+    displayCanvas.height = height;
+    targetImageData = getImageData(imageCtx, targetImage);
+  }
+
+  function start(): void {
+    iterate(
+      new Array(individualsPerGeneration)
+        .fill(null)
+        .map(() => new Individual(trianglesPerIndividual)),
+    );
+  }
 
   getElOrThrow('#start').addEventListener('click', () => {
-    console.log('start');
+    start();
   });
 
   getElOrThrow('#upload').addEventListener('change', (event) => {
@@ -168,27 +244,25 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        loadImageUrl(imageUrl).then((image) => {
-          getElOrThrow('#image').style.backgroundImage = `url(${imageUrl})`;
+        const image = new Image();
+        image.addEventListener('load', () => {
           UIkit.notification(`${files[0].name} loaded!`, {
             pos: 'bottom-right',
             status: 'success',
           });
 
-          workingCtx.clearRect(0, 0, width, height);
-          const imageAspect = image.height / image.width;
-          if (imageAspect > height / width) {
-            const x = ((1 - 1 / imageAspect) * width) / 2;
-            workingCtx.drawImage(image, x, 0, width / imageAspect, height);
-          } else {
-            const y = ((1 - 1 * imageAspect) * height) / 2;
-            workingCtx.drawImage(image, 0, y, width, height * imageAspect);
-          }
-          imageData = workingCtx.getImageData(0, 0, width, height).data;
+          targetImage = image;
+          targetImageData = getImageData(imageCtx, image);
+          start();
         });
+        image.src = imageUrl;
       };
 
       reader.readAsDataURL(files[0]);
     }
+  });
+
+  getElOrThrow('#blur').addEventListener('click', () => {
+    displayCanvas.classList.toggle('blur');
   });
 });

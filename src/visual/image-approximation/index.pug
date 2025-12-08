@@ -13,12 +13,15 @@ html
     +container(['visual', 'image approximation'])
       .uk-flex-center.uk-margin-bottom(uk-grid, class='uk-child-width-1-2@m')
         .uk-text-center(class='uk-text-right@m')
-          #image.uk-display-inline-block
+          #imageContainer.uk-display-inline-block
+            canvas#imageCanvas
         .uk-text-center(class='uk-text-left@m')
-          canvas#displayCanvas
+          #displayContainer.uk-display-inline-block
+            canvas#displayCanvas
 
-      .uk-flex.uk-flex-center
-        .uk-button-group
+      .uk-flex.uk-flex-column.uk-flex-middle
+        .uk-button-group.uk-margin
           #start.uk-button.uk-button-default.uk-button-small Start
           button.uk-button.uk-button-default.uk-button-small.uk-button-file #[i.far.fa-file-image] Load image
             input#upload(type='file', accept='image/*')
+          #blur.uk-button.uk-button-default.uk-button-small Toggle blur
