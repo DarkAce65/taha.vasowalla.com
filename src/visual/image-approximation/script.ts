@@ -178,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let targetImage: HTMLImageElement | null = null;
   let targetImageData: ImageDataArray | null = null;
 
+  let tickId: ReturnType<typeof requestAnimationFrame> | undefined = undefined;
   function iterate(individuals: Individual[]): void {
     if (!workingCtx || !displayCtx || targetImageData === null) {
       return;
@@ -207,14 +208,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }),
       );
     }
-    requestAnimationFrame(() => iterate(newIndividuals));
+    tickId = requestAnimationFrame(() => iterate(newIndividuals));
   }
 
   function start(): void {
-    iterate(
-      new Array(individualsPerGeneration)
-        .fill(null)
-        .map(() => new Individual(trianglesPerIndividual)),
+    if (tickId) {
+      cancelAnimationFrame(tickId);
+    }
+    tickId = requestAnimationFrame(() =>
+      iterate(
+        new Array(individualsPerGeneration)
+          .fill(null)
+          .map(() => new Individual(trianglesPerIndividual)),
+      ),
     );
   }
 
